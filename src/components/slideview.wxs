@@ -1,0 +1,73 @@
+var mixStyle = function (x, duration) {
+	return { 'transform': 'translateX(' + x + 'px)', 'transition-duration': duration + 's' }
+}
+
+var onTouchStart = function (e) {
+	var touche = e.touches[0]
+	var instance = e.instance
+
+	var state = instance.getState()
+	var style = instance.getComputedStyle(['width'])
+
+	var width = parseInt(style.width)
+	var limit = Math.floor(width * 0.4)
+
+	state.limit = limit
+	state.x = touche.pageX
+	state.y = touche.pageY
+}
+
+var onTouchMove = function (e) {
+	var touche = e.touches[0]
+	var instance = e.instance
+
+	var state = instance.getState()
+
+	var arrow = touche.pageX - state.x
+	var arrow_ = touche.pageY - state.y
+
+	arrow = Math.min(arrow, state.limit)
+	arrow = Math.max(arrow, 0 - state.limit)
+
+	var x = arrow
+
+	if (state.open) {
+		x = Math.max(x - state.limit, 0 - state.limit)
+	} else {
+		x = Math.min(x, 0)
+	}
+
+	state.arrow = arrow
+
+	var style = mixStyle(x, 0)
+
+	instance.setStyle(style)
+}
+
+var onTouchEnd = function (e) {
+	var x = 0
+	var instance = e.instance
+
+	var state = instance.getState()
+
+	var out = Math.abs(state.arrow) > Math.floor(state.limit * 0.3333)
+
+	if (state.open) {
+		if (state.arrow > 0 && out) state.open = false
+	} else {
+		if (state.arrow < 0 && out) state.open = true
+	}
+
+	if (state.open) x = 0 - state.limit
+
+	var style = mixStyle(x, 0.45)
+
+	instance.setStyle(style)
+}
+
+
+module.exports = {
+	onTouchStart: onTouchStart,
+	onTouchMove: onTouchMove,
+	onTouchEnd: onTouchEnd
+}

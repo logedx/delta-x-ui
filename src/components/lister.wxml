@@ -1,0 +1,24 @@
+<view class="dx-lister">
+	<view
+		class="label"
+		wx:if="{{ label }}"
+	>
+		<text class="text">{{ label }}</text>
+		<dx-icon
+			value="moreandroid"
+			bindtap="onMore"
+			wx:if="{{ more }}"
+		></dx-icon>
+	</view>
+
+	<dx-filter
+		class="filter"
+		value="{{ filter }}"
+		bindfilter="onFilter"
+		wx:if="{{ filter.length > 0 }}"
+	></dx-filter>
+
+	<slot></slot>
+
+	<text class="tail">没有更多数据啦</text>
+</view>

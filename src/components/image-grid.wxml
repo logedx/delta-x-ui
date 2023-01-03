@@ -1,0 +1,37 @@
+<view class="dx-image-grid class">
+	<block wx:if="{{ src.length > 0 }}">
+		<view
+			class="box"
+			style="width: {{ width }};"
+			wx:key="*this"
+			wx:for="{{ src }}"
+		>
+			<dx-avatar
+				class="item"
+				radius="50%"
+				src="{{ item }}"
+				size="{{ size }}"
+				mode="{{ mode }}"
+				color="{{ color }}"
+				data-index="{{ index }}"
+				bindtap="onPreviewImage"
+			></dx-avatar>
+		</view>
+
+	</block>
+
+	<view
+		class="box"
+		style="width: {{ width }};"
+		wx:else
+	>
+		<dx-avatar
+			class="item"
+			radius="50%"
+			size="{{ size }}"
+			mode="{{ mode }}"
+			color="{{ color }}"
+		></dx-avatar>
+	</view>
+
+</view>

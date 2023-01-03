@@ -1,0 +1,17 @@
+<view class="dx-filter">
+  <view class="item" wx:key="label" wx:for="{{ value }}">
+    <text class="label">{{ item.label }}：</text>
+    <view class="value">
+      <text
+        class="tag"
+        data-index="{{ [index, sindex] }}"
+        bindtap="onFilterOption"
+        wx:key="value"
+        wx:for-item="option"
+        wx:for-index="sindex"
+        wx:for="{{ item.option }}"
+        >{{ option.label }}</text
+      >
+    </view>
+  </view>
+</view>

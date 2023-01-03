@@ -1,0 +1,147 @@
+@import '../variables.less';
+
+.dx-tabbar {
+	width: 100%;
+	display: flex;
+	box-sizing: border-box;
+	background-color: white;
+	padding: 0 @sm @radius @sm;
+
+	.item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-bottom: solid @radius white;
+		font-size: @sm;
+		padding: @sm 0;
+		color: @sub;
+		flex: 1;
+
+		&.odd {
+			color: @content;
+			border-color: @content;
+		}
+
+		&.primary {
+			color: @primary;
+
+			&.odd {
+				color: @primary;
+				border-color: @primary;
+			}
+
+		}
+
+	}
+
+	&.primary {
+		background: @primary;
+
+		.item {
+			color: white;
+			border-color: @primary;
+
+			&.odd {
+				border-color: white;
+			}
+
+		}
+
+	}
+
+	&.light-primary {
+		background: @light-primary;
+
+		.item {
+			color: white;
+			border-color: @light-primary;
+
+			&.odd {
+				border-color: white;
+			}
+
+		}
+
+	}
+
+
+	&.dark-primary {
+		background: @dark-primary;
+
+		.item {
+			color: white;
+			border-color: @dark-primary;
+
+			&.odd {
+				border-color: white;
+			}
+
+		}
+
+	}
+
+	&.info {
+		background: @info;
+
+		.item {
+			color: white;
+			border-color: @info;
+
+			&.odd {
+				border-color: white;
+			}
+
+		}
+
+	}
+
+
+	&.success {
+		background: @success;
+
+		.item {
+			color: white;
+			border-color: @success;
+
+			&.odd {
+				border-color: white;
+			}
+
+		}
+
+	}
+
+
+	&.warning {
+		background: @warning;
+
+		.item {
+			color: white;
+			border-color: @warning;
+
+			&.odd {
+				border-color: white;
+			}
+
+		}
+
+	}
+
+
+	&.error {
+		background: @error;
+
+		.item {
+			color: white;
+			border-color: @error;
+
+			&.odd {
+				border-color: white;
+			}
+
+		}
+
+	}
+
+
+}

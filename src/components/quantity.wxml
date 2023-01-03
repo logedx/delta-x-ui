@@ -1,0 +1,20 @@
+<view class="dx-quantity {{ size }}">
+	<dx-icon
+		value="move"
+		class="move {{ color }}"
+		bindtap="onMinus"
+		wx:if="{{ quantity > min }}"
+	></dx-icon>
+	<input
+		class="value"
+		type="number"
+		cursor-spacing="66"
+		value="{{ quantity }}"
+		bindblur="onUpdate"
+	/>
+	<dx-icon
+		value="add"
+		class="add {{ color }}"
+		bindtap="onPlus"
+	></dx-icon>
+</view>

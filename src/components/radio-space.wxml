@@ -1,0 +1,12 @@
+<view
+	class="dx-radio class {{ size }} {{ color }}"
+	wx:if="{{ option.length > 0 }}"
+>
+	<text
+		data-index="{{ index }}"
+		class="label {{ item.disabled ? 'disabled': '' }} {{ item === value || item._id === value || item.value === value ? 'checked': '' }}"
+		bindtap="onChecked"
+		wx:key="value"
+		wx:for="{{ option }}"
+	>{{ item.label || item.value || item }}</text>
+</view>

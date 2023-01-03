@@ -1,0 +1,75 @@
+@import '../variables.less';
+
+.dx-sticker-multi {
+	border: dashed 1px #ddd;
+
+	.item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+		background-image: linear-gradient(to top right, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef), linear-gradient(to top right, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef);
+		background-position: 0 0, 10px 10px;
+		background-size: 21px 21px;
+		position: relative;
+		font-size: 100rpx;
+		color: #ccc;
+		width: 100%;
+
+		.image {
+			width: 100%;
+			display: block;
+		}
+
+		.handle {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			padding: 8rpx 4rpx;
+			justify-content: space-between;
+			border-top: dashed 1px @green;
+			box-sizing: border-box;
+			position: absolute;
+			left: 0;
+			top: 0;
+
+			&::before {
+				content: '';
+				width: 4px;
+				height: 4px;
+				color: @green;
+				box-sizing: border-box;
+				border-top: solid 1px @green;
+				border-right: solid 1px @green;
+				transform: rotate(45deg);
+				position: absolute;
+				left: -8px;
+				top: -3px;
+			}
+
+			&::after {
+				content: '';
+				width: 4px;
+				height: 4px;
+				color: @green;
+				box-sizing: border-box;
+				border-top: solid 1px @green;
+				border-left: solid 1px @green;
+				transform: rotate(-45deg);
+				position: absolute;
+				right: -8px;
+				top: -3px;
+			}
+
+		}
+
+
+		&.upload {
+			height: 268rpx;
+		}
+
+
+	}
+
+
+}

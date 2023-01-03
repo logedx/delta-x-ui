@@ -1,0 +1,23 @@
+<view class="dx-avatar-group class {{ reverse ? 'reverse' : '' }}">
+	<block wx:if="{{ src.length > 0 }}">
+		<dx-avatar
+			class="item"
+			radius="50%"
+			src="{{ item }}"
+			size="{{ size }}"
+			mode="{{ mode }}"
+			color="{{ color }}"
+			wx:key="*this"
+			wx:for="{{ src }}"
+		></dx-avatar>
+	</block>
+
+	<dx-avatar
+		class="item"
+		radius="50%"
+		size="{{ size }}"
+		mode="{{ mode }}"
+		color="{{ color }}"
+		wx:else
+	></dx-avatar>
+</view>

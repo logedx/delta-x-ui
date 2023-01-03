@@ -1,0 +1,11 @@
+<view class="dx-checkvalve {{ color }}">
+	<view class="items">
+		<text
+			data-index="{{ index }}"
+			class="item {{ index === value_ ? 'odd': '' }}"
+			bindtap="onCheckvalveTap"
+			wx:key="*this"
+			wx:for="{{ option }}"
+		>{{ item }}</text>
+	</view>
+</view>

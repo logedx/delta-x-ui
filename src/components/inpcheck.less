@@ -1,0 +1,43 @@
+@import '../variables.less';
+
+.dx-inpcheck {
+	width: 100%;
+	background: white;
+	box-sizing: border-box;
+	justify-content: space-between;
+	align-items: center;
+	display: flex;
+
+	.form {
+		align-items: center;
+		background: @background;
+		border-radius: @xl;
+		color: @content;
+		padding: 0 @xs;
+		font-size: @sm;
+		display: flex;
+		flex: 1;
+
+		.input {
+			flex: 1;
+			background-color: transparent;
+			height: @xxl;
+			line-height: @xxl;
+			padding: 0 @xs;
+		}
+
+	}
+
+	.handle {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: @background;
+		margin-left: @sm;
+		border-radius: 50%;
+		height: @xxl;
+		width: @xxl;
+		overflow: hidden;
+	}
+
+}

@@ -1,0 +1,97 @@
+@import '../variables.less';
+
+.dx-checkbox {
+	align-items: center;
+	display: inline-flex;
+	vertical-align: middle;
+	flex-wrap: wrap;
+
+	.item {
+		vertical-align: middle;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		white-space: nowrap;
+		color: @content;
+		background: white;
+		border: solid 1rpx @border;
+		border-radius: @radius;
+		margin-right: @xs;
+		font-size: @sm;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+	}
+
+
+	&.xs .item {
+		padding: 0 8rpx;
+		height: @lg;
+	}
+
+	&.sm .item {
+		padding: 0 16rpx;
+		height: @xl;
+	}
+
+	&.md .item {
+		padding: 0 32rpx;
+		height: @xl;
+	}
+
+	&.lg .item {
+		padding: 0 48rpx;
+		height: @xxl;
+	}
+
+
+	&.primary .odd {
+		background: @primary;
+		border-color: @primary;
+		color: white;
+	}
+
+	&.light-primary .odd {
+		background: @light-primary;
+		border-color: @light-primary;
+		color: white;
+	}
+
+	&.dark-primary .odd {
+		background: @dark-primary;
+		border-color: @dark-primary;
+		color: white;
+	}
+
+	&.info .odd {
+		background: @info;
+		border-color: @info;
+		color: white;
+	}
+
+	&.success .odd {
+		background: @success;
+		border-color: @success;
+		color: white;
+	}
+
+	&.warning .odd {
+		background: @warning;
+		border-color: @warning;
+		color: white;
+	}
+
+	&.error .odd {
+		background: @error;
+		border-color: @error;
+		color: white;
+	}
+
+	&.disabled .odd {
+		background: @background;
+		color: @disabled;
+	}
+
+}

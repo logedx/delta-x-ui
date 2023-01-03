@@ -1,0 +1,15 @@
+<view class="dx-card class {{ shadow ? 'shadow': '' }}">
+	<dx-avatar
+		class="thumb"
+		size="{{ size }}"
+		radius="{{ radius }}"
+		src="{{ thumb}}"
+	></dx-avatar>
+
+	<view class="content">
+		<text class="title">{{ title }}</text>
+		<slot name="desc"></slot>
+	</view>
+
+	<slot name="notice"></slot>
+</view>

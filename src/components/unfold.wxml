@@ -1,0 +1,7 @@
+<view class="dx-unfold">
+	<dx-icon
+		value="unfold"
+		size="{{ size }}"
+		color="{{ color }}"
+	></dx-icon>
+</view>

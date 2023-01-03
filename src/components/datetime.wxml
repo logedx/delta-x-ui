@@ -1,0 +1,23 @@
+<view class="dx-datetime">
+	<dx-icon
+		class="i"
+		value="time"
+	></dx-icon>
+
+	<picker
+		mode="date"
+		model:value="{{ date }}"
+		bindchange="onUpdate"
+	>
+		<text class="i date">{{ date || placeholder }}</text>
+	</picker>
+
+	<picker
+		mode="time"
+		model:value="{{ time }}"
+		bindchange="onUpdate"
+		wx:if="{{ date }}"
+	>
+		<text class="i time">{{ time }}</text>
+	</picker>
+</view>

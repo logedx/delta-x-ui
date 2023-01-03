@@ -1,0 +1,20 @@
+<view class="dx-arena {{ color }} {{ symbol ? 'shadow' : '' }}">
+	<view class="curtain">
+		<dx-avatar
+			size="188rpx"
+			src="{{ src }}"
+		></dx-avatar>
+		<text class="label">{{ label }}</text>
+		<view class="affix">
+			<slot></slot>
+		</view>
+	</view>
+
+	<dx-icon
+		after
+		value="right"
+		class="symbol"
+		bindtap="onSymbol"
+		wx:if="{{ symbol }}"
+	>{{ symbol }}</dx-icon>
+</view>

@@ -1,0 +1,36 @@
+@import '../variables.less';
+
+:host {
+	overflow: hidden;
+	border-radius: 50%;
+	box-shadow: @shadow;
+	position: fixed;
+	bottom: @sm;
+	left: @sm;
+}
+
+.dx-pushpin {
+	display: flex;
+	color: white;
+	align-items: center;
+	justify-content: center;
+	padding: @xs;
+
+	&.info {
+		background: @info;
+	}
+
+	&.success {
+		background: @success;
+	}
+
+	&.warning {
+		background: @warning;
+	}
+
+	&.error {
+		background: @error;
+	}
+
+
+}

@@ -1,0 +1,46 @@
+<view class="dx-inpcheck">
+	<view class="form">
+		<dx-icon
+			size="36"
+			value="{{ icon }}"
+		></dx-icon>
+		<input
+			hold-keyboard
+			class="input"
+			cursor-spacing="12"
+			type="{{ type }}"
+			value="{{ value }}"
+			focus="{{ focus_ }}"
+			placeholder="{{ placeholder }}"
+			bindinput="onInput"
+			bindconfirm="onCheck"
+		></input>
+	</view>
+
+	<view
+		class="handle"
+		bindtap="onCheck"
+		wx:if="{{ !blur }}"
+	>
+		<dx-icon
+			size="42"
+			value="check"
+			loading="{{ loading }}"
+		></dx-icon>
+	</view>
+
+	<view
+		class="handle"
+		data-index="{{ index }}"
+		bindtap="onHandle"
+		wx:key="*this"
+		wx:for="{{ handle }}"
+	>
+		<dx-icon
+			size="42"
+			value="{{ item }}"
+			loading="{{ loading }}"
+		></dx-icon>
+	</view>
+
+</view>

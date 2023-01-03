@@ -1,0 +1,93 @@
+@import '../variables.less';
+
+.dx-button {
+	align-items: center;
+	display: inline-flex;
+	justify-content: center;
+	line-height: 1;
+	margin-left: initial;
+	margin-right: initial;
+	text-decoration: none;
+	transform: translate(0, 0);
+	background: white;
+	color: @content;
+	border: solid 1rpx @border;
+	border-radius: @radius;
+	font-weight: normal;
+
+	&.primary {
+		background: @primary;
+		border-color: @primary;
+		color: white;
+	}
+
+	&.light-primary {
+		background: @light-primary;
+		border-color: @light-primary;
+		color: white;
+	}
+
+	&.dark-primary {
+		background: @dark-primary;
+		border-color: @dark-primary;
+		color: white;
+	}
+
+	&.info {
+		background: @info;
+		border-color: @info;
+		color: white;
+	}
+
+	&.success {
+		background: @success;
+		border-color: @success;
+		color: white;
+	}
+
+	&.warning {
+		background: @warning;
+		border-color: @warning;
+		color: white;
+	}
+
+	&.error {
+		background: @error;
+		border-color: @error;
+		color: white;
+	}
+
+	&.disabled {
+		background: @background;
+		color: @disabled;
+	}
+
+	&.xs {
+		width: auto;
+		padding: 0 8rpx;
+		height: @lg;
+		font-size: @sm;
+	}
+
+	&.sm {
+		width: auto;
+		padding: 0 16rpx;
+		height: @xl;
+		font-size: @md;
+	}
+
+	&.md {
+		width: auto;
+		padding: 0 24rpx;
+		height: @xxl;
+		font-size: @lg;
+	}
+
+	&.lg {
+		height: @xxxl;
+		font-size: @lg;
+		width: 100%;
+	}
+
+
+}

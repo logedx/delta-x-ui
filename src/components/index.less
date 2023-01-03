@@ -1,0 +1,112 @@
+@import '../variables.less';
+
+:host {
+	z-index: 1024;
+	position: fixed;
+	right: @sm;
+	bottom: @sm;
+	right: 0;
+}
+
+.dx-index {
+	height: 100%;
+	position: relative;
+	background: white;
+	box-shadow: @shadow;
+	border-top-left-radius: @radius;
+	border-bottom-left-radius: @radius;
+	padding: @xs @radius;
+	height: 100%;
+
+	.alphabet {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+
+		.item {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: @lg;
+			width: @lg;
+			color: @sub;
+			font-size: @sm;
+			border-radius: 50%;
+			line-height: 1;
+		}
+
+	}
+
+	.more {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: @sm;
+	}
+
+	.zoom {
+		width: @xxxxl;
+		height: @xxxxl;
+		margin: auto;
+		color: white;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(0, 0, 0, 0.5);
+		border-radius: @radius;
+		font-size: @xl;
+		position: absolute;
+		right: @xxxl;
+		top: @xxxl;
+	}
+
+
+	&.primary .alphabet .item.odd {
+		background: @primary;
+		border-color: @primary;
+		color: white;
+	}
+
+	&.light-primary .alphabet .item.odd {
+		background: @light-primary;
+		border-color: @light-primary;
+		color: white;
+	}
+
+	&.dark-primary .alphabet .item.odd {
+		background: @dark-primary;
+		border-color: @dark-primary;
+		color: white;
+	}
+
+	&.info .alphabet .item.odd {
+		background: @info;
+		border-color: @info;
+		color: white;
+	}
+
+	&.success .alphabet .item.odd {
+		background: @success;
+		border-color: @success;
+		color: white;
+	}
+
+	&.warning .alphabet .item.odd {
+		background: @warning;
+		border-color: @warning;
+		color: white;
+	}
+
+	&.error .alphabet .item.odd {
+		background: @error;
+		border-color: @error;
+		color: white;
+	}
+
+	&.disabled .alphabet .item.odd {
+		background: @background;
+		color: @disabled;
+	}
+
+
+}

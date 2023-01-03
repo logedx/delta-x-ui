@@ -1,0 +1,7 @@
+.gitignore
+.npmignore
+
+
+demo
+docs
+node_modules

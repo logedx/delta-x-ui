@@ -1,0 +1,26 @@
+<wxs
+	module="handler"
+	src="./slideview.wxs"
+></wxs>
+
+<view class="dx-slideview">
+	<view
+		class="dx-class view"
+		bindtap="onViewTap"
+		bindtouchend="{{ handler.onTouchEnd }}"
+		bindtouchmove="{{ handler.onTouchMove }}"
+		bindtouchstart="{{ handler.onTouchStart }}"
+	>
+		<slot></slot>
+	</view>
+
+	<view class="handle">
+		<text
+			data-index="{{ index }}"
+			class="item {{ item.color }}"
+			catchtap="onHandleTap"
+			wx:key="text"
+			wx:for="{{ handle }}"
+		>{{ item.text }}</text>
+	</view>
+</view>

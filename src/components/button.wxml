@@ -1,0 +1,6 @@
+<text
+	style="{{ style }}"
+	class="dx-button {{ size }} {{ color }}"
+>
+	<slot></slot>
+</text>

@@ -1,0 +1,12 @@
+<view class="dx-form-item {{ block ? 'block' : 'flex' }} {{ tip ? 'notice' : '' }} {{ error ? 'error' : '' }}">
+	<text class="label">{{ label }}</text>
+
+	<text
+		class="tip"
+		wx:if="{{ tip }}"
+	>{{ tip }}</text>
+
+	<view class="ctx">
+		<slot></slot>
+	</view>
+</view>

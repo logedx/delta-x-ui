@@ -1,0 +1,55 @@
+@import '../variables.less';
+
+.dx-search {
+	height: @xxxxl;
+	box-sizing: border-box;
+	position: relative;
+
+	.search {
+		width: 100%;
+		height: @xxxxl;
+		background: white;
+		padding: 0 @lg;
+		top: 0;
+		position: fixed;
+		z-index: 1024;
+		box-shadow: @shadow;
+		box-sizing: border-box;
+		justify-content: space-between;
+		align-items: center;
+		display: flex;
+
+		.form {
+			align-items: center;
+			background: @background;
+			border-radius: @xl;
+			color: @content;
+			display: flex;
+			flex: 1;
+			padding: 0 @xs;
+			font-size: @sm;
+
+			.keyword {
+				background-color: transparent;
+				flex: 1;
+				height: @xxl;
+				line-height: @xxl;
+				padding: 0 @xs;
+			}
+
+		}
+
+		.handle {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: @background;
+			margin-left: @sm;
+			border-radius: 50%;
+			height: @xxl;
+			width: @xxl;
+		}
+
+	}
+
+}

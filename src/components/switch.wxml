@@ -1,0 +1,4 @@
+<text
+	class="dx-switch {{ checked_ ? 'checked' : '' }} {{ size }} {{ color }}"
+	bindtap="onChange"
+></text>

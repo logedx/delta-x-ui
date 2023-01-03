@@ -1,0 +1,98 @@
+@import '../variables.less';
+
+.dx-avatar {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	background-image: linear-gradient(to top right, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef), linear-gradient(to top right, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef);
+	background-position: 0 0, 10px 10px;
+	background-size: 21px 21px;
+	border: solid 4rpx white;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+
+	.image {
+		width: 100% !important;
+		height: 100% !important;
+		display: block;
+	}
+
+	&.primary {
+		border-color: @primary;
+	}
+
+	&.light-primary {
+		border-color: @light-primary;
+	}
+
+	&.dark-primary {
+		border-color: @dark-primary;
+	}
+
+	&.info {
+		border-color: @info;
+	}
+
+	&.success {
+		border-color: @success;
+	}
+
+	&.warning {
+		border-color: @warning;
+	}
+
+	&.error {
+		border-color: @error;
+	}
+
+	&.title {
+		border-color: @title;
+	}
+
+	&.content {
+		border-color: @content;
+	}
+
+	&.sub {
+		border-color: @sub;
+	}
+
+	&.disabled {
+		border-color: @disabled;
+	}
+
+	&.border {
+		border-color: @border;
+	}
+
+	&.divider {
+		border-color: @divider;
+	}
+
+	&.background {
+		border-color: @background;
+	}
+
+	&.xs {
+		width: @xxl;
+		height: @xxl;
+	}
+
+	&.sm {
+		width: @xxxxl;
+		height: @xxxxl;
+	}
+
+	&.md {
+		width: @xxxxxl;
+		height: @xxxxxl;
+	}
+
+	&.lg {
+		width: @xxxxxxl;
+		height: @xxxxxxl;
+	}
+
+}

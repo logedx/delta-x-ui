@@ -1,0 +1,27 @@
+<view class="dx-star class">
+	<block wx:if="{{ src }}">
+		<image
+			src="{{ src }}"
+			style="width: {{ size }}rpx;height: {{ size }}rpx;"
+			class="image {{ value > index  ? 'o': '' }}"
+			wx:key="*this"
+			wx:for="{{ max }}"
+		></image>
+	</block>
+
+	<block wx:else>
+		<dx-icon
+			size="{{ size }}"
+			color="{{ color }}"
+			value="{{ value > index ? 'favorfill': 'favor' }}"
+			wx:key="*this"
+			wx:for="{{ max }}"
+		></dx-icon>
+
+	</block>
+
+	<text
+		class="tonic"
+		wx:if="{{ value > max || tonic }}"
+	>{{ value < 0 ? '?' : value }}</text>
+</view>

@@ -1,0 +1,44 @@
+<view class="dx-sticker-multi">
+	<view
+		class="item"
+		wx:key="*this"
+		wx:for="{{ value }}"
+	>
+		<image
+			class="image"
+			mode="widthFix"
+			src="{{ item }}"
+		/>
+
+		<view class="handle">
+			<dx-tag
+				size="xs"
+				color="primary"
+				data-index="{{ index }}"
+				bindtap="onHandleInsertTap"
+			>插入</dx-tag>
+
+			<dx-tag
+				size="xs"
+				color="error"
+				data-index="{{ index }}"
+				bindtap="onHandleDeleteTap"
+			>删除</dx-tag>
+		</view>
+	</view>
+
+	<view
+		class="item upload"
+		bindtap="onUpload"
+	>
+		<dx-icon
+			size="72"
+			value="cameraadd"
+		></dx-icon>
+
+		<view
+			class="handle"
+			wx:if="{{ value.length > 0 }}"
+		></view>
+	</view>
+</view>

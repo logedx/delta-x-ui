@@ -1,0 +1,7 @@
+{
+	"component": true,
+	"usingComponents": {
+		"dx-filter": "./filter",
+		"dx-icon": "./icon"
+	}
+}

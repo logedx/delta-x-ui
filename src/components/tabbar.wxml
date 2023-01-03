@@ -1,0 +1,9 @@
+<view class="dx-tabbar {{ color }}">
+	<text
+		data-index="{{ index }}"
+		class="item {{ index_ === index ? 'odd': '' }}"
+		bindtap="onTabbarChange"
+		wx:key="*this"
+		wx:for="{{ option }}"
+	>{{ item.label || item }}</text>
+</view>

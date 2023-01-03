@@ -1,0 +1,31 @@
+<view class="dx-sticker-group">
+	<view
+		class="item"
+		wx:key="*this"
+		wx:for="{{ value }}"
+	>
+		<image
+			class="image"
+			mode="widthFix"
+			src="{{ item }}"
+		/>
+
+		<dx-tag
+			size="xs"
+			color="error"
+			class="delete"
+			data-index="{{ index }}"
+			bindtap="onBindTap"
+		>删除</dx-tag>
+	</view>
+
+	<view
+		class="item"
+		bindtap="onUpload"
+	>
+		<dx-icon
+			size="72"
+			value="cameraadd"
+		></dx-icon>
+	</view>
+</view>

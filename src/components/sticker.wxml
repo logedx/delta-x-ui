@@ -1,0 +1,30 @@
+<view class="dx-sticker">
+	<view
+		class="item"
+		wx:if="{{ value }}"
+	>
+		<image
+			class="image"
+			mode="widthFix"
+			src="{{ value }}"
+		/>
+
+		<dx-tag
+			size="xs"
+			color="error"
+			class="delete"
+			bindtap="onBindTap"
+		>删除</dx-tag>
+	</view>
+
+	<view
+		class="item upload"
+		bindtap="onUpload"
+		wx:else
+	>
+		<dx-icon
+			size="72"
+			value="cameraadd"
+		></dx-icon>
+	</view>
+</view>

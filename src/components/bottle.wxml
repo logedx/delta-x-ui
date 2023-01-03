@@ -1,0 +1,27 @@
+<view class="dx-bottle class">
+	<view
+		class="cap"
+		bindtap="onNavigateTo"
+		bindlongpress="onLongPress"
+	>
+		<dx-avatar
+			size="148rpx"
+			src="{{ src }}"
+		></dx-avatar>
+		<text class="value">{{ value }}</text>
+	</view>
+	<view
+		class="handle"
+		bindtap="onCancelHandle"
+		wx:if="{{ handle_ }}"
+	>
+		<dx-button
+			class="item"
+			color="{{ item.color }}"
+			data-index="{{ index }}"
+			catchtap="onHandleTap"
+			wx:key="text"
+			wx:for="{{ handle }}"
+		>{{ item.text }}</dx-button>
+	</view>
+</view>

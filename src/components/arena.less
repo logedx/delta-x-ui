@@ -1,0 +1,41 @@
+@import '../variables.less';
+
+.dx-arena {
+	position: relative;
+	margin-bottom: @xxl;
+
+	&.shadow {
+		box-shadow: 0 14px 14px -14px rgb(0, 0, 0, 0.4);
+	}
+
+	.curtain {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		background: @red;
+		padding-top: @xxxxl;
+		padding-bottom: @xl;
+		box-sizing: border-box;
+		position: relative;
+
+		.label {
+			font-size: @lg;
+			margin-top: @md;
+			color: white;
+		}
+
+		.affix {
+			margin-top: @xs;
+			color: white;
+		}
+
+	}
+
+	.symbol {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		background: @background;
+		padding: @sm;
+	}
+}

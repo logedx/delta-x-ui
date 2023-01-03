@@ -1,0 +1,9 @@
+<view class="dx-checkbox {{ size }} {{ color }}">
+	<text
+		data-index="{{ index }}"
+		class="item {{ select[item.value] ? 'odd' : '' }}"
+		bindtap="onChecked"
+		wx:key="value"
+		wx:for="{{ option }}"
+	>{{ item.label }}</text>
+</view>

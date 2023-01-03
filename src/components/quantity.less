@@ -1,0 +1,101 @@
+@import '../variables.less';
+
+.dx-quantity {
+	display: inline-flex;
+	justify-content: flex-end;
+	align-items: center;
+
+	.add,
+	.move {
+		font-size: @xl;
+		font-weight: 500;
+		line-height: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: solid 1px;
+		border-radius: 50%;
+		height: @xl;
+		width: @xl;
+
+		&.info {
+			color: @info;
+			border-color: @info;
+
+		}
+
+		&.success {
+			color: @success;
+			border-color: @success;
+
+		}
+
+		&.warning {
+			color: @warning;
+			border-color: @warning;
+
+		}
+
+		&.error {
+			color: @error;
+			border-color: @error;
+
+		}
+
+		&.title {
+			color: @title;
+			border-color: @title;
+
+		}
+
+		&.content {
+			color: @content;
+			border-color: @content;
+
+		}
+
+		&.sub {
+			color: @sub;
+			border-color: @sub;
+
+		}
+
+		&.disabled {
+			color: @disabled;
+			border-color: @disabled;
+
+		}
+
+		&.border {
+			color: @border;
+			border-color: @border;
+
+		}
+
+		&.divider {
+			color: @divider;
+			border-color: @divider;
+
+		}
+
+		&.background {
+			color: @background;
+			border-color: @background;
+
+		}
+
+	}
+
+	.value {
+		width: @xl;
+		height: @xl;
+		line-height: @xl;
+		font-size: @md;
+		font-weight: 300;
+		text-align: center;
+		margin: 0 @xs;
+	}
+
+
+
+}

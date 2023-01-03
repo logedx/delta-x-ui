@@ -1,0 +1,131 @@
+@import '../variables.less';
+
+.dx-form-item {
+	display: flex;
+	position: relative;
+	background: white;
+	padding: @sm - @radius @sm;
+	margin-bottom: 1px;
+	box-sizing: border-box;
+	border: dotted 4rpx white;
+	transition: all .18s ease-in;
+
+	@keyframes ErrorFlashing {
+		from {
+			border: solid 4rpx white;
+		}
+
+		25% {
+			border: dotted 4rpx @error;
+		}
+
+		50% {
+			border: solid 4rpx white;
+		}
+
+		75% {
+			border: dotted 4rpx @error;
+		}
+
+		to {
+			border: solid 4rpx white;
+
+		}
+	}
+
+	&.error {
+		animation-duration: 4s;
+		animation-name: ErrorFlashing;
+		animation-iteration-count: infinite;
+	}
+
+
+	.label {
+		height: @xl;
+		padding-right: @xs;
+		line-height: @xl;
+		font-size: @sm;
+		flex-shrink: 0;
+	}
+
+
+	.tip {
+		color: @sub;
+		position: absolute;
+		line-height: @xl;
+		font-size: @sm;
+	}
+
+	input {
+		height: 48rpx;
+		line-height: 48rpx;
+	}
+
+	textarea {
+		border-radius: 4px;
+		border: solid 1px #ddd;
+		box-sizing: border-box;
+		line-height: 44rpx;
+		padding: 6rpx @xs;
+		margin-top: @xs;
+		height: 278rpx;
+		width: 100%;
+	}
+
+
+	&.block {
+		width: 100%;
+		display: block;
+
+		.label {
+			display: block;
+			margin-bottom: @xs;
+		}
+
+
+		&.notice {
+			.tip {
+				right: @sm;
+				top: @sm - @radius;
+				text-align: right;
+			}
+
+		}
+
+	}
+
+	&.flex {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+
+		.label {
+			width: 18vw;
+		}
+
+		.ctx {
+			display: flex;
+			align-items: center;
+
+			input {
+				line-height: 1;
+				text-align: right;
+				padding: 0 @xs;
+				flex-grow: 4;
+			}
+		}
+
+
+		&.notice {
+			padding-bottom: @xl;
+
+			.tip {
+				left: @sm;
+				top: @xxl;
+			}
+		}
+
+	}
+
+
+}

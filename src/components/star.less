@@ -1,0 +1,35 @@
+@import '../variables.less';
+
+.dx-star {
+	display: inline-flex;
+	align-items: flex-end;
+
+	.image {
+		width: 48rpx;
+		height: 48rpx;
+		margin-right: @radius;
+		filter: grayscale(100%);
+		filter: gray;
+
+		&.o {
+			filter: none;
+		}
+	}
+
+	.tonic {
+		display: inline-flex;
+		align-items: baseline;
+		margin-left: @xs;
+		color: @content;
+		font-size: @sm;
+		line-height: 1;
+
+		&::before {
+			content: 'x';
+			font-size: @sm;
+			line-height: 1;
+			color: @disabled;
+			margin-right: @radius
+		}
+	}
+}

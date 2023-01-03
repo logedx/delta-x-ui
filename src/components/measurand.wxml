@@ -1,0 +1,17 @@
+<view class="dx-measurand">
+	<input
+		type="number"
+		class="input"
+		value="{{ value_[0] }}"
+		bindinput="onSetQuantity"
+	></input>
+
+	<picker
+		class="picker"
+		range="{{ unit }}"
+		value="{{ value_[1] }}"
+		bindchange="onSetEUnit"
+	>
+		<text>{{ unit[value_[1]] }}</text>
+	</picker>
+</view>

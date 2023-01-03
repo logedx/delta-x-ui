@@ -1,0 +1,31 @@
+<view
+	class="dx-index {{ color }}"
+	catchtouchmove="onCatchTouchMove"
+>
+	<view
+		class="alphabet"
+		bindtouchend="onTouchEnd"
+		bindtouchstart="onTouchStart"
+		catchtouchmove="onTouchMove"
+	>
+		<text
+			class="item {{ idx === index ? 'odd':'' }}"
+			wx:key="*this"
+			wx:for="{{ alphabet }}"
+			wx:for-index="idx"
+		>{{ item }}</text>
+	</view>
+
+	<view
+		class="more"
+		bindtap="onMoreTap"
+		wx:if="{{ more }}"
+	>
+		<dx-icon value="more"></dx-icon>
+	</view>
+
+	<text
+		class="zoom"
+		wx:if="{{ zoom }}"
+	>{{ alphabet[index] }}</text>
+</view>

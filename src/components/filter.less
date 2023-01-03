@@ -1,0 +1,56 @@
+@import '../variables.less';
+
+.dx-filter {
+	padding: @sm;
+	background: white;
+
+	.item {
+		display: flex;
+
+		.label {
+			white-space: nowrap;
+			line-height: @xl;
+			font-size: @sm;
+			color: @sub;
+		}
+
+		.value {
+			align-items: center;
+			display: inline-flex;
+			flex-wrap: wrap;
+
+			.tag {
+				height: @xl;
+				padding: 0 @sm;
+				color: @content;
+				background: @background;
+				border-radius: @radius;
+				position: relative;
+				align-items: center;
+				display: inline-flex;
+				font-size: @sm;
+				line-height: 1;
+				overflow: hidden;
+				margin: 0 4rpx 8rpx 4rpx;
+				white-space: nowrap;
+
+				&::after {
+					right: 0;
+					bottom: 0;
+					position: absolute;
+					content: '';
+					background: @background;
+					border-left: @xs solid transparent;
+					border-bottom: @xs solid @green;
+				}
+
+			}
+
+
+		}
+
+
+	}
+
+
+}

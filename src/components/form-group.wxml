@@ -1,0 +1,3 @@
+<view class="dx-form-group class">
+	<slot></slot>
+</view>

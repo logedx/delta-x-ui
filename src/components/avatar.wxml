@@ -1,0 +1,11 @@
+<view
+	class="dx-avatar class {{ color }}"
+	style="{{ style }}"
+>
+	<image
+		class="image"
+		src="{{ src }}"
+		mode="{{ mode }}"
+		wx:if="{{ src }}"
+	/>
+</view>

@@ -1,0 +1,35 @@
+@import '../variables.less';
+
+.dx-avatar-group {
+	direction: rtl;
+	unicode-bidi: bidi-override;
+	display: inline-block;
+
+	.item {
+		margin-right: 0 - @md;
+		vertical-align: middle;
+		position: relative;
+
+		&:first-child {
+			margin-right: 0;
+		}
+
+	}
+
+	&.reverse {
+		direction: ltr;
+
+		.item {
+			margin-right: unset;
+			margin-left: 0 - @md;
+
+			&:first-child {
+				margin-left: 0;
+			}
+
+		}
+
+	}
+
+
+}

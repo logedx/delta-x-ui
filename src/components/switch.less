@@ -1,0 +1,123 @@
+@import '../variables.less';
+
+.dx-switch {
+	width: @xxxl;
+	height: @lg;
+	border-radius: @lg;
+	position: relative;
+	display: inline-block;
+	box-sizing: content-box;
+	background-color: white;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	transition: background-color 0.3s;
+	font-size: 0;
+
+
+	&::before {
+		content: "";
+		top: 0;
+		right: calc(100% - @lg);
+		position: absolute;
+		width: @lg;
+		height: @lg;
+		box-shadow: 0 3px 1px 0 rgb(0 0 0 / 5%), 0 2px 2px 0 rgb(0 0 0 / 10%), 0 3px 3px 0 rgb(0 0 0 / 5%);
+		transition: right 0.3s cubic-bezier(0.3, 1.05, 0.4, 1.05);
+		background-color: white;
+		border-radius: 100%;
+	}
+
+	&.checked {
+		&::before {
+			right: 0 !important;
+		}
+
+		&.primary {
+			background-color: @primary;
+		}
+
+		&.light-primary {
+			background-color: @light-primary;
+		}
+
+		&.dark-primary {
+			background-color: @dark-primary;
+		}
+
+		&.info {
+			background-color: @info;
+		}
+
+		&.success {
+			background-color: @success;
+		}
+
+		&.warning {
+			background-color: @warning;
+		}
+
+		&.error {
+			background-color: @error;
+		}
+
+		&.disabled {
+			background-color: @background;
+		}
+
+
+	}
+
+	&.xs {
+		width: @xxl;
+		height: @md;
+		border-radius: @md;
+
+		&::before {
+			width: @md;
+			height: @md;
+			right: calc(100% - @md);
+		}
+
+	}
+
+	&.sm {
+		width: @xxxl;
+		height: @lg;
+		border-radius: @lg;
+
+		&::before {
+			width: @lg;
+			height: @lg;
+			right: calc(100% - @lg);
+		}
+
+	}
+
+	&.md {
+		width: @xxxxl;
+		height: @xl;
+		border-radius: @xl;
+
+		&::before {
+			width: @xl;
+			height: @xl;
+			right: calc(100% - @xl);
+		}
+
+	}
+
+
+	&.lg {
+		width: @xxxxxl;
+		height: @xxl;
+		border-radius: @xxl;
+
+		&::before {
+			width: @xxl;
+			height: @xxl;
+			right: calc(100% - @xxl);
+		}
+
+	}
+
+
+}

@@ -1,0 +1,8 @@
+<form class="dx-form class">
+	<text
+		class="label"
+		wx:if="{{ label }}"
+	>{{ label }}</text>
+
+	<slot></slot>
+</form>

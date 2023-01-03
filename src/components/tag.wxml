@@ -1,0 +1,3 @@
+<view class="dx-tag class {{ size }} {{ color }}">
+	<slot></slot>
+</view>

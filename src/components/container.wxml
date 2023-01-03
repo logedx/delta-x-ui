@@ -1,0 +1,7 @@
+<view
+	style="{{ style }}"
+	class="dx-container"
+	catchtouchmove="onCatchTouchMove"
+>
+	<slot></slot>
+</view>

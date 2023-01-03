@@ -1,0 +1,29 @@
+<view
+	style="{{ style }}"
+	class="dx-icon class {{ color }}"
+>
+	<i
+		class="icon-class {{ loading? 'loading': value }}"
+		wx:if="{{ !after }}"
+	></i>
+
+	<em class="label label-class {{ after ? 'after' : 'before' }}">
+		<slot></slot>
+	</em>
+
+	<i
+		class="{{ loading? 'loading': value }}"
+		wx:if="{{ after }}"
+	></i>
+
+	<i
+		class="dot"
+		wx:if="{{ dot === true }}"
+	></i>
+
+	<i
+		class="dot i"
+		wx:elif="{{ dot > 0 }}"
+	>{{ dot }}</i>
+
+</view>

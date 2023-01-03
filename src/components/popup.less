@@ -1,0 +1,50 @@
+@import '../variables.less';
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		bottom: -10%;
+	}
+
+	to {
+		bottom: 0;
+		opacity: 1;
+	}
+}
+
+
+.dx-popup {
+	top: 0;
+	left: 0;
+	position: fixed;
+	background: @popup;
+	box-sizing: border-box;
+	animation: .15s fadeIn;
+	z-index: 1025;
+	height: 100vh;
+	width: 100%;
+
+	.box {
+		width: 100%;
+		max-height: 100vh;
+		background: white;
+		box-sizing: border-box;
+		box-shadow: @shadow;
+		animation: .15s fadeInUp;
+		padding: @sm;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
+
+}

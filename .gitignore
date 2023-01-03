@@ -1,0 +1,4 @@
+# Dependency directories
+dist/
+node_modules/
+miniprogram_dist/
