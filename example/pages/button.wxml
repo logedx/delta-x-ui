@@ -1,0 +1,71 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">button</text>
+
+	<dx-cassette>
+		<dx-nameplate class="nameplate" label="Size &amp; Disable">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/text-size.svg"
+			/>
+
+			<dx-label divider title="small">
+				<dx-button size="small">
+					<text>button</text>
+				</dx-button>
+			</dx-label>
+
+			<dx-label divider title="default">
+				<dx-button size="default">
+					<text>button</text>
+				</dx-button>
+			</dx-label>
+
+			<dx-label divider title="large">
+				<dx-button size="large">
+					<text>button</text>
+				</dx-button>
+			</dx-label>
+
+			<dx-label divider title="disabled">
+				<dx-button disabled>
+					<text>button</text>
+				</dx-button>
+			</dx-label>
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Color">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/palette.svg"
+			/>
+
+			<dx-label divider title="primary">
+				<dx-button color="primary">
+					<text>button</text>
+				</dx-button>
+			</dx-label>
+
+			<dx-label divider title="success">
+				<dx-button color="success">
+					<text>button</text>
+				</dx-button>
+			</dx-label>
+
+			<dx-label divider title="warning">
+				<dx-button color="warning">
+					<text>button</text>
+				</dx-button>
+			</dx-label>
+
+			<dx-label title="error">
+				<dx-button color="error">
+					<text>button</text>
+				</dx-button>
+			</dx-label>
+		</dx-nameplate>
+	</dx-cassette>
+
+	<author slot="footer" />
+</dx-layout>

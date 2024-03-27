@@ -1,0 +1,33 @@
+{
+	"appid": "",
+	"compileType": "miniprogram",
+	"libVersion": "latest",
+	"projectname": "delta-x-ui",
+	"setting": {
+		"compileHotReLoad": false,
+		"compileWorklet": true,
+		"coverView": true,
+		"enhance": false,
+		"es6": false,
+		"ignoreUploadUnusedFiles": true,
+		"lazyloadPlaceholderEnable": true,
+		"minified": false,
+		"minifyWXML": true,
+		"minifyWXSS": true,
+		"packNpmManually": true,
+		"packNpmRelationList": [
+			{
+				"miniprogramNpmDistDir": "./",
+				"packageJsonPath": "./package.json"
+			}
+		],
+		"postcss": true,
+		"showShadowRootInWxmlPanel": true,
+		"skylineRenderEnable": true,
+		"uglifyFileName": false,
+		"useCompilerPlugins": [
+			"typescript",
+			"less"
+		]
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"component": true,
+	"usingComponents": {
+		"dx-header": "./header",
+		"dx-main": "./main",
+		"dx-footer": "./footer"
+	}
+}

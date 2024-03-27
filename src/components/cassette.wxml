@@ -1,0 +1,18 @@
+<scroll-view
+	scroll-y
+	scroll-with-animation
+	enable-passive
+	type="list"
+	class="dx-cassette dx-class class"
+	bounces="{{ false }}"
+	show-scrollbar="{{ false }}"
+	refresher-enabled="{{ refresh }}"
+	refresher-triggered="{{ active === 'refresh' && loading }}"
+	catch:touchmove="on_catch_touch_move"
+	bind:scrolltolower="on_scrolltolower"
+	bind:refresherrefresh="on_refresher_refresh"
+>
+	<slot />
+
+	<view class="tail" />
+</scroll-view>

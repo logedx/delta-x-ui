@@ -1,0 +1,17 @@
+<view class="dx-inlaid dx-class class" wx:if="{{ loading }}">
+	<view class="loading">
+		<dx-loading />
+	</view>
+</view>
+
+<view class="dx-inlaid dx-class class" wx:else>
+	<text class="message" wx:if="{{ message }}">{{ message }}</text>
+
+	<block wx:key="*this" wx:for="{{ data }}">
+		<view class="legend" wx:if="{{ legend }}">
+			<slot name="legend" index="{{ index }}" item="{{ item }}" />
+		</view>
+
+		<slot index="{{ index }}" item="{{ item }}" />
+	</block>
+</view>

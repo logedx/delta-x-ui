@@ -1,0 +1,35 @@
+.dx-nameplate {
+	padding: var(--u-02-s);
+	background: var(--white);
+
+	.header {
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-end;
+		position: relative;
+
+		&::after {
+			content: '';
+			width: 100%;
+			height: 1rpx;
+			position: absolute;
+			bottom: 0;
+			background-size: 4px 4px;
+			background-repeat: repeat-x;
+			background-image: linear-gradient(to right, var(--disabled) 50%, var(--white) 50%);
+
+		}
+
+		.label {
+			flex-shrink: 0;
+			text-align: right;
+			white-space: nowrap;
+			margin-left: auto;
+			font-size: var(--normal);
+			color: var(--subtitle);
+			padding-bottom: var(--u-00-l);
+
+
+		}
+	}
+}

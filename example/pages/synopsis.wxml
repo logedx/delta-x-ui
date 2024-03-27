@@ -1,0 +1,102 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">synopsis</text>
+
+	<dx-cassette>
+		<dx-nameplate class="nameplate" label="Slot">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/palette.svg"
+			/>
+
+			<dx-label divider title="default">
+				<text class="slot" />
+			</dx-label>
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Empty">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/circle-dashed.svg"
+			/>
+
+			<dx-synopsis title="title" class="empty">
+				<text class="slot" />
+			</dx-synopsis>
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Size">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/text-size.svg"
+			/>
+
+			<dx-label divider newline title="default">
+				<dx-synopsis
+					title="title"
+					thumbnail="/example/image/pexels-pixabay-57416.jpg"
+				>
+					<text class="slot" />
+				</dx-synopsis>
+			</dx-label>
+
+			<dx-label divider newline title="customize">
+				<dx-synopsis
+					title="title"
+					size="var(--u-10-xs)"
+					thumbnail="/example/image/pexels-pixabay-57416.jpg"
+				>
+					<text class="slot" />
+				</dx-synopsis>
+			</dx-label>
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Shape">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/shape.svg"
+			/>
+
+			<dx-label divider newline title="circle">
+				<dx-synopsis
+					title="title"
+					thumbnail="/example/image/pexels-pixabay-57416.jpg"
+				>
+					<text class="slot" />
+				</dx-synopsis>
+			</dx-label>
+
+			<dx-label divider newline title="square">
+				<dx-synopsis
+					square
+					title="title"
+					thumbnail="/example/image/pexels-pixabay-57416.jpg"
+				>
+					<text class="slot" />
+				</dx-synopsis>
+			</dx-label>
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Column">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/columns.svg"
+			/>
+
+			<dx-synopsis
+				column
+				title="title"
+				size="var(--u-10-l)"
+				thumbnail="/example/image/pexels-pixabay-57416.jpg"
+			>
+				<text class="slot" />
+			</dx-synopsis>
+		</dx-nameplate>
+	</dx-cassette>
+
+	<author slot="footer" />
+</dx-layout>

@@ -1,0 +1,44 @@
+<dx-layout
+	solid
+	scroll
+	back="/example/icon/chevron-left-white.svg"
+	home="/example/icon/home-white.svg"
+	main-class="main"
+	header-class="header"
+>
+	<text slot="header" class="title">header</text>
+
+	<dx-nameplate class="nameplate" label="Color">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/palette.svg"
+		/>
+
+		<dx-label divider title="header">
+			<text class="color" />
+		</dx-label>
+
+		<dx-label divider title="header:slot">
+			<text class="color slot" />
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate class="nameplate" label="Navigator">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/activity.svg"
+		/>
+
+		<dx-label divider title="back">
+			<dx-icon size="var(--u-04-xs)" src="/example/icon/chevron-left.svg" />
+		</dx-label>
+
+		<dx-label title="home">
+			<dx-icon size="var(--u-04-xs)" src="/example/icon/home.svg" />
+		</dx-label>
+	</dx-nameplate>
+
+	<author slot="footer" />
+</dx-layout>

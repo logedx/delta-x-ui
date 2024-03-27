@@ -5,9 +5,24 @@
 	"author": "leiddx <leiddx@hotmail.com>",
 	"description": "",
 	"type": "module",
+	"miniprogram": "dist",
+	"main": "./src/index.js",
+	"exports": {
+		".": "./src/index.js",
+		"./lib/*": "./src/lib/*",
+		"./lib/alert": "./src/lib/alert.js",
+		"./lib/detective": "./src/lib/detective.js",
+		"./lib/file": "./src/lib/file.js",
+		"./lib/friendly": "./src/lib/friendly.js",
+		"./lib/pagination": "./src/lib/pagination.js",
+		"./lib/request": "./src/lib/request.js",
+		"./lib/structure": "./src/lib/structure.js",
+		"./lib/style": "./src/lib/style.js"
+	},
 	"scripts": {
 		"prepare": "husky install",
 		"eslint": "npx eslint **/*.ts",
+		"build": "npx gulp & cd src & npx tsc",
 		"release": "npx standard-version"
 	},
 	"homepage": "https://github.com/logedx/delta-x-ui#readme",

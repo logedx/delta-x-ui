@@ -1,0 +1,43 @@
+{
+	"style": "v2",
+	"componentFramework": "glass-easel",
+	"lazyCodeLoading": "requiredComponents",
+	"renderer": "skyline",
+	"rendererOptions": {
+		"skyline": {
+			"disableABTest": true,
+			"defaultContentBox": true,
+			"defaultDisplayBlock": true
+		}
+	},
+	"resizable": true,
+	"window": {
+		"enablePullDownRefresh": false
+	},
+	"resolveAlias": {
+		"/*": "/*"
+	},
+	"usingComponents": {},
+	"pages": [
+		"example/pages/index",
+		"example/pages/layout",
+		"example/pages/header",
+		"example/pages/main",
+		"example/pages/footer",
+		"example/pages/lister",
+		"example/pages/inlaid",
+		"example/pages/cassette",
+		"example/pages/label",
+		"example/pages/nameplate",
+		"example/pages/matrix",
+		"example/pages/fieldset",
+		"example/pages/synopsis",
+		"example/pages/breadcrumb",
+		"example/pages/navigator",
+		"example/pages/directed",
+		"example/pages/icon",
+		"example/pages/avatar",
+		"example/pages/loading",
+		"example/pages/search"
+	]
+}

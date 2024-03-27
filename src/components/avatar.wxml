@@ -1,0 +1,10 @@
+<image
+	fade-in
+	src="{{ src }}"
+	style="{{ style }}"
+	mode="aspectFill"
+	class="dx-avatar dx-class class"
+	wx:if="{{ src }}"
+/>
+
+<view class="dx-avatar dx-class class" style="{{ style }}" wx:else />

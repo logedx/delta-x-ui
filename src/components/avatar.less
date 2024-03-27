@@ -1,0 +1,36 @@
+.dx-avatar {
+	--dx-avatar-size: var(--u-06-s);
+	--dx-avatar-radius: 50%;
+
+	width: var(--dx-avatar-size);
+	height: var(--dx-avatar-size);
+	border-radius: var(--dx-avatar-radius);
+	overflow: hidden;
+	position: relative;
+	z-index: 1;
+
+	&::before,
+	&::after {
+		content: '';
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		position: absolute;
+		left: 0;
+		top: 0;
+		background-repeat: repeat;
+		background-size: 50% 50%;
+
+	}
+
+	&::before {
+		background-image: linear-gradient(to bottom right, var(--background) 25%, transparent 25%);
+
+	}
+
+	&::after {
+		background-image: linear-gradient(to top left, var(--background) 25%, transparent 25%);
+
+	}
+
+}
