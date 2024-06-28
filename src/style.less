@@ -1,0 +1,99 @@
+@import 'style/color.less';
+
+page {
+	--red: @red;
+	--cyan: @cyan;
+	--blue: @blue;
+	--pink: @pink;
+	--grey: @grey;
+	--olive: @olive;
+	--green: @green;
+	--mauve: @mauve;
+	--brown: @brown;
+	--white: @white;
+	--orange: @orange;
+	--yellow: @yellow;
+	--purple: @purple;
+
+	--linear-red: @linear-red;
+	--linear-cyan: @linear-cyan;
+	--linear-blue: @linear-blue;
+	--linear-pink: @linear-pink;
+	--linear-olive: @linear-olive;
+	--linear-green: @linear-green;
+	--linear-mauve: @linear-mauve;
+	--linear-brown: @linear-brown;
+	--linear-orange: @linear-orange;
+	--linear-yellow: @linear-yellow;
+	--linear-purple: @linear-purple;
+
+	--primary: @blue;
+	--success: @green;
+	--warning: @orange;
+	--error: @red;
+
+	--light-primary: lighten(@blue, 10%);
+	--light-success: lighten(@green, 10%);
+	--light-warning: lighten(@orange, 10%);
+	--light-error: lighten(@red, 10%);
+
+	--dark-primary: darken(@blue, 10%);
+	--dark-success: darken(@green, 10%);
+	--dark-warning: darken(@orange, 10%);
+	--dark-error: darken(@red, 10%);
+
+	--title: @title;
+	--subtitle: @subtitle;
+
+	--content: @content;
+
+	--border: @border;
+	--disabled: @disabled;
+	--divider: @divider;
+
+	--background: @background;
+
+	// hue circle
+	// angle: a|b|c|d|e
+	// level: 255
+	--h-ab-00: var(--red);
+	--h-bc-00: var(--yellow);
+	--h-cd-00: var(--green);
+	--h-de-00: var(--blue);
+	--h-ea-00: var(--purple);
+
+	// xs|s|m|l|xl|xxl
+	--u-00-s: 4rpx;
+	--u-00-l: 8rpx;
+	--u-01-xs: 12rpx;
+	--u-01-m: 16rpx;
+	--u-02-xs: 20rpx;
+	--u-02-s: 24rpx;
+	--u-03-xs: 32rpx;
+	--u-04-xs: 40rpx;
+	--u-04-l: 48rpx;
+	--u-05-m: 56rpx;
+	--u-06-s: 64rpx;
+	--u-08-l: 88rpx;
+	--u-10-xs: 128rpx;
+	--u-10-m: 156rpx;
+	--u-10-l: 176rpx;
+
+	--normal: 24rpx;
+	--strong: 30rpx;
+
+	--label: 56rpx;
+
+	--radius: 6rpx;
+
+	--popup: rgba(0, 0, 0, 0.4);
+
+}
+
+
+page {
+	font-size: 0;
+	color: var(--content);
+	line-height: 1;
+
+}

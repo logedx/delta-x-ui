@@ -1,0 +1,31 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">inlaid</text>
+
+	<dx-cassette>
+		<dx-nameplate class="nameplate" label="Slot">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/palette.svg"
+			/>
+
+			<dx-label divider title="slot">
+				<text class="slot" />
+			</dx-label>
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Example">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-fieldset value="{{ data }}">
+				<text class="slot example" />
+			</dx-fieldset>
+		</dx-nameplate>
+	</dx-cassette>
+
+	<author slot="footer" />
+</dx-layout>
