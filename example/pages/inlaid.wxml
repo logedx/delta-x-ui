@@ -1,0 +1,65 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">inlaid</text>
+
+	<dx-cassette>
+		<dx-nameplate class="nameplate" label="Slot">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/palette.svg"
+			/>
+
+			<dx-label divider title="slot">
+				<text class="slot" />
+			</dx-label>
+
+			<dx-label divider title="slot:legend">
+				<text class="slot legend" />
+			</dx-label>
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Loading">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-inlaid loading value="{{ loading }}">
+				<text class="example slot" slot:item slot:index
+					>{{ item }}</text
+				>
+			</dx-inlaid>
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Exception">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-inlaid loading value="{{ exception }}" />
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Legend">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-inlaid loading legend value="{{ data }}">
+				<dx-directed slot:index slot="legend" color="var(--red)">
+					<text class="label">{{ index }}</text>
+				</dx-directed>
+
+				<text class="example slot" slot:item slot:index
+					>{{ item }}</text
+				>
+			</dx-inlaid>
+		</dx-nameplate>
+	</dx-cassette>
+
+	<author slot="footer" />
+</dx-layout>

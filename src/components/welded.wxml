@@ -1,0 +1,50 @@
+<view class="dx-welded class">
+	<view class="item" wx:key="*this" wx:for="{{ src }}">
+		<view class="handle">
+			<label>
+				<text
+					class="text"
+					data-index="{{ index }}"
+					bind:tap="on_move_up"
+					wx:if="{{ index > 0 }}"
+					>上移</text
+				>
+
+				<text
+					class="text"
+					data-index="{{ index }}"
+					bind:tap="on_move_down"
+					wx:if="{{ index < src.length - 1 }}"
+					>下移</text
+				>
+			</label>
+
+			<label>
+				<text class="text" data-index="{{ index }}" bind:tap="on_insert"
+					>插入</text
+				>
+
+				<text data-index="{{ index }}" bind:tap="on_delete">删除</text>
+			</label>
+		</view>
+
+		<image
+			fade-in
+			mode="widthFix"
+			src="{{ safety(resolve, item) }}"
+			data-index="{{ index }}"
+			bind:tap="on_preview"
+			bind:longpress="on_update"
+		/>
+	</view>
+
+	<view class="footer" data-index="{{ src.length }}" bind:tap="on_update">
+		<text class="divider" wx:if="{{ src.length > 0 }}" />
+
+		<slot />
+	</view>
+
+	<view class="loading" wx:if="{{ loading }}">
+		<dx-loading size="var(--u-06-s)" color="var(--h-ab-00)" />
+	</view>
+</view>

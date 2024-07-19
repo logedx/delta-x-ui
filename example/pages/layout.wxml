@@ -1,0 +1,32 @@
+<dx-layout
+	solid
+	footer
+	main-class="main"
+	header-class="header"
+	footer-class="footer"
+	back="{{ white('/example/icon/chevron-left.svg') }}"
+>
+	<text slot="header" class="title">layout</text>
+
+	<dx-nameplate class="nameplate" label="Color">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/palette.svg"
+		/>
+
+		<dx-label divider title="header">
+			<text class="color header" />
+		</dx-label>
+
+		<dx-label divider title="main">
+			<text class="color main" />
+		</dx-label>
+
+		<dx-label title="footer">
+			<text class="color footer" />
+		</dx-label>
+	</dx-nameplate>
+
+	<author slot="footer" class="author" />
+</dx-layout>

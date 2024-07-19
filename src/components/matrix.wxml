@@ -1,0 +1,17 @@
+<view class="dx-matrix class" style="{{ style }}">
+	<view class="row" wx:key="*this" wx:for-index="i" wx:for="{{ row }}">
+		<view
+			class="column"
+			wx:key="*this"
+			wx:for-index="ii"
+			wx:for="{{ column }}"
+		>
+			<slot
+				name="{{ i }}{{ separator }}{{ ii }}"
+				wx:if="{{ separator }}"
+			/>
+
+			<slot name="{{ i * row + ii }}" wx:else />
+		</view>
+	</view>
+</view>

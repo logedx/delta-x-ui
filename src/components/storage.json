@@ -1,0 +1,8 @@
+{
+	"component": true,
+	"usingComponents": {
+		"dx-avatar": "./avatar",
+		"dx-directed": "./directed",
+		"dx-loading": "./loading"
+	}
+}

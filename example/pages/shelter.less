@@ -1,0 +1,73 @@
+@import '../../src/style/color.less';
+
+page {
+	background: @blue;
+
+}
+
+.veil {
+	height: 24vh;
+
+}
+
+.header {
+	width: 100%;
+	height: 18vh;
+	box-sizing: border-box;
+	background: darken(@green, 10%);
+	padding-top: var(--u-02-s);
+	border-top-left-radius: var(--u-02-s);
+	border-top-right-radius: var(--u-02-s);
+
+}
+
+.main {
+	background: @red;
+
+	.color {
+		width: 100%;
+		height: 100%;
+
+		&.veil {
+			background: @blue;
+
+		}
+
+		&.header {
+			background: darken(@green, 10%);
+
+		}
+
+		&.main {
+			background: @red;
+
+		}
+
+
+	}
+
+	.slot {
+		height: 144vh;
+
+		&::before,
+		&::after {
+			content: '';
+			width: 100%;
+			height: 100%;
+			z-index: 0;
+			position: absolute;
+			left: 0;
+			top: 0;
+			background-repeat: repeat;
+			background-size: 20px 20px;
+
+		}
+
+		&::before {
+			background-image: linear-gradient(to bottom right, darken(@red, 10%) 25%, transparent 25%);
+
+		}
+
+	}
+
+}

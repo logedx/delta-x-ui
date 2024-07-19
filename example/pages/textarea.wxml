@@ -1,0 +1,15 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">textarea</text>
+
+	<dx-nameplate class="nameplate" label="Example">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-textarea class="example" placeholder="请输入内容" />
+	</dx-nameplate>
+
+	<author slot="footer" />
+</dx-layout>

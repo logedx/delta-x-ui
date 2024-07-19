@@ -1,0 +1,17 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">cassette</text>
+
+	<dx-cassette
+		refresh
+		model:loading="{{ loading }}"
+		bind:last="on_last"
+		bind:refresh="on_refresh"
+	>
+		<text class="slot">slot:default</text>
+		<text class="slot">slot:default</text>
+		<text class="slot">slot:default</text>
+		<text class="slot">slot:default</text>
+	</dx-cassette>
+
+	<author slot="footer" />
+</dx-layout>

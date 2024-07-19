@@ -1,0 +1,21 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">input</text>
+
+	<dx-nameplate class="nameplate" label="Example">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-label divider title="default">
+			<dx-input placeholder="请输入内容" />
+		</dx-label>
+
+		<dx-label divider title="value">
+			<dx-input model:value="{{ value }}" />
+		</dx-label>
+	</dx-nameplate>
+
+	<author slot="footer" />
+</dx-layout>
