@@ -1,0 +1,37 @@
+<view
+	class="dx-search class"
+	catch:tap="on_catch"
+	catch:longpress="on_catch"
+>
+	<view class="enter">
+		<dx-icon
+			class="icon"
+			size="var(--u-03-xs)"
+			src="{{ icon }}"
+			wx:if="{{ icon }}"
+		/>
+
+		<input
+			hold-keyboard
+			type="text"
+			class="input"
+			confirm-type="search"
+			focus="{{ focus }}"
+			cursor-spacing="{{ 150 }}"
+			placeholder="{{ placeholder }}"
+			placeholder-style="color: var(--subtitle);"
+			bind:confirm="on_value_confirm"
+		/>
+	</view>
+
+	<view
+		class="handle"
+		data-index="{{ index }}"
+		wx:key="*this"
+		wx:for="{{ handle }}"
+		catch:tap="on_handle_tap"
+		catch:longpress="on_handle_longpress"
+	>
+		<dx-icon class="icon" size="var(--u-03-xs)" src="{{ item }}" />
+	</view>
+</view>

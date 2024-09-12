@@ -1,0 +1,23 @@
+.dx-header {
+	--dx-header-top: auto;
+	--dx-header-height: 32px;
+	--dx-header-menu-width: 88px;
+	--dx-header-width: calc(100vw - 24px - var(--dx-header-menu-width));
+
+
+	box-sizing: content-box;
+	width: var(--dx-header-width);
+	height: var(--dx-header-height);
+	padding-top: var(--dx-header-top);
+	padding-bottom: var(--u-01-m);
+	padding-left: 8px;
+	padding-right: calc(16px + var(--dx-header-menu-width));
+	position: relative;
+
+	.breadcrumb {
+		height: 100%;
+		align-items: center;
+
+	}
+
+}

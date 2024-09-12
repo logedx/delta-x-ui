@@ -1,0 +1,29 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">lister</text>
+
+	<dx-lister
+		refresh
+		value="{{ lister }}"
+		model:loading="{{ loading }}"
+		model:finished="{{ finished }}"
+		bind:last="on_last"
+		bind:refresh="on_refresh"
+	>
+		<dx-nameplate
+			slot:item
+			slot:index
+			class="nameplate"
+			label="Data.{{ index }}"
+		>
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<text class="item">{{ item.label }}</text>
+		</dx-nameplate>
+	</dx-lister>
+
+	<author slot="footer" />
+</dx-layout>

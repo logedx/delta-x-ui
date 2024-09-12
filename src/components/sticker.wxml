@@ -1,0 +1,20 @@
+<view class="dx-sticker class">
+	<view class="handle" wx:if="{{ src }}">
+		<text bind:tap="on_delete">删除</text>
+	</view>
+
+	<dx-avatar
+		square
+		size="100%"
+		src="{{ safety(resolve, src) }}"
+		bind:tap="on_preview"
+		bind:longpress="on_update"
+		wx:if="{{ src }}"
+	/>
+
+	<dx-avatar square size="100%" bind:tap="on_update" wx:else />
+
+	<view class="loading" wx:if="{{ loading }}">
+		<dx-loading size="var(--u-06-s)" color="var(--h-ab-00)" />
+	</view>
+</view>

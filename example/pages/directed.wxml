@@ -1,0 +1,31 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">directed</text>
+
+	<dx-cassette>
+		<dx-nameplate class="nameplate" label="Color">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/palette.svg"
+			/>
+
+			<dx-label divider title="default">
+				<view class="box">
+					<dx-directed>
+						<text class="label">default</text>
+					</dx-directed>
+				</view>
+			</dx-label>
+
+			<dx-label divider title="customize">
+				<view class="box">
+					<dx-directed color="var(--blue)">
+						<text class="label">customize</text>
+					</dx-directed>
+				</view>
+			</dx-label>
+		</dx-nameplate>
+	</dx-cassette>
+
+	<author slot="footer" />
+</dx-layout>

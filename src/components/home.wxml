@@ -1,0 +1,6 @@
+<dx-icon
+	src="{{ src }}"
+	size="{{ size }}"
+	class="dx-home class"
+	bind:tap="on_redirect_to_home"
+/>

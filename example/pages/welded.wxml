@@ -1,0 +1,30 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">welded</text>
+
+	<dx-cassette>
+		<dx-nameplate class="nameplate" label="Example">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-welded
+				class="example"
+				model:src="{{ src }}"
+				bind:insert="on_inster_image"
+				bind:update="on_update_image"
+			>
+				<view class="camera">
+					<dx-icon
+						slot="icon"
+						size="var(--u-08-l)"
+						src="{{ disabled('/example/icon/camera.svg') }}"
+					/>
+				</view>
+			</dx-welded>
+		</dx-nameplate>
+	</dx-cassette>
+
+	<author slot="footer" />
+</dx-layout>

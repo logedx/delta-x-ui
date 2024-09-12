@@ -1,0 +1,9 @@
+<view class="dx-fieldset class">
+	<slot />
+
+	<view class="ol">
+		<dx-label divider title="{{ item[0] }}" wx:key="0" wx:for="{{ value }}">
+			<text class="label">{{ item[1] }}</text>
+		</dx-label>
+	</view>
+</view>

@@ -1,0 +1,24 @@
+<scroll-view
+	scroll-y
+	enable-passive
+	scroll-with-animation
+	class="dx-cassette class"
+	type="{{ type }}"
+	bounces="{{ false }}"
+	show-scrollbar="{{ false }}"
+	scroll-into-view="{{ anchor }}"
+	refresher-enabled="{{ refresh }}"
+	refresher-triggered="{{ active === 'refresh' && loading }}"
+	associative-container="{{ nested ? 'nested-scroll-view' : '' }}"
+	catch:touchmove="on_catch_touch_move"
+	bind:scrollstart="on_scroll_start"
+	bind:scroll="on_scroll"
+	bind:scrollend="on_scroll_end"
+	bind:scrolltoupper="on_scroll_to_upper"
+	bind:scrolltolower="on_scroll_to_lower"
+	bind:refresherrefresh="on_refresher_refresh"
+>
+	<slot />
+
+	<view class="tail" />
+</scroll-view>

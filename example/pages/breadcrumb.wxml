@@ -1,0 +1,45 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">breadcrumb</text>
+
+	<dx-nameplate class="nameplate" label="Slot">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/palette.svg"
+		/>
+
+		<dx-label divider title="default">
+			<text class="slot" />
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate class="nameplate" label="Navigator">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/activity.svg"
+		/>
+
+		<dx-label divider title="back">
+			<dx-icon size="var(--u-04-xs)" src="/example/icon/chevron-left.svg" />
+		</dx-label>
+
+		<dx-label title="home">
+			<dx-icon size="var(--u-04-xs)" src="/example/icon/home.svg" />
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate class="nameplate" label="Example">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-breadcrumb class="example" back="{{ back }}" home="{{ home }}">
+			<text class="slot" />
+		</dx-breadcrumb>
+	</dx-nameplate>
+
+	<author slot="footer" />
+</dx-layout>

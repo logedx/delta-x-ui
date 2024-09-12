@@ -1,0 +1,35 @@
+.dx-switch {
+	--dx-switch-size: var(--u-04-l);
+	--dx-switch-color: var(--border);
+	--dx-switch-transition: all 0.318s ease;
+
+	--dx-switch-befor-left: 0;
+
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+
+	view {
+		width: calc(var(--dx-switch-size) * 2.18);
+		height: var(--dx-switch-size);
+		padding: var(--u-00-s);
+		background: var(--dx-switch-color);
+		border-radius: var(--dx-switch-size);
+		transition: var(--dx-switch-transition);
+
+		&::before {
+			content: '';
+			position: relative;
+			left: var(--dx-switch-befor-left);
+			width: var(--dx-switch-size);
+			height: var(--dx-switch-size);
+			background: var(--white);
+			border-radius: 50%;
+			transition: var(--dx-switch-transition);
+
+		}
+
+	}
+
+}

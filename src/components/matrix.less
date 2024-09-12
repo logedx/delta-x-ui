@@ -1,0 +1,31 @@
+.dx-matrix {
+	--dx-matrix-row: 1;
+	--dx-matrix-column: 1;
+	--dx-matrix-gap: 0;
+
+	width: 100%;
+	overflow-x: hidden;
+
+	.row {
+		display: flex;
+		justify-content: space-between;
+		box-sizing: content-box;
+		width: calc(100% + var(--dx-matrix-gap));
+		margin: var(--dx-matrix-gap) auto 0;
+
+		&:first-child {
+			margin-top: 0;
+
+		}
+
+		.column {
+			flex: 1 0 1;
+			box-sizing: border-box;
+			width: calc(100% / var(--dx-matrix-column));
+			margin: 0 calc(var(--dx-matrix-gap) / 2);
+
+		}
+
+	}
+
+}

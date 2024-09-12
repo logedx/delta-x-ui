@@ -1,0 +1,3 @@
+<view class="dx-directed class" style="{{ style }}">
+	<slot />
+</view>
