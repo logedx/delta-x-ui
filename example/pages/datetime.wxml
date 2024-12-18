@@ -1,0 +1,28 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">datetime</text>
+
+	<dx-nameplate class="nameplate" label="Example">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-label divider title="default">
+			<dx-datetime placeholder="请选择时间" />
+		</dx-label>
+
+		<dx-label divider title="value">
+			<dx-datetime model:value="{{ value }}" />
+		</dx-label>
+
+		<dx-label divider title="icon">
+			<dx-datetime
+				icon="/example/icon/clock.svg"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
+	</dx-nameplate>
+
+	<author slot="footer" />
+</dx-layout>

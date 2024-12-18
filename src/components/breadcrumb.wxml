@@ -1,0 +1,19 @@
+<view class="dx-breadcrumb class">
+	<view class="navigator" wx:if="{{ back || home }}">
+		<dx-back
+			class="i"
+			size="var(--u-04-l)"
+			src="{{ back }}"
+			wx:if="{{ back }}"
+		/>
+
+		<dx-home
+			class="i"
+			size="var(--u-04-l)"
+			src="{{ home }}"
+			wx:if="{{ home }}"
+		/>
+	</view>
+
+	<slot />
+</view>

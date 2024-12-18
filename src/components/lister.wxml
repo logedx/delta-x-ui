@@ -1,0 +1,29 @@
+<scroll-view
+	scroll-y
+	enable-passive
+	scroll-with-animation
+	type="list"
+	class="dx-lister class"
+	bounces="{{ false }}"
+	show-scrollbar="{{ false }}"
+	refresher-enabled="{{ refresh }}"
+	refresher-triggered="{{ active === 'refresh' && loading }}"
+	associative-container="{{ nested ? 'nested-scroll-view' : '' }}"
+	catch:touchmove="on_catch_touch_move"
+	bind:scrolltolower="on_scrolltolower"
+	bind:refresherrefresh="on_refresher_refresh"
+>
+	<slot
+		item="{{ item }}"
+		index="{{ index }}"
+		length="{{ value.length }}"
+		wx:key="*this"
+		wx:for="{{ value }}"
+	/>
+
+	<view class="footer">
+		<text class="finished" wx:if="{{ finished }}">已经没有更多数据了</text>
+
+		<dx-loading wx:else />
+	</view>
+</scroll-view>

@@ -1,0 +1,23 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">login</text>
+
+	<dx-cassette>
+		<dx-nameplate class="nameplate" label="Token">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/text-size.svg"
+			/>
+
+			<dx-label divider title="expire">
+				<text>{{ expire }}</text>
+			</dx-label>
+
+			<dx-label title="scope">
+				<text>{{ scope }}</text>
+			</dx-label>
+		</dx-nameplate>
+	</dx-cassette>
+
+	<author slot="footer" />
+</dx-layout>

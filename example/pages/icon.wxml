@@ -1,0 +1,33 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">icon</text>
+
+	<dx-nameplate class="nameplate" label="Size">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/text-size.svg"
+		/>
+
+		<dx-label divider title="default">
+			<dx-icon src="/example/icon/feedback.svg" />
+		</dx-label>
+
+		<dx-label divider title="customize">
+			<dx-icon size="20vw" src="/example/icon/feedback.svg" />
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate class="nameplate" label="Style">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/palette.svg"
+		/>
+
+		<dx-label title="empty">
+			<dx-icon size="20vw" />
+		</dx-label>
+	</dx-nameplate>
+
+	<author slot="footer" />
+</dx-layout>

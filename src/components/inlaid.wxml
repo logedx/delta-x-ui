@@ -1,0 +1,45 @@
+<view class="dx-inlaid class" style="{{ style(gap) }}">
+	<view class="loading" wx:if="{{ loading }}">
+		<dx-loading />
+	</view>
+
+	<text class="message" wx:elif="{{ message }}">{{ message }}</text>
+
+	<dx-cassette into="{{ into }}" wx:elif="{{ cassette }}">
+		<view class="item" wx:key="*this" wx:for="{{ data }}">
+			<view class="legend" wx:if="{{ legend }}">
+				<slot
+					name="legend"
+					item="{{ item }}"
+					index="{{ index }}"
+					length="{{ data.length }}"
+				/>
+			</view>
+
+			<slot
+				item="{{ item }}"
+				index="{{ index }}"
+				length="{{ data.length }}"
+			/>
+		</view>
+	</dx-cassette>
+
+	<block wx:else>
+		<view class="item" wx:key="*this" wx:for="{{ data }}">
+			<view class="legend" wx:if="{{ legend }}">
+				<slot
+					name="legend"
+					item="{{ item }}"
+					index="{{ index }}"
+					length="{{ data.length }}"
+				/>
+			</view>
+
+			<slot
+				item="{{ item }}"
+				index="{{ index }}"
+				length="{{ data.length }}"
+			/>
+		</view>
+	</block>
+</view>

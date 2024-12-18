@@ -1,0 +1,33 @@
+<dx-shelter
+	class="main"
+	back="{{ white('/example/icon/chevron-left.svg') }}"
+	bind:lower="on_lower"
+>
+	<view slot="veil" class="veil" />
+
+	<view slot="header" class="header" />
+
+	<dx-cassette nested>
+		<dx-nameplate class="nameplate" label="Color">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/palette.svg"
+			/>
+
+			<dx-label divider title="veil">
+				<text class="color veil" />
+			</dx-label>
+
+			<dx-label divider title="header">
+				<text class="color header" />
+			</dx-label>
+
+			<dx-label divider title="main">
+				<text class="color main" />
+			</dx-label>
+		</dx-nameplate>
+
+		<view class="slot" />
+	</dx-cassette>
+</dx-shelter>

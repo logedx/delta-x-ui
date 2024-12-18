@@ -1,0 +1,33 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">main</text>
+
+	<dx-nameplate class="nameplate" label="Color">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/palette.svg"
+		/>
+
+		<dx-label divider title="main">
+			<text class="color" />
+		</dx-label>
+
+		<dx-label divider title="main:slot">
+			<text class="color slot" />
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate class="nameplate" label="Behavior">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/activity.svg"
+		/>
+
+		<dx-label title="scroll">
+			<!--  -->
+		</dx-label>
+	</dx-nameplate>
+
+	<author slot="footer" />
+</dx-layout>

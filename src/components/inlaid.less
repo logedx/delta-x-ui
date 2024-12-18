@@ -1,0 +1,38 @@
+.dx-inlaid {
+	--dx-inlaid-gap: var(--u-03-xs);
+
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+
+	.loading,
+	.message {
+		display: flex;
+		justify-content: center;
+		padding: var(--u-03-xs) 0;
+
+	}
+
+	.message {
+		color: var(--error);
+		font-size: var(--normal);
+
+	}
+
+	.item {
+		padding-top: var(--dx-inlaid-gap);
+
+		&:first-child {
+			padding-top: 0;
+
+		}
+
+		.legend {
+			display: flex;
+			position: relative;
+
+		}
+
+	}
+
+}

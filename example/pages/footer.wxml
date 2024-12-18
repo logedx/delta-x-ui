@@ -1,0 +1,27 @@
+<dx-layout
+	solid
+	footer
+	main-class="main"
+	footer-class="footer"
+	back="/example/icon/chevron-left.svg"
+>
+	<text slot="header" class="title">footer</text>
+
+	<dx-nameplate class="nameplate" label="Color">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/palette.svg"
+		/>
+
+		<dx-label title="footer">
+			<text class="color" />
+		</dx-label>
+
+		<dx-label divider title="footer:slot">
+			<text class="color slot" />
+		</dx-label>
+	</dx-nameplate>
+
+	<author slot="footer" class="author" />
+</dx-layout>

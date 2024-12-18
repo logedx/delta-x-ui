@@ -1,0 +1,18 @@
+<view class="dx-synopsis class" style="{{ style }}">
+	<view class="thumbnail">
+		<dx-avatar
+			size="{{ size }}"
+			src="{{ thumbnail }}"
+			square="{{ square }}"
+			class="avatar"
+		/>
+	</view>
+
+	<view class="content">
+		<text class="title">{{ title }}</text>
+
+		<view class="exhibit">
+			<slot />
+		</view>
+	</view>
+</view>

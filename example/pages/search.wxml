@@ -1,0 +1,46 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">search</text>
+
+	<dx-nameplate class="nameplate" label="Default">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-search class="example" placeholder="请输入内容" />
+	</dx-nameplate>
+
+	<dx-nameplate class="nameplate" label="Icon">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/palette.svg"
+		/>
+
+		<dx-search
+			class="example"
+			placeholder="请输入内容"
+			icon="/example/icon/search-small.svg"
+		/>
+	</dx-nameplate>
+
+	<dx-nameplate class="nameplate" label="Handle">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/activity.svg"
+		/>
+
+		<dx-search
+			class="example"
+			placeholder="请输入内容"
+			icon="/example/icon/search-small.svg"
+			handle="{{ handle }}"
+			bind:tap="on_handle_tap"
+			bind:longpress="on_handle_longpress"
+		/>
+	</dx-nameplate>
+
+	<author slot="footer" />
+</dx-layout>

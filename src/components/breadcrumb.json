@@ -1,0 +1,7 @@
+{
+	"component": true,
+	"usingComponents": {
+		"dx-back": "./back",
+		"dx-home": "./home"
+	}
+}

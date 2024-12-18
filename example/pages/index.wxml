@@ -1,0 +1,55 @@
+<dx-layout solid footer main-class="main" footer-class="footer">
+	<text slot="header" class="title">welcome</text>
+
+	<dx-cassette>
+		<view class="welcome">
+			<label>Delta X UI</label>
+
+			<text>Kit</text>
+		</view>
+
+		<dx-nameplate
+			class="nameplate"
+			label="{{ item.label }}"
+			wx:key="label"
+			wx:for="{{ kits }}"
+		>
+			<dx-icon slot="icon" size="var(--u-04-xs)" src="{{ item.icon }}" />
+
+			<dx-matrix
+				separator="."
+				gap="var(--u-01-m)"
+				class="matrix"
+				column="{{ 3 }}"
+				row="{{ item.components.length }}"
+				wx:if="{{ item.components.length > 0 }}"
+			>
+				<block
+					wx:key="label"
+					wx:for-item="v"
+					wx:for-index="i"
+					wx:for="{{ item.components }}"
+				>
+					<view
+						class="navigator"
+						slot="{{ i }}.{{ ii }}"
+						data-url="{{ vv.url }}"
+						wx:key="name"
+						wx:for-item="vv"
+						wx:for-index="ii"
+						wx:for="{{ v }}"
+						bind:tap="on_navigate_to"
+					>
+						<image mode="aspectFit" src="{{ vv.icon }}" />
+
+						<text>{{ vv.name }}</text>
+					</view>
+				</block>
+			</dx-matrix>
+
+			<text class="none" wx:else>empty</text>
+		</dx-nameplate>
+	</dx-cassette>
+
+	<author slot="footer" />
+</dx-layout>

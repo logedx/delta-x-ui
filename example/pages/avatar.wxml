@@ -1,0 +1,64 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">avatar</text>
+
+	<dx-cassette>
+		<dx-nameplate class="nameplate" label="Size">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/text-size.svg"
+			/>
+
+			<dx-label divider title="default">
+				<dx-avatar src="/example/image/pexels-pixabay-57416.jpg" />
+			</dx-label>
+
+			<dx-label divider title="customize">
+				<dx-avatar
+					size="40vw"
+					src="/example/image/pexels-pixabay-57416.jpg"
+				/>
+			</dx-label>
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Shape">
+			<dx-avatar
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/shape.svg"
+			/>
+
+			<dx-label divider title="circle">
+				<dx-avatar
+					size="40vw"
+					src="/example/image/pexels-pixabay-57416.jpg"
+				/>
+			</dx-label>
+
+			<dx-label divider title="square">
+				<dx-avatar
+					square
+					size="40vw"
+					src="/example/image/pexels-pixabay-57416.jpg"
+				/>
+			</dx-label>
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Style">
+			<dx-avatar
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/palette.svg"
+			/>
+
+			<dx-label newline title="empty">
+				<dx-matrix gap="var(--u-02-s)">
+					<dx-avatar slot="0" size="100%" />
+					<dx-avatar square slot="1" size="100%" />
+				</dx-matrix>
+			</dx-label>
+		</dx-nameplate>
+	</dx-cassette>
+
+	<author slot="footer" />
+</dx-layout>

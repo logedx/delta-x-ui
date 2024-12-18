@@ -1,0 +1,50 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">number</text>
+
+	<dx-nameplate class="nameplate" label="Default">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-label divider title="integer">
+			<dx-number placeholder="请输入数字" value="{{ default }}" />
+		</dx-label>
+
+		<dx-label divider title="digit">
+			<dx-number
+				placeholder="请输入数字"
+				digit="{{ 2 }}"
+				value="{{ default }}"
+			/>
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate class="nameplate" label="Negative">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/activity.svg"
+		/>
+
+		<dx-label divider title="integer">
+			<dx-number
+				placeholder="请输入数字"
+				min="{{ 0 - 100 }}"
+				value="{{ negative }}"
+			/>
+		</dx-label>
+
+		<dx-label divider title="digit">
+			<dx-number
+				placeholder="请输入数字"
+				digit="{{ 2 }}"
+				min="{{ 0 - 100 }}"
+				value="{{ negative }}"
+			/>
+		</dx-label>
+	</dx-nameplate>
+
+	<author slot="footer" />
+</dx-layout>

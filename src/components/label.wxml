@@ -1,0 +1,15 @@
+<label class="dx-label class" style="{{ style }}">
+	<view class="head" wx:if="{{ newline }}">
+		<text class="title">{{ title }}</text>
+
+		<view>
+			<slot name="head" />
+		</view>
+	</view>
+
+	<text class="title" wx:else>{{ title }}</text>
+
+	<view class="slot">
+		<slot />
+	</view>
+</label>

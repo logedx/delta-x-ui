@@ -1,0 +1,21 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">storage</text>
+
+	<dx-cassette>
+		<dx-nameplate class="nameplate" label="Example">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-storage
+				model:src="{{ src }}"
+				bind:insert="on_inster_image"
+				bind:update="on_update_image"
+			/>
+		</dx-nameplate>
+	</dx-cassette>
+
+	<author slot="footer" />
+</dx-layout>

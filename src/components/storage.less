@@ -1,0 +1,157 @@
+@import '../style/border.less';
+
+.dx-storage {
+	--dx-storage-label-padding-bottom: 0;
+	--dx-storage-label-opration-arrow-rotate: 45deg;
+
+	position: relative;
+	padding: var(--u-02-s) 0;
+
+	.label {
+		width: 100%;
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		position: relative;
+		padding-bottom: var(--dx-storage-label-padding-bottom);
+
+		.quantity {
+			color: var(--subtitle);
+			font-size: var(--normal);
+			margin-left: var(--u-00-l);
+			margin-bottom: var(--u-00-s);
+
+		}
+
+		.opration {
+			flex: 1;
+			display: flex;
+			align-items: flex-end;
+			flex-direction: column;
+			justify-content: space-between;
+			height: var(--u-10-xs);
+
+			.create {
+				color: var(--white);
+				font-size: var(--normal);
+
+			}
+
+			.arrow {
+				width: var(--u-00-l);
+				height: var(--u-00-l);
+				border-left: solid var(--u-00-s) var(--subtitle);
+				border-top: solid var(--u-00-s) var(--subtitle);
+				margin-right: var(--u-00-l);
+				transition: transform 0.1s linear;
+				transform: rotate(var(--dx-storage-label-opration-arrow-rotate));
+
+			}
+
+
+		}
+
+	}
+
+
+	.item {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		background: var(--white);
+		padding: var(--u-02-s) 0;
+		position: relative;
+
+		.top();
+
+		.handle {
+			width: 100%;
+			height: var(--label);
+			position: absolute;
+			left: 0;
+			top: var(--u-02-s);
+			display: flex;
+			justify-content: space-between;
+			z-index: 1;
+			background: var(--popup);
+
+			label {
+				display: flex;
+				position: relative;
+				z-index: 2;
+
+				text {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					width: var(--u-08-l);
+					font-size: var(--normal);
+					color: var(--white);
+					position: relative;
+					z-index: 4;
+
+				}
+
+			}
+
+
+		}
+
+		image {
+			width: 100%;
+			border-radius: var(--radius);
+
+		}
+
+
+		.index {
+			position: absolute;
+			right: var(--u-01-xs);
+			bottom: var(--u-00-l);
+			z-index: 1;
+
+			.text {
+				color: var(--white);
+				font-size: var(--normal);
+
+			}
+
+		}
+
+
+	}
+
+	.up {
+		width: 100%;
+		height: var(--label);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		text {
+			width: var(--u-00-l);
+			height: var(--u-00-l);
+			border-left: solid var(--u-00-s) var(--subtitle);
+			border-top: solid var(--u-00-s) var(--subtitle);
+			transform: rotate(45deg);
+
+		}
+
+	}
+
+	.loading {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(255, 255, 255, 0.55);
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 10;
+
+	}
+
+}

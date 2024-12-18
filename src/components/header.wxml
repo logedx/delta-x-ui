@@ -1,0 +1,5 @@
+<view class="dx-header class" style="{{ style }}">
+	<dx-breadcrumb class="breadcrumb" back="{{ back }}" home="{{ home }}">
+		<slot />
+	</dx-breadcrumb>
+</view>

@@ -1,0 +1,42 @@
+<view class="dx-shelter" style="{{ style }}">
+	<breadcrumb
+		class="breadcrumb"
+		back="{{ back }}"
+		home="{{ home }}"
+		wx:if="{{ back || home }}"
+	>
+		<slot name="breadcrumb" />
+	</breadcrumb>
+
+	<scroll-view
+		scroll-y
+		enable-passive
+		scroll-with-animation
+		type="nested"
+		class="layout"
+		bounces="{{ false }}"
+		lower-threshold="{{ 0 }}"
+		upper-threshold="{{ 0 }}"
+		show-scrollbar="{{ false }}"
+		refresher-enabled="{{ false }}"
+		catch:touchmove="on_catch_touch_move"
+		bind:scrolltoupper="on_scroll_to_upper"
+		bind:scrolltolower="on_scroll_to_lower"
+	>
+		<nested-scroll-header>
+			<slot name="veil" />
+		</nested-scroll-header>
+
+		<nested-scroll-body>
+			<view class="body">
+				<view class="header">
+					<slot name="header" />
+				</view>
+
+				<view class="main class">
+					<slot />
+				</view>
+			</view>
+		</nested-scroll-body>
+	</scroll-view>
+</view>

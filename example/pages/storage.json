@@ -1,0 +1,13 @@
+{
+	"disableScroll": true,
+	"navigationStyle": "custom",
+	"usingComponents": {
+		"author": "/example/components/author",
+		"dx-layout": "/src/components/layout",
+		"dx-cassette": "/src/components/cassette",
+		"dx-nameplate": "/src/components/nameplate",
+		"dx-label": "/src/components/label",
+		"dx-icon": "/src/components/icon",
+		"dx-storage": "/src/components/storage"
+	}
+}

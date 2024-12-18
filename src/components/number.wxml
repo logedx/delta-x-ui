@@ -1,0 +1,21 @@
+<view class="dx-number class" style="{{ style }}">
+	<dx-directed
+		color="{{ negative ? 'var(--h-ab-00)' : 'var(--disabled)' }}"
+		bind:tap="on_switch_negative"
+		wx:if="{{ min < 0 }}"
+	>
+		<text class="label">负</text>
+	</dx-directed>
+
+	<input
+		hold-keyboard
+		value="{{ input }}"
+		focus="{{ focus }}"
+		cursor-spacing="{{ 150 }}"
+		placeholder="{{ placeholder }}"
+		type="{{ digit > 0 ? 'digit' : 'number' }}"
+		bind:keyboardheightchange="on_keyboard_height_change"
+		bind:focus="on_focus"
+		bind:blur="on_blur"
+	/>
+</view>

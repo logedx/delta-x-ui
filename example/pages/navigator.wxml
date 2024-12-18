@@ -1,0 +1,21 @@
+<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title">navigator</text>
+
+	<dx-nameplate class="nameplate" label="Preset">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/sign-right-filled.svg"
+		/>
+
+		<dx-label divider title="back">
+			<dx-back src="/example/icon/chevron-left.svg" />
+		</dx-label>
+
+		<dx-label divider title="home">
+			<dx-back src="/example/icon/home.svg" />
+		</dx-label>
+	</dx-nameplate>
+
+	<author slot="footer" />
+</dx-layout>

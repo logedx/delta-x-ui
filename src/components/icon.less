@@ -1,0 +1,47 @@
+.dx-icon {
+	--dx-icon-size: var(--u-03-xs);
+	--dx-icon-radius: 0;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	image,
+	.empty {
+		width: var(--dx-icon-size);
+		height: var(--dx-icon-size);
+		border-radius: var(--dx-icon-radius);
+
+	}
+
+	.empty {
+		position: relative;
+		z-index: 1;
+
+		&::before,
+		&::after {
+			content: '';
+			width: 100%;
+			height: 100%;
+			z-index: 0;
+			position: absolute;
+			left: 0;
+			top: 0;
+			background-repeat: repeat;
+			background-size: 50% 50%;
+
+		}
+
+		&::before {
+			background-image: linear-gradient(to bottom right, var(--background) 25%, transparent 25%);
+
+		}
+
+		&::after {
+			background-image: linear-gradient(to top left, var(--background) 25%, transparent 25%);
+
+		}
+
+	}
+
+}

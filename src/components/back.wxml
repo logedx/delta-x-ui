@@ -1,0 +1,6 @@
+<dx-icon
+	src="{{ src }}"
+	size="{{ size }}"
+	class="dx-back class"
+	bind:tap="on_navigate_back"
+/>
