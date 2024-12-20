@@ -33,6 +33,8 @@ export type TPopulatePaths = {
 }
 
 export type TVirtuals = {
+	is_super: boolean
+
 	is_usable: boolean
 	is_survive: boolean
 
