@@ -86,18 +86,33 @@ export function read_svg(src: string, color = 'none'): string {
 
 	}
 
-	let file_ = file.replace(/<svg (.+?)stroke="(.*?)"/g, `<svg $1stroke="${color}"`)
+	let stroke_replace = file.replace(/<svg (.+?)stroke="(.*?)"/g, `<svg $1stroke="${color}"`)
 
-
-	if (file === file_) {
+	if (file === stroke_replace) {
 		file = file.replace(/<svg /g, `<svg stroke="${color}" `)
 
 	}
 
 	else {
-		file = file_
+		file = stroke_replace
 
 	}
+
+
+	let fill_replace = file.replace(/<svg (.+?)fill="(.*?)"/g, `<svg $1fill="${color}"`)
+
+
+	if (file === fill_replace) {
+		file = file.replace(/<svg /g, `<svg fill="${color}" `)
+
+	}
+
+	else {
+		file = fill_replace
+
+	}
+
+
 
 	let data = base64.encode(file)
 
