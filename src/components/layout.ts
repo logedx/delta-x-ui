@@ -1,12 +1,6 @@
-import * as header from './header'
-import * as main from './main'
-
-export type TProperty = header.TProperty & main.TProperty & {
+export type TProperty = {
 	back: string
 	home: string
-
-	header: boolean
-	footer: boolean
 
 }
 
@@ -14,7 +8,7 @@ export type TProperty = header.TProperty & main.TProperty & {
 Component(
 	{
 		// eslint-disable-next-line @typescript-eslint/naming-convention
-		externalClasses: ['class', 'header-class', 'main-class', 'footer-class'],
+		externalClasses: ['class'],
 
 		options: {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
@@ -28,9 +22,6 @@ Component(
 		properties: {
 			back: { type: String, value: '' },
 			home: { type: String, value: '' },
-
-			header: { type: Boolean, value: false },
-			footer: { type: Boolean, value: false },
 
 		},
 

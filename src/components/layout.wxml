@@ -1,18 +1,20 @@
-<view class="dx-layout class">
+<view class="dx-layout">
 	<dx-header
 		back="{{ back }}"
 		home="{{ home }}"
-		class="header header-class"
-		wx:if="{{ back || home || header }}"
+		class="header"
+		wx:if="{{ back || home }}"
 	>
 		<slot name="header" />
 	</dx-header>
 
-	<dx-main class="main main-class">
+	<slot name="header" wx:else />
+
+	<dx-main class="main class">
 		<slot />
 	</dx-main>
 
-	<dx-footer class="footer footer-class" wx:if="{{ footer }}">
+	<dx-footer class="footer">
 		<slot name="footer" />
 	</dx-footer>
 </view>
