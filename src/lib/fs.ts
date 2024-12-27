@@ -26,7 +26,7 @@ export function lookup(v: string): string {
 
 export function read_file(
 	path: string,
-	encoding: WechatMiniprogram.ReadFileOption['encoding'] = 'binary',
+	encoding?: WechatMiniprogram.ReadFileOption['encoding'],
 
 ): Promise<ReadFileResult> {
 	let fs = wx.getFileSystemManager()
