@@ -275,11 +275,14 @@ export class Http {
 
 		let header = {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			'Accept': file.ext,
+			'Folder': option.folder,
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			'Accept': file.mine,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'Content-Length': String(file.size),
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			'Folder': option.folder,
+			'Content-Type': 'application/octet-stream',
+
 		}
 
 		return this.launch<T>(

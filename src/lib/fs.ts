@@ -10,6 +10,7 @@ export type ReadFile = {
 	path: string
 
 	size: number
+	mine: null | string
 
 	data: Promise<ReadFileResult>
 
@@ -132,11 +133,12 @@ export async function choose_image(quantity = 1): Promise<Array<ReadFile>> {
 
 	for (let v of files.tempFiles) {
 		let ext = lookup(v.path)
+		let mine = MineType.get(ext)
 
 		let data = read_file(v.path)
 
 		read.push(
-			{ ext, path: v.path, size: v.size, data },
+			{ ext, path: v.path, size: v.size, mine, data },
 
 		)
 
@@ -146,6 +148,43 @@ export async function choose_image(quantity = 1): Promise<Array<ReadFile>> {
 
 }
 
+
+export class MineType {
+	static #type: Record<string, string> = {
+		'gif': 'image/gif',
+		'jpg': 'image/jpeg',
+		'jpeg': 'image/jpeg',
+		'png': 'image/png',
+		'apng': 'image/apng',
+		'webp': 'image/webp',
+
+	}
+
+	static #extension: Record<string, string> = {
+		// eslint-disable-next-line @typescript-eslint/naming-convention
+		'image/gif': 'gif',
+		// eslint-disable-next-line @typescript-eslint/naming-convention
+		'image/jpeg': 'jpeg',
+		// eslint-disable-next-line @typescript-eslint/naming-convention
+		'image/png': 'png',
+		// eslint-disable-next-line @typescript-eslint/naming-convention
+		'image/apng': 'apng',
+		// eslint-disable-next-line @typescript-eslint/naming-convention
+		'image/webp': 'webp',
+
+	}
+
+	static to(type: string): null | string {
+		return this.#extension[type] ?? null
+
+	}
+
+	static get(extension: string): null | string {
+		return this.#type[extension] ?? null
+
+	}
+
+}
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
