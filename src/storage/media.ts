@@ -11,14 +11,27 @@ export async function create(
 	file: fs.ReadFile,
 
 ): Promise<string> {
+	let h = await create_(folder, file)
+
+	return h.data
+
+}
+
+export async function create_(
+	folder: string,
+
+	file: fs.ReadFile,
+
+): Promise<
+	WechatMiniprogram.RequestSuccessCallbackResult<string>
+
+> {
 	let h = await http.upload<string>(
 		file, { url: '/media', method: 'POST', folder },
 
 	)
 
-	let doc = await h.resp()
-
-	return doc.data
+	return h.resp()
 
 }
 
@@ -28,22 +41,37 @@ export async function create_many(
 	file: Array<fs.ReadFile>,
 
 ): Promise<Array<string>> {
+	let h = await create_many_(folder, file)
+
+	return h.map(v => v.data)
+
+}
+
+export async function create_many_(
+	folder: string,
+
+	file: Array<fs.ReadFile>,
+
+): Promise<
+	Array<
+		WechatMiniprogram.RequestSuccessCallbackResult<string>
+
+	>
+
+> {
 	let h = await http.upload_many<string>(
 		file, { url: '/media', method: 'POST', folder },
 
 	)
 
 	let doc = h.map(
-		v => v.resp().then(d => d.data),
+		v => v.resp(),
 
 	)
 
 	return Promise.all(doc)
 
 }
-
-
-
 
 export async function delete_(
 	src: string,
