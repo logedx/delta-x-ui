@@ -130,3 +130,25 @@ export function transform_property_to_date<
 	return { ...clone(source), ...value } as PropertyToDate<T, K>
 
 }
+
+
+export function case_insensitive_get<T extends object, K extends keyof T = keyof T>(
+	source: T,
+	name: K extends string ? Lowercase<K> : never,
+
+): T[K] {
+	for (let [k, v] of Object.entries(source)
+
+	) {
+		if (name === k.toLowerCase()
+
+		) {
+			return v as T[K]
+
+		}
+
+	}
+
+	throw new TypeError('property does not exist')
+
+}
