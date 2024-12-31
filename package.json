@@ -15,7 +15,7 @@
 		"./style/*": "./src/style/*"
 	},
 	"scripts": {
-		"prepare": "husky install",
+		"prepare": "npx husky",
 		"eslint": "npx tsc --noEmit && npx eslint **/*.ts --ignore-pattern dist --ignore-pattern miniprogram_npm",
 		"build": "npx gulp & cd src & npx tsc",
 		"release": "npx standard-version"
