@@ -73,28 +73,23 @@ export function much(
 
 }
 
-export function resize(value: string, size: string | Array<string> = 'w_750'): string {
-	if (detective.is_required_string(value)
+export function resize(value: string, width = 'w_750', ...process: Array<string>): string {
+	if (detective.is_empty_string(value)
 
 	) {
-		let args = ['resize']
-
-		if (detective.is_required_string(size)
-
-		) {
-			args.push(size)
-
-		}
-
-		else {
-			args.push(...size)
-
-		}
-
-		return `${value}?x-oss-process=image/${args.join(',')}`
+		return ''
 
 	}
 
-	return ''
+	let search = `x-oss-process=image/${['resize', width, ...process].join(',')}`
+
+	if (value.includes('?')
+
+	) {
+		return `${value}&${search}`
+
+	}
+
+	return `${value}?${search}`
 
 }
