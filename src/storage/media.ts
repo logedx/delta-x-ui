@@ -1,6 +1,7 @@
 import http from '../index.js'
 
-import * as fs from '../lib/fs'
+import * as fs from '../lib/fs.js'
+import * as request from '../lib/request.js'
 
 
 
@@ -23,10 +24,16 @@ export async function create_(
 	file: fs.ReadFile,
 
 ): Promise<
-	WechatMiniprogram.RequestSuccessCallbackResult<string>
+	request.HttpResult<
+		string,
+		// eslint-disable-next-line @typescript-eslint/naming-convention
+		{ 'X-Access-URI': string, 'X-Oss-Process': string }
+
+	>
 
 > {
-	let h = await http.upload<string>(
+	// eslint-disable-next-line @typescript-eslint/naming-convention
+	let h = await http.upload<string, { 'X-Access-URI': string, 'X-Oss-Process': string }>(
 		file, { url: '/media', method: 'POST', folder },
 
 	)
@@ -54,7 +61,7 @@ export async function create_many_(
 
 ): Promise<
 	Array<
-		WechatMiniprogram.RequestSuccessCallbackResult<string>
+		request.HttpResult<string>
 
 	>
 

@@ -17,6 +17,16 @@ export type FailResult = {
 export type SuccessRestult = string | ArrayBuffer | WechatMiniprogram.IAnyObject
 
 
+export type HttpResult<
+	T extends SuccessRestult,
+	H extends object = object
+
+> = Omit<WechatMiniprogram.RequestSuccessCallbackResult<T>, 'header'>
+	& {
+		header: H
+
+	}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type HttpFunction = (...args: Array<any>) => Promise<any>
 
@@ -124,18 +134,18 @@ export class Http {
 
 	}
 
-	create<T extends SuccessRestult>(
+	create<T extends SuccessRestult, H extends object = object>(
 		option: WechatMiniprogram.RequestOption | Promise<WechatMiniprogram.RequestOption>,
 
-	): HttpTask<T> {
-		return new HttpTask<T>(this.#hostname, option)
+	): HttpTask<T, H> {
+		return new HttpTask<T, H>(this.#hostname, option)
 
 	}
 
-	launch<T extends SuccessRestult>(
+	launch<T extends SuccessRestult, H extends object = object>(
 		option: WechatMiniprogram.RequestOption,
 
-	): HttpTask<T> {
+	): HttpTask<T, H> {
 		let o = this.#option_transform(
 			{ ...this.#default_option, ...option },
 
@@ -184,93 +194,96 @@ export class Http {
 
 		}
 
-		return this.create<T>(o)
+		return this.create<T, H>(o)
 
 	}
 
-	head<T extends SuccessRestult>(
+	head<T extends SuccessRestult, H extends object = object>(
 		url: string,
 		header?: WechatMiniprogram.RequestOption['header'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'header'>,
 
-	): HttpTask<T> {
-		return this.launch<T>(
+	): HttpTask<T, H> {
+		return this.launch<T, H>(
 			{ ...option, url, header, method: 'HEAD' },
 
 		)
 
 	}
 
-	get<T extends SuccessRestult>(
+	get<T extends SuccessRestult, H extends object = object>(
 		url: string,
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
 
-	): HttpTask<T> {
-		return this.launch<T>(
+	): HttpTask<T, H> {
+		return this.launch<T, H>(
 			{ ...option, url, data, method: 'GET' },
 
 		)
 
 	}
 
-	post<T extends SuccessRestult>(
+	post<T extends SuccessRestult, H extends object = object>(
 		url: string,
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
 
-	): HttpTask<T> {
-		return this.launch<T>(
+	): HttpTask<T, H> {
+		return this.launch<T, H>(
 			{ ...option, url, data, method: 'POST' },
 
 		)
 
 	}
 
-	put<T extends SuccessRestult>(
+	put<T extends SuccessRestult, H extends object = object>(
 		url: string,
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
 
-	): HttpTask<T> {
-		return this.launch<T>(
+	): HttpTask<T, H> {
+		return this.launch<T, H>(
 			{ ...option, url, data, method: 'PUT' },
 
 		)
 
 	}
 
-	delete<T extends SuccessRestult>(
+	delete<T extends SuccessRestult, H extends object = object>(
 		url: string,
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
 
-	): HttpTask<T> {
-		return this.launch<T>(
+	): HttpTask<T, H> {
+		return this.launch<T, H>(
 			{ ...option, url, data, method: 'DELETE' },
 
 		)
 
 	}
 
-	option<T extends SuccessRestult>(
+	option<T extends SuccessRestult, H extends object = object>(
 		url: string,
 		header?: WechatMiniprogram.RequestOption['header'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'header'>,
 
-	): HttpTask<T> {
-		return this.launch<T>(
+	): HttpTask<T, H> {
+		return this.launch<T, H>(
 			{ ...option, url, header, method: 'OPTIONS' },
 
 		)
 
 	}
 
-	async upload<T extends SuccessRestult>(
+	async upload<T extends SuccessRestult, H extends object = object>(
 		file: fs.ReadFile,
 		option: HttpUploadOption,
 
-	): Promise<HttpTask<T>> {
+	): Promise<
+		HttpTask<T, H>
+
+	> {
 		let data = await file.data
 
 		let header = {
@@ -285,20 +298,26 @@ export class Http {
 
 		}
 
-		return this.launch<T>(
+		return this.launch<T, H>(
 			{ url: option.url, method: option.method, data, header },
 
 		)
 
 	}
 
-	async upload_many<T extends SuccessRestult>(
+	async upload_many<T extends SuccessRestult, H extends object = object>(
 		files: Array<fs.ReadFile>,
 		option: HttpUploadOption,
 
-	): Promise<Array<HttpTask<T>>> {
+	): Promise<
+		Array<
+			HttpTask<T, H>
+
+		>
+
+	> {
 		let queue = files.map(
-			v => this.upload<T>(v, option),
+			v => this.upload<T, H>(v, option),
 
 		)
 
@@ -339,10 +358,13 @@ export class Http {
 
 }
 
-export class HttpTask<T extends SuccessRestult> {
+export class HttpTask<T extends SuccessRestult, H extends object = object> {
 	#task = null as null | WechatMiniprogram.RequestTask
 
-	#resp: Promise<WechatMiniprogram.RequestSuccessCallbackResult<T>>
+	#resp: Promise<
+		HttpResult<T, H>
+
+	>
 
 	constructor(
 		hostname: string,
@@ -368,7 +390,7 @@ export class HttpTask<T extends SuccessRestult> {
 
 	}
 
-	resp(): Promise<WechatMiniprogram.RequestSuccessCallbackResult<T>> {
+	resp(): Promise<HttpResult<T, H>> {
 		return this.#resp
 
 	}
@@ -455,8 +477,15 @@ export class HttpTask<T extends SuccessRestult> {
 
 	}
 
-	#create_task(hostname: string, option: WechatMiniprogram.RequestOption): Promise<WechatMiniprogram.RequestSuccessCallbackResult<T>> {
-		return new Promise<WechatMiniprogram.RequestSuccessCallbackResult<T>>(
+	#create_task(
+		hostname: string,
+		option: WechatMiniprogram.RequestOption,
+
+	): Promise<
+		HttpResult<T, H>
+
+	> {
+		return new Promise<HttpResult<T, H>>(
 			(resolve, reject) => {
 				this.#task = wx.request<T>(
 					{
@@ -479,7 +508,7 @@ export class HttpTask<T extends SuccessRestult> {
 							}
 
 							else {
-								resolve(res)
+								resolve(res as HttpResult<T, H>)
 
 							}
 
