@@ -1,4 +1,5 @@
 import { Variable } from '../lib/style.js'
+import * as detecive from '../lib/detective.js'
 
 export type TProperty = {
 	src: string
@@ -40,12 +41,19 @@ Component(
 
 		methods: {
 			set_style(): void {
-				let { size, square } = this.data
+				let { src, size, square } = this.data
 
-				let css = new Variable<'radius' | 'image-size'>('dx', 'avatar')
+				let css = new Variable<'radius' | 'background-display' | 'image-size'>('dx', 'avatar')
 
 				if (square) {
 					css.set('radius', 'var(--radius)')
+
+				}
+
+				if (detecive.is_empty_string(src)
+
+				) {
+					css.set('background-display', 'block')
 
 				}
 
