@@ -4,7 +4,12 @@ import * as fs from '../lib/fs.js'
 import * as request from '../lib/request.js'
 
 
+export type CreateResult = 	request.HttpResult<
+		string,
+		// eslint-disable-next-line @typescript-eslint/naming-convention
+		{ 'X-Access-URI': string, 'X-Oss-Process': string }
 
+	>
 
 export async function create(
 	folder: string,
@@ -23,17 +28,8 @@ export async function create_(
 
 	file: fs.ReadFile,
 
-): Promise<
-	request.HttpResult<
-		string,
-		// eslint-disable-next-line @typescript-eslint/naming-convention
-		{ 'X-Access-URI': string, 'X-Oss-Process': string }
-
-	>
-
-> {
-	// eslint-disable-next-line @typescript-eslint/naming-convention
-	let h = await http.upload<string, { 'X-Access-URI': string, 'X-Oss-Process': string }>(
+): Promise<CreateResult> {
+	let h = await http.upload<string, CreateResult['header']>(
 		file, { url: '/media', method: 'POST', folder },
 
 	)
@@ -60,13 +56,10 @@ export async function create_many_(
 	file: Array<fs.ReadFile>,
 
 ): Promise<
-	Array<
-		request.HttpResult<string>
-
-	>
+	Array<CreateResult>
 
 > {
-	let h = await http.upload_many<string>(
+	let h = await http.upload_many<string, CreateResult['header']>(
 		file, { url: '/media', method: 'POST', folder },
 
 	)
