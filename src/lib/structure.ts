@@ -1,5 +1,24 @@
 import * as detective from './detective.js'
 
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type UnionToInterFunction<U> = U extends any ? (k: () => U) => void : never
+
+export type GetUnionLastElement<U> = UnionToInterFunction<U> extends (a: infer I) => void
+	? I extends () => infer R
+	? R
+	: never
+	: never
+
+export type UnionToTuple<
+	T,
+	E = Exclude<T, undefined>,
+	L = GetUnionLastElement<T>
+
+> = [E] extends [never]
+	? []
+	: [...UnionToTuple<Exclude<E, L>>, L,]
+
 export type OptionalPropertyOf<T extends object> = Exclude<
 	{ [K in keyof T]: T extends Record<K, T[K]> ? never : K }[keyof T],
 
