@@ -62,7 +62,7 @@ export function clone<T>(target: T): T {
 	if (detective.is_object(target)
 
 	) {
-		let value = {} as Record<detective.Key, unknown>
+		let value = {} as Record<PropertyKey, unknown>
 
 		for (let v in target) {
 			if (Object.prototype.hasOwnProperty.call(target, v)
