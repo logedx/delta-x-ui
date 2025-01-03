@@ -498,6 +498,9 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 								if (is_fail_result(res.data)
 
 								) {
+									e.code = res.statusCode
+									e.header = res.header
+
 									e.message = res.data.message
 									e.exception = res.data.stack
 
@@ -534,9 +537,35 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 }
 
 export class HttpError extends Error {
+	code = 400
+
+	#header = {}
+
 	#stack = '' as string
 
 	#exception = [] as Array<string>
+
+	set header(v: object) {
+		this.#header = v
+
+	}
+
+	get(key: string): string {
+		for (let [k, v] of Object.entries(this.#header)
+
+		) {
+			if (k.toLowerCase() === key.toLowerCase()
+
+			) {
+				return v as string
+
+			}
+
+		}
+
+		throw new TypeError('key is not exist')
+
+	}
 
 	set stack(v: string) {
 		this.#stack = v
