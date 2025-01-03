@@ -83,6 +83,30 @@ export function clone<T>(target: T): T {
 
 }
 
+export function get<T>(
+	source: object,
+	name: PropertyKey,
+
+	_default: T,
+
+): T {
+	let nk = name.toString().toLowerCase()
+
+	for (let [k, v] of Object.entries(source)
+
+	) {
+		if (nk === k.toLowerCase()
+
+		) {
+			return clone(v) as T
+
+		}
+
+	}
+
+	return _default
+
+}
 
 export function pick<T extends object, K extends keyof T>(
 	source: T,
@@ -99,7 +123,6 @@ export function pick<T extends object, K extends keyof T>(
 	return value
 
 }
-
 
 export function omit<
 	T extends object,
@@ -120,7 +143,6 @@ export function omit<
 	return value
 
 }
-
 
 export function transform_property_to_date<
 	T extends object,
@@ -147,27 +169,5 @@ export function transform_property_to_date<
 	}
 
 	return { ...clone(source), ...value } as PropertyToDate<T, K>
-
-}
-
-
-export function case_insensitive_get<T extends object, K extends keyof T = keyof T>(
-	source: T,
-	name: K extends string ? Lowercase<K> : never,
-
-): T[K] {
-	for (let [k, v] of Object.entries(source)
-
-	) {
-		if (name === k.toLowerCase()
-
-		) {
-			return v as T[K]
-
-		}
-
-	}
-
-	throw new TypeError('property does not exist')
 
 }
