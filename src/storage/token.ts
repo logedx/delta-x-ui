@@ -17,11 +17,11 @@ export type TokenHeader = {
 
 export type TokenResult = Pick<token_model.TRawDocType, 'value' | 'refresh' | 'expire'>
 
-export type TokenResultStructure = structure.PropertyToDate<TokenResult, 'expire'>
+export type TokenResultStructure = structure.PropertyTransformResult<TokenResult, Date, 'expire'>
 
 export type TokenScope = Pick<token_model.TRawDocType, 'expire' | 'scope'> & Pick<token_model.TVirtuals, 'is_super'>
 
-export type TokenScopeStructure= structure.PropertyToDate<TokenScope, 'expire'>
+export type TokenScopeStructure= structure.PropertyTransformResult<TokenScope, Date, 'expire'>
 
 
 export async function create(): Promise<TokenResultStructure> {
@@ -32,7 +32,7 @@ export async function create(): Promise<TokenResultStructure> {
 
 	let doc = await h.resp()
 
-	return structure.transform_property_to_date(doc.data, 'expire')
+	return structure.Transform.date(doc.data, 'expire')
 
 }
 
@@ -45,7 +45,7 @@ export async function update(header: TokenHeader): Promise<TokenResultStructure>
 
 	let doc = await h.resp()
 
-	return structure.transform_property_to_date(doc.data, 'expire')
+	return structure.Transform.date(doc.data, 'expire')
 
 }
 
@@ -55,7 +55,7 @@ export async function retrieve(): Promise<TokenScopeStructure> {
 
 	let doc = await h.resp()
 
-	return structure.transform_property_to_date(doc.data, 'expire')
+	return structure.Transform.date(doc.data, 'expire')
 
 }
 
