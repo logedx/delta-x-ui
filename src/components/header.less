@@ -1,17 +1,17 @@
 .dx-header {
 	--dx-header-top: auto;
-	--dx-header-height: 32px;
-	--dx-header-menu-width: 88px;
-	--dx-header-width: calc(100vw - 24px - var(--dx-header-menu-width));
+	--dx-header-left: 0;
+	--dx-header-right: 0;
+	--dx-header-min-height: 32px;
 
 
-	box-sizing: content-box;
-	width: var(--dx-header-width);
-	height: var(--dx-header-height);
+	box-sizing: border-box;
+	width: calc(100% - var(--dx-header-left) - var(--dx-header-right));
+	min-height: var(--dx-header-min-height);
 	padding-top: var(--dx-header-top);
+	padding-left: var(--dx-header-left);
+	padding-right: var(--dx-header-right);
 	padding-bottom: var(--u-01-m);
-	padding-left: 8px;
-	padding-right: calc(16px + var(--dx-header-menu-width));
 	position: relative;
 
 	.breadcrumb {

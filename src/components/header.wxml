@@ -1,5 +1,12 @@
 <view class="dx-header class" style="{{ style }}">
-	<dx-breadcrumb class="breadcrumb" back="{{ back }}" home="{{ home }}">
+	<dx-breadcrumb
+		class="breadcrumb"
+		back="{{ back }}"
+		home="{{ home }}"
+		wx:if="{{ back || home }}"
+	>
 		<slot />
 	</dx-breadcrumb>
+
+	<slot wx:else />
 </view>

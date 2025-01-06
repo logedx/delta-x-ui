@@ -1,4 +1,5 @@
 import { Variable } from '../lib/style.js'
+import * as detective from '../lib/detective.js'
 
 export type TProperty = {
 	back: string
@@ -39,13 +40,22 @@ Component(
 
 		methods: {
 			set_style(): void {
+				let { back, home } = this.data
 				let menu = wx.getMenuButtonBoundingClientRect()
 
-				let css = new Variable<'top' | 'height' | 'menu-width'>('dx', 'header')
+				let css = new Variable<'top' | 'left' | 'right' | 'min-height'>('dx', 'header')
 
 				css.set('top', `${menu.top}px`)
-				css.set('height', `${menu.height}px`)
-				css.set('menu-width', `${menu.width}px`)
+				css.set('min-height', `${menu.height}px`)
+
+				if (detective.is_required_string(back)
+					|| detective.is_required_string(home)
+
+				) {
+					css.set('left', '8px')
+					css.set('right', `calc(24px + ${menu.width}px)`)
+
+				}
 
 				this.setData(
 					{ style: css.to_string() },
