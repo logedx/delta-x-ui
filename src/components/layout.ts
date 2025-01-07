@@ -22,6 +22,7 @@ Component(
 		properties: {
 			back: { type: String, value: '' },
 			home: { type: String, value: '' },
+			loading: { type: Boolean, value: false },
 
 		},
 

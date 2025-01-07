@@ -10,11 +10,17 @@
 
 	<slot name="header" wx:else />
 
-	<dx-main class="main class">
-		<slot />
-	</dx-main>
+	<view class="loading" wx:if="{{ loading }}">
+		<dx-loading />
+	</view>
 
-	<dx-footer class="footer">
-		<slot name="footer" />
-	</dx-footer>
+	<block wx:else>
+		<dx-main class="main class">
+			<slot />
+		</dx-main>
+
+		<dx-footer class="footer">
+			<slot name="footer" />
+		</dx-footer>
+	</block>
 </view>
