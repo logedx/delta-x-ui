@@ -1,8 +1,8 @@
 <dx-layout
 	solid
 	scroll
-	home="{{ white('/example/icon/home.svg') }}"
-	back="{{ white('/example/icon/chevron-left.svg') }}"
+	home="/example/icon/home.svg"
+	back="/example/icon/chevron-left.svg"
 	main-class="main"
 	header-class="header"
 >

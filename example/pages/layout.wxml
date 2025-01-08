@@ -4,7 +4,7 @@
 	main-class="main"
 	header-class="header"
 	footer-class="footer"
-	back="{{ white('/example/icon/chevron-left.svg') }}"
+	back="/example/icon/chevron-left.svg"
 >
 	<text slot="header" class="title">layout</text>
 

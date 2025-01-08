@@ -19,7 +19,7 @@
 					<dx-icon
 						slot="icon"
 						size="var(--u-08-l)"
-						src="{{ disabled('/example/icon/camera.svg') }}"
+						src="'/example/icon/camera.svg'"
 					/>
 				</view>
 			</dx-welded>

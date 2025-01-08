@@ -1,6 +1,6 @@
 <dx-shelter
 	class="main"
-	back="{{ white('/example/icon/chevron-left.svg') }}"
+	back="/example/icon/chevron-left.svg'"
 	bind:lower="on_lower"
 >
 	<view slot="veil" class="veil" />

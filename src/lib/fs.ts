@@ -66,62 +66,6 @@ export function read_file(
 }
 
 
-
-export function read_svg(src: string, color = 'none'): string {
-	let fs = wx.getFileSystemManager()
-
-	let file = fs.readFileSync(src, 'utf8')
-
-	if (detective.is_array_buffer(file)
-
-	) {
-		return ''
-
-	}
-
-	if (detective.is_empty_string(color)
-
-	) {
-		color = 'none'
-
-	}
-
-	let stroke_replace = file.replace(/<svg (.+?)stroke="(.*?)"/g, `<svg $1stroke="${color}"`)
-
-	if (file === stroke_replace) {
-		file = file.replace(/<svg /g, `<svg stroke="${color}" `)
-
-	}
-
-	else {
-		file = stroke_replace
-
-	}
-
-
-	let fill_replace = file.replace(/<svg (.+?)fill="(.*?)"/g, `<svg $1fill="${color}"`)
-
-
-	if (file === fill_replace) {
-		file = file.replace(/<svg /g, `<svg fill="${color}" `)
-
-	}
-
-	else {
-		file = fill_replace
-
-	}
-
-
-
-	let data = base64.encode(file)
-
-	return `data:image/svg+xml;base64,${data}`
-
-}
-
-
-
 export async function choose_image(quantity = 1): Promise<Array<ReadFile>> {
 	let files = await wx.chooseImage(
 		{ count: quantity },
