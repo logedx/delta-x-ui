@@ -1,5 +1,10 @@
-<view class="dx-icon class" style="{{ style }}">
-	<image fade-in mode="aspectFill" src="{{ src }}" wx:if="{{ src }}" />
+<image
+	fade-in
+	mode="aspectFill"
+	class="dx-icon"
+	src="{{ src }}"
+	style="{{ style }}"
+	wx:if="{{ src }}"
+/>
 
-	<view class="empty" wx:else />
-</view>
+<span class="dx-icon" style="{{ style }}" wx:else />

@@ -1,4 +1,5 @@
 import { Variable } from '../lib/style.js'
+import * as detecive from '../lib/detective.js'
 
 export type TProperty = {
 	src: string
@@ -10,15 +11,6 @@ export type TProperty = {
 
 Component(
 	{
-		// eslint-disable-next-line @typescript-eslint/naming-convention
-		externalClasses: ['class'],
-
-		options: {
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			virtualHost: true,
-
-		},
-
 		properties: {
 			src: { type: String, value: '' },
 			size: { type: String, value: 'var(--u-06-s)' },
@@ -28,7 +20,6 @@ Component(
 
 		data: {
 			style: '',
-
 		},
 
 		lifetimes: {
@@ -41,14 +32,23 @@ Component(
 
 		methods: {
 			set_style(): void {
-				let { size, radius } = this.data
+				let { src, size, radius } = this.data
 
-				let css = new Variable<'size' | 'radius'>('dx', 'icon')
+				let css = new Variable<'size' | 'radius' | 'background-display'>('dx', 'icon')
 
 				css.set('size', size)
 
-				if (radius) {
+				if (detecive.is_required_string(radius)
+
+				) {
 					css.set('radius', radius)
+
+				}
+
+				if (detecive.is_empty_string(src)
+
+				) {
+					css.set('background-display', 'block')
 
 				}
 
@@ -56,6 +56,7 @@ Component(
 					{ style: css.to_string() },
 
 				)
+
 
 			},
 

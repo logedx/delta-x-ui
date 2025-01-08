@@ -11,15 +11,6 @@ export type TProperty = {
 
 Component(
 	{
-		// eslint-disable-next-line @typescript-eslint/naming-convention
-		externalClasses: ['class'],
-
-		options: {
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			virtualHost: true,
-
-		},
-
 		properties: {
 			src: { type: String, value: '' },
 			size: { type: String, value: 'var(--u-06-s)' },
@@ -43,7 +34,9 @@ Component(
 			set_style(): void {
 				let { src, size, square } = this.data
 
-				let css = new Variable<'radius' | 'background-display' | 'image-size'>('dx', 'avatar')
+				let css = new Variable<'size' | 'radius' | 'background-display'>('dx', 'avatar')
+
+				css.set('size', size)
 
 				if (square) {
 					css.set('radius', 'var(--radius)')
@@ -56,9 +49,6 @@ Component(
 					css.set('background-display', 'block')
 
 				}
-
-				css.set('image-size', size)
-
 
 				this.setData(
 					{ style: css.to_string() },
