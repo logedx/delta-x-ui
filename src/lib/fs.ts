@@ -1,8 +1,4 @@
-import base64 from 'base-64'
-
 import * as detective from './detective.js'
-
-export type ReadFileResult = WechatMiniprogram.ReadFileSuccessCallbackResult['data']
 
 export type ReadFile = {
 	ext: string
@@ -11,7 +7,7 @@ export type ReadFile = {
 	size: number
 	mine: null | string
 
-	data: Promise<ReadFileResult>
+	data: WechatMiniprogram.ReadFileSuccessCallbackResult['data']
 
 }
 
@@ -23,14 +19,17 @@ export function lookup(v: string): string {
 }
 
 
-export function read_file(
+export function read(
 	path: string,
 	encoding?: WechatMiniprogram.ReadFileOption['encoding'],
 
-): Promise<ReadFileResult> {
+): Promise<ReadFile> {
+	let ext = lookup(path)
+	let mine = MineType.get(ext)
+
 	let fs = wx.getFileSystemManager()
 
-	return new Promise<ReadFileResult>(
+	return new Promise<ReadFile>(
 		(resolve, reject) => {
 			fs.readFile(
 				{
@@ -41,7 +40,26 @@ export function read_file(
 
 					success(res): void {
 						if (res.errMsg === 'readFile:ok') {
-							resolve(res.data)
+							let size = 0
+
+							if (detective.is_string(res.data)
+
+							) {
+								size = res.data.length
+
+							}
+
+							if (detective.is_array_buffer(res.data)
+
+							) {
+								size = res.data.byteLength
+
+							}
+
+							resolve(
+								{ ext, path, size, mine, data: res.data },
+
+							)
 
 						}
 
@@ -67,27 +85,19 @@ export function read_file(
 
 
 export async function choose_image(quantity = 1): Promise<Array<ReadFile>> {
-	let files = await wx.chooseImage(
+	let paths = await wx.chooseImage(
 		{ count: quantity },
 
 	)
 
-	let read = [] as Array<ReadFile>
+	return Promise.all(
+		paths.tempFiles
+			.map(
+				v => read(v.path),
 
-	for (let v of files.tempFiles) {
-		let ext = lookup(v.path)
-		let mine = MineType.get(ext)
+			),
 
-		let data = read_file(v.path)
-
-		read.push(
-			{ ext, path: v.path, size: v.size, mine, data },
-
-		)
-
-	}
-
-	return read
+	)
 
 }
 
