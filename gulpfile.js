@@ -9,7 +9,7 @@ export const clean = () => del.deleteAsync(['dist'])
 
 
 
-export function template() {
+export function copy() {
 	return gulp
 		.src(
 			[
@@ -22,6 +22,8 @@ export function template() {
 				'!src/tsconfig.json',
 			],
 
+			{ encoding: false },
+			
 		)
 		.pipe(
 			gulp.dest('dist'),
@@ -58,6 +60,6 @@ export function style() {
 export default gulp.series(
 	clean,
 
-	gulp.parallel(template, style),
+	gulp.parallel(copy, style),
 
 )
