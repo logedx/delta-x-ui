@@ -74,15 +74,10 @@ export async function create_many_(
 }
 
 export async function delete_(
-	src: string,
+	...src: Array<string>
 
 ): Promise<void> {
-	let h = http.delete(
-		'/media',
-
-		{ src },
-
-	)
+	let h = http.delete('/media', src)
 
 	await h.resp()
 
