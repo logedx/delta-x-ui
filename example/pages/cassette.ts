@@ -6,8 +6,13 @@ Component(
 		},
 
 		methods: {
-			on_last(): void {
-				console.log('last')
+			on_upper(): void {
+				console.log('upper')
+
+			},
+
+			on_lower(): void {
+				console.log('lower')
 
 			},
 

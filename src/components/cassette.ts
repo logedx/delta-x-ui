@@ -1,13 +1,34 @@
+enum Active {
+	none,
+	last,
+	refresh,
+
+}
+
+enum Direction {
+	none = '',
+	up = 'up',
+	down = 'down',
+
+}
+
+enum Event {
+	upper = 'upper',
+	lower = 'lower',
+	refresh = 'refresh',
+
+}
+
+
 export type TProperty = {
-	loading: boolean
-	refresh: boolean
-
 	into: string
-	type: 'list' | 'custom'
+	loading: boolean
 
-	nested: boolean
+	lister: boolean
+	refresher: boolean
+	container?: 'draggable-sheet' | 'nested-scroll-view' | 'pop-gesture'
 
-	direction: '' | 'up' | 'down'
+	direction: Direction
 
 }
 
@@ -26,25 +47,32 @@ Component(
 		},
 
 		properties: {
-			loading: { type: Boolean, value: false },
-			refresh: { type: Boolean, value: false },
-
 			into: { type: String, value: '' },
-			type: { type: String, value: 'list' },
+			loading: { type: Boolean, value: false },
 
-			nested: { type: Boolean, value: false },
+			lister: { type: Boolean, value: false },
+			refresher: { type: Boolean, value: false },
+			container: { type: String, value: '' },
 
-			direction: { type: String, value: '' },
+			direction: { type: String, value: Direction.none },
 
 		},
 
 		data: {
 			mark: 0,
-			lock: true,
+			into_anchor: '',
 
-			anchor: '',
+			active: Active.none,
 
-			active: '' as '' | 'last' | 'refresh',
+			is_triggered(
+				refresher: boolean,
+				loading: boolean,
+				active: Active,
+
+			): boolean {
+				return refresher && loading && active === Active.refresh
+
+			},
 
 		},
 
@@ -52,13 +80,13 @@ Component(
 			loading(v: boolean): void {
 				let { active } = this.data
 
-				if (v === false) {
-					active = ''
+				if (v === false && active === Active.refresh) {
+					active = Active.none
 
 				}
 
 				this.setData(
-					{ lock: v, active },
+					{ active },
 
 				)
 
@@ -92,9 +120,9 @@ Component(
 
 		methods: {
 			docked(): void {
-				let { lock, into, anchor } = this.data
+				let { loading, into, into_anchor } = this.data
 
-				if (lock || into === anchor) {
+				if (loading || into === into_anchor) {
 					return
 
 				}
@@ -132,15 +160,15 @@ Component(
 				let v = e.detail.scrollTop
 
 
-				let direction = ''
+				let direction = Direction.none
 
 				if (v > mark) {
-					direction = 'up'
+					direction = Direction.up
 
 				}
 
 				if (v < mark) {
-					direction = 'down'
+					direction = Direction.down
 
 				}
 
@@ -156,7 +184,7 @@ Component(
 				wx.nextTick(
 					() => {
 						this.setData(
-							{ mark: 0, lock: false, direction: '' },
+							{ mark: 0, lock: false, direction: Direction.none },
 
 						)
 
@@ -167,7 +195,7 @@ Component(
 			},
 
 			on_scroll_to_upper(): void {
-				this.triggerEvent('upper')
+				this.triggerEvent(Event.upper)
 
 			},
 
@@ -179,9 +207,9 @@ Component(
 
 				}
 
-				this.triggerEvent('lower')
+				this.triggerEvent(Event.lower)
 				this.setData(
-					{ loading: false, active: 'last' },
+					{ loading: false, active: Active.last },
 
 				)
 
@@ -196,9 +224,9 @@ Component(
 
 				}
 
-				this.triggerEvent('refresh')
+				this.triggerEvent(Event.refresh)
 				this.setData(
-					{ loading: true, active: 'refresh' },
+					{ loading: true, active: Active.refresh },
 
 				)
 

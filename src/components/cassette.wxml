@@ -3,13 +3,13 @@
 	enable-passive
 	scroll-with-animation
 	class="dx-cassette class"
-	type="{{ type }}"
+	type="{{ lister ? 'list' : 'custom' }}"
 	bounces="{{ false }}"
 	show-scrollbar="{{ false }}"
-	scroll-into-view="{{ anchor }}"
-	refresher-enabled="{{ refresh }}"
-	refresher-triggered="{{ active === 'refresh' && loading }}"
-	associative-container="{{ nested ? 'nested-scroll-view' : '' }}"
+	scroll-into-view="{{ into_anchor }}"
+	refresher-enabled="{{ refresher }}"
+	refresher-triggered="{{ is_triggered(refresher, loading, active) }}"
+	associative-container="{{ container }}"
 	catch:touchmove="on_catch_touch_move"
 	bind:scrollstart="on_scroll_start"
 	bind:scroll="on_scroll"

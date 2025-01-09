@@ -2,9 +2,10 @@
 	<text slot="header" class="title">cassette</text>
 
 	<dx-cassette
-		refresh
+		refresher
 		model:loading="{{ loading }}"
-		bind:last="on_last"
+		bind:upper="on_upper"
+		bind:lower="on_lower"
 		bind:refresh="on_refresh"
 	>
 		<text class="slot">slot:default</text>

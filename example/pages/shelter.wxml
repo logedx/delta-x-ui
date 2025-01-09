@@ -7,7 +7,7 @@
 
 	<view slot="header" class="header" />
 
-	<dx-cassette nested>
+	<dx-cassette container="nested-scroll-view">
 		<dx-nameplate class="nameplate" label="Color">
 			<dx-icon
 				slot="icon"
