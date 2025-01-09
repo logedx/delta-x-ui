@@ -17,7 +17,7 @@
 		</dx-label>
 	</dx-nameplate>
 
-	<dx-nameplate class="nameplate" label="Color">
+	<dx-nameplate class="nameplate" label="Icon">
 		<dx-icon
 			slot="icon"
 			size="var(--u-04-xs)"
@@ -29,7 +29,9 @@
 		</dx-label>
 
 		<dx-label title="customize">
-			<dx-loading color="var(--red)" />
+			<dx-loading
+				src="/example/icon/autorenew_128dp_7CA7D8_FILL0_wght500_GRAD0_opsz48.png"
+			/>
 		</dx-label>
 	</dx-nameplate>
 

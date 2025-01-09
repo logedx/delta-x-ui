@@ -1,1 +1,5 @@
-<text class="dx-loading class" style="{{ style }}" />
+<image
+	class="dx-loading"
+	style="{{ style }}"
+	src="{{ src || '../icon/progress_activity_128dp_7CA7D8_FILL0_wght500_GRAD0_opsz48.png' }}"
+/>

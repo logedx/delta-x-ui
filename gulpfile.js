@@ -13,6 +13,7 @@ export function template() {
 	return gulp
 		.src(
 			[
+				'src/**/*.png',
 				'src/**/*.wxs',
 				'src/**/*.wxml',
 				'src/**/*.json',
