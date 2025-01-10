@@ -4,7 +4,15 @@ import * as fs from '../lib/fs.js'
 import * as request from '../lib/request.js'
 
 
-export type CreateResult = 	request.HttpResult<
+export type CreateOption = {
+	name: string
+	model: string
+
+	folder: string
+
+}
+
+export type CreateResult = request.HttpResult<
 		string,
 		// eslint-disable-next-line @typescript-eslint/naming-convention
 		{ 'X-Access-URI': string, 'X-Oss-Process': string }
@@ -12,25 +20,23 @@ export type CreateResult = 	request.HttpResult<
 	>
 
 export async function create(
-	folder: string,
-
 	file: fs.ReadFile,
+	option: CreateOption,
 
 ): Promise<string> {
-	let h = await create_(folder, file)
+	let h = await create_(file, option)
 
 	return h.data
 
 }
 
 export async function create_(
-	folder: string,
-
 	file: fs.ReadFile,
+	option: CreateOption,
 
 ): Promise<CreateResult> {
 	let h = await http.upload<string, CreateResult['header']>(
-		file, { url: '/media', method: 'POST', folder },
+		file, { ...option, url: '/media', method: 'POST' },
 
 	)
 
@@ -39,28 +45,26 @@ export async function create_(
 }
 
 export async function create_many(
-	folder: string,
-
 	file: Array<fs.ReadFile>,
+	option: CreateOption,
 
 ): Promise<Array<string>> {
-	let h = await create_many_(folder, file)
+	let h = await create_many_(file, option)
 
 	return h.map(v => v.data)
 
 }
 
 export async function create_many_(
-	folder: string,
-
 	file: Array<fs.ReadFile>,
+	option: CreateOption,
 
 ): Promise<
 	Array<CreateResult>
 
 > {
 	let h = await http.upload_many<string, CreateResult['header']>(
-		file, { url: '/media', method: 'POST', folder },
+		file, { ...option, url: '/media', method: 'POST' },
 
 	)
 

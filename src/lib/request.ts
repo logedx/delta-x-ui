@@ -49,9 +49,11 @@ export type Httpblockage = {
 
 
 export type HttpUploadOption = {
+	name: string
+	model: string
+	folder: string
 	url: string
 	method: WechatMiniprogram.RequestOption['method']
-	folder: string
 
 }
 
@@ -284,13 +286,17 @@ export class Http {
 		HttpTask<T, H>
 
 	> {
-		let data = await file.data
-
 		let header = {
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			'Name': option.name,
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			'Model': option.model,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'Folder': option.folder,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'Accept': file.mine,
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			'Hash': file.hash,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'Content-Length': String(file.size),
 			// eslint-disable-next-line @typescript-eslint/naming-convention
@@ -299,7 +305,7 @@ export class Http {
 		}
 
 		return this.launch<T, H>(
-			{ url: option.url, method: option.method, data, header },
+			{ url: option.url, method: option.method, header, data: await file.data },
 
 		)
 

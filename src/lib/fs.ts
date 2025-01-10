@@ -7,6 +7,7 @@ export type ReadFile = {
 	size: number
 	mine: null | string
 
+	hash: string
 	data: WechatMiniprogram.ReadFileSuccessCallbackResult['data']
 
 }
@@ -29,7 +30,49 @@ export function read(
 
 	let fs = wx.getFileSystemManager()
 
-	return new Promise<ReadFile>(
+	let info = new Promise<{ size: number, hash: string }>(
+		(resolve, reject) => {
+			fs.getFileInfo(
+				{
+					// eslint-disable-next-line @typescript-eslint/naming-convention
+					filePath: path,
+
+					success(res): void {
+						let hash = ''
+
+						if (detective.is_object_keyof(res, 'digest')
+							&& detective.is_string(res.digest)
+
+						) {
+							hash = res.digest
+
+						}
+
+						resolve(
+							{ size: res.size, hash },
+
+						)
+
+
+					},
+
+					fail(e): void {
+						reject(
+							new Error(e.errMsg),
+
+						)
+
+					},
+
+				},
+			)
+
+		},
+
+	)
+
+
+	let file = new Promise<string | ArrayBuffer>(
 		(resolve, reject) => {
 			fs.readFile(
 				{
@@ -39,46 +82,30 @@ export function read(
 					filePath: path,
 
 					success(res): void {
-						if (res.errMsg === 'readFile:ok') {
-							let size = 0
-
-							if (detective.is_string(res.data)
-
-							) {
-								size = res.data.length
-
-							}
-
-							if (detective.is_array_buffer(res.data)
-
-							) {
-								size = res.data.byteLength
-
-							}
-
-							resolve(
-								{ ext, path, size, mine, data: res.data },
-
-							)
-
-						}
-
-						else {
-							reject(
-								new Error(res.errMsg),
-
-							)
-
-						}
-
+						resolve(res.data)
 
 					},
+
+					fail(e): void {
+						reject(
+							new Error(e.errMsg),
+
+						)
+
+					},
+
 				},
 			)
 
 		},
 
 	)
+
+	return Promise.all([info, file])
+		.then<ReadFile>(
+			([{ size, hash }, data]) => ({ ext, path, mine, size, hash, data }),
+
+		)
 
 
 }
