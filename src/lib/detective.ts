@@ -173,6 +173,11 @@ export function is_switch_string(v: unknown): v is '0' | '1' {
 
 }
 
+export function is_hex_string(v: unknown, length = 32): v is string {
+	return is_required_string(v) && new RegExp(`^[a-fA-Z0-9]{${length}}$`).test(v)
+
+}
+
 export function is_boolean_string(v: unknown): v is 'false' | 'true' {
 	return is_string(v)
 		&& ['false', 'true'].includes(
@@ -227,7 +232,7 @@ export function is_object_keyof<K extends PropertyKey, V = unknown, T extends ob
 }
 
 export function is_object_id_string(v: unknown): v is string {
-	return is_required_string(v) && (/[a-fA-Z0-9]{24}/).test(v)
+	return is_hex_string(v, 24)
 
 }
 
