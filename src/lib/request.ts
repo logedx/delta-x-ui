@@ -435,7 +435,7 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 					v => v.replaceAll('.', ''),
 
 				)
-				.filter(v => v)
+				.filter(detective.is_required_string)
 				.join('/'),
 
 		)

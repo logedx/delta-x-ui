@@ -11,8 +11,6 @@ export default typescript_eslint.config(
 	{
 		files: ['**/*.ts'],
 
-		ignores: ['miniprogram_npm'],
-
 		languageOptions: {
 			parserOptions: {
 				project: true,

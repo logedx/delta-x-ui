@@ -59,11 +59,6 @@ export function is_promise<T>(v: unknown): v is Promise<T> {
 
 }
 
-export function is_buffer(v: unknown): v is Buffer {
-	return v instanceof Buffer
-
-}
-
 export function is_array<T = unknown>(v: unknown): v is Array<T> {
 	return Array.isArray(v)
 

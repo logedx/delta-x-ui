@@ -24,17 +24,12 @@
 		"strict": true,
 		"target": "ESNext",
 		"types": [
-			"node",
 			"wechat-miniprogram"
 		]
 	},
 	"exclude": [
-		".vscode",
 		"dist",
-		"node_modules"
-	],
-	"ts-node": {
-		"files": true,
-		"transpileOnly": true
-	}
+		"node_modules",
+		"miniprogram_npm"
+	]
 }
