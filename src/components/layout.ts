@@ -22,6 +22,7 @@ Component(
 		properties: {
 			back: { type: String, value: '' },
 			home: { type: String, value: '' },
+			sink: { type: Boolean, value: false },
 			loading: { type: Boolean, value: false },
 
 		},

@@ -19,7 +19,7 @@
 			<slot />
 		</dx-main>
 
-		<dx-footer class="footer">
+		<dx-footer class="footer" sink="{{ sink }}">
 			<slot name="footer" />
 		</dx-footer>
 	</block>

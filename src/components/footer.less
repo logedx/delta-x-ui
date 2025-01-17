@@ -1,7 +1,9 @@
 .dx-footer {
+	--dx-footer-padding-bottom: safe-area-inset-bottom;
+
 	width: 100vw;
 	position: relative;
-	padding-bottom: constant(safe-area-inset-bottom);
-	padding-bottom: env(safe-area-inset-bottom);
+	padding-bottom: constant(var(--dx-footer-padding-bottom));
+	padding-bottom: env(var(--dx-footer-padding-bottom));
 
 }
