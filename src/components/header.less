@@ -1,18 +1,15 @@
 .dx-header {
+	--dx-header-padding: 0;
 	--dx-header-top: auto;
-	--dx-header-left: 0;
-	--dx-header-right: 0;
 	--dx-header-min-height: 32px;
 
 
-	box-sizing: border-box;
-	width: 100%;
-	min-height: var(--dx-header-min-height);
-	padding-top: var(--dx-header-top);
-	padding-left: var(--dx-header-left);
-	padding-right: var(--dx-header-right);
-	padding-bottom: var(--u-01-m);
 	position: relative;
+	padding: 0 var(--dx-header-padding);
+	padding-top: var(--dx-header-top);
+	padding-bottom: var(--u-01-m);
+	width: calc(100% - var(--dx-header-padding) * 2);
+	min-height: var(--dx-header-min-height);
 
 	.breadcrumb {
 		height: 100%;
