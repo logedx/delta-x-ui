@@ -2,37 +2,38 @@
 	--dx-avatar-radius: 50%;
 	--dx-avatar-size: var(--u-06-s);
 
-	--dx-avatar-background-display: none;
-
 
 	width: var(--dx-avatar-size);
 	height: var(--dx-avatar-size);
 	border-radius: var(--dx-avatar-radius);
-	position: relative;
 
-	&::before,
-	&::after {
-		content: '';
-		width: 100%;
-		height: 100%;
-		display: var(--dx-avatar-background-display);
-		position: absolute;
-		left: 0;
-		top: 0;
-		background-repeat: repeat;
-		background-size: 20% 20%;
+	&.x {
+		position: relative;
+		overflow: hidden;
+
+		&::before,
+		&::after {
+			content: '';
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+			background-repeat: repeat;
+			background-size: 20% 20%;
+
+		}
+
+		&::before {
+			background-image: linear-gradient(to bottom right, var(--background) 25%, transparent 25%);
+
+		}
+
+		&::after {
+			background-image: linear-gradient(to top left, var(--background) 25%, transparent 25%);
+
+		}
 
 	}
-
-	&::before {
-		background-image: linear-gradient(to bottom right, var(--background) 25%, transparent 25%);
-
-	}
-
-	&::after {
-		background-image: linear-gradient(to top left, var(--background) 25%, transparent 25%);
-
-	}
-
 
 }

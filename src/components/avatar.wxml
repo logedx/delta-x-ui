@@ -4,7 +4,9 @@
 	class="dx-avatar"
 	src="{{ src }}"
 	style="{{ style }}"
-	wx:if="{{ src }}"
+	bind:load="on_load"
+	bind:error="on_error"
+	wx:if="{{ src && !error }}"
 />
 
-<view class="dx-avatar" style="{{ style }}" wx:else />
+<view class="dx-avatar x" style="{{ style }}" wx:else />
