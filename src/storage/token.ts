@@ -19,7 +19,7 @@ export type TokenResult = Pick<token_model.TRawDocType, 'value' | 'refresh' | 'e
 
 export type TokenResultStructure = structure.PropertyTransformResult<TokenResult, Date, 'expire'>
 
-export type TokenScope = Pick<token_model.TRawDocType, 'expire' | 'scope'> & Pick<token_model.TVirtuals, 'is_super'>
+export type TokenScope = Pick<token_model.TRawDocType, 'expire' | 'scope'> & Pick<token_model.TVirtuals, 'is_super' | 'mode'>
 
 export type TokenScopeStructure= structure.PropertyTransformResult<TokenScope, Date, 'expire'>
 

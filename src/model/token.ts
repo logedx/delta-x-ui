@@ -4,6 +4,7 @@
 import * as model from '../lib/model.js'
 
 import * as user_model from './user.js'
+import * as scope_model from './scope.js'
 import * as weapp_model from './weapp.js'
 
 
@@ -37,6 +38,8 @@ export type TVirtuals = {
 
 	is_usable: boolean
 	is_survive: boolean
+
+	mode: scope_model.Mode
 
 }
 
