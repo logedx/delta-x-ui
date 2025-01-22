@@ -1,12 +1,18 @@
-export type TProperty = {
-	value: Array<unknown>
-	loading: boolean
-	refresh: boolean
-	finished: boolean
+import * as cassette from './cassette.js'
 
-	nested: boolean
+
+export enum TEvent {
+	refresh = 'refresh',
+	last = 'last',
 
 }
+
+export type TProperty = Pick<cassette.TProperty, 'loading' | 'container'>
+	& {
+		value: Array<unknown>
+		finished: boolean
+
+	}
 
 
 Component(
@@ -25,43 +31,16 @@ Component(
 
 		properties: {
 			value: { type: Array, value: [] },
-			loading: { type: Boolean, value: false },
-			refresh: { type: Boolean, value: false },
 			finished: { type: Boolean, value: false },
 
-			nested: { type: Boolean, value: false },
+			loading: { type: Boolean, value: false },
 
-		},
-
-		data: {
-			active: 'last' as 'last' | 'refresh',
-
-		},
-
-		observers: {
-			finished(v: boolean): void {
-				if (v === false) {
-					return
-
-				}
-
-				this.setData(
-					{ loading: false },
-
-				)
-
-
-			},
+			container: { type: String, value: '' },
 
 		},
 
 		methods: {
-			on_catch_touch_move(): void {
-				// empty
-
-			},
-
-			on_scrolltolower(): void {
+			on_lower(): void {
 				let { finished } = this.data
 
 				if (finished) {
@@ -69,21 +48,12 @@ Component(
 
 				}
 
-				this.triggerEvent('last')
-				this.setData(
-					{ loading: true, active: 'last' },
-
-				)
-
+				this.triggerEvent(TEvent.last)
 
 			},
 
-			on_refresher_refresh(): void {
-				this.triggerEvent('refresh')
-				this.setData(
-					{ loading: true, finished: false, active: 'refresh' },
-
-				)
+			on_refresh(): void {
+				this.triggerEvent(TEvent.refresh)
 
 			},
 

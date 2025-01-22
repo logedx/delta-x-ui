@@ -2,10 +2,9 @@
 	<text slot="header" class="title">lister</text>
 
 	<dx-lister
-		refresh
 		value="{{ lister }}"
+		finished="{{ finished }}"
 		model:loading="{{ loading }}"
-		model:finished="{{ finished }}"
 		bind:last="on_last"
 		bind:refresh="on_refresh"
 	>
