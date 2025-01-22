@@ -20,5 +20,7 @@
 >
 	<slot />
 
-	<view class="tail" />
+	<view class="tail">
+		<slot name="tail" />
+	</view>
 </scroll-view>
