@@ -1,18 +1,18 @@
-enum Active {
+enum TActive {
 	none,
 	last,
 	refresh,
 
 }
 
-enum Direction {
+export enum TDirection {
 	none = '',
 	up = 'up',
 	down = 'down',
 
 }
 
-enum Event {
+export enum TEvent {
 	upper = 'upper',
 	lower = 'lower',
 	refresh = 'refresh',
@@ -28,7 +28,7 @@ export type TProperty = {
 	refresher: boolean
 	container?: 'draggable-sheet' | 'nested-scroll-view' | 'pop-gesture'
 
-	direction: Direction
+	direction: TDirection
 
 }
 
@@ -54,7 +54,7 @@ Component(
 			refresher: { type: Boolean, value: false },
 			container: { type: String, value: '' },
 
-			direction: { type: String, value: Direction.none },
+			direction: { type: String, value: TDirection.none },
 
 		},
 
@@ -62,15 +62,15 @@ Component(
 			mark: 0,
 			into_anchor: '',
 
-			active: Active.none,
+			active: TActive.none,
 
 			is_triggered(
 				refresher: boolean,
 				loading: boolean,
-				active: Active,
+				active: TActive,
 
 			): boolean {
-				return refresher && loading && active === Active.refresh
+				return refresher && loading && active === TActive.refresh
 
 			},
 
@@ -80,8 +80,8 @@ Component(
 			loading(v: boolean): void {
 				let { active } = this.data
 
-				if (v === false && active === Active.refresh) {
-					active = Active.none
+				if (v === false && active === TActive.refresh) {
+					active = TActive.none
 
 				}
 
@@ -160,15 +160,15 @@ Component(
 				let v = e.detail.scrollTop
 
 
-				let direction = Direction.none
+				let direction = TDirection.none
 
 				if (v > mark) {
-					direction = Direction.up
+					direction = TDirection.up
 
 				}
 
 				if (v < mark) {
-					direction = Direction.down
+					direction = TDirection.down
 
 				}
 
@@ -184,7 +184,7 @@ Component(
 				wx.nextTick(
 					() => {
 						this.setData(
-							{ mark: 0, lock: false, direction: Direction.none },
+							{ mark: 0, lock: false, direction: TDirection.none },
 
 						)
 
@@ -195,7 +195,7 @@ Component(
 			},
 
 			on_scroll_to_upper(): void {
-				this.triggerEvent(Event.upper)
+				this.triggerEvent(TEvent.upper)
 
 			},
 
@@ -207,9 +207,9 @@ Component(
 
 				}
 
-				this.triggerEvent(Event.lower)
+				this.triggerEvent(TEvent.lower)
 				this.setData(
-					{ loading: false, active: Active.last },
+					{ loading: false, active: TActive.last },
 
 				)
 
@@ -224,9 +224,9 @@ Component(
 
 				}
 
-				this.triggerEvent(Event.refresh)
+				this.triggerEvent(TEvent.refresh)
 				this.setData(
-					{ loading: true, active: Active.refresh },
+					{ loading: true, active: TActive.refresh },
 
 				)
 
