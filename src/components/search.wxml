@@ -1,12 +1,8 @@
-<view
-	class="dx-search class"
-	catch:tap="on_catch"
-	catch:longpress="on_catch"
->
+<view class="dx-search class" catch:tap="on_catch" catch:longpress="on_catch">
 	<view class="enter">
 		<dx-icon
 			class="icon"
-			size="var(--u-03-xs)"
+			size="calc(var(--label) * 0.7)"
 			src="{{ icon }}"
 			wx:if="{{ icon }}"
 		/>
@@ -32,6 +28,6 @@
 		catch:tap="on_handle_tap"
 		catch:longpress="on_handle_longpress"
 	>
-		<dx-icon class="icon" size="var(--u-03-xs)" src="{{ item }}" />
+		<dx-icon size="calc(var(--label) * 0.7)" src="{{ item }}" />
 	</view>
 </view>

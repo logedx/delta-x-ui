@@ -1,27 +1,27 @@
 .dx-search {
 	display: flex;
 	align-items: center;
-	height: var(--u-04-l);
 
 	.enter {
-		flex: 10;
+		flex: 1;
 		display: flex;
 		align-items: center;
-		border-radius: var(--u-03-xs);
-		padding: 0 var(--u-01-xs);
+		padding: var(--u-00-s) var(--u-02-s);
+		border-radius: calc(var(--label) + var(--u-00-s) * 2);
 		background: var(--background);
-		height: 100%;
 
 		.icon {
 			flex-shrink: 0;
-			color: var(--content);
+			margin-right: var(--u-00-l);
 
 		}
 
 		.input {
-			flex: 10;
-			font-size: var(--normal);
-			margin-left: var(--u-00-l);
+			flex: 1;
+			display: flex;
+			font-size: var(--strong);
+			height: var(--label);
+			line-height: var(--label);
 
 		}
 
@@ -34,17 +34,12 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: var(--background);
-		height: 100%;
-		width: var(--u-04-l);
-		border-radius: 50%;
 		margin-left: var(--u-01-m);
-
-		.icon {
-			color: var(--content);
-
-		}
-
+		background: var(--background);
+		width: var(--label);
+		height: var(--label);
+		padding: var(--u-00-s);
+		border-radius: 50%;
 
 	}
 
