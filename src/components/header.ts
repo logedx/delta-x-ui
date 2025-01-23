@@ -2,6 +2,7 @@ import { Variable } from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
 export type TProperty = {
+	background: string
 	back: string
 	home: string
 
@@ -20,6 +21,7 @@ Component(
 		},
 
 		properties: {
+			background: { type: String, value: '' },
 			back: { type: String, value: '' },
 			home: { type: String, value: '' },
 
@@ -40,14 +42,21 @@ Component(
 
 		methods: {
 			set_style(): void {
-				let { back, home } = this.data
+				let { background, back, home } = this.data
 
 				let win = wx.getWindowInfo()
 				let menu = wx.getMenuButtonBoundingClientRect()
 
-				let css = new Variable<'padding'| 'safe-padding-right' | 'top' | 'min-height'>('dx', 'header')
+				let css = new Variable<'background' | 'padding'| 'safe-padding-right' | 'top' | 'min-height'>('dx', 'header')
 
 				let padding = win.windowWidth - menu.right
+
+				if (detective.is_required_string(background)
+
+				) {
+					css.set('background', background)
+
+				}
 
 				if (detective.is_required_string(back)
 					|| detective.is_required_string(home)
