@@ -24,7 +24,7 @@
 			src="/example/icon/caret-down.svg"
 		/>
 
-		<dx-nameplate class="example" label-class="label" label="label">
+		<dx-nameplate class="example" label="label">
 			<text slot="icon" class="icon" />
 
 			<text class="slot" />

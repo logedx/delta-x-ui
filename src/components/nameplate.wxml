@@ -1,8 +1,8 @@
-<view class="dx-nameplate class">
+<view class="dx-nameplate class" style="{{ style }}">
 	<view class="header" wx:if="{{ label }}">
 		<slot name="icon" />
 
-		<text class="label-class label">{{ label }}</text>
+		<text class="label">{{ label }}</text>
 	</view>
 
 	<slot />

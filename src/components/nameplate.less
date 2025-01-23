@@ -1,8 +1,12 @@
 @import '../style/border.less';
 
 .dx-nameplate {
+	--dx-nameplate-margin-top: 0;
+
 	padding: var(--u-02-s);
+	margin-top: var(--dx-nameplate-margin-top);
 	background: var(--white);
+	border-radius: calc(var(--radius) * 2);
 
 	.header {
 		display: flex;
