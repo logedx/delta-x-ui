@@ -10,7 +10,9 @@ type Item = {
 let pagin = new container.Pagination<Item>()
 
 
-pagin.call(
+pagin.on(
+	'retrieve',
+
 	function (params: container.PaginationParams): Promise<Array<Item>> {
 		if (params.skip > 20) {
 			return Promise.resolve([])
@@ -57,21 +59,14 @@ Component(
 		},
 
 		lifetimes: {
-			async attached(): Promise<void> {
-				pagin.on(
-					'update',
-
-					(lister, finished) => {
-						this.setData(
-							{ lister, finished, loading: false },
-
-						)
-
-					},
+			attached(): void {
+				pagin.linker(
+					this, { data: 'lister' },
 
 				)
 
-				await pagin.first()
+				// eslint-disable-next-line @typescript-eslint/no-floating-promises
+				pagin.first()
 
 			},
 

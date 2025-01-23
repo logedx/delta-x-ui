@@ -3,18 +3,30 @@ import * as structure from './structure.js'
 
 
 
-export type PaginationParams<T extends object = object> = Partial<T> & {
+export type PaginationBaseParams = {
 	skip: number
 	limit: number
 	sort: string | Array<string>
 
 }
 
-export type PaginationCallHandler<T, P extends object> = (params: PaginationParams<P>) => Promise<Array<T>>
+export type PaginationParams<T extends object = object> = PaginationBaseParams & Partial<T>
+
+export type PaginationCallHandler<T extends object = object> = (
+	linker: WechatMiniprogram.Component.TrivialInstance,
+	skip: PaginationBaseParams['skip'],
+	limit: PaginationBaseParams['limit'],
+	sort: PaginationBaseParams['sort'],
+
+) => T
+
+export type PaginationRetrieveHandler<T, P extends object> = (params: PaginationParams<P>) => Promise<Array<T>>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PaginationUpdateHandler<T> = (data: Array<T>, finished: boolean) => any
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type PaginationLoadingHandler = (value: boolean) => any
 
 export class Pagination<
 	T = unknown,
@@ -31,16 +43,30 @@ export class Pagination<
 
 	#params_ = {} as P
 
-	#call_handler: PaginationCallHandler<T, P> = () => Promise.resolve([])
+
+
+	#loading = false
+
+	#finished = false
+
+	#linker: null | WechatMiniprogram.Component.TrivialInstance = null
+
+
+
+	#call_handler: null | PaginationCallHandler<P> = null
+
+	#retrieve_handler: PaginationRetrieveHandler<T, P> = () => Promise.resolve([])
 
 	#update_handler: PaginationUpdateHandler<T> = () => {
 		// 
 
 	}
 
-	#loading = false
+	#loading_handler: PaginationLoadingHandler = () => {
+		// 
 
-	#finished = false
+	}
+
 
 
 	get loading(): boolean {
@@ -54,59 +80,138 @@ export class Pagination<
 	}
 
 
+	constructor(params?: P) {
+		super()
+
+		params = params ?? {} as P
+
+		this.#params = structure.clone(params)
+		this.#params_ = structure.clone(params)
+
+
+	}
 
 	#is_sort(v: unknown): v is string {
 		return detective.is_required_string(v) && (/^-?[a-z]+$/).test(v)
 
 	}
 
-	async #call(): Promise<Array<T>> {
+	#ding(value: boolean): void {
+		this.#loading = value
+
+		try {
+			this.#loading_handler(value)
+
+		}
+
+		catch (e) {
+			console.error(e)
+
+		}
+
+	}
+
+	async #retrieve(): Promise<Array<T>> {
 		let skip = this.#skip
 		let limit = this.#limit
 		let sort = this.#sort
 
-		let items = await this.#call_handler(
-			{ ...this.#params, skip, limit, sort },
+		// eslint-disable-next-line init-declarations
+		let items: Error | Array<T>
+
+
+		wx.nextTick(
+			() => {
+				this.#ding(true)
+
+			},
 
 		)
 
-		this.push(...items)
 
-		this.#finished = items.length < this.#limit
+		try {
+			if (this.#linker && this.#call_handler) {
+				this.#params = this.#call_handler(this.#linker, this.#skip, this.#limit, this.#sort)
 
-		await this.#update_handler(this, this.#finished)
+			}
+
+			items = await this.#retrieve_handler(
+				{ ...this.#params, skip, limit, sort },
+
+			)
+
+			this.push(...items)
+
+			this.#finished = items.length < this.#limit
+
+		}
+
+		catch (e) {
+			items = e as Error
+
+		}
+
+
+		try {
+			await this.#update_handler(this, this.#finished)
+
+		}
+
+		catch (e) {
+			console.error(e)
+
+		}
+
+
+		wx.nextTick(
+			() => {
+				this.#ding(false)
+
+			},
+
+		)
+
+		if (items instanceof Error) {
+			throw items
+
+		}
 
 		return items
 
 	}
 
-	call(
-		fn: PaginationCallHandler<T, P>,
+	on(name: 'call', fn: PaginationCallHandler<P>): this;
 
-		params?: P,
+	on(name: 'loading', fn: PaginationLoadingHandler): this;
+
+	on(name: 'update', fn: PaginationUpdateHandler<T>): this;
+
+	on(name: 'retrieve', fn: PaginationRetrieveHandler<T, P>): this;
+
+	on(
+		name: string,
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		fn: (...args: Array<any>) => any,
 
 	): this {
-		this.#call_handler = fn
-
-		if (params) {
-			this.#params = structure.clone(params)
-			this.#params_ = structure.clone(params)
+		if (name === 'call') {
+			this.#call_handler = fn as PaginationCallHandler<P>
 
 		}
 
-		return this
+		if (name === 'loading') {
+			this.#loading_handler = fn as PaginationLoadingHandler
 
-	}
-
-	on(
-		name: 'update',
-
-		fn: PaginationUpdateHandler<T>,
-
-	): this {
+		}
 
 		if (name === 'update') {
-			this.#update_handler = fn
+			this.#update_handler = fn as PaginationUpdateHandler<T>
+
+		}
+
+		if (name === 'retrieve') {
+			this.#retrieve_handler = fn as PaginationRetrieveHandler<T, P>
 
 		}
 
@@ -121,11 +226,7 @@ export class Pagination<
 
 	params<K extends keyof P>(key: K, value?: P[K]): this
 
-	params<K extends keyof P>(
-		key: 'limit' | 'sort' | K,
-		value?: number | PaginationParams['sort'] | P[K],
-
-	): this {
+	params(key: string, value?: unknown): this {
 		if (key === 'limit') {
 			if (detective.is_natural_number(value)
 
@@ -171,12 +272,12 @@ export class Pagination<
 		if (detective.is_undefined(value)
 
 		) {
-			delete this.#params[key]
+			delete this.#params[key as keyof P]
 
 		}
 
 		else {
-			this.#params[key] = value as P[K]
+			this.#params[key as keyof P] = value as P[keyof P]
 
 		}
 
@@ -248,7 +349,7 @@ export class Pagination<
 	}
 
 	first(): Promise<Array<T>> {
-		return this.clear().#call()
+		return this.clear().#retrieve()
 
 	}
 
@@ -260,7 +361,53 @@ export class Pagination<
 
 		this.#skip = this.#skip + this.#limit
 
-		return this.#call()
+		return this.#retrieve()
+
+	}
+
+	linker(
+		v: WechatMiniprogram.Component.TrivialInstance,
+
+		map?: Optional<
+			{
+				data: string
+				loading: string
+				finished: string
+
+			}
+
+		>,
+
+	): this {
+		this.on(
+			'loading',
+
+			(a) => {
+				v.setData(
+					{ [map?.loading ?? 'loading']: a },
+
+				)
+
+			},
+
+		)
+
+		this.on(
+			'update',
+
+			(a, b) => {
+				v.setData(
+					{ [map?.data ?? 'data']: a, [map?.finished ?? 'finished']: b },
+
+				)
+
+			},
+
+		)
+
+		this.#linker = v
+
+		return this
 
 	}
 
