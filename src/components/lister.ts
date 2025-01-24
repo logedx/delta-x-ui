@@ -49,11 +49,19 @@ Component(
 				}
 
 				this.triggerEvent(TEvent.last)
+				this.setData(
+					{ loading: true },
+
+				)
 
 			},
 
 			on_refresh(): void {
 				this.triggerEvent(TEvent.refresh)
+				this.setData(
+					{ loading: true },
+
+				)
 
 			},
 
