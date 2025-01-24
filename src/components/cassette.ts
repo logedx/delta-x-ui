@@ -60,35 +60,32 @@ Component(
 
 		data: {
 			mark: 0,
-			into_anchor: '',
+			anchor: '',
+
+			trigger: false,
 
 			active: TActive.none,
-
-			is_triggered(
-				refresher: boolean,
-				loading: boolean,
-				active: TActive,
-
-			): boolean {
-				return refresher && loading && active === TActive.refresh
-
-			},
 
 		},
 
 		observers: {
 			loading(v: boolean): void {
-				let { active } = this.data
+				let { trigger, active } = this.data
 
-				if (v === false && active === TActive.refresh) {
-					active = TActive.none
+				let is_reset_active = v === false && active !== TActive.none
+				let is_reset_trigger = v === false && active === TActive.refresh && trigger
+
+
+				if (is_reset_active) {
+					this.reset_active()
 
 				}
 
-				this.setData(
-					{ active },
+				if (is_reset_trigger) {
+					this.reset_trigger()
 
-				)
+				}
+
 
 			},
 
@@ -120,15 +117,39 @@ Component(
 
 		methods: {
 			docked(): void {
-				let { loading, into, into_anchor } = this.data
+				let { loading, into, anchor } = this.data
 
-				if (loading || into === into_anchor) {
+				if (loading || into === anchor) {
 					return
 
 				}
 
 				this.setData(
 					{ anchor: into },
+
+				)
+
+			},
+
+			reset_active(): void {
+				this.setData(
+					{ active: TActive.none },
+
+				)
+
+			},
+
+			reset_trigger(): void {
+				setTimeout(
+					() => {
+						this.setData(
+							{ trigger: false },
+
+						)
+
+					},
+
+					100,
 
 				)
 
@@ -200,9 +221,9 @@ Component(
 			},
 
 			on_scroll_to_lower(): void {
-				let { loading } = this.data
+				let { loading, active } = this.data
 
-				if (loading) {
+				if (loading || active !== TActive.none) {
 					return
 
 				}
@@ -217,16 +238,16 @@ Component(
 			},
 
 			on_refresher_refresh(): void {
-				let { loading } = this.data
+				let { loading, active } = this.data
 
-				if (loading) {
+				if (loading || active !== TActive.none) {
 					return
 
 				}
 
 				this.triggerEvent(TEvent.refresh)
 				this.setData(
-					{ loading: true, active: TActive.refresh },
+					{ loading: true, trigger: true, active: TActive.refresh },
 
 				)
 
