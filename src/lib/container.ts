@@ -414,19 +414,36 @@ export class Pagination<
 }
 
 
-export class Exclusive<T extends object = object> {
+
+
+export type ExclusiveCreateHandler<T> = (data: T) => Promise<string>
+
+export type ExclusiveUpdateHandler<T> = (_id: string, data: Optional<T>) => Promise<void>
+
+export type ExclusiveRetrieveHandler<T> = (_id: string) => Promise<T>
+
+export type ExclusiveDeleteHandler = (_id: string) => Promise<void>
+
+export class Exclusive<T extends object, C = never> {
 	#id = null as null | string
 
 	#data = null as null | T
 
+	#loading = false
 
-	#retrieve_handle = null as null | ((_id: string) => Promise<T>)
+	#linker: null | WechatMiniprogram.Component.TrivialInstance = null
+
+	#linker_map = { loading: 'loading' }
 
 
-	#update_handle = null as null | ((_id: string, data: Optional<T>) => Promise<void>)
+	#create_handle = null as null | ExclusiveCreateHandler<C>
 
+	#update_handle = null as null | ExclusiveUpdateHandler<T>
 
-	#delete_handle = null as null | ((_id: string) => Promise<void>)
+	#retrieve_handle = null as null | ExclusiveRetrieveHandler<T>
+
+	#delete_handle = null as null | ExclusiveDeleteHandler
+
 
 	get _id(): string {
 		if (detective.is_exist(this.#id)
@@ -441,41 +458,80 @@ export class Exclusive<T extends object = object> {
 
 	}
 
+
+	get loading(): boolean {
+		return this.#loading
+
+	}
+
+
+	#wait(value: boolean): void {
+		if (this.#linker === null) {
+			throw new Error('linker is not exist')
+
+		}
+
+		this.#loading = value
+
+		this.#linker
+			.setData(
+				{ [this.#linker_map.loading]: value },
+
+			)
+
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	async #call<R>(fn: (...args: Array<any>) => Promise<R>): Promise<R> {
+		this.#wait(true)
+
+		try {
+			return await fn()
+
+		}
+
+		finally {
+			wx.nextTick(
+				() => {
+					this.#wait(false)
+
+				},
+
+			)
+
+		}
+
+
+	}
+
+
+	on(name: 'create', fn: ExclusiveCreateHandler<C>): void
+
+	on(name: 'update', fn: ExclusiveUpdateHandler<T>): void
+
+	on(name: 'retrieve', fn: ExclusiveRetrieveHandler<T>): void
+
+	on(name: 'delete', fn: ExclusiveDeleteHandler): void
+
 	on(
-		name: 'retrieve',
-
-		fn: (_id: string) => Promise<T>,
-
-	): void
-
-	on<V = T>(
-		name: 'update',
-
-		fn: (_id: string, data: Optional<V>) => void,
-
-	): void
-
-	on(
-		name: 'delete',
-
-		fn: (_id: string) => void,
-
-	): void
-
-	on(
-		name: 'retrieve' | 'update' | 'delete',
+		name: string,
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		fn: (...args: Array<any>) => any,
 
 	): this {
-		if (name === 'retrieve') {
-			this.#retrieve_handle = fn
+		if (name === 'create') {
+			this.#create_handle = fn
 
 		}
 
 		if (name === 'update') {
 			this.#update_handle = fn
+
+		}
+
+		if (name === 'retrieve') {
+			this.#retrieve_handle = fn
 
 		}
 
@@ -488,42 +544,76 @@ export class Exclusive<T extends object = object> {
 
 	}
 
+
 	clear(): void {
 		this.#id = null
 		this.#data = null
 
 	}
 
-	pick<K extends keyof T>(...keys: Array<K>): Pick<T, K> {
-		if (detective.is_exist(this.#data)
+
+	get(): T
+
+	get<K extends keyof T>(
+		key: K extends string ? Lowercase<K> : K,
+
+	): T[K]
+
+	get<K extends keyof T>(
+		key?: K extends string ? Lowercase<K> : K,
+
+	): unknown {
+		if (detective.is_exist(this.#data) === false
 
 		) {
-			return structure.pick(this.#data, ...keys)
+			throw new Error('data is not exist')
 
 		}
 
-		throw new Error('data is not exist')
+
+		if (detective.is_exist(key)
+
+		) {
+			return structure.get(this.#data, key)
+
+		}
+
+		return structure.clone(this.#data)
 
 	}
 
-	async retrieve(_id: string): Promise<void> {
-		if (this.#retrieve_handle === null) {
-			throw new Error('container cannot be retrieved')
+
+	pick<K extends keyof T>(...keys: Array<K>): Pick<T, K> {
+		if (detective.is_exist(this.#data) === false
+
+		) {
+			throw new Error('data is not exist')
 
 		}
 
-		this.#id = null
-		this.#data = await this.#retrieve_handle(_id)
+		return structure.pick(this.#data, ...keys)
 
-		wx.nextTick(
-			() => {
-				this.#id = _id
+	}
 
-			},
+
+	async create(data: C): Promise<string> {
+		if (this.#create_handle === null) {
+			throw new Error('container cannot be created')
+
+		}
+
+		this.#id = await this.#call(
+			() => this.#create_handle!(data),
 
 		)
 
+		this.#data = null
+
+		return this.#id
+
+
 	}
+
 
 	async update(data: Optional<T>): Promise<void> {
 		if (this.#id === null || this.#update_handle === null) {
@@ -531,9 +621,31 @@ export class Exclusive<T extends object = object> {
 
 		}
 
-		await this.#update_handle(this.#id, data)
+		await this.#call(
+			() => this.#update_handle!(this.#id!, data),
+
+		)
+
+		this.#data = null
 
 	}
+
+
+	async retrieve(_id: string): Promise<void> {
+		if (this.#retrieve_handle === null) {
+			throw new Error('container cannot be retrieved')
+
+		}
+
+		this.#data = await this.#call(
+			() => this.#retrieve_handle!(_id),
+
+		)
+
+		this.#id = _id
+
+	}
+
 
 	async delete(): Promise<string> {
 		if (this.#id === null || this.#delete_handle === null) {
@@ -541,13 +653,34 @@ export class Exclusive<T extends object = object> {
 
 		}
 
-		let _id = this.#id
+		let id = this.#id
 
-		await this.#delete_handle(_id)
+		await this.#call(
+			() => this.#delete_handle!(id),
+
+		)
 
 		this.clear()
 
-		return _id
+		return id
+
+	}
+
+
+	linker(
+		v: WechatMiniprogram.Component.TrivialInstance,
+
+		map?: { loading: string },
+
+	): this {
+		this.#linker = v
+
+		if (map) {
+			this.#linker_map = map
+
+		}
+
+		return this
 
 	}
 
