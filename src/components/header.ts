@@ -47,7 +47,11 @@ Component(
 				let win = wx.getWindowInfo()
 				let menu = wx.getMenuButtonBoundingClientRect()
 
-				let css = new Variable<'background' | 'padding'| 'safe-padding-right' | 'top' | 'min-height'>('dx', 'header')
+				let css = new Variable<
+						| 'background' | 'padding' | 'top' | 'min-height'
+						| 'safe-padding-left' | 'safe-padding-right'
+
+					>('dx', 'header')
 
 				let padding = win.windowWidth - menu.right
 
@@ -66,9 +70,11 @@ Component(
 
 				}
 
-				css.set('safe-padding-right', `${padding + menu.width + padding}px)`)
 				css.set('top', `${menu.top}px`)
 				css.set('min-height', `${menu.height}px`)
+
+				css.set('safe-padding-left', `${padding}px`)
+				css.set('safe-padding-right', `${padding + menu.width + padding}px`)
 
 				this.setData(
 					{ style: css.to_string() },
