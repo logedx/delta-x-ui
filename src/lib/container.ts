@@ -111,49 +111,9 @@ export class Pagination<
 
 	}
 
-	async #retrieve(): Promise<Array<T>> {
-		let skip = this.#skip
-		let limit = this.#limit
-		let sort = this.#sort
-
-		// eslint-disable-next-line init-declarations
-		let items: Error | Array<T>
-
-
-		wx.nextTick(
-			() => {
-				this.#ding(true)
-
-			},
-
-		)
-
-
+	#synch(): void {
 		try {
-			if (this.#linker && this.#call_handler) {
-				this.#params = this.#call_handler(this.#linker, this.#skip, this.#limit, this.#sort)
-
-			}
-
-			items = await this.#retrieve_handler(
-				{ ...this.#params, skip, limit, sort },
-
-			)
-
-			this.push(...items)
-
-			this.#finished = items.length < this.#limit
-
-		}
-
-		catch (e) {
-			items = e as Error
-
-		}
-
-
-		try {
-			await this.#update_handler(this, this.#finished)
+			this.#update_handler(this, this.#finished)
 
 		}
 
@@ -162,21 +122,48 @@ export class Pagination<
 
 		}
 
+	}
 
-		wx.nextTick(
-			() => {
-				this.#ding(false)
+	async #retrieve(): Promise<Array<T>> {
+		let skip = this.#skip
+		let limit = this.#limit
+		let sort = this.#sort
 
-			},
 
-		)
+		this.#ding(true)
 
-		if (items instanceof Error) {
-			throw items
+		try {
+			if (this.#linker && this.#call_handler) {
+				this.#params = this.#call_handler(this.#linker, this.#skip, this.#limit, this.#sort)
+
+			}
+
+			let items = await this.#retrieve_handler(
+				{ ...this.#params, skip, limit, sort },
+
+			)
+
+
+			this.#finished = items.length < this.#limit
+
+			this.push(...items)
+
+			this.#synch()
+
+			return items
 
 		}
 
-		return items
+		finally {
+			wx.nextTick(
+				() => {
+					this.#ding(false)
+
+				},
+
+			)
+
+		}
 
 	}
 
@@ -349,12 +336,17 @@ export class Pagination<
 	}
 
 	first(): Promise<Array<T>> {
+		if (this.#loading) {
+			throw new Error('Pagination is loading')
+
+		}
+
 		return this.clear().#retrieve()
 
 	}
 
 	next(): Promise<Array<T>> {
-		if (this.finished) {
+		if (this.#finished) {
 			return Promise.resolve([])
 
 		}
@@ -468,6 +460,11 @@ export class Exclusive<T extends object, C = never> {
 	#wait(value: boolean): void {
 		if (this.#linker === null) {
 			throw new Error('linker is not exist')
+
+		}
+
+		if (value && this.#loading) {
+			throw new Error('container is loading')
 
 		}
 
