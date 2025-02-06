@@ -1,9 +1,11 @@
+import moment from 'moment'
 import url_parse from 'url-parse'
 import query_string from 'query-string'
 
 import * as fs from './fs.js'
 import * as alert from './alert.js'
 import * as detective from './detective.js'
+import * as structure from './structure.js'
 
 
 
@@ -94,11 +96,34 @@ export class Http {
 
 	#option_transform: HttpOptionTransform = (option) => Promise.resolve(option)
 
+
+
+
 	constructor(option?: WechatMiniprogram.RequestOption) {
 		if (option) {
 			this.#default_option = option
 
 		}
+
+	}
+
+	get now(): Date {
+		return HttpTask.now
+
+	}
+
+	static get now(): Date {
+		return HttpTask.now
+
+	}
+
+	get latest(): Date {
+		return HttpTask.latest
+
+	}
+
+	static get latest(): Date {
+		return HttpTask.latest
 
 	}
 
@@ -372,6 +397,12 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 	>
 
+	static #burse = 0
+
+	static #latest = new Date()
+
+
+
 	constructor(
 		hostname: string,
 		option: WechatMiniprogram.RequestOption | Promise<WechatMiniprogram.RequestOption>,
@@ -395,6 +426,30 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 
 	}
+
+	get now(): Date {
+		return HttpTask.now
+
+	}
+
+	static get now(): Date {
+		return new Date(
+			this.#burse + Date.now(),
+
+		)
+
+	}
+
+	get latest(): Date {
+		return HttpTask.latest
+
+	}
+
+	static get latest(): Date {
+		return new Date(this.#latest)
+
+	}
+
 
 	resp(): Promise<HttpResult<T, H>> {
 		return this.#resp
@@ -498,6 +553,19 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 						...this.#parse(hostname, option),
 
 						success(res): void {
+							let latest = moment(
+								structure.get(res.header, 'date', ''),
+
+							)
+
+							HttpTask.#burse = Math.floor(
+								latest.valueOf() - Date.now(),
+
+							)
+
+							HttpTask.#latest = latest.toDate()
+
+
 							if (res.statusCode < 200 || res.statusCode > 299) {
 								let e = new HttpError(res.errMsg)
 
@@ -596,5 +664,3 @@ export class HttpError extends Error {
 	}
 
 }
-
-
