@@ -11,5 +11,15 @@
 		<dx-textarea class="example" placeholder="请输入内容" />
 	</dx-nameplate>
 
+	<dx-nameplate class="nameplate" label="Readonly">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-textarea readonly class="example" value="内容只读" />
+	</dx-nameplate>
+
 	<author slot="footer" />
 </dx-layout>

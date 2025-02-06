@@ -8,12 +8,28 @@
 			src="/example/icon/caret-down.svg"
 		/>
 
-		<dx-label divider title="default">
+		<dx-label title="default">
 			<dx-input placeholder="请输入内容" />
 		</dx-label>
 
-		<dx-label divider title="value">
-			<dx-input model:value="{{ value }}" />
+		<dx-label newline title="default">
+			<dx-input placeholder="请输入内容" />
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate class="nameplate" label="Readonly">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-label title="value">
+			<dx-input readonly value="内容只读" />
+		</dx-label>
+
+		<dx-label newline title="value">
+			<dx-input readonly value="内容只读" />
 		</dx-label>
 	</dx-nameplate>
 

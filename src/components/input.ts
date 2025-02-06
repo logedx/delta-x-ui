@@ -29,6 +29,7 @@ Component(
 		observers: {
 			readonly(): void {
 				this.set_style()
+
 			},
 
 		},
@@ -104,14 +105,14 @@ Component(
 			set_style(after_background?: string): void {
 				let { readonly } = this.data
 
-				let css = new Variable<'background' | 'after-background'>('dx', 'input')
+				let css = new Variable<'after-background'>('dx', 'input')
 
-				if (readonly === false) {
-					css.set('background', 'var(--background)')
+				if (readonly) {
+					css.set('after-background', 'var(--disabled)')
 
 				}
 
-				if (detective.is_required_string(after_background)
+				else if (detective.is_required_string(after_background)
 
 				) {
 					css.set('after-background', after_background)
