@@ -76,16 +76,15 @@ Component(
 				let { date, time } = this.data
 
 				let value = moment(`${date} ${time}`)
-					.toDate()
-					.toISOString()
+
 
 				this.setData(
-					{ value },
+					{ value: value.toISOString() },
 
 				)
 
 				this.triggerEvent(
-					'update', { value },
+					'update', { value: value.toDate() },
 
 				)
 
