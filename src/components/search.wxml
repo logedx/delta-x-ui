@@ -12,10 +12,10 @@
 			type="text"
 			class="input"
 			confirm-type="search"
+			placeholder-style="color: #ccc;"
 			focus="{{ focus }}"
 			cursor-spacing="{{ 150 }}"
 			placeholder="{{ placeholder }}"
-			placeholder-style="color: var(--subtitle);"
 			bind:confirm="on_value_confirm"
 		/>
 	</view>
