@@ -681,4 +681,14 @@ export class Exclusive<T extends object, C = never> {
 
 	}
 
+
+	destroy(): void {
+		this.clear()
+
+		this.#linker = null
+		this.#linker_map = { loading: 'loading' }
+
+	}
+
+
 }
