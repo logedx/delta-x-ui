@@ -1,5 +1,5 @@
 <dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
-	<text slot="header" class="title">inlaid</text>
+	<text slot="header" class="title">fieldset</text>
 
 	<dx-cassette>
 		<dx-nameplate class="nameplate" label="Slot">
