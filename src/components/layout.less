@@ -1,32 +1,56 @@
 .dx-layout {
 	width: 100vw;
 	height: 100vh;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
+	position: relative;
 
-	.loading {
+	.container,
+	.background {
+		width: 100%;
+		height: 100%;
+
+	}
+
+	.container {
 		display: flex;
-		justify-content: center;
-		padding: var(--u-04-l);
+		align-items: center;
+		flex-direction: column;
+		position: relative;
+		z-index: 1;
+
+		.loading {
+			display: flex;
+			justify-content: center;
+			padding: var(--u-04-l);
+
+		}
+
+		.header,
+		.main,
+		.footer {
+			flex-shrink: 0;
+
+		}
+
+		.main {
+			flex: 1;
+
+		}
+
+		.footer:empty {
+			display: none;
+
+		}
+
 
 	}
 
-	.header,
-	.main,
-	.footer {
-		flex-shrink: 0;
+	.background {
+		z-index: 0;
+		position: absolute;
+		top: 0;
+		left: 0;
 
 	}
 
-	.main {
-		flex: 1;
-
-	}
-
-	.footer:empty {
-		display: none;
-
-	}
 
 }

@@ -1,14 +1,7 @@
-<dx-layout
-	solid
-	footer
-	main-class="main"
-	header-class="header"
-	footer-class="footer"
-	back="/example/icon/chevron-left.svg"
->
-	<text slot="header" class="title">layout</text>
+<dx-layout solid footer class="main" back="/example/icon/chevron-left.svg">
+	<text slot="header" class="title header">layout</text>
 
-	<dx-nameplate class="nameplate" label="Color">
+	<dx-nameplate class="nameplate" label="Slot">
 		<dx-icon
 			slot="icon"
 			size="var(--u-04-xs)"
@@ -26,7 +19,13 @@
 		<dx-label title="footer">
 			<text class="color footer" />
 		</dx-label>
+
+		<dx-label title="background">
+			<text class="color background" />
+		</dx-label>
 	</dx-nameplate>
 
-	<author slot="footer" class="author" />
+	<author slot="footer" class="author footer" />
+
+	<view slot="background" class="background" />
 </dx-layout>

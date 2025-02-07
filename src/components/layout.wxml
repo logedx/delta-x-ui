@@ -1,26 +1,32 @@
 <view class="dx-layout">
-	<dx-header
-		back="{{ back }}"
-		home="{{ home }}"
-		class="header"
-		wx:if="{{ back || home }}"
-	>
-		<slot name="header" />
-	</dx-header>
+	<view class="container">
+		<dx-header
+			back="{{ back }}"
+			home="{{ home }}"
+			class="header"
+			wx:if="{{ back || home }}"
+		>
+			<slot name="header" />
+		</dx-header>
 
-	<slot name="header" wx:else />
+		<slot name="header" wx:else />
 
-	<view class="loading" wx:if="{{ loading }}">
-		<dx-loading />
+		<view class="loading" wx:if="{{ loading }}">
+			<dx-loading />
+		</view>
+
+		<block wx:else>
+			<dx-main class="main class">
+				<slot />
+			</dx-main>
+
+			<dx-footer class="footer" sink="{{ sink }}">
+				<slot name="footer" />
+			</dx-footer>
+		</block>
 	</view>
 
-	<block wx:else>
-		<dx-main class="main class">
-			<slot />
-		</dx-main>
-
-		<dx-footer class="footer" sink="{{ sink }}">
-			<slot name="footer" />
-		</dx-footer>
-	</block>
+	<view class="background">
+		<slot name="background" />
+	</view>
 </view>
