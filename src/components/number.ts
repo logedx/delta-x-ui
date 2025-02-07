@@ -56,7 +56,13 @@ Component(
 		},
 
 		lifetimes: {
-			ready(): void {
+			attached(): void {
+				let { value } = this.data
+
+				let v = this.constraints(value)
+
+				this.update(v)
+
 				this.set_style()
 
 
@@ -216,7 +222,7 @@ Component(
 				}
 
 				if (negative) {
-					css.set('text-color', 'var(--white)')
+					css.set('text-color', 'var(--disabled)')
 
 				}
 

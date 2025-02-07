@@ -1,11 +1,5 @@
 <view class="dx-number class" style="{{ style }}">
-	<dx-directed
-		color="{{ negative ? 'var(--h-ab-00)' : 'var(--disabled)' }}"
-		bind:tap="on_switch_negative"
-		wx:if="{{ min < 0 }}"
-	>
-		<text class="label">负</text>
-	</dx-directed>
+	<text bind:tap="on_switch_negative" wx:if="{{ min < 0 }}">−</text>
 
 	<input
 		hold-keyboard
