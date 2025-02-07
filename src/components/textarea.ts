@@ -1,4 +1,5 @@
 import { Variable } from '../lib/style.js'
+import * as detective from '../lib/detective.js'
 
 export type TProperty = {
 	value: string
@@ -20,12 +21,36 @@ Component(
 		properties: {
 			value: { type: String, value: '' },
 			placeholder: { type: String, value: '' },
+			readonly: { type: Boolean, value: false },
+
+		},
+
+		observers: {
+			readonly(): void {
+				this.set_style()
+
+			},
+
+		},
+
+		lifetimes: {
+			attached(): void {
+				this.set_style()
+
+			},
 
 		},
 
 		methods: {
 			on_focus(): void {
-				this.set_after_background('var(--h-cd-00)')
+				let { readonly } = this.data
+
+				if (readonly) {
+					return
+
+				}
+
+				this.set_style('var(--h-cd-00)')
 
 			},
 
@@ -40,7 +65,7 @@ Component(
 				let { value } = e.detail
 
 				this.update(value)
-				this.set_after_background('var(--divider)')
+				this.set_style('var(--divider)')
 
 			},
 
@@ -74,10 +99,22 @@ Component(
 
 			},
 
-			set_after_background(value: string): void {
+			set_style(after_background?: string): void {
+				let { readonly } = this.data
+
 				let css = new Variable<'after-background'>('dx', 'textarea')
 
-				css.set('after-background', value)
+				if (readonly) {
+					css.set('after-background', 'var(--disabled)')
+
+				}
+
+				else if (detective.is_required_string(after_background)
+
+				) {
+					css.set('after-background', after_background)
+
+				}
 
 				this.setData(
 					{ style: css.to_string() },
