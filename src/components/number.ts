@@ -1,9 +1,12 @@
 import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
-import * as claim from './claim.js'
+import * as claim_variant from './claim.variant.js'
 
-export type TProperty = Omit<claim.TBehaviorProperty, 'value'> & {
+
+
+
+export type TProperty = Omit<claim_variant.TBehaviorProperty, 'value'> & {
 	value: number
 	digit: number
 	max: number
@@ -12,7 +15,7 @@ export type TProperty = Omit<claim.TBehaviorProperty, 'value'> & {
 
 Component(
 	{
-		behaviors: [claim.behaviors],
+		behaviors: [claim_variant.behavior],
 
 		relations: {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
@@ -162,7 +165,7 @@ Component(
 				input = this.limit(input)
 
 				// eslint-disable-next-line consistent-this
-				let self = this as unknown as claim.TBehaviorMethod
+				let self = this as unknown as claim_variant.TBehaviorMethod
 
 				this.setData(
 					{ input },
@@ -177,7 +180,7 @@ Component(
 			},
 
 			set_style(): void {
-				let { parent } = this.data as unknown as claim.TBehaviorData
+				let { parent } = this.data as unknown as claim_variant.TBehaviorData
 
 				let css = new style.Variable<'text-align'>('dx', 'number')
 

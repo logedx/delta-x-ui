@@ -1,13 +1,13 @@
-import * as claim from './claim.js'
+import * as claim_variant from './claim.variant.js'
 
 
 
 
-export type TProperty = claim.TBehaviorProperty
+export type TProperty = claim_variant.TBehaviorProperty
 
 Component(
 	{
-		behaviors: [claim.behaviors],
+		behaviors: [claim_variant.behavior],
 
 		relations: {
 			// eslint-disable-next-line @typescript-eslint/naming-convention

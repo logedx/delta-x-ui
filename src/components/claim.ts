@@ -1,40 +1,9 @@
 import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
+import * as variant from './claim.variant.js'
 
 
-
-export type TBehaviorProperty = {
-	value: string
-	placeholder: string
-	required: boolean
-	readonly: boolean
-
-}
-
-export type TBehaviorData = {
-	focus: boolean
-	// eslint-disable-next-line no-use-before-define
-	parent: null | TInstance
-
-}
-
-export type TBehaviorMethod = {
-	update_(value: unknown): void
-	focus_(): void
-	blur_(): void
-	set_style_(check?: boolean, divider_color?: string): void
-
-}
-
-export type TBehaviorInstance = WechatMiniprogram.Component.Instance<
-	TBehaviorData,
-
-	{ value: StringConstructor, placeholder: StringConstructor, required: BooleanConstructor, readonly: BooleanConstructor},
-
-	TBehaviorMethod
-
->
 
 
 export enum MarkStyle {
@@ -69,155 +38,13 @@ export type TInstance = WechatMiniprogram.Component.Instance<
 	{ name: StringConstructor, value: StringConstructor, divider: BooleanConstructor },
 
 	{
-		set_style(data: TBehaviorProperty & TBehaviorData): void
+		set_style(data: variant.TBehaviorProperty & variant.TBehaviorData): void
 
 	}
 
 >
 
 
-
-
-export const behaviors = Behavior(
-	{
-		properties: {
-			value: { type: String, value: '' },
-			placeholder: { type: String, value: '' },
-			required: { type: Boolean, value: false },
-			readonly: { type: Boolean, value: false },
-
-		},
-
-		data: {
-			focus: false,
-			parent: null as null | TInstance,
-
-		},
-
-		observers: {
-			value(v: unknown): void {
-				this.update_(v)
-
-			},
-
-		},
-
-		lifetimes: {
-			ready(): void {
-				this.set_style_()
-
-			},
-
-		},
-
-		methods: {
-			update_(value: unknown): void {
-				let v = this.data.value
-
-				this.set_style_()
-
-				if (v === value) {
-					return
-
-				}
-
-				this.setData(
-					{ value },
-
-				)
-
-				this.set_style_()
-
-				this.triggerEvent(
-					'update', { value },
-
-				)
-
-			},
-
-			focus_(): void {
-				this.setData(
-					{ focus: true },
-
-				)
-
-			},
-
-			blur_(): void {
-				this.setData(
-					{ focus: false },
-
-				)
-
-			},
-
-			set_style_(): void {
-				let { parent } = this.data
-
-
-				// eslint-disable-next-line @typescript-eslint/unbound-method
-				if (detective.is_function(parent?.set_style)
-
-				) {
-					parent.set_style(this.data as TBehaviorProperty & TBehaviorData)
-
-				}
-
-
-			},
-
-			on_focus(): void {
-				this.focus_()
-				this.set_style_()
-
-			},
-
-			on_blur(): void {
-				this.blur_()
-				this.set_style_()
-
-			},
-
-			on_input(
-				e: WechatMiniprogram.CustomEvent<
-					{ value: string }
-
-				>,
-
-			): void {
-				let { value } = e.detail
-
-				this.update_(
-					value.trim(),
-
-				)
-
-			},
-
-			on_keyboard_height_change(
-				e: WechatMiniprogram.CustomEvent<
-					{ height: number, duration: number }
-
-				>,
-
-			): void {
-				let { height } = e.detail
-
-				this.setData(
-					{ focus: height > 0 },
-
-				)
-
-				this.set_style_()
-
-			},
-
-		},
-
-
-	},
-
-)
 
 
 Component(
@@ -227,10 +54,10 @@ Component(
 			'dx-claim': {
 				type: 'descendant',
 
-				target: behaviors,
+				target: variant.behavior,
 
 				linked(target) {
-					this.set_style(target.data as TBehaviorProperty & TBehaviorData)
+					this.set_style(target.data as variant.TBehaviorProperty & variant.TBehaviorData)
 
 				},
 
@@ -264,7 +91,7 @@ Component(
 		},
 
 		methods: {
-			set_style(data: TBehaviorProperty & TBehaviorData): void {
+			set_style(data: variant.TBehaviorProperty & variant.TBehaviorData): void {
 				let notice = false
 
 				let css = new style.Variable<'divider' | 'divider-color' | 'flag' | 'flag-color'>('dx', 'claim')

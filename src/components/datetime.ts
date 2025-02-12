@@ -3,12 +3,12 @@ import moment from 'moment'
 import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
-import * as claim from './claim.js'
+import * as claim_variant from './claim.variant.js'
 
 
 
 
-export type TProperty = claim.TBehaviorProperty & {
+export type TProperty = claim_variant.TBehaviorProperty & {
 	icon: string
 	mode?: 'time' | 'date'
 
@@ -16,7 +16,7 @@ export type TProperty = claim.TBehaviorProperty & {
 
 Component(
 	{
-		behaviors: [claim.behaviors],
+		behaviors: [claim_variant.behavior],
 
 		relations: {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
@@ -98,7 +98,7 @@ Component(
 
 		methods: {
 			set_style(): void {
-				let { parent } = this.data as unknown as claim.TBehaviorData
+				let { parent } = this.data as unknown as claim_variant.TBehaviorData
 
 				let css = new style.Variable<'justify-content'>('dx', 'datetime')
 
