@@ -8,11 +8,11 @@
 			src="/example/icon/palette.svg"
 		/>
 
-		<dx-label divider title="default">
+		<dx-label serif name="default">
 			<text class="slot" />
 		</dx-label>
 
-		<dx-label divider title="icon">
+		<dx-label serif name="icon">
 			<text class="slot icon" />
 		</dx-label>
 	</dx-nameplate>

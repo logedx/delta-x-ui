@@ -8,11 +8,11 @@
 			src="/example/icon/palette.svg"
 		/>
 
-		<dx-label divider title="main">
+		<dx-label serif name="main">
 			<text class="color" />
 		</dx-label>
 
-		<dx-label divider title="main:slot">
+		<dx-label serif name="main:slot">
 			<text class="color slot" />
 		</dx-label>
 	</dx-nameplate>
@@ -24,7 +24,7 @@
 			src="/example/icon/activity.svg"
 		/>
 
-		<dx-label title="scroll">
+		<dx-label name="scroll">
 			<!--  -->
 		</dx-label>
 	</dx-nameplate>

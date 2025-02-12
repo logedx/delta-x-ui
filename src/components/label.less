@@ -1,9 +1,9 @@
 @import '../style/border.less';
 
+
 .dx-label {
-	--dx-label-newline: flex;
 	--dx-label-serif: none;
-	--dx-label-divider: none;
+	--dx-label-newline: flex;
 
 	width: 100%;
 	display: var(--dx-label-newline);
@@ -15,56 +15,32 @@
 	.bottom();
 
 	&::after {
-		display: var(--dx-label-divider);
-		background: var(--divider);
+		display: var(--dx-label-serif);
+		left: unset;
+		right: calc(0 - var(--u-00-l));
+		background: var(--border);
 
 	}
+
 
 	.head {
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
 
-		>view {
-			flex: 1;
-			display: flex;
-			justify-content: flex-end;
-			position: relative;
-
-		}
-
-
 	}
 
-	.title {
-		display: flex;
-		flex-shrink: 0;
-		align-items: center;
-		width: var(--u-10-l);
-		height: var(--label);
+	.name {
 		white-space: nowrap;
-		padding-right: var(--u-02-s);
 		font-size: var(--normal);
 		color: var(--content);
-
-	}
-
-	.slot {
-		flex: 1;
-		display: var(--dx-label-newline);
-		justify-content: flex-end;
-		min-height: var(--u-04-l);
-		position: relative;
-
-		.bottom();
-
-		&::after {
-			display: var(--dx-label-serif);
-			background-color: var(--subtitle);
-
-		}
+		width: var(--u-10-l);
+		height: var(--label);
+		line-height: var(--label);
+		padding-right: var(--u-02-s);
 
 
 	}
+
 
 }

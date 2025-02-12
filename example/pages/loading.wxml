@@ -8,11 +8,11 @@
 			src="/example/icon/text-size.svg"
 		/>
 
-		<dx-label divider title="default">
+		<dx-label serif name="default">
 			<dx-loading />
 		</dx-label>
 
-		<dx-label divider title="customize">
+		<dx-label serif name="customize">
 			<dx-loading size="20vw" />
 		</dx-label>
 	</dx-nameplate>
@@ -24,11 +24,11 @@
 			src="/example/icon/palette.svg"
 		/>
 
-		<dx-label title="default">
+		<dx-label name="default">
 			<dx-loading />
 		</dx-label>
 
-		<dx-label title="customize">
+		<dx-label name="customize">
 			<dx-loading
 				src="/example/icon/autorenew_128dp_7CA7D8_FILL0_wght500_GRAD0_opsz48.png"
 			/>

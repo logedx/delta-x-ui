@@ -14,11 +14,11 @@
 			src="/example/icon/palette.svg"
 		/>
 
-		<dx-label title="footer">
+		<dx-label name="footer">
 			<text class="color" />
 		</dx-label>
 
-		<dx-label divider title="footer:slot">
+		<dx-label serif name="footer:slot">
 			<text class="color slot" />
 		</dx-label>
 	</dx-nameplate>

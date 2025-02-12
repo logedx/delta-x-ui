@@ -9,7 +9,7 @@
 				src="/example/icon/grid-dots.svg"
 			/>
 
-			<dx-label newline divider title="separator">
+			<dx-label serif newline name="separator">
 				<dx-matrix
 					separator="."
 					gap="var(--u-00-l)"
@@ -36,7 +36,7 @@
 				</dx-matrix>
 			</dx-label>
 
-			<dx-label newline title="each">
+			<dx-label newline name="each">
 				<dx-matrix
 					gap="var(--u-00-l)"
 					row="{{ 4 }}"

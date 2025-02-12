@@ -1,13 +1,15 @@
-import { Variable } from '../lib/style.js'
+import * as style from '../lib/style.js'
+
+
+
 
 export type TProperty = {
-	title: string
-	newline: boolean
+	name: string
 	serif: boolean
-	divider: boolean
+	newline: boolean
+
 
 }
-
 
 Component(
 	{
@@ -24,15 +26,27 @@ Component(
 		},
 
 		properties: {
-			title: { type: String, value: '' },
-			newline: { type: Boolean, value: false },
+			name: { type: String, value: '' },
 			serif: { type: Boolean, value: false },
-			divider: { type: Boolean, value: false },
+			newline: { type: Boolean, value: false },
 
 		},
 
 		data: {
 			style: '',
+
+		},
+
+		observers: {
+			serif(): void {
+				this.set_style()
+
+			},
+
+			newline(): void {
+				this.set_style()
+
+			},
 
 		},
 
@@ -46,25 +60,19 @@ Component(
 
 		methods: {
 			set_style(): void {
-				let { newline, serif, divider } = this.data
+				let { serif, newline } = this.data
 
-				let css = new Variable<'newline' | 'serif' | 'divider'>('dx', 'label')
-
-				if (newline) {
-					css.set('newline', 'block')
-
-				}
+				let css = new style.Variable<'serif' | 'newline'>('dx', 'label')
 
 				if (serif) {
 					css.set('serif', 'block')
 
 				}
 
-				if (divider) {
-					css.set('divider', 'block')
+				if (newline) {
+					css.set('newline', 'block')
 
 				}
-
 
 				this.setData(
 					{ style: css.to_string() },

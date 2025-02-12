@@ -9,11 +9,11 @@
 				src="/example/icon/text-size.svg"
 			/>
 
-			<dx-label divider title="expire">
+			<dx-label serif name="expire">
 				<text>{{ expire }}</text>
 			</dx-label>
 
-			<dx-label title="scope">
+			<dx-label name="scope">
 				<text>{{ scope }}</text>
 			</dx-label>
 		</dx-nameplate>

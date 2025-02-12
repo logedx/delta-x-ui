@@ -15,15 +15,15 @@
 				src="/example/icon/palette.svg"
 			/>
 
-			<dx-label divider title="veil">
+			<dx-label serif name="veil">
 				<text class="color veil" />
 			</dx-label>
 
-			<dx-label divider title="header">
+			<dx-label serif name="header">
 				<text class="color header" />
 			</dx-label>
 
-			<dx-label divider title="main">
+			<dx-label serif name="main">
 				<text class="color main" />
 			</dx-label>
 		</dx-nameplate>

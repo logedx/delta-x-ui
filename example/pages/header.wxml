@@ -15,11 +15,11 @@
 			src="/example/icon/palette.svg"
 		/>
 
-		<dx-label divider title="header">
+		<dx-label serif name="header">
 			<text class="color" />
 		</dx-label>
 
-		<dx-label divider title="header:slot">
+		<dx-label serif name="header:slot">
 			<text class="color slot" />
 		</dx-label>
 	</dx-nameplate>
@@ -31,14 +31,14 @@
 			src="/example/icon/activity.svg"
 		/>
 
-		<dx-label divider title="back">
+		<dx-label serif name="back">
 			<dx-icon
 				size="var(--u-04-xs)"
 				src="/example/icon/chevron-left.svg"
 			/>
 		</dx-label>
 
-		<dx-label title="home">
+		<dx-label name="home">
 			<dx-icon size="var(--u-04-xs)" src="/example/icon/home.svg" />
 		</dx-label>
 	</dx-nameplate>

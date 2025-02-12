@@ -9,63 +9,45 @@
 				src="/example/icon/palette.svg"
 			/>
 
-			<dx-label divider title="slot">
+			<dx-label name="slot">
 				<text class="slot" />
 			</dx-label>
 
-			<dx-label divider title="slot:head">
+			<dx-label name="slot:head">
 				<text class="slot head" />
 			</dx-label>
 		</dx-nameplate>
 
-		<dx-nameplate class="nameplate" label="Typeset">
-			<dx-icon
-				slot="icon"
-				size="var(--u-04-xs)"
-				src="/example/icon/indent-increase.svg"
-			/>
-
-			<dx-label divider title="inline">
-				<text class="slot" />
-			</dx-label>
-
-			<dx-label newline divider title="newline">
-				<text slot="head" class="slot head" />
-
-				<text class="slot newline" />
-			</dx-label>
-		</dx-nameplate>
-
-		<dx-nameplate class="nameplate" label="Serif">
-			<dx-icon
-				slot="icon"
-				size="var(--u-04-xs)"
-				src="/example/icon/signature.svg"
-			/>
-
-			<dx-label serif divider title="inline">
-				<text class="slot" />
-			</dx-label>
-
-			<dx-label newline serif divider title="newline">
-				<text slot="head" class="slot head" />
-
-				<text class="slot newline" />
-			</dx-label>
-		</dx-nameplate>
-
-		<dx-nameplate class="nameplate" label="Divider">
+		<dx-nameplate divide class="nameplate" label="Serif">
 			<dx-icon
 				slot="icon"
 				size="var(--u-04-xs)"
 				src="/example/icon/separator-horizontal.svg"
 			/>
 
-			<dx-label divider title="inline">
+			<dx-label name="default">
 				<text class="slot" />
 			</dx-label>
 
-			<dx-label newline divider title="newline">
+			<dx-label serif name="newline">
+				<text slot="head" class="slot head" />
+
+				<text class="slot newline" />
+			</dx-label>
+		</dx-nameplate>
+
+		<dx-nameplate divide class="nameplate" label="Typeset">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/indent-increase.svg"
+			/>
+
+			<dx-label name="default">
+				<text class="slot" />
+			</dx-label>
+
+			<dx-label newline name="newline">
 				<text slot="head" class="slot head" />
 
 				<text class="slot newline" />

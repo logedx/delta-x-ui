@@ -8,11 +8,11 @@
 			src="/example/icon/text-size.svg"
 		/>
 
-		<dx-label divider title="default">
+		<dx-label serif name="default">
 			<dx-icon src="/example/icon/feedback.svg" />
 		</dx-label>
 
-		<dx-label divider title="customize">
+		<dx-label serif name="customize">
 			<dx-icon size="20vw" src="/example/icon/feedback.svg" />
 		</dx-label>
 	</dx-nameplate>
@@ -24,7 +24,7 @@
 			src="/example/icon/palette.svg"
 		/>
 
-		<dx-label title="empty">
+		<dx-label name="empty">
 			<dx-icon size="20vw" />
 		</dx-label>
 	</dx-nameplate>

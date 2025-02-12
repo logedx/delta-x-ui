@@ -9,7 +9,7 @@
 				src="/example/icon/palette.svg"
 			/>
 
-			<dx-label divider title="default">
+			<dx-label serif name="default">
 				<view class="box">
 					<dx-directed>
 						<text class="label">default</text>
@@ -17,7 +17,7 @@
 				</view>
 			</dx-label>
 
-			<dx-label divider title="customize">
+			<dx-label serif name="customize">
 				<view class="box">
 					<dx-directed color="var(--blue)">
 						<text class="label">customize</text>

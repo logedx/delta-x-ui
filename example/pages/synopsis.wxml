@@ -9,7 +9,7 @@
 				src="/example/icon/palette.svg"
 			/>
 
-			<dx-label divider title="default">
+			<dx-label serif name="default">
 				<text class="slot" />
 			</dx-label>
 		</dx-nameplate>
@@ -33,7 +33,7 @@
 				src="/example/icon/text-size.svg"
 			/>
 
-			<dx-label divider newline title="default">
+			<dx-label serif newline name="default">
 				<dx-synopsis
 					title="title"
 					thumbnail="/example/image/pexels-pixabay-57416.jpg"
@@ -42,7 +42,7 @@
 				</dx-synopsis>
 			</dx-label>
 
-			<dx-label divider newline title="customize">
+			<dx-label serif newline name="customize">
 				<dx-synopsis
 					title="title"
 					size="var(--u-10-xs)"
@@ -60,7 +60,7 @@
 				src="/example/icon/shape.svg"
 			/>
 
-			<dx-label divider newline title="circle">
+			<dx-label serif newline name="circle">
 				<dx-synopsis
 					title="title"
 					thumbnail="/example/image/pexels-pixabay-57416.jpg"
@@ -69,7 +69,7 @@
 				</dx-synopsis>
 			</dx-label>
 
-			<dx-label divider newline title="square">
+			<dx-label serif newline name="square">
 				<dx-synopsis
 					square
 					title="title"

@@ -8,11 +8,11 @@
 			src="/example/icon/sign-right-filled.svg"
 		/>
 
-		<dx-label divider title="back">
+		<dx-label serif name="back">
 			<dx-back src="/example/icon/chevron-left.svg" />
 		</dx-label>
 
-		<dx-label divider title="home">
+		<dx-label serif name="home">
 			<dx-back src="/example/icon/home.svg" />
 		</dx-label>
 	</dx-nameplate>

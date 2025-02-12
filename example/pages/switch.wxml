@@ -8,11 +8,11 @@
 			src="/example/icon/text-size.svg"
 		/>
 
-		<dx-label divider title="default">
+		<dx-label serif name="default">
 			<dx-switch model:value="{{ value }}" />
 		</dx-label>
 
-		<dx-label divider title="customize">
+		<dx-label serif name="customize">
 			<dx-switch size="20vw" model:value="{{ value }}" />
 		</dx-label>
 	</dx-nameplate>
@@ -24,11 +24,11 @@
 			src="/example/icon/palette.svg"
 		/>
 
-		<dx-label title="default">
+		<dx-label name="default">
 			<dx-switch model:value="{{ value }}" />
 		</dx-label>
 
-		<dx-label title="customize">
+		<dx-label name="customize">
 			<dx-switch color="var(--red)" model:value="{{ value }}" />
 		</dx-label>
 	</dx-nameplate>

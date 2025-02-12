@@ -8,19 +8,19 @@
 			src="/example/icon/palette.svg"
 		/>
 
-		<dx-label divider title="header">
+		<dx-label serif name="header">
 			<text class="color header" />
 		</dx-label>
 
-		<dx-label divider title="main">
+		<dx-label serif name="main">
 			<text class="color main" />
 		</dx-label>
 
-		<dx-label title="footer">
+		<dx-label name="footer">
 			<text class="color footer" />
 		</dx-label>
 
-		<dx-label title="background">
+		<dx-label name="background">
 			<text class="color background" />
 		</dx-label>
 	</dx-nameplate>

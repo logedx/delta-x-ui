@@ -9,7 +9,7 @@
 				src="/example/icon/palette.svg"
 			/>
 
-			<dx-label divider title="slot">
+			<dx-label serif name="slot">
 				<text class="slot" />
 			</dx-label>
 		</dx-nameplate>

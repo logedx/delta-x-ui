@@ -9,11 +9,11 @@
 				src="/example/icon/text-size.svg"
 			/>
 
-			<dx-label divider title="default">
+			<dx-label serif name="default">
 				<dx-avatar src="/example/image/pexels-pixabay-57416.jpg" />
 			</dx-label>
 
-			<dx-label divider title="customize">
+			<dx-label serif name="customize">
 				<dx-avatar
 					size="40vw"
 					src="/example/image/pexels-pixabay-57416.jpg"
@@ -28,14 +28,14 @@
 				src="/example/icon/shape.svg"
 			/>
 
-			<dx-label divider title="circle">
+			<dx-label serif name="circle">
 				<dx-avatar
 					size="40vw"
 					src="/example/image/pexels-pixabay-57416.jpg"
 				/>
 			</dx-label>
 
-			<dx-label divider title="square">
+			<dx-label serif name="square">
 				<dx-avatar
 					square
 					size="40vw"
@@ -51,7 +51,7 @@
 				src="/example/icon/palette.svg"
 			/>
 
-			<dx-label newline title="empty">
+			<dx-label newline name="empty">
 				<dx-matrix gap="var(--u-02-s)">
 					<dx-avatar slot="0" size="100%" />
 					<dx-avatar square slot="1" size="100%" />
