@@ -1,5 +1,7 @@
 import * as detective from '../lib/detective.js'
 
+import type * as claim from './claim.js'
+
 
 
 
@@ -13,8 +15,8 @@ export type TBehaviorProperty = {
 
 export type TBehaviorData = {
 	focus: boolean
-	// eslint-disable-next-line no-use-before-define
-	parent: null | TInstance
+
+	parent: null | claim.TInstance
 
 }
 
@@ -36,44 +38,6 @@ export type TBehaviorInstance = WechatMiniprogram.Component.Instance<
 >
 
 
-export enum MarkStyle {
-	none,
-	blank,
-	success,
-	error,
-
-}
-
-export enum TEvent {
-	update = 'update',
-
-}
-
-export type TProperty = {
-	name: string
-	value: string
-
-}
-
-export type TData = {
-	color: string
-
-	notice: boolean
-
-}
-
-export type TInstance = WechatMiniprogram.Component.Instance<
-	TData,
-
-	{ name: StringConstructor, value: StringConstructor, divider: BooleanConstructor },
-
-	{
-		set_style(data: TBehaviorProperty & TBehaviorData): void
-
-	}
-
->
-
 
 
 
@@ -89,7 +53,7 @@ export const behavior = Behavior(
 
 		data: {
 			focus: false,
-			parent: null as null | TInstance,
+			parent: null as null | claim.TInstance,
 
 		},
 
