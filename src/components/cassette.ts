@@ -1,3 +1,8 @@
+import * as detective from '../lib/detective.js'
+
+
+
+
 enum TActive {
 	none,
 	last,
@@ -60,7 +65,6 @@ Component(
 
 		data: {
 			mark: 0,
-			anchor: '',
 
 			trigger: false,
 
@@ -89,11 +93,6 @@ Component(
 
 			},
 
-			into(): void {
-				this.docked()
-
-			},
-
 		},
 
 		lifetimes: {
@@ -116,21 +115,6 @@ Component(
 		},
 
 		methods: {
-			docked(): void {
-				let { loading, into, anchor } = this.data
-
-				if (loading || into === anchor) {
-					return
-
-				}
-
-				this.setData(
-					{ anchor: into },
-
-				)
-
-			},
-
 			reset_active(): void {
 				this.setData(
 					{ active: TActive.none },
@@ -202,8 +186,20 @@ Component(
 			},
 
 			on_scroll_end(): void {
+				let { into } = this.data
+
 				wx.nextTick(
 					() => {
+						if (detective.is_required_string(into)
+
+						) {
+							this.setData(
+								{ into: '' },
+
+							)
+
+						}
+
 						this.setData(
 							{ mark: 0, lock: false, direction: TDirection.none },
 

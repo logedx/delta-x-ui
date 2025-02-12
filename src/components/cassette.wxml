@@ -6,7 +6,7 @@
 	type="{{ lister ? 'list' : 'custom' }}"
 	bounces="{{ false }}"
 	show-scrollbar="{{ false }}"
-	scroll-into-view="{{ anchor }}"
+	scroll-into-view="{{ into }}"
 	refresher-enabled="{{ refresher }}"
 	refresher-triggered="{{ trigger }}"
 	associative-container="{{ container }}"
