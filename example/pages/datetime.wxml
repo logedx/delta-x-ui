@@ -8,17 +8,70 @@
 			src="/example/icon/caret-down.svg"
 		/>
 
-		<dx-label divider title="default">
-			<dx-datetime placeholder="请选择时间" />
+		<dx-label serif name="default">
+			<dx-datetime placeholder="请选择时间" model:value="{{ value }}" />
 		</dx-label>
 
-		<dx-label divider title="value">
-			<dx-datetime model:value="{{ value }}" />
-		</dx-label>
-
-		<dx-label divider title="icon">
+		<dx-label serif name="icon">
 			<dx-datetime
 				icon="/example/icon/clock.svg"
+				placeholder="请选择时间"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate divide class="nameplate" label="Mode">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-label serif name="date">
+			<dx-datetime
+				mode="date"
+				icon="/example/icon/clock.svg"
+				placeholder="请选择日期"
+			/>
+		</dx-label>
+
+		<dx-label serif name="time">
+			<dx-datetime
+				mode="time"
+				icon="/example/icon/clock.svg"
+				placeholder="请选择时间"
+			/>
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate divide class="nameplate" label="Required">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-label serif name="value">
+			<dx-datetime
+				required
+				placeholder="请选择时间"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate divide class="nameplate" label="Readonly">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-label serif name="value">
+			<dx-datetime
+				readonly
+				placeholder="请选择时间"
 				model:value="{{ value }}"
 			/>
 		</dx-label>

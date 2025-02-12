@@ -1,6 +1,9 @@
 .dx-datetime {
+	--dx-datetime-justify-content: flex-end;
+
 	display: flex;
 	align-items: center;
+	justify-content: var(--dx-datetime-justify-content);
 	height: var(--label);
 
 	text {
@@ -8,7 +11,7 @@
 		font-size: var(--strong);
 
 		&.placeholder {
-			color: var(--subtitle);
+			color: #ccc;
 
 		}
 
@@ -16,10 +19,15 @@
 
 	.icon {
 		margin-right: var(--u-00-l);
+
 	}
 
-	.time {
-		margin-left: var(--u-01-m);
+	picker,
+	.picker {
+		&:not(:last-child) {
+			margin-right: var(--u-01-m);
+
+		}
 
 	}
 

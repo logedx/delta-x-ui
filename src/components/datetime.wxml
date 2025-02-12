@@ -1,4 +1,4 @@
-<view class="dx-datetime class">
+<view class="dx-datetime class" style="{{ style }}" wx:if="{{ readonly }}">
 	<dx-icon
 		class="icon"
 		size="var(--u-03-xs)"
@@ -6,7 +6,24 @@
 		wx:if="{{ icon }}"
 	/>
 
-	<picker mode="date" model:value="{{ date }}" bind:change="on_update">
+	<text class="picker" wx:if="{{ date }}">{{ date }}</text>
+	<text class="picker" wx:if="{{ time }}">{{ time }}</text>
+</view>
+
+<view class="dx-datetime class" style="{{ style }}" wx:else>
+	<dx-icon
+		class="icon"
+		size="var(--u-03-xs)"
+		src="{{ icon }}"
+		wx:if="{{ icon }}"
+	/>
+
+	<picker
+		mode="date"
+		model:value="{{ date }}"
+		bind:change="on_update"
+		wx:if="{{ is_date(mode) }}"
+	>
 		<text wx:if="{{ date }}">{{ date }}</text>
 		<text class="placeholder" wx:else>{{ placeholder }}</text>
 	</picker>
@@ -14,10 +31,10 @@
 	<picker
 		mode="time"
 		model:value="{{ time }}"
-		class="time"
 		bind:change="on_update"
-		wx:if="{{ date }}"
+		wx:if="{{ is_time(mode, date) }}"
 	>
-		<text>{{ time }}</text>
+		<text wx:if="{{ time }}">{{ time }}</text>
+		<text class="placeholder" wx:else>{{ placeholder }}</text>
 	</picker>
 </view>
