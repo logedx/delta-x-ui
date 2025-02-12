@@ -8,40 +8,92 @@
 			src="/example/icon/caret-down.svg"
 		/>
 
-		<dx-label divider title="integer">
-			<dx-number placeholder="请输入数字" value="{{ default }}" />
+		<dx-label serif name="integer">
+			<dx-number placeholder="请输入数字" model:value="{{ integer }}" />
 		</dx-label>
 
-		<dx-label divider title="digit">
+		<dx-label serif name="digit">
 			<dx-number
 				placeholder="请输入数字"
 				digit="{{ 2 }}"
-				value="{{ default }}"
+				model:value="{{ digit }}"
 			/>
 		</dx-label>
 	</dx-nameplate>
 
-	<dx-nameplate class="nameplate" label="Negative">
+	<dx-nameplate class="nameplate" label="Required">
 		<dx-icon
 			slot="icon"
 			size="var(--u-04-xs)"
 			src="/example/icon/activity.svg"
 		/>
 
-		<dx-label divider title="integer">
+		<dx-label serif name="integer">
 			<dx-number
+				required
 				placeholder="请输入数字"
-				min="{{ 0 - 100 }}"
-				value="{{ negative }}"
+				model:value="{{ integer }}"
 			/>
 		</dx-label>
 
-		<dx-label divider title="digit">
+		<dx-label serif name="digit">
 			<dx-number
+				required
 				placeholder="请输入数字"
 				digit="{{ 2 }}"
-				min="{{ 0 - 100 }}"
-				value="{{ negative }}"
+				model:value="{{ digit }}"
+			/>
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate class="nameplate" label="Max">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/activity.svg"
+		/>
+
+		<dx-label serif name="integer">
+			<dx-number
+				required
+				placeholder="请输入数字"
+				max="{{ 100 }}"
+				model:value="{{ integer }}"
+			/>
+		</dx-label>
+
+		<dx-label serif name="digit">
+			<dx-number
+				required
+				placeholder="请输入数字"
+				max="{{ 100 }}"
+				digit="{{ 2 }}"
+				model:value="{{ digit }}"
+			/>
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate class="nameplate" label="Readonly">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/activity.svg"
+		/>
+
+		<dx-label serif name="integer">
+			<dx-number
+				readonly
+				placeholder="请输入数字"
+				model:value="{{ integer }}"
+			/>
+		</dx-label>
+
+		<dx-label serif name="digit">
+			<dx-number
+				readonly
+				placeholder="请输入数字"
+				digit="{{ 2 }}"
+				model:value="{{ digit }}"
 			/>
 		</dx-label>
 	</dx-nameplate>

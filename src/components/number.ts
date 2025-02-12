@@ -1,18 +1,38 @@
-import { Variable } from '../lib/style.js'
+import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
-export type TProperty = {
-	min: number
-	max: number
+import * as claim from './claim.js'
+
+export type TProperty = Omit<claim.TBehaviorProperty, 'value'> & {
 	value: number
 	digit: number
-	placeholder: string
-
+	max: number
 
 }
 
 Component(
 	{
+		behaviors: [claim.behaviors],
+
+		relations: {
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			'./claim': {
+				type: 'ancestor',
+
+				linked(target) {
+					this.setData(
+						{ parent: target },
+
+					)
+
+					this.set_style()
+
+				},
+
+			},
+
+		},
+
 		// eslint-disable-next-line @typescript-eslint/naming-convention
 		externalClasses: ['class'],
 
@@ -23,31 +43,23 @@ Component(
 		},
 
 		properties: {
-			min: { type: Number, value: 0 },
-			max: { type: Number, value: Infinity },
 			value: { type: Number, value: 0 },
 			digit: { type: Number, value: 0 },
-			placeholder: { type: String, value: '' },
+			max: { type: Number, value: Infinity },
 
 		},
 
 		data: {
 			input: '',
 
-			focus: false,
-			negative: false,
-
 			style: '',
 
 		},
 
 		observers: {
-			value(): void {
-				wx.nextTick(
-					() => {
-						this.set_style()
-
-					},
+			value(v: number): void {
+				this.update(
+					v.toString(),
 
 				)
 
@@ -56,123 +68,36 @@ Component(
 		},
 
 		lifetimes: {
-			attached(): void {
+			ready(): void {
 				let { value } = this.data
 
-				let v = this.constraints(value)
+				this.update(
+					value.toString(),
 
-				this.update(v)
-
-				this.set_style()
-
+				)
 
 			},
 
 		},
 
 		methods: {
-			on_focus(): void {
-				this.setData(
-					{ focus: true },
+			cut(value: string): string {
+				let { digit } = this.data
 
-				)
+				let index = value.indexOf('.')
 
-				this.set_style()
+				if (index >= 0) {
+					if (digit > 0) {
+						index = index + 1 + digit
 
-			},
+					}
 
-			on_blur(
-				e: WechatMiniprogram.CustomEvent<
-					{ value: string }
-
-				>,
-
-			): void {
-				let value = Number(e.detail.value)
-
-				let { negative, focus } = this.data
-
-				if (Number.isNaN(value)
-
-				) {
-					value = 0
+					value = value.slice(0, index)
 
 				}
 
-
-				if (negative) {
-					value = 0 - Math.abs(value)
-
-				}
-
-				if (focus) {
-					this.setData(
-						{ focus: false },
-
-					)
-
-				}
-
-				let v = this.constraints(value)
-
-				this.update(v)
-
-
-			},
-
-			on_keyboard_height_change(
-				e: WechatMiniprogram.CustomEvent<
-					{ height: number, duration: number }
-
-				>,
-
-			): void {
-				let { height } = e.detail
-
-				let focus = height > 0
-
-				this.setData(
-					{ focus },
-
-				)
-
-			},
-
-			on_switch_negative(): void {
-				let { value } = this.data
-
-				let v = this.constraints(0 - value)
-
-				this.update(v)
-
-			},
-
-			constraints(value: number): number {
-				let { min, max, digit } = this.data
-
-				value = Math.max(value, min)
-				value = Math.min(value, max)
-
-				if (value === 0) {
-					return 0
-
-				}
-
-				let [a, b] = value.toString().split('.')
-
-				if (detective.is_required_string(b)
-
-				) {
-					value = Number(
-						`${a}.${b.slice(0, digit)}`,
-
-					)
-
-				}
-
-				else {
-					value = Number(a)
-
+				if (value === '0') {
+					return ''
 
 				}
 
@@ -180,58 +105,104 @@ Component(
 
 			},
 
-			update(value: number): void {
-				let v = this.data.value
+			align(value: string): string {
+				value = value.replace(/[^-.\d]/g, '')
 
-				if (v === value) {
-					return
+				let [integer, decimal] = value.split('.')
+
+				if (integer.includes('-')
+
+				) {
+					integer = `-${integer.replace(/-/g, '')}`
 
 				}
 
-				this.setData(
-					{ value },
+				if (detective.is_exist(decimal) === false
 
-				)
+				) {
+					return integer
 
-				this.triggerEvent(
-					'update', { value },
+				}
 
-				)
+				if (decimal.includes('-')
+
+				) {
+					decimal = decimal.replace(/-/g, '')
+
+				}
+
+				return `${integer}.${decimal}`
 
 
 			},
 
-			set_style(): void {
-				let { value, focus } = this.data
+			limit(input: string): string {
+				input = this.align(input)
 
-				let negative = value < 0
+				let { max } = this.data
 
-				let input = Math.abs(value).toString()
+				let value = Number(input) || 0
 
-				if (value === 0) {
-					input = ''
-
-				}
-
-				let css = new Variable<'after-background' | 'text-color'>('dx', 'number')
-
-
-				if (focus) {
-					css.set('after-background', 'var(--h-cd-00)')
+				if (value >= 0 && value <= max) {
+					return this.cut(input)
 
 				}
 
-				if (negative) {
-					css.set('text-color', 'var(--disabled)')
+				value = Math.max(value, 0)
+				value = Math.min(value, max)
 
-				}
-
-
-				this.setData(
-					{ negative, input, style: css.to_string() },
+				return this.cut(
+					value.toString(),
 
 				)
 
+			},
+
+			update(input: string): void {
+				input = this.limit(input)
+
+				// eslint-disable-next-line consistent-this
+				let self = this as unknown as claim.TBehaviorMethod
+
+				this.setData(
+					{ input },
+
+				)
+
+				self.update_(
+					Number(input),
+
+				)
+
+			},
+
+			set_style(): void {
+				let { parent } = this.data as unknown as claim.TBehaviorData
+
+				let css = new style.Variable<'text-align'>('dx', 'number')
+
+				if (parent) {
+					css.set('text-align', 'left')
+
+				}
+
+				this.setData(
+					{ style: css.to_string() },
+
+				)
+
+			},
+
+			on_input(
+				e: WechatMiniprogram.CustomEvent<
+					{ value: string }
+
+				>,
+
+			): void {
+				let { value } = e.detail
+
+				this.update(value)
 
 			},
 

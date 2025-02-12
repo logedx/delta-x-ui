@@ -1,15 +1,17 @@
-<view class="dx-number class" style="{{ style }}">
-	<text bind:tap="on_switch_negative" wx:if="{{ min < 0 }}">−</text>
-
-	<input
-		hold-keyboard
-		value="{{ input }}"
-		focus="{{ focus }}"
-		cursor-spacing="{{ 150 }}"
-		placeholder="{{ placeholder }}"
-		type="{{ digit > 0 ? 'digit' : 'number' }}"
-		bind:keyboardheightchange="on_keyboard_height_change"
-		bind:focus="on_focus"
-		bind:blur="on_blur"
-	/>
-</view>
+<input
+	hold-keyboard
+	confirm-type="done"
+	class="dx-number class"
+	placeholder-style="color: #ccc;"
+	value="{{ input }}"
+	focus="{{ focus }}"
+	style="{{ style }}"
+	disabled="{{ readonly }}"
+	cursor-spacing="{{ 150 }}"
+	placeholder="{{ placeholder }}"
+	type="{{ digit > 0 ? 'digit' : 'number' }}"
+	bind:keyboardheightchange="on_keyboard_height_change"
+	bind:focus="on_focus"
+	bind:blur="on_blur"
+	bind:input="on_input"
+/>
