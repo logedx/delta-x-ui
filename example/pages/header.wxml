@@ -1,13 +1,4 @@
-<dx-layout
-	solid
-	scroll
-	home="/example/icon/home.svg"
-	back="/example/icon/chevron-left.svg"
-	main-class="main"
-	header-class="header"
->
-	<text slot="header" class="title">header</text>
-
+<dx-layout back="/example/icon/chevron-left.svg">
 	<dx-nameplate class="nameplate" label="Color">
 		<dx-icon
 			slot="icon"

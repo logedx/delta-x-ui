@@ -1,4 +1,4 @@
-<dx-layout solid footer class="main" back="/example/icon/chevron-left.svg">
+<dx-layout class="main" back="/example/icon/chevron-left.svg">
 	<text slot="header" class="title header">layout</text>
 
 	<dx-nameplate class="nameplate" label="Slot">

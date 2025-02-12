@@ -1,6 +1,4 @@
-<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
-	<text slot="header" class="title">claim</text>
-
+<dx-layout back="/example/icon/chevron-left.svg">
 	<dx-cassette>
 		<dx-nameplate class="nameplate" label="Input">
 			<dx-icon

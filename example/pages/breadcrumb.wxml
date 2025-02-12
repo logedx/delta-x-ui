@@ -1,6 +1,4 @@
-<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
-	<text slot="header" class="title">breadcrumb</text>
-
+<dx-layout back="/example/icon/chevron-left.svg">
 	<dx-nameplate class="nameplate" label="Slot">
 		<dx-icon
 			slot="icon"
@@ -21,7 +19,10 @@
 		/>
 
 		<dx-label serif name="back">
-			<dx-icon size="var(--u-04-xs)" src="/example/icon/chevron-left.svg" />
+			<dx-icon
+				size="var(--u-04-xs)"
+				src="/example/icon/chevron-left.svg"
+			/>
 		</dx-label>
 
 		<dx-label name="home">

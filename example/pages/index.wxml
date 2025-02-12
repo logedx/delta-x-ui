@@ -1,4 +1,4 @@
-<dx-layout solid footer main-class="main" footer-class="footer">
+<dx-layout>
 	<text slot="header" class="title">welcome</text>
 
 	<dx-cassette>

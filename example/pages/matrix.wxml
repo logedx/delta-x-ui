@@ -1,6 +1,4 @@
-<dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
-	<text slot="header" class="title">matrix</text>
-
+<dx-layout back="/example/icon/chevron-left.svg">
 	<dx-cassette>
 		<dx-nameplate class="nameplate" label="MxN &amp; Gap">
 			<dx-icon
@@ -37,11 +35,7 @@
 			</dx-label>
 
 			<dx-label newline name="each">
-				<dx-matrix
-					gap="var(--u-00-l)"
-					row="{{ 4 }}"
-					column="{{ 4 }}"
-				>
+				<dx-matrix gap="var(--u-00-l)" row="{{ 4 }}" column="{{ 4 }}">
 					<text
 						class="slot"
 						slot="{{ index }}"
