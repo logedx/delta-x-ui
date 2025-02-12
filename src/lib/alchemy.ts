@@ -3,7 +3,21 @@ import moment from 'moment'
 import * as detective from './detective.js'
 
 
+/**
+ * Randomly generate a hexadecimal string
+ */
+export function hex(length = 32): string {
+	let RADIX = 16
 
+	return Array(length)
+		.fill(0)
+		.map(
+			() => Math.floor(Math.random() * RADIX).toString(RADIX),
+
+		)
+		.join('')
+
+}
 
 export function _24_hour_system_number(value: string | Date): number {
 	if (detective.is_24_hour_system_string(value)
