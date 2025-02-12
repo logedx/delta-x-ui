@@ -39,15 +39,16 @@
 		"example/pages/icon",
 		"example/pages/avatar",
 		"example/pages/loading",
+		"example/pages/claim",
 		"example/pages/input",
 		"example/pages/number",
 		"example/pages/textarea",
 		"example/pages/switch",
+		"example/pages/datetime",
+		"example/pages/search",
 		"example/pages/sticker",
 		"example/pages/welded",
 		"example/pages/storage",
-		"example/pages/search",
-		"example/pages/datetime",
 		"example/pages/login"
 	]
 }

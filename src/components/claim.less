@@ -1,0 +1,63 @@
+@import '../style/border.less';
+
+
+.dx-claim {
+	--dx-claim-divider: none;
+	--dx-claim-divider-color: var(--divider);
+	--dx-claim-flag: none;
+	--dx-claim-flag-color: var(--disbled);
+
+	position: relative;
+
+	.bottom();
+
+	&::after {
+		display: var(--dx-claim-divider);
+		background: var(--dx-claim-divider-color);
+		animation: width 100ms linear;
+
+
+		@keyframes width {
+			0% {
+				width: 0%;
+
+			}
+
+			100% {
+				width: 100%;
+
+			}
+
+		}
+
+	}
+
+	.flag {
+		width: var(--u-00-s);
+		height: var(--label);
+		display: var(--dx-claim-flag);
+		align-items: center;
+		position: absolute;
+		top: var(--u-02-s);
+		left: calc(0 - var(--u-00-s));
+
+
+		&::before {
+			content: '';
+			width: 100%;
+			height: var(--normal);
+			background: var(--dx-claim-flag-color);
+			border-radius: var(--radius);
+
+		}
+
+	}
+
+	.notice {
+		font-size: var(--normal);
+		color: var(--error);
+		line-height: var(--label);
+
+	}
+
+}

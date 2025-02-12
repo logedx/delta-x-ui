@@ -1,0 +1,15 @@
+<view class="dx-claim class" style="{{ style }}">
+	<view class="flag" />
+
+	<dx-label newline name="{{ name }}">
+		<text
+			slot="head"
+			class="notice"
+			bind:update="on_update"
+			wx:if="{{ notice }}"
+			>{{ value }}</text
+		>
+
+		<slot />
+	</dx-label>
+</view>
