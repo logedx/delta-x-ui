@@ -1,35 +1,47 @@
 <dx-layout solid footer main-class="main" back="/example/icon/chevron-left.svg">
 	<text slot="header" class="title">input</text>
 
-	<dx-nameplate class="nameplate" label="Example">
+	<dx-nameplate class="nameplate" label="Default">
 		<dx-icon
 			slot="icon"
 			size="var(--u-04-xs)"
 			src="/example/icon/caret-down.svg"
 		/>
 
-		<dx-label title="default">
-			<dx-input placeholder="请输入内容" />
-		</dx-label>
-
-		<dx-label newline title="default">
-			<dx-input placeholder="请输入内容" />
+		<dx-label serif name="选填">
+			<dx-input placeholder="请输入内容" model:value="{{ value }}" />
 		</dx-label>
 	</dx-nameplate>
 
-	<dx-nameplate class="nameplate" label="Readonly">
+	<dx-nameplate divide class="nameplate" label="Required">
 		<dx-icon
 			slot="icon"
 			size="var(--u-04-xs)"
 			src="/example/icon/caret-down.svg"
 		/>
 
-		<dx-label title="value">
-			<dx-input readonly value="内容只读" />
+		<dx-label serif name="必填">
+			<dx-input
+				required
+				placeholder="请输入内容"
+				model:value="{{ value }}"
+			/>
 		</dx-label>
+	</dx-nameplate>
 
-		<dx-label newline title="value">
-			<dx-input readonly value="内容只读" />
+	<dx-nameplate divide class="nameplate" label="Readonly">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-label serif name="只读">
+			<dx-input
+				readonly
+				placeholder="请输入内容"
+				model:value="{{ value }}"
+			/>
 		</dx-label>
 	</dx-nameplate>
 

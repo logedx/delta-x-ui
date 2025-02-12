@@ -92,6 +92,11 @@ Component(
 					icon: '/example/icon/form.svg',
 					components: [
 						[
+							{ name: 'claim', icon: '/example/icon/hybrid-app.svg', url: '/example/pages/claim' },
+
+						],
+
+						[
 							{ name: 'input', icon: '/example/icon/autocomplete.svg', url: '/example/pages/input' },
 							{ name: 'number', icon: '/example/icon/textinput.svg', url: '/example/pages/number' },
 							{ name: 'textarea', icon: '/example/icon/editor.svg', url: '/example/pages/textarea' },
@@ -100,6 +105,8 @@ Component(
 
 						[
 							{ name: 'switch', icon: '/example/icon/wit-pilotui-core.svg', url: '/example/pages/switch' },
+							{ name: 'datetime', icon: '/example/icon/clock.svg', url: '/example/pages/datetime' },
+							{ name: 'search', icon: '/example/icon/search.svg', url: '/example/pages/search' },
 
 						],
 
@@ -107,12 +114,6 @@ Component(
 							{ name: 'sticker', icon: '/example/icon/carousel.svg', url: '/example/pages/sticker' },
 							{ name: 'welded', icon: '/example/icon/gui-pact-role-management.svg', url: '/example/pages/welded' },
 							{ name: 'storage', icon: '/example/icon/storage.svg', url: '/example/pages/storage' },
-
-						],
-
-						[
-							{ name: 'search', icon: '/example/icon/search.svg', url: '/example/pages/search' },
-							{ name: 'datetime', icon: '/example/icon/clock.svg', url: '/example/pages/datetime' },
 
 						],
 

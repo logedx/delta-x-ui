@@ -1,25 +1,14 @@
-@import '../style/border.less';
-
 .dx-input {
-	--dx-input-after-background: var(--divider);
+	--dx-input-text-align: right;
 
 	width: 100%;
 	height: var(--label);
 	line-height: var(--label);
 	color: var(--title);
 	font-size: var(--strong);
-	text-align: right;
+	text-align: var(--dx-input-text-align);
 	box-sizing: border-box;
 	padding: 0 var(--u-01-xs);
 	position: relative;
-
-	.bottom();
-
-	&::after {
-		transition: all 0.1s linear;
-		background: var(--dx-input-after-background);
-
-	}
-
 
 }

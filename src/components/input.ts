@@ -1,14 +1,35 @@
-import { Variable } from '../lib/style.js'
-import * as detective from '../lib/detective.js'
+import * as style from '../lib/style.js'
 
-export type TProperty = {
-	value: string
-	placeholder: string
+import * as claim from './claim.js'
 
-}
+
+
+
+export type TProperty = claim.TBehaviorProperty
 
 Component(
 	{
+		behaviors: [claim.behaviors],
+
+		relations: {
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			'./claim': {
+				type: 'ancestor',
+
+				linked(target) {
+					this.setData(
+						{ parent: target },
+
+					)
+
+					this.set_style()
+
+				},
+
+			},
+
+		},
+
 		// eslint-disable-next-line @typescript-eslint/naming-convention
 		externalClasses: ['class'],
 
@@ -18,104 +39,19 @@ Component(
 
 		},
 
-		properties: {
-			value: { type: String, value: '' },
-			placeholder: { type: String, value: '' },
-			focus: { type: Boolean, value: false },
-			readonly: { type: Boolean, value: false },
-
-		},
-
-		observers: {
-			readonly(): void {
-				this.set_style()
-
-			},
-
-		},
-
-		lifetimes: {
-			attached(): void {
-				this.set_style()
-
-			},
+		data: {
+			style: '',
 
 		},
 
 		methods: {
-			on_focus(): void {
-				this.set_style('var(--h-cd-00)')
+			set_style(): void {
+				let { parent } = this.data as unknown as claim.TBehaviorData
 
-			},
+				let css = new style.Variable<'text-align'>('dx', 'input')
 
-			on_blur(
-				e: WechatMiniprogram.CustomEvent<
-					{ value: string }
-
-				>,
-
-
-			): void {
-				let { value } = e.detail
-
-				this.update(value)
-				this.set_style('var(--divider)')
-
-			},
-
-			on_keyboard_height_change(
-				e: WechatMiniprogram.CustomEvent<
-					{ height: number, duration: number }
-
-				>,
-
-			): void {
-				let { height } = e.detail
-
-				let focus = height > 0
-
-				this.setData(
-					{ focus },
-
-				)
-
-
-			},
-
-			update(value: string): void {
-				let v = this.data.value
-
-				if (v === value) {
-					return
-
-				}
-
-				this.setData(
-					{ value },
-
-				)
-
-				this.triggerEvent(
-					'update', { value },
-
-				)
-
-			},
-
-			set_style(after_background?: string): void {
-				let { readonly } = this.data
-
-				let css = new Variable<'after-background'>('dx', 'input')
-
-				if (readonly) {
-					css.set('after-background', 'var(--disabled)')
-
-				}
-
-				else if (detective.is_required_string(after_background)
-
-				) {
-					css.set('after-background', after_background)
+				if (parent) {
+					css.set('text-align', 'left')
 
 				}
 
@@ -124,9 +60,7 @@ Component(
 
 				)
 
-
 			},
-
 
 		},
 
