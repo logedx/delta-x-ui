@@ -1,4 +1,4 @@
-import * as fs from '../../src/lib/fs.js'
+import * as fs from '/src/lib/fs.js'
 
 Component(
 	{
