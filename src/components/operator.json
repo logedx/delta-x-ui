@@ -1,0 +1,7 @@
+{
+	"component": true,
+	"usingComponents": {
+		"dx-cassette": "./cassette",
+		"dx-loading": "./loading"
+	}
+}

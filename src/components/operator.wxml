@@ -1,0 +1,19 @@
+<dx-cassette class="dx-operator class">
+	<view class="loading" wx:if="{{ wait }}">
+		<dx-loading />
+	</view>
+
+	<view class="workshop" wx:else>
+		<slot />
+
+		<view class="operate">
+			<view class="loading" wx:if="{{ loading || submit }}">
+				<dx-loading />
+			</view>
+
+			<span class="submit" bind:tap="on_submit" wx:elif="{{ name }}"
+				>{{ name }}</span
+			>
+		</view>
+	</view>
+</dx-cassette>

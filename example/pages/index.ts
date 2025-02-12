@@ -92,7 +92,8 @@ Component(
 					icon: '/example/icon/form.svg',
 					components: [
 						[
-							{ name: 'claim', icon: '/example/icon/hybrid-app.svg', url: '/example/pages/form/claim' },
+							{ name: 'operator', icon: '/example/icon/hybrid-app.svg', url: '/example/pages/form/operator' },
+							{ name: 'claim', icon: '/example/icon/test.svg', url: '/example/pages/form/claim' },
 
 						],
 

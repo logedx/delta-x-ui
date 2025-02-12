@@ -1,0 +1,99 @@
+<dx-layout class="main" back="/example/icon/chevron-left.svg">
+	<dx-operator
+		name="提交"
+		wait="{{ wait }}"
+		loading="{{ loading }}"
+		bind:submit="on_submit"
+	>
+		<dx-nameplate class="nameplate" label="Input">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-claim name="default" value="该字段不可为空">
+				<dx-input placeholder="请输入内容" model:value="{{ input }}" />
+			</dx-claim>
+
+			<dx-claim name="required" value="该字段不可为空">
+				<dx-input
+					required
+					placeholder="请输入内容"
+					model:value="{{ input_required }}"
+				/>
+			</dx-claim>
+		</dx-nameplate>
+
+		<dx-nameplate divide class="nameplate" label="Number">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-claim name="default" value="该字段不可为空">
+				<dx-number
+					placeholder="请输入数字"
+					model:value="{{ number }}"
+				/>
+			</dx-claim>
+
+			<dx-claim name="required" value="该字段不可为空">
+				<dx-number
+					required
+					placeholder="请输入数字"
+					model:value="{{ number_required }}"
+				/>
+			</dx-claim>
+		</dx-nameplate>
+
+		<dx-nameplate divide class="nameplate" label="Datetime">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-claim name="default" value="该字段不可为空">
+				<dx-datetime
+					placeholder="请选择日期"
+					model:value="{{ datetime }}"
+				/>
+			</dx-claim>
+
+			<dx-claim name="required" value="该字段不可为空">
+				<dx-datetime
+					required
+					placeholder="请选择日期"
+					model:value="{{ datetime_required }}"
+				/>
+			</dx-claim>
+		</dx-nameplate>
+
+		<dx-nameplate divide class="nameplate" label="Textarea">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-claim name="default" value="该字段不可为空">
+				<dx-textarea
+					placeholder="请输入内容"
+					model:value="{{ textarea }}"
+				/>
+			</dx-claim>
+
+			<dx-claim name="required" value="该字段不可为空">
+				<dx-textarea
+					required
+					placeholder="请输入内容"
+					model:value="{{ textarea_required }}"
+				/>
+			</dx-claim>
+		</dx-nameplate>
+	</dx-operator>
+
+	<author slot="footer" />
+</dx-layout>

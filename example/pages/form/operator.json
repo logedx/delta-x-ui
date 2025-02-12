@@ -1,0 +1,17 @@
+{
+	"disableScroll": true,
+	"navigationStyle": "custom",
+	"usingComponents": {
+		"author": "/example/components/author",
+		"dx-layout": "/src/components/layout",
+		"dx-cassette": "/src/components/cassette",
+		"dx-nameplate": "/src/components/nameplate",
+		"dx-icon": "/src/components/icon",
+		"dx-operator": "/src/components/operator",
+		"dx-claim": "/src/components/claim",
+		"dx-input": "/src/components/input",
+		"dx-number": "/src/components/number",
+		"dx-datetime": "/src/components/datetime",
+		"dx-textarea": "/src/components/textarea"
+	}
+}

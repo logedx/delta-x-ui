@@ -39,6 +39,7 @@
 		"example/pages/basic/icon",
 		"example/pages/basic/avatar",
 		"example/pages/basic/loading",
+		"example/pages/form/operator",
 		"example/pages/form/claim",
 		"example/pages/form/input",
 		"example/pages/form/number",
