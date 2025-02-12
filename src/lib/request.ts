@@ -3,7 +3,6 @@ import url_parse from 'url-parse'
 import query_string from 'query-string'
 
 import * as fs from './fs.js'
-import * as alert from './alert.js'
 import * as detective from './detective.js'
 import * as structure from './structure.js'
 
@@ -374,12 +373,26 @@ export class Http {
 		}
 
 		catch (e) {
+			let message = 'request failed'
+
 			if (detective.is_error(e)
 
 			) {
-				await alert.error(e.message)
+				message = e.message
 
 			}
+
+			if (detective.is_string(e)
+			) {
+				message = e
+
+			}
+
+
+			await wx.showToast(
+				{ title: message, icon: 'error' },
+
+			)
 
 			throw e
 
