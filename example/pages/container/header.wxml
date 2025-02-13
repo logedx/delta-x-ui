@@ -1,4 +1,12 @@
-<dx-layout back="/example/icon/chevron-left.svg">
+<dx-layout>
+	<dx-header
+		background="var(--primary)"
+		home="/example/icon/home.svg"
+		back="/example/icon/chevron-left.svg"
+	>
+		<view class="color slot" />
+	</dx-header>
+
 	<dx-nameplate class="nameplate" label="Color">
 		<dx-icon
 			slot="icon"

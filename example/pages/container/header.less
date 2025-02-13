@@ -1,28 +1,11 @@
-@import '/src/style/color.less';
-
-.header {
-	background: @blue;
-
-	.title {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		color: var(--white);
-		align-items: center;
-		background: lighten(@blue, 10%);
-
-	}
-
-}
-
-
 .color {
 	width: 100%;
 	height: 100%;
-	background: @blue;
+	background: var(--primary);
 
 	&.slot {
-		background: lighten(@blue, 10%);
+		background: var(--light-primary);
+		height: var(--dx-header-min-height);
 
 	}
 
