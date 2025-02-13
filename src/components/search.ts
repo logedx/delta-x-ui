@@ -1,3 +1,8 @@
+export enum TEvent {
+	active = 'active',
+
+}
+
 export type TProperty = {
 	value: string
 	placeholder: string
@@ -29,6 +34,17 @@ Component(
 		},
 
 		methods: {
+			active(index: number, type: 'tap' | 'longpress'): void {
+				let { handle } = this.data
+
+				this.triggerEvent(
+					// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+					TEvent.active, { type, index, icon: handle[index] },
+
+				)
+
+			},
+
 			on_catch(): void {
 				// 
 
@@ -52,37 +68,29 @@ Component(
 
 			},
 
-			on_handle_tap(
+			on_active_tap(
 				e: WechatMiniprogram.BaseEvent<
 					Record<string, never>, { index: number }
 
 				>,
 
-
 			): void {
 				let { index } = e.currentTarget.dataset
 
-				this.triggerEvent(
-					'tap', { index },
-
-				)
+				this.active(index, 'tap')
 
 			},
 
-			on_handle_longpress(
+			on_active_longpress(
 				e: WechatMiniprogram.BaseEvent<
 					Record<string, never>, { index: number }
 
 				>,
 
-
 			): void {
 				let { index } = e.currentTarget.dataset
 
-				this.triggerEvent(
-					'longpress', { index },
-
-				)
+				this.active(index, 'longpress')
 
 			},
 

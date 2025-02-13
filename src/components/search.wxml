@@ -25,8 +25,8 @@
 		data-index="{{ index }}"
 		wx:key="*this"
 		wx:for="{{ handle }}"
-		catch:tap="on_handle_tap"
-		catch:longpress="on_handle_longpress"
+		catch:tap="on_active_tap"
+		catch:longpress="on_active_longpress"
 	>
 		<dx-icon size="calc(var(--label) * 0.7)" src="{{ item }}" />
 	</view>
