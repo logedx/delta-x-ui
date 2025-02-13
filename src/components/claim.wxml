@@ -1,4 +1,4 @@
-<view class="dx-claim class" style="{{ style }}">
+<view class="dx-claim class" id="{{ id }}" style="{{ style }}">
 	<view class="flag" />
 
 	<dx-label newline name="{{ name }}">

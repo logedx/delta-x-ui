@@ -1,11 +1,9 @@
 .dx-operator {
-	position: relative;
-
 	.workshop {
+		position: relative;
 		padding: var(--u-02-s);
 
 		.operate {
-			position: relative;
 			padding: var(--u-02-s) var(--u-03-xs);
 			padding-top: var(--u-04-l);
 			margin-top: calc(0 - var(--radius) * 2);
@@ -16,6 +14,16 @@
 
 		}
 
+		.anchor {
+			--dx-operator-anchor-offset: 0;
+
+			position: absolute;
+			width: 0;
+			height: 0;
+			top: var(--dx-operator-anchor-offset);
+			left: 0;
+
+		}
 
 	}
 

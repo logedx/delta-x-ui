@@ -1,4 +1,4 @@
-<dx-cassette class="dx-operator class">
+<dx-cassette class="dx-operator class" model:into="{{ into }}">
 	<view class="loading" wx:if="{{ wait }}">
 		<dx-loading />
 	</view>
@@ -15,5 +15,7 @@
 				>{{ name }}</span
 			>
 		</view>
+
+		<view class="anchor" id="anchor" style="{{ style }}" />
 	</view>
 </dx-cassette>

@@ -31,7 +31,13 @@ export type TBehaviorMethod = {
 export type TBehaviorInstance = WechatMiniprogram.Component.Instance<
 	TBehaviorData,
 
-	{ value: StringConstructor, placeholder: StringConstructor, required: BooleanConstructor, readonly: BooleanConstructor},
+	{
+		value: StringConstructor
+		placeholder: StringConstructor
+		required: BooleanConstructor
+		readonly: BooleanConstructor
+
+	},
 
 	TBehaviorMethod
 

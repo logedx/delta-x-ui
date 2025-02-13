@@ -1,7 +1,8 @@
 import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
-import * as variant from './claim.variant.js'
+import * as claim_variant from './claim.variant.js'
+import * as operator_variant from './operator.variant.js'
 
 
 
@@ -25,22 +26,29 @@ export type TProperty = {
 
 }
 
-export type TData = {
-	color: string
+export type TData = operator_variant.TBehaviorData & {
+	style: string
 
 	notice: boolean
+
+}
+
+export type TMethod = operator_variant.TBehaviorMethod & {
+	set_style(data: claim_variant.TBehaviorProperty & claim_variant.TBehaviorData): void
 
 }
 
 export type TInstance = WechatMiniprogram.Component.Instance<
 	TData,
 
-	{ name: StringConstructor, value: StringConstructor, divider: BooleanConstructor },
-
 	{
-		set_style(data: variant.TBehaviorProperty & variant.TBehaviorData): void
+		name: StringConstructor
+		value: StringConstructor
+		divider: BooleanConstructor
 
-	}
+	},
+
+	TMethod
 
 >
 
@@ -49,17 +57,25 @@ export type TInstance = WechatMiniprogram.Component.Instance<
 
 Component(
 	{
+		behaviors: [operator_variant.behavior],
+
 		relations: {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'dx-claim': {
 				type: 'descendant',
 
-				target: variant.behavior,
+				target: claim_variant.behavior,
 
 				linked(target) {
-					this.set_style(target.data as variant.TBehaviorProperty & variant.TBehaviorData)
+					this.set_style(target.data as claim_variant.TBehaviorProperty & claim_variant.TBehaviorData)
 
 				},
+
+			},
+
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			'./operator': {
+				type: 'ancestor',
 
 			},
 
@@ -91,7 +107,7 @@ Component(
 		},
 
 		methods: {
-			set_style(data: variant.TBehaviorProperty & variant.TBehaviorData): void {
+			set_style(data: claim_variant.TBehaviorProperty & claim_variant.TBehaviorData): void {
 				let notice = false
 
 				let css = new style.Variable<'divider' | 'divider-color' | 'flag' | 'flag-color'>('dx', 'claim')
