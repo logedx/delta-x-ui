@@ -3,8 +3,8 @@
 
 	<view class="ol">
 		<dx-label
-			title="{{ item[0] }}"
-			divider="{{ index !== value.length - 1 }}"
+			name="{{ item[0] }}"
+			serif="{{ index !== value.length - 1 }}"
 			wx:key="0"
 			wx:for="{{ value }}"
 		>
