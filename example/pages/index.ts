@@ -1,20 +1,3 @@
-type KitComponent = {
-	name: string
-	icon: string
-	url: string
-
-}
-
-type Kit = {
-	label: string
-	icon: string
-	components: Array<
-		[KitComponent, KitComponent, KitComponent]
-
-	>
-
-}
-
 Component(
 	{
 		data: {
@@ -254,7 +237,7 @@ Component(
 
 
 
-			] as Array<Kit>,
+			],
 
 
 			name(index: number, data: Array<string>): string {
