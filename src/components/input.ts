@@ -28,6 +28,24 @@ Component(
 
 			},
 
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			'./label': {
+				type: 'ancestor',
+
+				linked(target) {
+					this.setData(
+						{ parent: target },
+
+					)
+
+					this.set_style()
+
+
+				},
+
+			},
+
+
 		},
 
 		// eslint-disable-next-line @typescript-eslint/naming-convention

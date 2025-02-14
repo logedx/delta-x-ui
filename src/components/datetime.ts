@@ -4,23 +4,41 @@ import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
 import * as claim_variant from './claim.variant.js'
+import * as label_variant from './label.variant.js'
 
 
 
 
 export type TProperty = claim_variant.TBehaviorProperty & {
 	icon: string
-	mode?: 'time' | 'date'
+	mode: '' | 'time' | 'date'
 
 }
 
 Component(
 	{
-		behaviors: [claim_variant.behavior],
+		behaviors: [claim_variant.behavior, label_variant.behavior],
 
 		relations: {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'./claim': {
+				type: 'ancestor',
+
+				linked(target) {
+					this.setData(
+						{ parent: target },
+
+					)
+
+					this.set_style()
+
+
+				},
+
+			},
+
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			'./label': {
 				type: 'ancestor',
 
 				linked(target) {
@@ -98,12 +116,25 @@ Component(
 
 		methods: {
 			set_style(): void {
-				let { parent } = this.data as unknown as claim_variant.TBehaviorData
+				let { time } = this.data
+				let { parent, mode } = this.data as unknown as TProperty & claim_variant.TBehaviorData
 
-				let css = new style.Variable<'justify-content'>('dx', 'datetime')
+				let css = new style.Variable<'justify-content' | 'date-picker-grow' | 'time-picker-grow'>('dx', 'datetime')
 
 				if (parent) {
 					css.set('justify-content', 'flex-start')
+
+					if (mode === 'time' || detective.is_required_string(time)
+
+					) {
+						css.set('time-picker-grow', '1')
+
+					}
+
+					else {
+						css.set('date-picker-grow', '1')
+
+					}
 
 				}
 
@@ -150,6 +181,8 @@ Component(
 					{ date, time },
 
 				)
+
+				this.set_style()
 
 			},
 

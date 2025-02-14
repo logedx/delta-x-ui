@@ -1,12 +1,16 @@
 .dx-datetime {
 	--dx-datetime-justify-content: flex-end;
+	--dx-datetime-date-picker-grow: 0;
+	--dx-datetime-time-picker-grow: 0;
 
 	display: flex;
 	align-items: center;
 	justify-content: var(--dx-datetime-justify-content);
-	height: var(--label);
 
 	text {
+		height: var(--label);
+		display: flex;
+		align-items: center;
 		color: var(--title);
 		font-size: var(--strong);
 
@@ -22,10 +26,27 @@
 
 	}
 
-	picker,
-	.picker {
+	picker {
+		flex-basis: 1;
+		flex-shrink: 0;
+
 		&:not(:last-child) {
 			margin-right: var(--u-01-m);
+
+		}
+
+		&.date {
+			flex-grow: var(--dx-datetime-date-picker-grow);
+
+		}
+
+		&.time {
+			flex-grow: var(--dx-datetime-time-picker-grow);
+
+		}
+
+		text {
+			width: 100%;
 
 		}
 

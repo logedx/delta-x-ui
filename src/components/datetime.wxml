@@ -6,8 +6,8 @@
 		wx:if="{{ icon }}"
 	/>
 
-	<text class="picker" wx:if="{{ date }}">{{ date }}</text>
-	<text class="picker" wx:if="{{ time }}">{{ time }}</text>
+	<text wx:if="{{ date }}">{{ date }}</text>
+	<text wx:if="{{ time }}">{{ time }}</text>
 </view>
 
 <view class="dx-datetime class" style="{{ style }}" wx:else>
@@ -20,6 +20,7 @@
 
 	<picker
 		mode="date"
+		class="date"
 		model:value="{{ date }}"
 		bind:change="on_update"
 		wx:if="{{ is_date(mode) }}"
@@ -30,6 +31,7 @@
 
 	<picker
 		mode="time"
+		class="time"
 		model:value="{{ time }}"
 		bind:change="on_update"
 		wx:if="{{ is_time(mode, date) }}"

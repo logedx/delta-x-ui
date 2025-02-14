@@ -1,5 +1,6 @@
 import * as style from '../lib/style.js'
 
+import * as label_variant from './label.variant.js'
 
 
 
@@ -11,8 +12,41 @@ export type TProperty = {
 
 }
 
+export type TData = {
+	style: string
+
+}
+
+
+export type TInstance = WechatMiniprogram.Component.Instance<
+	TData,
+
+	{
+		name: StringConstructor
+		value: StringConstructor
+		divider: BooleanConstructor
+
+	},
+
+	object
+
+>
+
+
 Component(
 	{
+		relations: {
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			'dx-label': {
+				type: 'descendant',
+
+				target: label_variant.behavior,
+
+			},
+
+		},
+
+
 		// eslint-disable-next-line @typescript-eslint/naming-convention
 		externalClasses: ['class'],
 
