@@ -20,13 +20,13 @@ Component(
 			virtualHost: true,
 
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			multipleSlots: true,
+			dynamicSlots: true,
 
-		},
+		} as WechatMiniprogram.Component.ComponentOptions,
 
 		properties: {
 			row: { type: Number, value: 1 },
-			column: { type: Number, value: 2 },
+			column: { type: Number, value: 1 },
 			gap: { type: String, value: '' },
 			separator: { type: String, value: '' },
 
@@ -34,6 +34,11 @@ Component(
 
 		data: {
 			style: '',
+
+			ceil(value: number): number {
+				return Math.ceil(value)
+
+			},
 
 		},
 

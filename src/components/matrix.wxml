@@ -1,17 +1,23 @@
 <view class="dx-matrix class" style="{{ style }}">
-	<view class="row" wx:key="*this" wx:for-index="i" wx:for="{{ row }}">
+	<view class="row" wx:key="*this" wx:for-index="i" wx:for="{{ ceil(row) }}">
 		<view
 			class="column"
 			wx:key="*this"
 			wx:for-index="ii"
-			wx:for="{{ column }}"
+			wx:for="{{ ceil(column) }}"
 		>
 			<slot
+				row="{{ i }}"
+				column="{{ ii }}"
 				name="{{ i }}{{ separator }}{{ ii }}"
 				wx:if="{{ separator }}"
 			/>
 
-			<slot name="{{ i * row + ii }}" wx:else />
+			<slot
+				index="{{ i * ceil(column) + ii }}"
+				quantity="{{ ceil(row) * ceil(column) }}"
+				wx:else
+			/>
 		</view>
 	</view>
 </view>
