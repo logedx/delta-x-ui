@@ -18,6 +18,121 @@ type Kit = {
 Component(
 	{
 		data: {
+			color: [
+				'--black',
+				'--blue',
+				'--brown',
+				'--cyan',
+				'--green',
+				'--grey',
+				'--mauve',
+				'--olive',
+				'--orange',
+				'--pink',
+				'--purple',
+				'--red',
+				'--white',
+				'--yellow',
+
+				'--linear-blue',
+				'--linear-brown',
+				'--linear-cyan',
+				'--linear-green',
+				'--linear-mauve',
+				'--linear-olive',
+				'--linear-orange',
+				'--linear-pink',
+				'--linear-purple',
+				'--linear-red',
+				'--linear-yellow',
+
+				'--primary',
+				'--success',
+				'--warning',
+				'--error',
+
+				'--light-primary',
+				'--light-success',
+				'--light-warning',
+				'--light-error',
+
+				'--dark-primary',
+				'--dark-success',
+				'--dark-warning',
+				'--dark-error',
+
+				'--title',
+				'--content',
+				'--notice',
+				'--aside',
+				'--placeholder',
+
+				'--light-title',
+				'--light-content',
+				'--light-notice',
+				'--light-aside',
+				'--light-placeholder',
+
+				'--border',
+				'--divider',
+				'--disabled',
+
+				'--background',
+
+				'--h-ab-00',
+				'--h-bc-00',
+				'--h-cd-00',
+				'--h-de-00',
+				'--h-ea-00',
+
+
+				'--popup',
+
+			],
+
+			text: [
+				'--title',
+				'--content',
+				'--notice',
+				'--aside',
+				'--placeholder',
+
+				'--light-title',
+				'--light-content',
+				'--light-notice',
+				'--light-aside',
+				'--light-placeholder',
+
+			],
+
+			size: [
+				'--u-00-s',
+				'--u-00-l',
+				'--u-01-xs',
+				'--u-01-s',
+				'--u-01-m',
+				'--u-02-xs',
+				'--u-02-s',
+				'--u-03-xs',
+				'--u-04-xs',
+				'--u-04-l',
+				'--u-05-m',
+				'--u-06-s',
+				'--u-08-l',
+				'--u-10-xs',
+				'--u-10-m',
+				'--u-10-l',
+
+				'--small',
+				'--normal',
+				'--strong',
+
+				'--label',
+
+				'--radius',
+
+			],
+
 			kits: [
 				{
 					label: 'Container',
@@ -141,6 +256,26 @@ Component(
 
 			] as Array<Kit>,
 
+
+			name(index: number, data: Array<string>): string {
+				if (data[index]) {
+					return data[index].slice(2)
+
+				}
+
+				return ''
+
+			},
+
+			style(index: number, data: Array<string>): string {
+				if (data[index]) {
+					return `--style: var(${data[index]});`
+
+				}
+
+				return ''
+
+			},
 
 		},
 

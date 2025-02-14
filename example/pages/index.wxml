@@ -8,6 +8,78 @@
 			<text>Kit</text>
 		</view>
 
+		<dx-nameplate class="nameplate" label="Color">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/color.svg"
+			/>
+
+			<dx-matrix
+				class="matrix"
+				gap="var(--u-01-m)"
+				row="{{ color.length / 3 }}"
+				column="{{ 3 }}"
+			>
+				<view slot:index class="cube">
+					<span class="color" style="{{ style(index, color) }}" />
+
+					<text>{{ name(index, color) }}</text>
+				</view>
+			</dx-matrix>
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Text">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/text.svg"
+			/>
+
+			<dx-matrix
+				class="matrix"
+				gap="var(--u-01-m)"
+				row="{{ text.length }}"
+			>
+				<view slot:index class="cube" style="{{ style(index, text) }}">
+					<text class="text small"
+						>small {{ name(index, text) }}</text
+					>
+					<text class="text small">轻量、可靠、易用的小程序开发套件</text>
+
+					<text class="text normal"
+						>normal {{ name(index, text) }}</text
+					>
+					<text class="text normal">轻量、可靠、易用的小程序开发套件</text>
+
+					<text class="text strong"
+						>strong {{ name(index, text) }}</text
+					>
+					<text class="text strong">轻量、可靠、易用的小程序开发套件</text>
+				</view>
+			</dx-matrix>
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Size">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/size.svg"
+			/>
+
+			<dx-matrix
+				class="matrix"
+				gap="var(--u-01-m)"
+				row="{{ size.length }}"
+			>
+				<view slot:index class="cube">
+					<span class="size" style="{{ style(index, size) }}" />
+
+					<text>{{ name(index, size) }}</text>
+				</view>
+			</dx-matrix>
+		</dx-nameplate>
+
 		<dx-nameplate
 			class="nameplate"
 			label="{{ item.label }}"
@@ -31,7 +103,7 @@
 					wx:for="{{ item.components }}"
 				>
 					<view
-						class="navigator"
+						class="cube"
 						slot="{{ i }}.{{ ii }}"
 						data-url="{{ vv.url }}"
 						wx:key="name"

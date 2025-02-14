@@ -41,7 +41,7 @@
 .matrix {
 	margin-top: var(--u-01-m);
 
-	.navigator {
+	.cube {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -55,9 +55,48 @@
 
 		}
 
+		span {
+			width: 100%;
+
+			&.color {
+				height: var(--u-04-l);
+				background: var(--style);
+
+			}
+
+			&.size {
+				height: var(--style);
+				background: var(--divider);
+
+			}
+
+		}
+
 		text {
 			font-size: var(--normal);
 			margin-bottom: var(--u-01-m);
+
+			&.text {
+				line-height: 1.2;
+				font-weight: bold;
+				color: var(--style);
+
+			}
+
+			&.small {
+				font-size: var(--small);
+
+			}
+
+			&.normal {
+				font-size: var(--normal);
+
+			}
+
+			&.strong {
+				font-size: var(--strong);
+
+			}
 
 		}
 
