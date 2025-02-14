@@ -1,7 +1,10 @@
 Component(
 	{
 		data: {
-			value: '',
+			default: '',
+
+			date: '',
+			time: '',
 
 		},
 
