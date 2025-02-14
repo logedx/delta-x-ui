@@ -3,7 +3,7 @@
 	type="text"
 	confirm-type="done"
 	class="dx-input class"
-	placeholder-style="color: #ccc;"
+	placeholder-style="color: #C0C4CC; font-size: 24rpx;"
 	focus="{{ focus }}"
 	value="{{ value }}"
 	style="{{ style }}"
