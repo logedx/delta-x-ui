@@ -48,9 +48,9 @@
 			/>
 
 			<dx-inlaid loading legend value="{{ data }}">
-				<dx-directed slot:index slot="legend" color="var(--red)">
+				<dx-capsule slot:index slot="legend" color="var(--red)">
 					<text class="label">{{ index }}</text>
-				</dx-directed>
+				</dx-capsule>
 
 				<text class="example slot" slot:item slot:index
 					>{{ item }}</text

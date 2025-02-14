@@ -13,13 +13,13 @@
 		<text class="quantity">x {{ src.length }}</text>
 
 		<view class="opration" bind:tap="on_toggle">
-			<dx-directed
+			<dx-capsule
 				data-index="{{ src.length }}"
 				data-quantity="{{ 10 }}"
 				catch:tap="on_update"
 			>
 				<text class="create">添加</text>
-			</dx-directed>
+			</dx-capsule>
 
 			<text class="arrow" wx:if="{{ src.length > 0 }}" />
 		</view>
@@ -63,9 +63,9 @@
 			bind:longpress="on_update"
 		/>
 
-		<dx-directed class="index">
+		<dx-capsule class="index">
 			<text class="text">{{ index + 1 }}</text>
-		</dx-directed>
+		</dx-capsule>
 	</view>
 
 	<view class="up" wx:if="{{ open }}" bind:tap="on_toggle">

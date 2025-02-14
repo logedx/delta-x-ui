@@ -2,7 +2,7 @@
 	"component": true,
 	"usingComponents": {
 		"dx-avatar": "./avatar",
-		"dx-directed": "./directed",
+		"dx-capsule": "./capsule",
 		"dx-loading": "./loading"
 	}
 }

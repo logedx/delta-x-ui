@@ -9,17 +9,17 @@
 
 			<dx-label serif name="default">
 				<view class="box">
-					<dx-directed>
+					<dx-capsule>
 						<text class="label">default</text>
-					</dx-directed>
+					</dx-capsule>
 				</view>
 			</dx-label>
 
 			<dx-label serif name="customize">
 				<view class="box">
-					<dx-directed color="var(--blue)">
+					<dx-capsule color="var(--blue)">
 						<text class="label">customize</text>
-					</dx-directed>
+					</dx-capsule>
 				</view>
 			</dx-label>
 		</dx-nameplate>

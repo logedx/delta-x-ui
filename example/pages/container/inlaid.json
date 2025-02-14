@@ -9,6 +9,6 @@
 		"dx-label": "/src/components/label",
 		"dx-icon": "/src/components/icon",
 		"dx-inlaid": "/src/components/inlaid",
-		"dx-directed": "/src/components/directed"
+		"dx-capsule": "/src/components/capsule"
 	}
 }

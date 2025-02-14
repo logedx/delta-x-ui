@@ -1,0 +1,3 @@
+<view class="dx-capsule class" style="{{ style }}">
+	<slot />
+</view>

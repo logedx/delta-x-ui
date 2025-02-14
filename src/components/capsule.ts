@@ -40,7 +40,7 @@ Component(
 			set_style(): void {
 				let { color } = this.data
 
-				let css = new Variable<'color'>('dx', 'directed')
+				let css = new Variable<'color'>('dx', 'capsule')
 
 
 				if (color) {

@@ -168,7 +168,7 @@ Component(
 						[
 							{ name: 'breadcrumb', icon: '/example/icon/select.svg', url: '/example/pages/basic/breadcrumb' },
 							{ name: 'navigator', icon: '/example/icon/layout-switcher.svg', url: '/example/pages/basic/navigator' },
-							{ name: 'directed', icon: '/example/icon/button.svg', url: '/example/pages/basic/directed' },
+							{ name: 'capsule', icon: '/example/icon/button.svg', url: '/example/pages/basic/capsule' },
 
 						],
 
