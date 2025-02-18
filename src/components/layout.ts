@@ -1,6 +1,8 @@
 export type TProperty = {
 	back: string
 	home: string
+	sink: boolean
+	loading: boolean
 
 }
 

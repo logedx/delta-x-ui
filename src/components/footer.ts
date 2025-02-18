@@ -1,6 +1,9 @@
 import { Variable } from '../lib/style.js'
 
-export type TProperty = object
+export type TProperty = {
+	sink: boolean
+
+}
 
 
 Component(
