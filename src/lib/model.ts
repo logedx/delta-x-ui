@@ -1,3 +1,5 @@
+import * as structure from './structure.js'
+
 export type TRawDocType<T extends Record<string, unknown>> = T & {
 	updated: string
 	created: string
@@ -6,6 +8,11 @@ export type TRawDocType<T extends Record<string, unknown>> = T & {
 	created_hex: string
 
 }
+
+export type TRawDocTypeOverwrite<T, U extends keyof T> = structure.Overwrite<
+	T, { [k in U]-?: T[k] }
+
+>
 
 export type OTRawDocType<T> = Omit<T, 'updated' | 'created' | 'updated_hex' | 'created_hex'>
 
