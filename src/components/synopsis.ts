@@ -54,7 +54,7 @@ Component(
 					css.set('align-items', 'center')
 					css.set('flex-direction', 'column')
 					css.set('padding', 'var(--u-06-s) 0')
-					css.set('border-bottom', 'solid 1rpx var(--divider)')
+					css.set('border-bottom', 'flex')
 
 					css.set('content-width', '100%')
 					css.set('content-margin-top', 'var(--u-04-xs)')

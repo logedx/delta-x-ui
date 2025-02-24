@@ -1,3 +1,5 @@
+@import '../style/border.less';
+
 .dx-synopsis {
 	--dx-synopsis-align-items: flex-start;
 	--dx-synopsis-flex-direction: row;
@@ -22,7 +24,15 @@
 	align-items: var(--dx-synopsis-align-items);
 	flex-direction: var(--dx-synopsis-flex-direction);
 	padding: var(--dx-synopsis-padding);
-	border-bottom: var(--dx-synopsis-border-bottom);
+
+	.bottom();
+
+	&::after {
+		display: var(--dx-synopsis-border-bottom);
+		background: var(--border);
+
+	}
+
 
 	.thumbnail {
 		flex-shrink: 0;
