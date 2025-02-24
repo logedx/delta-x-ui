@@ -6,6 +6,7 @@ import * as label_variant from './label.variant.js'
 
 export type TProperty = {
 	name: string
+	value: string
 	serif: boolean
 	newline: boolean
 
@@ -61,6 +62,7 @@ Component(
 
 		properties: {
 			name: { type: String, value: '' },
+			value: { type: String, value: '' },
 			serif: { type: Boolean, value: false },
 			newline: { type: Boolean, value: false },
 
