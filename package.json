@@ -11,6 +11,7 @@
 	"exports": {
 		".": "./dist/index.js",
 		"./components/*": "./dist/components/*",
+		"./hub/*": "./dist/hub/*",
 		"./lib/*": "./dist/lib/*",
 		"./model/*": "./dist/model/*",
 		"./storage/*": "./dist/storage/*"
