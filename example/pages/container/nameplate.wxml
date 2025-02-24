@@ -29,5 +29,19 @@
 		</dx-nameplate>
 	</dx-nameplate>
 
+	<dx-nameplate class="nameplate" label="Loading">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-nameplate loading class="example" label="label">
+			<text slot="icon" class="icon" />
+
+			<text class="slot" />
+		</dx-nameplate>
+	</dx-nameplate>
+
 	<author slot="footer" />
 </dx-layout>

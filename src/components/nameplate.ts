@@ -24,6 +24,7 @@ Component(
 		properties: {
 			label: { type: String, value: '' },
 			divide: { type: Boolean, value: false },
+			loading: { type: Boolean, value: false },
 
 		},
 

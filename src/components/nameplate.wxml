@@ -5,5 +5,9 @@
 		<text class="label">{{ label }}</text>
 	</view>
 
-	<slot />
+	<view class="loading" wx:if="{{ loading }}">
+		<dx-loading />
+	</view>
+
+	<slot wx:else />
 </view>
