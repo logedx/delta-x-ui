@@ -557,9 +557,14 @@ export class Exclusive<T extends object, C = never> {
 	): T[K]
 
 	get<K extends keyof T>(
-		key?: K extends string ? Lowercase<K> : K,
+		key: K extends string ? Lowercase<K> : K,
 
-	): unknown {
+		_default: T[K]
+
+	): Exclude<T[K], undefined>
+
+	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+	get(key?: any, _default?: any): any {
 		if (detective.is_exist(this.#data) === false
 
 		) {
@@ -571,7 +576,8 @@ export class Exclusive<T extends object, C = never> {
 		if (detective.is_exist(key)
 
 		) {
-			return structure.get(this.#data, key)
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-argument
+			return structure.get(this.#data, key, _default)
 
 		}
 
