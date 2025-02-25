@@ -19,7 +19,7 @@
 				src="/example/icon/caret-down.svg"
 			/>
 
-			<dx-fieldset value="{{ data }}">
+			<dx-fieldset value="{{ data }}" bind:active="on_active">
 				<text class="slot example" />
 			</dx-fieldset>
 		</dx-nameplate>

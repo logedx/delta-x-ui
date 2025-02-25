@@ -1,5 +1,11 @@
+export enum TEvent {
+	active = 'active',
+
+}
+
 export type TProperty = {
-	value: Array<[string, unknown]>
+	icon: string
+	value: Array<[string, unknown] | [string, string, true]>
 
 }
 
@@ -16,7 +22,22 @@ Component(
 		},
 
 		properties: {
+			icon: { type: String, value: '' },
 			value: { type: Array, value: [] },
+
+		},
+
+		methods: {
+			on_active(
+				e: WechatMiniprogram.BaseEvent<
+					object, { name: string }
+
+					>,
+
+			): void {
+				this.triggerEvent(TEvent.active, e.currentTarget.dataset)
+
+			},
 
 		},
 

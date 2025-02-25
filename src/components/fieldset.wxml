@@ -2,12 +2,30 @@
 	<slot />
 
 	<view class="ol">
-		<dx-label
-			name="{{ item[0] }}"
-			value="{{ item[1] }}"
-			serif="{{ index < value.length - 1 }}"
-			wx:key="0"
-			wx:for="{{ value }}"
-		/>
+		<block wx:key="0" wx:for="{{ value }}">
+			<dx-label
+				name="{{ item[0] }}"
+				serif="{{ index < value.length - 1 }}"
+				wx:if="{{ item[2] === true }}"
+			>
+				<span
+					class="icon"
+					data-name="{{ item[1] }}"
+					bind:tap="on_active"
+				>
+					<dx-icon
+						size="var(--strong)"
+						src="{{ icon || '../icon/chevron_right_128dp_808695_FILL0_wght500_GRAD0_opsz48.png' }}"
+					/>
+				</span>
+			</dx-label>
+
+			<dx-label
+				name="{{ item[0] }}"
+				value="{{ item[1] }}"
+				serif="{{ index < value.length - 1 }}"
+				wx:else
+			/>
+		</block>
 	</view>
 </view>

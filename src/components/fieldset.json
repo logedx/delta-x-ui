@@ -1,6 +1,7 @@
 {
 	"component": true,
 	"usingComponents": {
-		"dx-label": "./label"
+		"dx-label": "./label",
+		"dx-icon": "./icon"
 	}
 }
