@@ -12,7 +12,7 @@ export type CreateOption = {
 
 }
 
-export type CreateResult = request.HttpResult<
+export type CreateResult = request.HttpTaskResult<
 		string,
 		// eslint-disable-next-line @typescript-eslint/naming-convention
 		{ 'X-Access-URI': string, 'X-Oss-Process': string }

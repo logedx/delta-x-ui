@@ -8,36 +8,24 @@ import * as structure from './structure.js'
 
 
 
+
 export type FailResult = {
 	name: string
 	message: string
 	stack: Array<string>
-}
 
+}
 
 export type SuccessRestult = string | ArrayBuffer | WechatMiniprogram.IAnyObject
 
-
-export type HttpResult<
-	T extends SuccessRestult,
-	H extends object = object
-
-> = Omit<WechatMiniprogram.RequestSuccessCallbackResult<T>, 'header'>
-	& {
-		header: H
-
-	}
+export type HttpBody<T> = T extends object
+	? structure.Replace<T, Date, string>
+	: T extends Date
+	? string
+	: T
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type HttpFunction = (...args: Array<any>) => Promise<any>
-
-
-export type HttpOptionTransform = (
-	option: WechatMiniprogram.RequestOption,
-	hostname: string
-
-) => Promise<WechatMiniprogram.RequestOption>
-
 
 export type Httpblockage = {
 	url: string
@@ -48,6 +36,14 @@ export type Httpblockage = {
 
 }
 
+export type HttpOptionTransform = (
+	option: WechatMiniprogram.RequestOption,
+	hostname: string
+
+) => Promise<
+	WechatMiniprogram.RequestOption
+
+>
 
 export type HttpUploadOption = {
 	name: string
@@ -57,6 +53,23 @@ export type HttpUploadOption = {
 	method: WechatMiniprogram.RequestOption['method']
 
 }
+
+export type HttpTaskResult<T extends SuccessRestult, H extends object = object> = structure.Overwrite<
+	WechatMiniprogram.RequestSuccessCallbackResult<
+		HttpBody<T>
+
+	>,
+
+	{
+		header: H
+
+	}
+
+>
+
+export type HttpTaskUnpackingResult<T extends SuccessRestult> = Promise<HttpBody<T>>
+
+
 
 
 export function is_fail_result(v: unknown): v is FailResult {
@@ -403,10 +416,10 @@ export class Http {
 }
 
 export class HttpTask<T extends SuccessRestult, H extends object = object> {
-	#task = null as null | WechatMiniprogram.RequestTask
+	#link = null as null | WechatMiniprogram.RequestTask
 
-	#resp: Promise<
-		HttpResult<T, H>
+	#body: Promise<
+		HttpTaskResult<T, H>
 
 	>
 
@@ -425,7 +438,7 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 		if (detective.is_promise(option)
 
 		) {
-			this.#resp = option.then(
+			this.#body = option.then(
 				v => this.#create_task(hostname, v),
 
 			)
@@ -433,7 +446,7 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 		}
 
 		else {
-			this.#resp = this.#create_task(hostname, option)
+			this.#body = this.#create_task(hostname, option)
 
 		}
 
@@ -463,14 +476,19 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 	}
 
+	get body(): Promise<HttpTaskResult<T, H>> {
+		return this.#body
 
-	resp(): Promise<HttpResult<T, H>> {
-		return this.#resp
+	}
+
+
+	resp(): Promise<HttpTaskResult<T, H>> {
+		return this.#body
 
 	}
 
 	abort(): void {
-		this.#task?.abort()
+		this.#link?.abort()
 
 	}
 
@@ -481,7 +499,7 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-expect-error
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-		this.#task?.onChunkReceived?.(listener)
+		this.#link?.onChunkReceived?.(listener)
 
 	}
 
@@ -556,12 +574,12 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 		option: WechatMiniprogram.RequestOption,
 
 	): Promise<
-		HttpResult<T, H>
+		HttpTaskResult<T, H>
 
 	> {
-		return new Promise<HttpResult<T, H>>(
+		return new Promise<HttpTaskResult<T, H>>(
 			(resolve, reject) => {
-				this.#task = wx.request<T>(
+				this.#link = wx.request<T>(
 					{
 						...this.#parse(hostname, option),
 
@@ -598,7 +616,7 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 							}
 
 							else {
-								resolve(res as HttpResult<T, H>)
+								resolve(res as HttpTaskResult<T, H>)
 
 							}
 
