@@ -1,5 +1,6 @@
-import { Http } from './lib/request.js'
+export type * from './lib/request.js'
 
+import { Http } from './lib/request.js'
 
 const manager = wx.getUpdateManager()
 
