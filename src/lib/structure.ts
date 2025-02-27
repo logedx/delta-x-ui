@@ -19,6 +19,15 @@ export type GetRequired<T> = {
 
 }
 
+export type Replace<T extends object, U, V> = {
+	[K in keyof T]: T[K] extends U
+		? V
+		: T[K] extends object
+		? Replace<T[K], U, V>
+		: T[K]
+
+}
+
 export type Overwrite<T, U, O = Omit<T, keyof U> & Required<U>> = {
 	[K in keyof O]: Exclude<
 		K extends keyof U
