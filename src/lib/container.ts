@@ -406,35 +406,88 @@ export class Pagination<
 }
 
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ExclusiveHandler =(...args: Array<any>) => any
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ExclusiveParameters<F> = F extends (arg0: any, ...rest: infer R) => any ? R : never;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-invalid-void-type
+export type ExclusiveCreateHandler = (...args: Array<any>) => Promise<void | string>
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ExclusiveUpdateHandler = (_id: string, ...args: Array<any>) => Promise<void>
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ExclusiveRetrieveHandler = (_id: string, ...args: Array<any>) => Promise<any>
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ExclusiveDeleteHandler = (_id: string, ...args: Array<any>) => Promise<void>
+
+export type ExclusiveParametersHandler<F extends ExclusiveHandler> = (...args: ExclusiveParameters<F>) => ReturnType<F>;
+
+export type ExclusiveHandlerCall<C, U, R, D> = Exclude<
+	| (C extends never ? never : 'create')
+	| (U extends never ? never : 'update')
+	| (R extends never ? never : 'retrieve')
+	| (D extends never ? never : 'delete')
+
+	,
+
+	never
+
+>
+
+export type ExclusiveHandlerCallParams<
+	F,
+	C extends ExclusiveCreateHandler,
+	U extends ExclusiveUpdateHandler,
+	R extends ExclusiveRetrieveHandler,
+	D extends ExclusiveDeleteHandler
+
+> = F extends 'create'
+	? Parameters<C>
+	: F extends 'update'
+	? ExclusiveParameters<U>
+	: F extends 'retrieve'
+	? Parameters<R>
+	: F extends 'delete'
+	? ExclusiveParameters<D>
+	: never
 
 
-export type ExclusiveCreateHandler<T> = (data: T) => Promise<string>
+export class Exclusive<
+	C extends ExclusiveCreateHandler = never,
 
-export type ExclusiveUpdateHandler<T> = (_id: string, data: Optional<T>) => Promise<void>
+	U extends ExclusiveUpdateHandler = never,
 
-export type ExclusiveRetrieveHandler<T> = (_id: string) => Promise<T>
+	R extends ExclusiveRetrieveHandler = never,
 
-export type ExclusiveDeleteHandler = (_id: string) => Promise<void>
+	D extends ExclusiveDeleteHandler = never
 
-export class Exclusive<T extends object, C = never> {
-	#id = null as null | string
+> {
+	#id: null | string = null
 
-	#data = null as null | T
+	#data: unknown = null
 
-	#loading = false
 
 	#linker: null | WechatMiniprogram.Component.TrivialInstance = null
 
 	#linker_map = { loading: 'loading' }
 
 
-	#create_handle = null as null | ExclusiveCreateHandler<C>
+	#loading = false
 
-	#update_handle = null as null | ExclusiveUpdateHandler<T>
 
-	#retrieve_handle = null as null | ExclusiveRetrieveHandler<T>
+	#create_handle: null | ExclusiveHandler = null
 
-	#delete_handle = null as null | ExclusiveDeleteHandler
+	#update_handle: null | ExclusiveHandler = null
+
+	#retrieve_handle: null | ExclusiveHandler = null
+
+	#delete_handle: null | ExclusiveHandler = null
+
+
 
 
 	get _id(): string {
@@ -450,25 +503,48 @@ export class Exclusive<T extends object, C = never> {
 
 	}
 
-
 	get loading(): boolean {
 		return this.#loading
 
 	}
 
+	get create(): C {
+		return this.#create.bind(this) as C
+
+	}
+
+	get update(): ExclusiveParametersHandler<U> {
+		return this.#update.bind(this) as ExclusiveParametersHandler<U>
+
+	}
+
+	get retrieve(): R {
+		return this.#retrieve.bind(this) as R
+
+	}
+
+	get delete(): ExclusiveParametersHandler<D> {
+		return this.#delete.bind(this) as ExclusiveParametersHandler<D>
+
+	}
+
+
+
 
 	#wait(value: boolean): void {
-		if (this.#linker === null) {
-			throw new Error('linker is not exist')
-
-		}
-
 		if (value && this.#loading) {
 			throw new Error('container is loading')
 
 		}
 
 		this.#loading = value
+
+
+
+		if (this.#linker === null) {
+			return
+
+		}
 
 		this.#linker
 			.setData(
@@ -478,37 +554,124 @@ export class Exclusive<T extends object, C = never> {
 
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async #call<R>(fn: (...args: Array<any>) => Promise<R>): Promise<R> {
+
+	async #call<V>(
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		fn: (...args: Array<any>) => Promise<V>,
+
+	): Promise<V> {
 		this.#wait(true)
 
-		try {
-			return await fn()
+		return fn().finally(
+			() => {
+				wx.nextTick(
+					() => {
+						this.#wait(false)
 
-		}
+					},
 
-		finally {
-			wx.nextTick(
-				() => {
-					this.#wait(false)
+				)
 
-				},
+			},
 
-			)
-
-		}
+		)
 
 
 	}
 
 
-	on(name: 'create', fn: ExclusiveCreateHandler<C>): void
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	async #create(...args: Array<any>): Promise<void> {
+		if (this.#create_handle === null) {
+			throw new Error('container cannot be created')
 
-	on(name: 'update', fn: ExclusiveUpdateHandler<T>): void
+		}
 
-	on(name: 'retrieve', fn: ExclusiveRetrieveHandler<T>): void
+		let res = await this.#call(
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return
+			() => this.#create_handle!(...args),
 
-	on(name: 'delete', fn: ExclusiveDeleteHandler): void
+		)
+
+		if (detective.is_required_string(res)
+
+		) {
+			this.#id = res
+
+		}
+
+		this.#data = null
+
+
+	}
+
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	async #update(...args: Array<any>): Promise<void> {
+		if (this.#id === null || this.#update_handle === null) {
+			throw new Error('container cannot be updated')
+
+		}
+
+		await this.#call(
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return
+			() => this.#update_handle!(this.#id, ...args),
+
+		)
+
+		this.#data = null
+
+
+	}
+
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	async #retrieve(_id: string, ...args: Array<any>): Promise<void> {
+		if (this.#retrieve_handle === null) {
+			throw new Error('container cannot be retrieved')
+
+		}
+
+		this.#data = await this.#call(
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return
+			() => this.#retrieve_handle!(_id, ...args),
+
+		)
+
+		this.#id = _id
+
+
+	}
+
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	async #delete(...args: Array<any>): Promise<void> {
+		if (this.#id === null || this.#delete_handle === null) {
+			throw new Error('container cannot be deleted')
+
+		}
+
+		await this.#call(
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return
+			() => this.#delete_handle!(this.#id, ...args),
+
+		)
+
+		this.clear()
+
+
+	}
+
+
+
+
+	on<F extends ExclusiveCreateHandler>(name: 'create', fn: F): Exclusive<F, U, R, D>
+
+	on<F extends ExclusiveUpdateHandler>(name: 'update', fn: F): Exclusive<C, F, R, D>
+
+	on<F extends ExclusiveRetrieveHandler>(name: 'retrieve', fn: F): Exclusive<C, U, F, D>
+
+	on<F extends ExclusiveDeleteHandler>(name: 'delete', fn: F): Exclusive<C, U, R, F>
 
 	on(
 		name: string,
@@ -542,6 +705,40 @@ export class Exclusive<T extends object, C = never> {
 	}
 
 
+	async emit<
+		M extends ExclusiveHandlerCall<C, U, R, D>
+
+	>(
+		method: M,
+
+		...args: ExclusiveHandlerCallParams<M, C, U, R, D>
+
+	): Promise<void> {
+		if (method === 'create') {
+			await this.#create(...args)
+
+		}
+
+		if (method === 'update') {
+			await this.#update(...args)
+
+		}
+
+		if (method === 'retrieve') {
+			await this.#retrieve(...args as [string])
+
+		}
+
+		if (method === 'delete') {
+			await this.#delete(...args)
+
+		}
+
+		throw new Error('method is not exist')
+
+	}
+
+
 	clear(): void {
 		this.#id = null
 		this.#data = null
@@ -549,14 +746,14 @@ export class Exclusive<T extends object, C = never> {
 	}
 
 
-	get(): T
+	get(): Awaited<ReturnType<R>>
 
-	get<K extends keyof T>(
+	get<T = Awaited<ReturnType<R>>, K extends keyof T = keyof T>(
 		key: K extends string ? Lowercase<K> : K,
 
-	): T[K]
+	): Awaited<ReturnType<R>>[K]
 
-	get<K extends keyof T>(
+	get<T = Awaited<ReturnType<R>>, K extends keyof T = keyof T>(
 		key: K extends string ? Lowercase<K> : K,
 
 		_default: T[K]
@@ -565,7 +762,7 @@ export class Exclusive<T extends object, C = never> {
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	get(key?: any, _default?: any): any {
-		if (detective.is_exist(this.#data) === false
+		if (detective.is_object(this.#data) === false
 
 		) {
 			throw new Error('data is not exist')
@@ -586,91 +783,20 @@ export class Exclusive<T extends object, C = never> {
 	}
 
 
-	pick<K extends keyof T>(...keys: Array<K>): Pick<T, K> {
-		if (detective.is_exist(this.#data) === false
+	pick<T = Awaited<ReturnType<R>>, K extends keyof T = keyof T>(...keys: Array<K>): Pick<T, K> {
+		if (detective.is_object(this.#data) === false
 
 		) {
 			throw new Error('data is not exist')
 
 		}
 
-		return structure.pick(this.#data, ...keys)
+		return structure.pick(this.#data, ...keys) as Pick<T, K>
 
 	}
 
 
-	async create(data: C): Promise<string> {
-		if (this.#create_handle === null) {
-			throw new Error('container cannot be created')
-
-		}
-
-		this.#id = await this.#call(
-			() => this.#create_handle!(data),
-
-		)
-
-		this.#data = null
-
-		return this.#id
-
-
-	}
-
-
-	async update(data: Optional<T>): Promise<void> {
-		if (this.#id === null || this.#update_handle === null) {
-			throw new Error('container cannot be updated')
-
-		}
-
-		await this.#call(
-			() => this.#update_handle!(this.#id!, data),
-
-		)
-
-		this.#data = null
-
-	}
-
-
-	async retrieve(_id: string): Promise<void> {
-		if (this.#retrieve_handle === null) {
-			throw new Error('container cannot be retrieved')
-
-		}
-
-		this.#data = await this.#call(
-			() => this.#retrieve_handle!(_id),
-
-		)
-
-		this.#id = _id
-
-	}
-
-
-	async delete(): Promise<string> {
-		if (this.#id === null || this.#delete_handle === null) {
-			throw new Error('container cannot be deleted')
-
-		}
-
-		let id = this.#id
-
-		await this.#call(
-			() => this.#delete_handle!(id),
-
-		)
-
-		this.clear()
-
-		return id
-
-	}
-
-
-	linker(
+	link(
 		v: WechatMiniprogram.Component.TrivialInstance,
 
 		map?: { loading: string },
@@ -688,7 +814,7 @@ export class Exclusive<T extends object, C = never> {
 	}
 
 
-	destroy(): void {
+	unlink(): void {
 		this.clear()
 
 		this.#linker = null

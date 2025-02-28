@@ -7,14 +7,11 @@ import * as user_model from '../model/user.js'
 
 
 
-export async function create(): Promise<void> {
-	let login = await wx.login()
-	let account = wx.getAccountInfoSync()
-
+export async function create(code: string, appid: string): Promise<void> {
 	let h = http.post(
 		'/user',
 
-		{ code: login.code, appid: account.miniProgram.appId },
+		{ code, appid },
 
 	)
 
@@ -26,10 +23,11 @@ export async function create(): Promise<void> {
 export async function update(
 	id: string,
 
-	params: Optional<
-		Pick<user_model.TRawDocType, 'phone' | 'scope'>
+	params: {
+		phone?: string
+		scope?: null | { value: number, deadline: string }
 
-	>,
+	},
 
 ): Promise<void> {
 	let h = http.put(

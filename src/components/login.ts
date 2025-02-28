@@ -8,6 +8,7 @@ import * as token_storage from '../storage/token.js'
 
 
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 inject()
 
 Component(
@@ -18,8 +19,11 @@ Component(
 )
 
 
-function inject(): void {
+async function inject(): Promise<void> {
 	let app = getApp()
+
+	let login = await wx.login()
+	let account = wx.getAccountInfoSync()
 
 	http.hostname = app.hostname as string
 
@@ -29,7 +33,7 @@ function inject(): void {
 	)
 
 	http.blockage(
-		'/user', 'POST', user_storage.create,
+		'/user', 'POST', user_storage.create, login.code, account.miniProgram.appId,
 
 	)
 
