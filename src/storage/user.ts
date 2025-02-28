@@ -7,7 +7,7 @@ import * as user_model from '../model/user.js'
 
 
 
-export async function create(code: string, appid: string): Promise<void> {
+export async function create(code: string, appid: string): HttpTaskUnpackingResult<void> {
 	let h = http.post(
 		'/user',
 
@@ -29,7 +29,7 @@ export async function update(
 
 	},
 
-): Promise<void> {
+): HttpTaskUnpackingResult<void> {
 	let h = http.put(
 		`/user/${id}`, params,
 

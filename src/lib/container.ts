@@ -1,3 +1,4 @@
+import * as request from './request.js'
 import * as detective from './detective.js'
 import * as structure from './structure.js'
 
@@ -20,7 +21,10 @@ export type PaginationCallHandler<T extends object = object> = (
 
 ) => T
 
-export type PaginationRetrieveHandler<T, P extends object> = (params: PaginationParams<P>) => Promise<Array<T>>
+export type PaginationRetrieveHandler<T extends object, P extends object> = (params: PaginationParams<P>) => request.HttpTaskUnpackingResult<
+	Array<T>
+
+>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PaginationUpdateHandler<T> = (data: Array<T>, finished: boolean) => any
@@ -29,10 +33,11 @@ export type PaginationUpdateHandler<T> = (data: Array<T>, finished: boolean) => 
 export type PaginationLoadingHandler = (value: boolean) => any
 
 export class Pagination<
-	T = unknown,
-	P extends object = object
+	T extends object,
+	P extends object = object,
 
-> extends Array<T> {
+	V = request.HttpBody<T>
+> extends Array<V> {
 	#skip = 0
 
 	#limit = 10
@@ -57,7 +62,7 @@ export class Pagination<
 
 	#retrieve_handler: PaginationRetrieveHandler<T, P> = () => Promise.resolve([])
 
-	#update_handler: PaginationUpdateHandler<T> = () => {
+	#update_handler: PaginationUpdateHandler<V> = () => {
 		// 
 
 	}
@@ -124,7 +129,7 @@ export class Pagination<
 
 	}
 
-	async #retrieve(): Promise<Array<T>> {
+	async #retrieve(): Promise<Array<V>> {
 		let skip = this.#skip
 		let limit = this.#limit
 		let sort = this.#sort
@@ -146,11 +151,11 @@ export class Pagination<
 
 			this.#finished = items.length < this.#limit
 
-			this.push(...items)
+			this.push(...items as Array<V>)
 
 			this.#synch()
 
-			return items
+			return items as Array<V>
 
 		}
 
@@ -171,7 +176,7 @@ export class Pagination<
 
 	on(name: 'loading', fn: PaginationLoadingHandler): this;
 
-	on(name: 'update', fn: PaginationUpdateHandler<T>): this;
+	on(name: 'update', fn: PaginationUpdateHandler<V>): this;
 
 	on(name: 'retrieve', fn: PaginationRetrieveHandler<T, P>): this;
 
@@ -193,7 +198,7 @@ export class Pagination<
 		}
 
 		if (name === 'update') {
-			this.#update_handler = fn as PaginationUpdateHandler<T>
+			this.#update_handler = fn as PaginationUpdateHandler<V>
 
 		}
 
@@ -272,7 +277,7 @@ export class Pagination<
 
 	}
 
-	get(index: number): null | T {
+	get(index: number): null | V {
 		if (detective.is_undefined(this[index])
 
 		) {
@@ -284,7 +289,7 @@ export class Pagination<
 
 	}
 
-	swap(a: number, b: number): [T, T] {
+	swap(a: number, b: number): [V, V] {
 		if (detective.is_exist(this[a])
 			&& detective.is_exist(this[b])
 
@@ -302,7 +307,7 @@ export class Pagination<
 
 	}
 
-	update(index: number, value: T): void {
+	update(index: number, value: V): void {
 		this[index] = value
 
 	}
@@ -314,7 +319,7 @@ export class Pagination<
 
 	}
 
-	replace(index: number, item: T): void {
+	replace(index: number, item: V): void {
 		this[index] = item
 
 		this.#update_handler(this, this.#finished)
@@ -335,7 +340,7 @@ export class Pagination<
 
 	}
 
-	first(): Promise<Array<T>> {
+	first(): Promise<Array<V>> {
 		if (this.#loading) {
 			throw new Error('Pagination is loading')
 
@@ -345,7 +350,7 @@ export class Pagination<
 
 	}
 
-	next(): Promise<Array<T>> {
+	next(): Promise<Array<V>> {
 		if (this.#finished) {
 			return Promise.resolve([])
 

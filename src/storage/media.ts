@@ -1,4 +1,4 @@
-import http from '../index.js'
+import http, { HttpTaskUnpackingResult } from '../index.js'
 
 import * as fs from '../lib/fs.js'
 import * as request from '../lib/request.js'
@@ -26,7 +26,7 @@ export async function create(
 	file: fs.ReadFile,
 	option: CreateOption,
 
-): Promise<string> {
+): HttpTaskUnpackingResult<string> {
 	let h = await create_(file, option)
 
 	return h.data
@@ -37,7 +37,7 @@ export async function create_(
 	file: fs.ReadFile,
 	option: CreateOption,
 
-): Promise<CreateResult> {
+): HttpTaskUnpackingResult<CreateResult> {
 	let h = await http.upload<string, CreateResult['header']>(
 		file, { ...option, url: '/media', method: 'POST' },
 
@@ -51,7 +51,7 @@ export async function create_many(
 	file: Array<fs.ReadFile>,
 	option: CreateOption,
 
-): Promise<
+): HttpTaskUnpackingResult<
 	Array<string>
 
 > {
@@ -65,7 +65,7 @@ export async function create_many_(
 	file: Array<fs.ReadFile>,
 	option: CreateOption,
 
-): Promise<
+): HttpTaskUnpackingResult<
 	Array<CreateResult>
 
 > {
@@ -84,7 +84,7 @@ export async function create_many_(
 }
 
 
-export async function delete_(...src: Array<string>): Promise<void> {
+export async function delete_(...src: Array<string>): HttpTaskUnpackingResult<void> {
 	let h = http.delete('/media', src)
 
 	await h.resp()

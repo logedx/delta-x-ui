@@ -63,7 +63,12 @@ export type HttpTaskResult<T extends SuccessRestult, H extends object = object> 
 
 >
 
-export type HttpTaskUnpackingResult<T extends SuccessRestult> = Promise<HttpBody<T>>
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+export type HttpTaskUnpackingResult<T extends void | SuccessRestult> = Promise<
+	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+	T extends void ? void : HttpBody<T>
+
+>
 
 
 
