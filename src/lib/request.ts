@@ -18,11 +18,7 @@ export type FailResult = {
 
 export type SuccessRestult = string | ArrayBuffer | WechatMiniprogram.IAnyObject
 
-export type HttpBody<T> = T extends object
-	? structure.Replace<T, Date, string>
-	: T extends Date
-	? string
-	: T
+export type HttpBody<T> = structure.Replace<T, Date, string>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type HttpFunction = (...args: Array<any>) => Promise<any>

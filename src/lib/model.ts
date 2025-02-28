@@ -1,8 +1,8 @@
 import * as structure from './structure.js'
 
 export type TRawDocType<T extends Record<string, unknown>> = T & {
-	updated: string
-	created: string
+	updated: Date
+	created: Date
 
 	updated_hex: string
 	created_hex: string
