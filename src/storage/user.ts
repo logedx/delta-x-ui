@@ -1,4 +1,4 @@
-import http from '../index.js'
+import http, { HttpTaskUnpackingResult } from '../index.js'
 
 import * as container from '../lib/container.js'
 
@@ -23,12 +23,15 @@ export async function create(): Promise<void> {
 }
 
 
-export type UpdateParams = Optional<
-	Pick<user_model.TRawDocType, 'phone' | 'scope'>
+export async function update(
+	id: string,
 
->
+	params: Optional<
+		Pick<user_model.TRawDocType, 'phone' | 'scope'>
 
-export async function update(id: string, params: UpdateParams): Promise<void> {
+	>,
+
+): Promise<void> {
 	let h = http.put(
 		`/user/${id}`, params,
 
@@ -39,10 +42,8 @@ export async function update(id: string, params: UpdateParams): Promise<void> {
 }
 
 
-export type RetrieveResponse = user_model.THydratedDocumentType
-
-export async function retrieve(id: string): Promise<RetrieveResponse> {
-	let h = http.get<RetrieveResponse>(
+export async function retrieve(id: string): HttpTaskUnpackingResult<user_model.THydratedDocumentType> {
+	let h = http.get<user_model.THydratedDocumentType>(
 		`/user/${id}`,
 
 	)
@@ -53,13 +54,17 @@ export async function retrieve(id: string): Promise<RetrieveResponse> {
 
 }
 
+export async function retrieve_pagination(
+	params: container.PaginationParams,
 
-export type RetrievePaginationParams = container.PaginationParams
+): HttpTaskUnpackingResult<
+	Array<user_model.THydratedDocumentType>
 
-export type RetrievePaginationResponse = Array<user_model.THydratedDocumentType>
+> {
+	let h = http.get<
+		Array<user_model.THydratedDocumentType>
 
-export async function retrieve_pagination(params: RetrievePaginationParams): Promise<RetrievePaginationResponse> {
-	let h = http.get<RetrievePaginationResponse>(
+	>(
 		'/user', params,
 
 	)

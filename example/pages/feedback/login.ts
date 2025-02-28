@@ -23,7 +23,7 @@ Component(
 				let doc = await token_storage.retrieve()
 
 				this.setData(
-					{ expire: doc.expire, scope: doc.scope },
+					{ expire: new Date(doc.expire), scope: doc.scope },
 
 				)
 

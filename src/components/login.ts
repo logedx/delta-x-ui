@@ -36,7 +36,7 @@ function inject(): void {
 }
 
 
-function create_header(value: string): token_storage.TokenHeader {
+function create_header(value: string): Parameters<typeof token_storage.update>[0] {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
 	return { Authorization: `Bearer ${value}` }
 
@@ -49,7 +49,9 @@ function create_proxy(): request.HttpOptionTransform {
 	return async function (option) {
 		let token = await bearer
 
-		if (new Date() > token.expire) {
+		if (new Date() > new Date(token.expire)
+
+		) {
 			bearer = token_storage.update(
 				create_header(token.refresh),
 
