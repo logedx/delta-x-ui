@@ -156,9 +156,13 @@ export function pick<T extends object, K extends keyof T>(
 	...name: Array<K>
 
 ): Pick<T, K> {
+	let key = new Set(name)
 	let value = {} as Pick<T, K>
 
-	for (let n of name) {
+
+	for (let n of Array.from(key)
+
+	) {
 		value[n] = clone(source[n])
 
 	}
