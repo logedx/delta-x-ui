@@ -60,7 +60,7 @@ Component(
 
 		lifetimes: {
 			attached(): void {
-				pagin.linker(
+				pagin.link(
 					this, { data: 'lister' },
 
 				)
@@ -71,7 +71,7 @@ Component(
 			},
 
 			detached(): void {
-				pagin.clear()
+				pagin.unlink()
 
 			},
 

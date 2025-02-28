@@ -357,7 +357,7 @@ export class Pagination<
 
 	}
 
-	linker(
+	link(
 		v: WechatMiniprogram.Component.TrivialInstance,
 
 		map?: Optional<
@@ -400,6 +400,14 @@ export class Pagination<
 		this.#linker = v
 
 		return this
+
+	}
+
+	unlink(): void {
+		this.clear()
+		this.reset()
+
+		this.#linker = null
 
 	}
 
