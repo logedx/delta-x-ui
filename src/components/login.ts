@@ -8,7 +8,6 @@ import * as token_storage from '../storage/token.js'
 
 
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
 inject()
 
 Component(
@@ -19,11 +18,9 @@ Component(
 )
 
 
-async function inject(): Promise<void> {
+// must be synchronous function
+function inject(): void {
 	let app = getApp()
-
-	let login = await wx.login()
-	let account = wx.getAccountInfoSync()
 
 	http.hostname = app.hostname as string
 
@@ -33,22 +30,23 @@ async function inject(): Promise<void> {
 	)
 
 	http.blockage(
-		'/user', 'POST', user_storage.create, login.code, account.miniProgram.appId,
+		'/user', 'POST', create_user,
 
 	)
 
 }
 
 
-function create_header(value: string): Parameters<typeof token_storage.update>[0] {
-	// eslint-disable-next-line @typescript-eslint/naming-convention
-	return { Authorization: `Bearer ${value}` }
-
-}
-
-
 function create_proxy(): request.HttpOptionTransform {
 	let bearer = token_storage.create()
+
+
+	function header(value: string): Parameters<typeof token_storage.update>[0] {
+		// eslint-disable-next-line @typescript-eslint/naming-convention
+		return { Authorization: `Bearer ${value}` }
+
+	}
+
 
 	return async function (option) {
 		let token = await bearer
@@ -57,7 +55,7 @@ function create_proxy(): request.HttpOptionTransform {
 
 		) {
 			bearer = token_storage.update(
-				create_header(token.refresh),
+				header(token.refresh),
 
 			)
 
@@ -65,11 +63,21 @@ function create_proxy(): request.HttpOptionTransform {
 
 		}
 
-		option.header = { ...option.header, ...create_header(token.value) }
+		option.header = { ...option.header, ...header(token.value) }
 
 		return option
 
 	}
+
+
+}
+
+
+async function create_user(): Promise<void> {
+	let login = await wx.login()
+	let account = wx.getAccountInfoSync()
+
+	await user_storage.create(login.code, account.miniProgram.appId)
 
 
 }
