@@ -1,0 +1,68 @@
+.top(@color: var(--white)) {
+	position: relative;
+
+	&::before {
+		content: '';
+		width: 100%;
+		height: 1px;
+		position: absolute;
+		top: -1rpx;
+		left: 0;
+		background: @color;
+
+	}
+
+
+}
+
+.bottom(@color: var(--white)) {
+	position: relative;
+
+	&::after {
+		content: '';
+		width: 100%;
+		height: 1px;
+		position: absolute;
+		bottom: -1rpx;
+		left: 0;
+		background: @color;
+
+	}
+
+
+}
+
+.left(@color: var(--white)) {
+	position: relative;
+
+	&::before {
+		content: '';
+		width: 1px;
+		height: 100%;
+		position: absolute;
+		left: -1rpx;
+		top: 0;
+		background: @color;
+
+	}
+
+
+}
+
+
+.right(@color: var(--white)) {
+	position: relative;
+
+	&::after {
+		content: '';
+		width: 1px;
+		height: 100%;
+		position: absolute;
+		right: -1rpx;
+		top: 0;
+		background: @color;
+
+	}
+
+
+}
