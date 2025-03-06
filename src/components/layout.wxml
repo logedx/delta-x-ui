@@ -1,5 +1,9 @@
 <view class="dx-layout">
-	<view class="container">
+	<dx-header class="loading" wx:if="{{ loading }}">
+		<dx-loading />
+	</dx-header>
+
+	<view class="container" wx:else>
 		<dx-header
 			back="{{ back }}"
 			home="{{ home }}"
@@ -11,19 +15,13 @@
 
 		<slot name="header" wx:else />
 
-		<view class="loading" wx:if="{{ loading }}">
-			<dx-loading />
-		</view>
+		<dx-main class="main class">
+			<slot />
+		</dx-main>
 
-		<block wx:else>
-			<dx-main class="main class">
-				<slot />
-			</dx-main>
-
-			<dx-footer class="footer" sink="{{ sink }}">
-				<slot name="footer" />
-			</dx-footer>
-		</block>
+		<dx-footer class="footer" sink="{{ sink }}">
+			<slot name="footer" />
+		</dx-footer>
 	</view>
 
 	<view class="background">
