@@ -5,7 +5,7 @@ export type ReadFile = {
 	path: string
 
 	size: number
-	mine: null | string
+	mime: null | string
 
 	hash: string
 	data: WechatMiniprogram.ReadFileSuccessCallbackResult['data']
@@ -26,7 +26,7 @@ export function read(
 
 ): Promise<ReadFile> {
 	let ext = lookup(path)
-	let mine = MineType.get(ext)
+	let mime = MimeType.get(ext)
 
 	let fs = wx.getFileSystemManager()
 
@@ -103,7 +103,7 @@ export function read(
 
 	return Promise.all([info, file])
 		.then<ReadFile>(
-			([{ size, hash }, data]) => ({ ext, path, mine, size, hash, data }),
+			([{ size, hash }, data]) => ({ ext, path, mime, size, hash, data }),
 
 		)
 
@@ -129,7 +129,7 @@ export async function choose_image(quantity = 1): Promise<Array<ReadFile>> {
 }
 
 
-export class MineType {
+export class MimeType {
 	static #type: Record<string, string> = {
 		'gif': 'image/gif',
 		'jpg': 'image/jpeg',

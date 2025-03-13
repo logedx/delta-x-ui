@@ -332,7 +332,7 @@ export class Http {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'Folder': option.folder,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			'Accept': file.mine,
+			'Accept': file.mime,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'Hash': file.hash,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
