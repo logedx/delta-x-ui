@@ -1,5 +1,8 @@
 import * as detective from './detective.js'
 
+
+
+
 export type ReadFile = {
 	ext: string
 	path: string
@@ -12,12 +15,124 @@ export type ReadFile = {
 
 }
 
-export function lookup(v: string): string {
-	let path = v.split('.')
 
-	return path[path.length - 1]
+
+
+enum TMimeType {
+	gif = 'image/gif',
+	jpg = 'image/jpeg',
+	// eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
+	jpeg = 'image/jpeg',
+	png = 'image/png',
+	apng = 'image/apng',
+	webp = 'image/webp',
 
 }
+
+export class MimeType {
+	static to(mime: string): null | keyof typeof TMimeType {
+		let value = Object.keys(TMimeType)
+			.find(
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+				v => mime === TMimeType[v as keyof typeof TMimeType],
+
+			)
+
+		return value as keyof typeof TMimeType ?? null
+
+
+	}
+
+	static get(extension: string): null | TMimeType {
+		return TMimeType[extension as keyof typeof TMimeType] ?? null
+
+	}
+
+	static parse(data_url: string): [string, string] {
+		if (detective.is_data_url_string(data_url) === false
+
+		) {
+			throw new TypeError('invalid data url')
+
+		}
+
+		let [mime, ...data] = data_url.split(';')
+
+		return [mime.replace('data:', ''), data.pop()!]
+
+	}
+
+}
+
+
+
+
+export function lookup(v: string): string {
+	let [ext] = v.split('.').slice(-1)
+
+	return ext ?? ''
+
+}
+
+
+
+
+export function create(filename: string, data: ArrayBuffer): Promise<string>
+
+export function create(
+	filename: string,
+	data: string,
+	encoding: WechatMiniprogram.WriteFileOption['encoding']
+
+): Promise<string>
+
+export function create(
+	filename: string,
+	data: string | ArrayBuffer,
+	encoding?: WechatMiniprogram.WriteFileOption['encoding'],
+
+): Promise<string> {
+	let path = `${wx.env.USER_DATA_PATH}/${filename}`
+
+	return new Promise<string>(
+		(resolve, reject) => {
+			wx.getFileSystemManager()
+				.writeFile(
+					{
+
+						data,
+
+						encoding,
+
+						// eslint-disable-next-line @typescript-eslint/naming-convention
+						filePath: path,
+
+						success() {
+							resolve(path)
+
+						},
+
+						fail(e) {
+							reject(
+								new Error(e.errMsg),
+
+							)
+
+						},
+
+					},
+
+				)
+
+
+
+		},
+
+	)
+
+}
+
+
 
 
 export function read(
@@ -65,6 +180,7 @@ export function read(
 					},
 
 				},
+
 			)
 
 		},
@@ -111,6 +227,35 @@ export function read(
 }
 
 
+
+
+export async function read_from(data_url: string): Promise<ReadFile> {
+	let [mime, data] = MimeType.parse(data_url)
+
+	let [encoding, context] = data.split(',')
+
+	let filename = `${Date.now()}.${MimeType.to(mime)}`
+
+	if (detective.is_empty(context)
+
+	) {
+		[encoding, context] = ['utf8', encoding]
+
+	}
+
+	let path = await create(
+		filename, context, encoding as WechatMiniprogram.WriteFileOption['encoding'],
+
+	)
+
+	return read(path)
+
+
+}
+
+
+
+
 export async function choose_image(quantity = 1): Promise<Array<ReadFile>> {
 	let paths = await wx.chooseImage(
 		{ count: quantity },
@@ -125,43 +270,5 @@ export async function choose_image(quantity = 1): Promise<Array<ReadFile>> {
 			),
 
 	)
-
-}
-
-
-export class MimeType {
-	static #type: Record<string, string> = {
-		'gif': 'image/gif',
-		'jpg': 'image/jpeg',
-		'jpeg': 'image/jpeg',
-		'png': 'image/png',
-		'apng': 'image/apng',
-		'webp': 'image/webp',
-
-	}
-
-	static #extension: Record<string, string> = {
-		// eslint-disable-next-line @typescript-eslint/naming-convention
-		'image/gif': 'gif',
-		// eslint-disable-next-line @typescript-eslint/naming-convention
-		'image/jpeg': 'jpeg',
-		// eslint-disable-next-line @typescript-eslint/naming-convention
-		'image/png': 'png',
-		// eslint-disable-next-line @typescript-eslint/naming-convention
-		'image/apng': 'apng',
-		// eslint-disable-next-line @typescript-eslint/naming-convention
-		'image/webp': 'webp',
-
-	}
-
-	static to(type: string): null | string {
-		return this.#extension[type] ?? null
-
-	}
-
-	static get(extension: string): null | string {
-		return this.#type[extension] ?? null
-
-	}
 
 }
