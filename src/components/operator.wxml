@@ -6,14 +6,12 @@
 	<view class="workshop" wx:else>
 		<slot />
 
-		<view class="operate">
+		<view class="operate" wx:if="{{ name }}">
 			<view class="loading" wx:if="{{ loading || submit }}">
 				<dx-loading />
 			</view>
 
-			<span class="submit" bind:tap="on_submit" wx:elif="{{ name }}"
-				>{{ name }}</span
-			>
+			<span class="submit" bind:tap="on_submit" wx:else>{{ name }}</span>
 		</view>
 
 		<view class="anchor" id="anchor" style="{{ style }}" />
