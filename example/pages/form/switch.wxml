@@ -11,7 +11,7 @@
 		</dx-label>
 
 		<dx-label serif name="customize">
-			<dx-switch size="20vw" model:value="{{ value }}" />
+			<dx-switch size="{{ 60 }}" model:value="{{ value }}" />
 		</dx-label>
 	</dx-nameplate>
 

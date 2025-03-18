@@ -1,4 +1,4 @@
-import { Variable } from '../lib/style.js'
+import * as style from '../lib/style.js'
 
 export type TProperty = {
 	value: boolean
@@ -22,7 +22,7 @@ Component(
 
 		properties: {
 			value: { type: Boolean, value: false },
-			size: { type: String, value: 'var(--u-04-l)' },
+			size: { type: Number, value: 80 },
 			color: { type: String, value: 'var(--dark-primary)' },
 			disabled: { type: Boolean, value: false },
 
@@ -53,14 +53,21 @@ Component(
 			set_style(): void {
 				let { value, size, color } = this.data
 
-				let css = new Variable<'size' | 'color' | 'befor-left'>('dx', 'switch')
+				let css = new style.Variable<'size' | 'color' | 'befor-left'>('dx', 'switch')
 
+				css.set(
+					'size',
 
-				css.set('size', size)
+					Math.min(
+						1, Math.abs(size / 100),
+
+					),
+
+				)
 
 				if (value) {
 					css.set('color', color)
-					css.set('befor-left', 'calc(100% - var(--dx-switch-size) - var(--u-00-s) * 2)')
+					css.set('befor-left', 'calc(100% - var(--label) * var(--dx-switch-size) - var(--u-00-s) * 2)')
 
 				}
 

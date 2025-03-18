@@ -1,5 +1,5 @@
 .dx-switch {
-	--dx-switch-size: var(--u-04-l);
+	--dx-switch-size: 0.8;
 	--dx-switch-color: var(--border);
 	--dx-switch-transition: all 0.318s ease;
 
@@ -7,23 +7,21 @@
 
 	display: flex;
 	align-items: center;
-	width: 100%;
-	height: 100%;
+	height: var(--label);
 
 	view {
-		width: calc(var(--dx-switch-size) * 2.18);
-		height: var(--dx-switch-size);
+		width: calc(var(--label) * var(--dx-switch-size) * 2);
 		padding: var(--u-00-s);
 		background: var(--dx-switch-color);
-		border-radius: var(--dx-switch-size);
+		border-radius: calc(var(--label) * var(--dx-switch-size));
 		transition: var(--dx-switch-transition);
 
 		&::before {
 			content: '';
 			position: relative;
 			left: var(--dx-switch-befor-left);
-			width: var(--dx-switch-size);
-			height: var(--dx-switch-size);
+			width: calc(var(--label) * var(--dx-switch-size));
+			height: calc(var(--label) * var(--dx-switch-size));
 			background: var(--white);
 			border-radius: 50%;
 			transition: var(--dx-switch-transition);
