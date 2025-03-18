@@ -1,6 +1,4 @@
 <dx-layout>
-	<text slot="header" class="title">welcome</text>
-
 	<dx-cassette>
 		<view class="welcome">
 			<label>Delta X UI</label>
@@ -45,17 +43,23 @@
 					<text class="text small"
 						>small {{ name(index, text) }}</text
 					>
-					<text class="text small">轻量、可靠、易用的小程序开发套件</text>
+					<text class="text small"
+						>轻量、可靠、易用的小程序开发套件</text
+					>
 
 					<text class="text normal"
 						>normal {{ name(index, text) }}</text
 					>
-					<text class="text normal">轻量、可靠、易用的小程序开发套件</text>
+					<text class="text normal"
+						>轻量、可靠、易用的小程序开发套件</text
+					>
 
 					<text class="text strong"
 						>strong {{ name(index, text) }}</text
 					>
-					<text class="text strong">轻量、可靠、易用的小程序开发套件</text>
+					<text class="text strong"
+						>轻量、可靠、易用的小程序开发套件</text
+					>
 				</view>
 			</dx-matrix>
 		</dx-nameplate>
