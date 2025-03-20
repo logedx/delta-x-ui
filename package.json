@@ -14,7 +14,8 @@
 		"./hub/*": "./dist/hub/*",
 		"./lib/*": "./dist/lib/*",
 		"./model/*": "./dist/model/*",
-		"./storage/*": "./dist/storage/*"
+		"./storage/*": "./dist/storage/*",
+		"./eslint.config.js": "./eslint.config.js"
 	},
 	"scripts": {
 		"prepare": "npx husky",
