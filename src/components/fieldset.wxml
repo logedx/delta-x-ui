@@ -8,16 +8,11 @@
 				serif="{{ index < value.length - 1 }}"
 				wx:if="{{ item[2] === true }}"
 			>
-				<span
-					class="icon"
+				<dx-indicator
 					data-name="{{ item[1] }}"
-					bind:tap="on_active"
-				>
-					<dx-icon
-						size="var(--strong)"
-						src="{{ icon || '../icon/chevron_right_128dp_808695_FILL0_wght500_GRAD0_opsz48.png' }}"
-					/>
-				</span>
+					bind:update="on_active"
+					icon="{{ icon || '../icon/chevron_right_128dp_808695_FILL0_wght500_GRAD0_opsz48.png' }}"
+				/>
 			</dx-label>
 
 			<dx-label
