@@ -1,0 +1,7 @@
+{
+	"component": true,
+	"usingComponents": {
+		"dx-label": "./label",
+		"dx-indicator": "./indicator"
+	}
+}

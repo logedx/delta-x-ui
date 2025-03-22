@@ -145,14 +145,14 @@ Component(
 						[
 							{ name: 'label', icon: '/example/icon/label.svg', url: '/example/pages/container/label' },
 							{ name: 'nameplate', icon: '/example/icon/project.svg', url: '/example/pages/container/nameplate' },
-							{ name: 'matrix', icon: '/example/icon/tables.svg', url: '/example/pages/container/matrix' },
-
+							{ name: 'lamp', icon: '/example/icon/utility.svg', url: '/example/pages/container/lamp' },
 
 						],
 
 						[
 							{ name: 'fieldset', icon: '/example/icon/one-account-login.svg', url: '/example/pages/container/fieldset' },
 							{ name: 'synopsis', icon: '/example/icon/pilot-login.svg', url: '/example/pages/container/synopsis' },
+							{ name: 'matrix', icon: '/example/icon/tables.svg', url: '/example/pages/container/matrix' },
 
 						],
 

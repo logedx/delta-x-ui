@@ -1,0 +1,36 @@
+<dx-layout back="/example/icon/chevron-left.svg">
+	<dx-cassette>
+		<dx-nameplate class="nameplate" label="Example">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-lamp name="default" />
+			<dx-lamp serif name="serif" />
+		</dx-nameplate>
+
+		<dx-nameplate divide class="nameplate" label="Check">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-lamp check name="name" />
+		</dx-nameplate>
+
+		<dx-nameplate divide class="nameplate" label="Custom">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-lamp check name="name" icon="/example/icon/camera.svg" />
+		</dx-nameplate>
+	</dx-cassette>
+
+	<author slot="footer" />
+</dx-layout>

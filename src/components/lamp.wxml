@@ -1,0 +1,3 @@
+<dx-label class="dx-lamp" name="{{ name }}" serif="{{ serif }}">
+	<dx-indicator icon="{{ icon }}" wx:if="{{ check }}" />
+</dx-label>
