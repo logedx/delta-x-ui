@@ -26,6 +26,11 @@ export type TBehaviorMethod = {
 	blur_(): void
 	set_style_(check?: boolean, divider_color?: string): void
 
+	on_focus(): void
+	on_blur(): void
+	on_input(e: WechatMiniprogram.CustomEvent<{ value: string }>): void
+	on_keyboard_height_change(e: WechatMiniprogram.CustomEvent<{ height: number, duration: number }>): void
+
 }
 
 export type TBehaviorInstance = WechatMiniprogram.Component.Instance<
