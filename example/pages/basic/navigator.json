@@ -8,6 +8,7 @@
 		"dx-label": "/src/components/label",
 		"dx-icon": "/src/components/icon",
 		"dx-back": "/src/components/back",
-		"dx-home": "/src/components/home"
+		"dx-home": "/src/components/home",
+		"dx-indicator": "/src/components/indicator"
 	}
 }

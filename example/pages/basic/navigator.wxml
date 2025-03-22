@@ -15,5 +15,21 @@
 		</dx-label>
 	</dx-nameplate>
 
+	<dx-nameplate class="nameplate" label="Indicator">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/sign-right-filled.svg"
+		/>
+
+		<dx-label serif name="url">
+			<dx-indicator url="/example/pages/index" />
+		</dx-label>
+
+		<dx-label serif name="active">
+			<dx-indicator bind:active="on_active" />
+		</dx-label>
+	</dx-nameplate>
+
 	<author slot="footer" />
 </dx-layout>

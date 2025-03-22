@@ -1,0 +1,3 @@
+<view class="dx-indicator" bind:tap="on_update">
+	<dx-icon size="60%" src="{{ icon }}" />
+</view>
