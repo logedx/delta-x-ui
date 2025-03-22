@@ -2,6 +2,8 @@ import * as detective from '../lib/detective.js'
 
 import type * as claim from './claim.js'
 
+import * as label_variant from './label.variant.js'
+
 
 
 
@@ -65,6 +67,7 @@ export const behavior = Behavior(
 			placeholder: { type: String, value: '' },
 			required: { type: Boolean, value: false },
 			readonly: { type: Boolean, value: false },
+			linker: { type: String, value: '' },
 
 		},
 
@@ -83,6 +86,24 @@ export const behavior = Behavior(
 		},
 
 		lifetimes: {
+			attached(): void {
+				let { linker } = this.data
+
+				if (label_variant.linked.has(linker) === false
+
+				) {
+					return
+
+
+				}
+
+				this.setData(
+					{ parent: label_variant.linked.get(linker) as claim.TInstance },
+
+				)
+
+			},
+
 			ready(): void {
 				this.set_style_()
 

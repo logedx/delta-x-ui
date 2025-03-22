@@ -1,4 +1,5 @@
 import * as alchemy from '../lib/alchemy.js'
+import * as structure from '../lib/structure.js'
 
 
 
@@ -38,7 +39,7 @@ export const behavior = Behavior(
 		lifetimes: {
 			created(): void {
 				this.setData(
-					{ id: `x${alchemy.hex(8)}` },
+					generate<'id'>('id'),
 
 				)
 
@@ -91,3 +92,19 @@ export const behavior = Behavior(
 
 )
 
+
+// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style, @typescript-eslint/no-unnecessary-type-parameters
+export function generate<T extends string, R = { [k in T]: string }>(
+	...name: structure.UnionToTuple<T>
+
+): R {
+	let m: Record<string, string> = {}
+
+	for (let v of name as Array<string>) {
+		m[v] = `x${alchemy.hex(8)}`
+
+	}
+
+	return m as R
+
+}

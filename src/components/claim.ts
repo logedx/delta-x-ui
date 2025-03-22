@@ -2,6 +2,7 @@ import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
 import * as claim_variant from './claim.variant.js'
+import * as label_variant from './label.variant.js'
 import * as operator_variant from './operator.variant.js'
 
 
@@ -96,6 +97,7 @@ Component(
 		properties: {
 			name: { type: String, value: '' },
 			value: { type: String, value: '' },
+			hash: { type: String, value: '' },
 
 		},
 
@@ -103,6 +105,30 @@ Component(
 			style: '',
 
 			notice: false,
+
+		},
+
+		lifetimes: {
+			attached(): void {
+				let { hash } = this.data
+
+				if (detective.is_empty(hash)
+
+				) {
+					return
+
+				}
+
+				label_variant.linked.set(hash, this as unknown as TInstance)
+
+			},
+
+			detached(): void {
+				let { hash } = this.data
+
+				label_variant.linked.delete(hash)
+
+			},
 
 		},
 

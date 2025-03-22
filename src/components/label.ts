@@ -1,4 +1,5 @@
 import * as style from '../lib/style.js'
+import * as detective from '../lib/detective.js'
 
 import * as label_variant from './label.variant.js'
 
@@ -29,7 +30,7 @@ export type TInstance = WechatMiniprogram.Component.Instance<
 
 	},
 
-	object
+	label_variant.TMethod
 
 >
 
@@ -65,6 +66,7 @@ Component(
 			value: { type: String, value: '' },
 			serif: { type: Boolean, value: false },
 			newline: { type: Boolean, value: false },
+			hash: { type: String, value: '' },
 
 		},
 
@@ -89,6 +91,24 @@ Component(
 		lifetimes: {
 			attached(): void {
 				this.set_style()
+
+				let { hash } = this.data
+
+				if (detective.is_empty(hash)
+
+				) {
+					return
+
+				}
+
+				label_variant.linked.set(hash, this as unknown as TInstance)
+
+			},
+
+			detached(): void {
+				let { hash } = this.data
+
+				label_variant.linked.delete(hash)
 
 			},
 
