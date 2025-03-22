@@ -1,0 +1,53 @@
+<dx-layout back="/example/icon/chevron-left.svg">
+	<dx-nameplate class="nameplate" label="Default">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-label serif name="选填">
+			<dx-turnstile
+				placeholder="请选择内容"
+				url="/example/pages/container/lamp"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate divide class="nameplate" label="Required">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-label serif name="必填">
+			<dx-turnstile
+				required
+				placeholder="请选择内容"
+				url="/example/pages/container/lamp"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
+	</dx-nameplate>
+
+	<dx-nameplate divide class="nameplate" label="Readonly">
+		<dx-icon
+			slot="icon"
+			size="var(--u-04-xs)"
+			src="/example/icon/caret-down.svg"
+		/>
+
+		<dx-label serif name="只读">
+			<dx-turnstile
+				readonly
+				placeholder="请选择内容"
+				url="/example/pages/container/lamp"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
+	</dx-nameplate>
+
+	<author slot="footer" />
+</dx-layout>

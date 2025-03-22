@@ -1,0 +1,9 @@
+<view class="dx-turnstile class" style="{{ style }}" bind:tap="on_navigator">
+	<text wx:if="{{ label && value }}">{{ label }}</text>
+
+	<text wx:elif="{{ value }}">{{ value }}</text>
+
+	<text class="placeholder" wx:else>{{ placeholder }}</text>
+
+	<dx-indicator icon="{{ icon }}" wx:if="{{ !readonly }}" />
+</view>

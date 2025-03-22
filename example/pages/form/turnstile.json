@@ -4,15 +4,9 @@
 	"usingComponents": {
 		"author": "/example/components/author",
 		"dx-layout": "/src/components/layout",
-		"dx-cassette": "/src/components/cassette",
 		"dx-nameplate": "/src/components/nameplate",
 		"dx-label": "/src/components/label",
 		"dx-icon": "/src/components/icon",
-		"dx-claim": "/src/components/claim",
-		"dx-input": "/src/components/input",
-		"dx-number": "/src/components/number",
-		"dx-datetime": "/src/components/datetime",
-		"dx-textarea": "/src/components/textarea",
 		"dx-turnstile": "/src/components/turnstile"
 	}
 }

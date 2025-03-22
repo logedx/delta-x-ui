@@ -7,8 +7,13 @@
 				src="/example/icon/caret-down.svg"
 			/>
 
-			<dx-lamp name="default" />
-			<dx-lamp serif name="serif" />
+			<dx-lamp name="default" data-value="" bind:tap="on_notify" />
+			<dx-lamp
+				serif
+				name="serif"
+				data-value="serif"
+				bind:tap="on_notify"
+			/>
 		</dx-nameplate>
 
 		<dx-nameplate divide class="nameplate" label="Check">
@@ -18,7 +23,12 @@
 				src="/example/icon/caret-down.svg"
 			/>
 
-			<dx-lamp check name="name" />
+			<dx-lamp
+				check
+				name="name"
+				data-value="check"
+				bind:tap="on_notify"
+			/>
 		</dx-nameplate>
 
 		<dx-nameplate divide class="nameplate" label="Custom">
@@ -28,7 +38,13 @@
 				src="/example/icon/caret-down.svg"
 			/>
 
-			<dx-lamp check name="name" icon="/example/icon/camera.svg" />
+			<dx-lamp
+				check
+				name="name"
+				icon="/example/icon/camera.svg"
+				data-value="custom"
+				bind:tap="on_notify"
+			/>
 		</dx-nameplate>
 	</dx-cassette>
 

@@ -45,6 +45,7 @@
 		"example/pages/form/input",
 		"example/pages/form/number",
 		"example/pages/form/textarea",
+		"example/pages/form/turnstile",
 		"example/pages/form/switch",
 		"example/pages/form/datetime",
 		"example/pages/form/search",

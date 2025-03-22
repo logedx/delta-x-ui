@@ -203,6 +203,11 @@ Component(
 						],
 
 						[
+							{ name: 'turnstile', icon: '/example/icon/tree.svg', url: '/example/pages/form/turnstile' },
+
+						],
+
+						[
 							{ name: 'switch', icon: '/example/icon/wit-pilotui-core.svg', url: '/example/pages/form/switch' },
 							{ name: 'datetime', icon: '/example/icon/clock.svg', url: '/example/pages/form/datetime' },
 							{ name: 'search', icon: '/example/icon/search.svg', url: '/example/pages/form/search' },

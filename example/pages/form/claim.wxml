@@ -120,6 +120,50 @@
 				/>
 			</dx-claim>
 		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Turnstile">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-claim name="default" value="该字段不可为空">
+				<dx-turnstile
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					model:value="{{ turnstile }}"
+				/>
+			</dx-claim>
+
+			<dx-claim name="required" value="该字段不可为空">
+				<dx-turnstile
+					required
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					model:value="{{ turnstile }}"
+				/>
+			</dx-claim>
+
+			<dx-claim name="readonly" value="该字段不可为空">
+				<dx-turnstile
+					readonly
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					model:value="{{ turnstile }}"
+				/>
+			</dx-claim>
+
+			<dx-claim name="label" value="该字段不可为空">
+				<dx-turnstile
+					readonly
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					label="delta-x-ui"
+					model:value="{{ turnstile }}"
+				/>
+			</dx-claim>
+		</dx-nameplate>
 	</dx-cassette>
 
 	<author slot="footer" />
