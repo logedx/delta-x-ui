@@ -11,7 +11,7 @@
 		</dx-label>
 
 		<dx-label serif name="home">
-			<dx-back src="/example/icon/home.svg" />
+			<dx-home src="/example/icon/home.svg" />
 		</dx-label>
 	</dx-nameplate>
 
