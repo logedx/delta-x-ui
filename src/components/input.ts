@@ -22,8 +22,6 @@ Component(
 
 					)
 
-					this.set_style()
-
 				},
 
 			},
@@ -37,9 +35,6 @@ Component(
 						{ parent: target },
 
 					)
-
-					this.set_style()
-
 
 				},
 
@@ -59,6 +54,14 @@ Component(
 
 		data: {
 			style: '',
+
+		},
+
+		lifetimes: {
+			ready(): void {
+				this.set_style()
+
+			},
 
 		},
 

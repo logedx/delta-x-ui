@@ -28,8 +28,6 @@ Component(
 
 					)
 
-					this.set_style()
-
 				},
 
 			},
@@ -43,9 +41,6 @@ Component(
 						{ parent: target },
 
 					)
-
-					this.set_style()
-
 
 				},
 
@@ -96,6 +91,8 @@ Component(
 					value.toString(),
 
 				)
+
+				this.set_style()
 
 			},
 

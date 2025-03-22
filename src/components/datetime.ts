@@ -30,9 +30,6 @@ Component(
 
 					)
 
-					this.set_style()
-
-
 				},
 
 			},
@@ -46,9 +43,6 @@ Component(
 						{ parent: target },
 
 					)
-
-					this.set_style()
-
 
 				},
 
@@ -109,6 +103,11 @@ Component(
 				let { value } = this.data
 
 				this.update(value)
+
+			},
+
+			ready(): void {
+				this.set_style()
 
 			},
 
