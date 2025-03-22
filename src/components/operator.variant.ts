@@ -36,12 +36,15 @@ export const behavior = Behavior(
 		},
 
 		lifetimes: {
-			ready(): void {
+			created(): void {
 				this.setData(
 					{ id: `x${alchemy.hex(8)}` },
 
 				)
 
+			},
+
+			ready(): void {
 				wx.nextTick(
 					() => {
 						this.location()
