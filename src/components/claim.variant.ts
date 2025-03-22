@@ -5,6 +5,12 @@ import type * as claim from './claim.js'
 
 
 
+export enum TEvent {
+	update = 'update',
+	notify = 'notify',
+
+}
+
 export type TBehaviorProperty = {
 	value: string
 	placeholder: string
@@ -103,7 +109,7 @@ export const behavior = Behavior(
 				this.set_style_()
 
 				this.triggerEvent(
-					'update', { value },
+					TEvent.update, { value },
 
 				)
 
