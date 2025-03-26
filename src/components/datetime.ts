@@ -92,7 +92,7 @@ Component(
 
 		observers: {
 			value(v: string) {
-				this.update(v)
+				this.cover(v)
 
 			},
 
@@ -102,7 +102,7 @@ Component(
 			attached() {
 				let { value } = this.data
 
-				this.update(value)
+				this.cover(value)
 
 			},
 
@@ -144,7 +144,7 @@ Component(
 
 			},
 
-			update(v: string) {
+			cover(v: string) {
 				let date = ''
 				let time = ''
 
@@ -185,14 +185,70 @@ Component(
 
 			},
 
-			on_update() {
-				let { mode, date, time } = this.data
+			update(date: string, time: string): void {
+				let v = [date]
+
+				if (detective.is_24_hour_system_string(time)
+
+				) {
+					v.push(time)
+
+				}
+
+
+				let m = moment(
+					v.join(' '),
+
+				)
+
+
+				this.setData(
+					{ value: m.toISOString() },
+
+				)
+
+				this.triggerEvent(
+					'update', { value: m.toDate() },
+
+				)
+
+			},
+
+			on_update_date(
+				e: WechatMiniprogram.CustomEvent<
+					{ value: string }
+
+				>,
+
+			) {
+				let { value } = e.detail
+				let { mode, time } = this.data
 
 				if (mode === 'time') {
-					let v = time.replace(':', '')
+					return
+
+				}
+
+				this.update(value, time)
+
+
+			},
+
+			on_update_time(
+				e: WechatMiniprogram.CustomEvent<
+					{ value: string }
+
+				>,
+
+			) {
+				let { value } = e.detail
+				let { mode, date } = this.data
+
+				if (mode === 'time') {
+					let v = value.replaceAll(':', '')
 
 					this.setData(
-						{ value: time },
+						{ value },
 
 					)
 
@@ -205,18 +261,8 @@ Component(
 
 				}
 
+				this.update(date, value)
 
-				let value = moment(`${date} ${time}`)
-
-				this.setData(
-					{ value: value.toISOString() },
-
-				)
-
-				this.triggerEvent(
-					'update', { value: value.toDate() },
-
-				)
 
 			},
 

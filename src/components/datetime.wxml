@@ -21,8 +21,8 @@
 	<picker
 		mode="date"
 		class="date"
-		model:value="{{ date }}"
-		bind:change="on_update"
+		:value="{{ date }}"
+		bind:change="on_update_date"
 		wx:if="{{ is_date(mode) }}"
 	>
 		<text wx:if="{{ date }}">{{ date }}</text>
@@ -32,8 +32,8 @@
 	<picker
 		mode="time"
 		class="time"
-		model:value="{{ time }}"
-		bind:change="on_update"
+		:value="{{ time }}"
+		bind:change="on_update_time"
 		wx:if="{{ is_time(mode, date) }}"
 	>
 		<text wx:if="{{ time }}">{{ time }}</text>
