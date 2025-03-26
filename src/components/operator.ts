@@ -1,51 +1,25 @@
 import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
-import type * as claim from './claim.js'
-
 import * as operator_variant from './operator.variant.js'
 
 
 
-export enum TEvent {
-	submit = 'submit',
-	abnormal = 'abnormal',
 
-}
-
-export type TProperty = {
-	name: string
-	once: boolean
-	wait: boolean
-	loading: boolean
-
-}
-
-export type TData = {
-	into: string
-	style: string
-
-	submit: boolean
-
-	node: Array<claim.TInstance>
-
-}
-
-export type TInstance = WechatMiniprogram.Component.Instance<
-	TData,
-
+type TClaimInstance = WechatMiniprogram.Component.Instance<
 	{
-		name: StringConstructor
-		once: BooleanConstructor
-		wait: BooleanConstructor
-		loading: BooleanConstructor
+		offset: number
+		notice: boolean
 
 	},
 
 	{
-		on_submit(): void
+		name: WechatMiniprogram.Component.FullProperty<StringConstructor>,
+		value: WechatMiniprogram.Component.FullProperty<StringConstructor>
 
-	}
+	},
+
+	object
 
 >
 
@@ -61,7 +35,7 @@ Component(
 				linked(target) {
 					let { node } = this.data
 
-					node.push(target as claim.TInstance)
+					node.push(target as TClaimInstance)
 
 					this.setData(
 						{ node },
@@ -95,13 +69,13 @@ Component(
 
 			submit: false,
 
-			node: [] as Array<claim.TInstance>,
+			node: [] as Array<TClaimInstance>,
 
 
 		},
 
 		methods: {
-			filter(): Array<claim.TInstance> {
+			filter(): Array<TClaimInstance> {
 				let { node } = this.data
 
 				return node.filter(
@@ -125,7 +99,7 @@ Component(
 				this.set_style(node.data.offset)
 
 				this.triggerEvent(
-					TEvent.abnormal, [node, ...orther],
+					operator_variant.TEvent.abnormal, [node, ...orther],
 
 				)
 
@@ -181,7 +155,7 @@ Component(
 				}
 
 
-				this.triggerEvent(TEvent.submit)
+				this.triggerEvent(operator_variant.TEvent.submit)
 
 			},
 

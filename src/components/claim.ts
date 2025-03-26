@@ -2,56 +2,11 @@ import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
 import * as claim_variant from './claim.variant.js'
-import * as label_variant from './label.variant.js'
 import * as operator_variant from './operator.variant.js'
 
 
 
 
-export enum MarkStyle {
-	none,
-	blank,
-	success,
-	error,
-
-}
-
-export enum TEvent {
-	update = 'update',
-
-}
-
-export type TProperty = {
-	name: string
-	value: string
-
-}
-
-export type TData = operator_variant.TBehaviorData & {
-	style: string
-
-	notice: boolean
-
-}
-
-export type TMethod = operator_variant.TBehaviorMethod & {
-	set_style(data: claim_variant.TBehaviorProperty & claim_variant.TBehaviorData): void
-
-}
-
-export type TInstance = WechatMiniprogram.Component.Instance<
-	TData,
-
-	{
-		name: StringConstructor
-		value: StringConstructor
-		divider: BooleanConstructor
-
-	},
-
-	TMethod
-
->
 
 
 
@@ -68,7 +23,9 @@ Component(
 				target: claim_variant.behavior,
 
 				linked(target) {
-					this.set_style(target.data as claim_variant.TBehaviorProperty & claim_variant.TBehaviorData)
+					this.set_style(target as claim_variant.TBehaviorInstance)
+
+					this.push_child_(target)
 
 				},
 
@@ -90,14 +47,13 @@ Component(
 			virtualHost: true,
 
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			multipleSlots: true,
+			dynamicSlots: true,
 
-		},
+		} as WechatMiniprogram.Component.ComponentOptions,
 
 		properties: {
 			name: { type: String, value: '' },
 			value: { type: String, value: '' },
-			hash: { type: String, value: '' },
 
 		},
 
@@ -108,37 +64,20 @@ Component(
 
 		},
 
-		lifetimes: {
-			attached(): void {
-				let { hash } = this.data
-
-				if (detective.is_empty(hash)
-
-				) {
-					return
-
-				}
-
-				label_variant.linked.set(hash, this as unknown as TInstance)
-
-			},
-
-			detached(): void {
-				let { hash } = this.data
-
-				label_variant.linked.delete(hash)
-
-			},
-
-		},
-
 		methods: {
-			set_style(data: claim_variant.TBehaviorProperty & claim_variant.TBehaviorData): void {
+			it(): operator_variant.THashBehaviorInstance {
+				return this as unknown as operator_variant.THashBehaviorInstance
+
+			},
+
+			set_style(target: claim_variant.TBehaviorInstance): void {
 				let notice = false
+
+				let { value, required, focus, readonly } = target.data
 
 				let css = new style.Variable<'divider' | 'divider-color' | 'flag' | 'flag-color'>('dx', 'claim')
 
-				if (data.required) {
+				if (required) {
 					notice = true
 
 					css.set('divider', 'flex')
@@ -149,7 +88,7 @@ Component(
 
 				}
 
-				if (detective.is_empty(data.value) === false
+				if (detective.is_empty(value) === false
 
 				) {
 					notice = false
@@ -162,14 +101,14 @@ Component(
 
 				}
 
-				if (data.focus) {
+				if (focus) {
 					css.set('divider', 'flex')
 					css.set('divider-color', 'var(--h-ea-00)')
 
 					css.set('flag', 'flex')
 					css.set('flag-color', 'var(--h-ea-00)')
 
-					if (detective.is_empty(data.value) === false
+					if (detective.is_empty(value) === false
 
 					) {
 						css.set('divider-color', 'var(--success)')
@@ -180,7 +119,7 @@ Component(
 
 				}
 
-				if (data.readonly) {
+				if (readonly) {
 					notice = false
 
 					css.remove('divider')
@@ -198,10 +137,15 @@ Component(
 				)
 
 				this.triggerEvent(
-					TEvent.update, { value: notice },
+					claim_variant.TEvent.update, { value: notice },
 
 				)
 
+
+			},
+
+			push_child_(target: WechatMiniprogram.Component.TrivialInstance): void {
+				this.it().push_child(target)
 
 			},
 

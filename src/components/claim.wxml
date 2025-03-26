@@ -1,4 +1,4 @@
-<view class="dx-claim class" id="{{ id }}" style="{{ style }}">
+<view class="dx-claim class" id="{{ _id }}" style="{{ style }}">
 	<view class="flag" />
 
 	<dx-label newline name="{{ name }}">
@@ -10,6 +10,6 @@
 			>{{ value }}</text
 		>
 
-		<slot />
+		<slot hash="{{ _id }}" />
 	</dx-label>
 </view>

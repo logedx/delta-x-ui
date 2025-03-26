@@ -1,11 +1,10 @@
 import * as style from '../lib/style.js'
 
 import * as claim_variant from './claim.variant.js'
+import * as operator_variant from './operator.variant.js'
 
 
 
-
-export type TProperty = claim_variant.TBehaviorProperty
 
 Component(
 	{
@@ -16,27 +15,11 @@ Component(
 			'./claim': {
 				type: 'ancestor',
 
-				linked(target) {
-					this.setData(
-						{ parent: target },
-
-					)
-
-				},
-
 			},
 
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'./label': {
 				type: 'ancestor',
-
-				linked(target) {
-					this.setData(
-						{ parent: target },
-
-					)
-
-				},
 
 			},
 
@@ -66,8 +49,13 @@ Component(
 		},
 
 		methods: {
+			self(): operator_variant.TLinkerBehaviorInstance {
+				return this as unknown as operator_variant.TLinkerBehaviorInstance
+
+			},
+
 			set_style(): void {
-				let { parent } = this.data as unknown as claim_variant.TBehaviorData
+				let parent = this.self().get_parent()
 
 				let css = new style.Variable<'text-align'>('dx', 'input')
 

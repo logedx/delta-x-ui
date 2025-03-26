@@ -1,48 +1,27 @@
 import * as style from '../lib/style.js'
-import * as detective from '../lib/detective.js'
 
 import * as label_variant from './label.variant.js'
+import * as operator_variant from './operator.variant.js'
 
 
 
-export type TProperty = {
-	name: string
-	value: string
-	serif: boolean
-	newline: boolean
-
-
-}
-
-export type TData = {
-	style: string
-
-}
-
-
-export type TInstance = WechatMiniprogram.Component.Instance<
-	TData,
-
-	{
-		name: StringConstructor
-		value: StringConstructor
-		divider: BooleanConstructor
-
-	},
-
-	label_variant.TMethod
-
->
 
 
 Component(
 	{
+		behaviors: [operator_variant.hash_behavior],
+
 		relations: {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'dx-label': {
 				type: 'descendant',
 
 				target: label_variant.behavior,
+
+				linked(target) {
+					this.push_child_(target)
+
+				},
 
 			},
 
@@ -66,7 +45,6 @@ Component(
 			value: { type: String, value: '' },
 			serif: { type: Boolean, value: false },
 			newline: { type: Boolean, value: false },
-			hash: { type: String, value: '' },
 
 		},
 
@@ -92,29 +70,16 @@ Component(
 			attached(): void {
 				this.set_style()
 
-				let { hash } = this.data
-
-				if (detective.is_empty(hash)
-
-				) {
-					return
-
-				}
-
-				label_variant.linked.set(hash, this as unknown as TInstance)
-
-			},
-
-			detached(): void {
-				let { hash } = this.data
-
-				label_variant.linked.delete(hash)
-
 			},
 
 		},
 
 		methods: {
+			self(): operator_variant.THashBehaviorInstance {
+				return this as unknown as operator_variant.THashBehaviorInstance
+
+			},
+
 			set_style(): void {
 				let { serif, newline } = this.data
 
@@ -137,6 +102,12 @@ Component(
 
 
 			},
+
+			push_child_(target: WechatMiniprogram.Component.TrivialInstance): void {
+				this.self().push_child(target)
+
+			},
+
 
 		},
 

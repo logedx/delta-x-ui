@@ -2,17 +2,11 @@ import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
 import * as claim_variant from './claim.variant.js'
+import * as operator_variant from './operator.variant.js'
 import * as turnstile_variant from './turnstile.variant.js'
 
 
 
-
-export type TProperty = claim_variant.TBehaviorProperty & {
-	label: string
-	url: string
-	icon: string
-
-}
 
 Component(
 	{
@@ -80,8 +74,18 @@ Component(
 		},
 
 		methods: {
+			self(): operator_variant.TLinkerBehaviorInstance {
+				return this as unknown as operator_variant.TLinkerBehaviorInstance
+
+			},
+
+			self_(): claim_variant.TBehaviorInstance {
+				return this as unknown as claim_variant.TBehaviorInstance
+
+			},
+
 			set_style(): void {
-				let { parent } = this.data as unknown as claim_variant.TBehaviorData
+				let parent = this.self().get_parent()
 
 				let css = new style.Variable<'justify-content'>('dx', 'turnstile')
 
@@ -97,8 +101,13 @@ Component(
 
 			},
 
-			async on_navigator(this: claim_variant.TBehaviorInstance): Promise<void> {
-				let { value, readonly, url } = this.data as unknown as TProperty
+			async on_navigator(): Promise<void> {
+				// eslint-disable-next-line consistent-this
+				let self = this.self_()
+
+				let { url } = this.data
+
+				let { value, readonly } = self.data
 
 				if (readonly || detective.is_empty(url)
 
@@ -107,7 +116,7 @@ Component(
 
 				}
 
-				this.set_style_()
+				self.set_style_()
 
 				let { eventChannel: channel } = await wx.navigateTo(
 					{ url },
@@ -119,7 +128,7 @@ Component(
 					turnstile_variant.TEvent.update,
 
 					v => {
-						this.update_(v)
+						self.update_(v)
 
 					},
 

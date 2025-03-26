@@ -1,8 +1,4 @@
-import * as detective from '../lib/detective.js'
-
-import type * as claim from './claim.js'
-
-import * as label_variant from './label.variant.js'
+import * as operator_variant from './operator.variant.js'
 
 
 
@@ -13,22 +9,30 @@ export enum TEvent {
 
 }
 
-export type TBehaviorProperty = {
-	value: string
-	placeholder: string
-	required: boolean
-	readonly: boolean
+
+export enum TEvent {
+	submit = 'submit',
+	abnormal = 'abnormal',
 
 }
 
-export type TBehaviorData = {
+
+type TBehaviorData = {
 	focus: boolean
 
-	parent: null | claim.TInstance
+}
+
+type TBehaviorProperty ={
+	value: WechatMiniprogram.Component.FullProperty<StringConstructor>
+	placeholder: WechatMiniprogram.Component.FullProperty<StringConstructor>
+	required: WechatMiniprogram.Component.FullProperty<BooleanConstructor>
+	readonly: WechatMiniprogram.Component.FullProperty<BooleanConstructor>
 
 }
 
-export type TBehaviorMethod = {
+type TBehaviorMethod = {
+	self(): operator_variant.TLinkerBehaviorInstance
+
 	update_(value: unknown): void
 	focus_(): void
 	blur_(): void
@@ -44,36 +48,27 @@ export type TBehaviorMethod = {
 export type TBehaviorInstance = WechatMiniprogram.Component.Instance<
 	TBehaviorData,
 
-	{
-		value: StringConstructor
-		placeholder: StringConstructor
-		required: BooleanConstructor
-		readonly: BooleanConstructor
-
-	},
+	TBehaviorProperty,
 
 	TBehaviorMethod
 
 >
 
 
-
-
-
-export const behavior = Behavior(
+export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMethod>(
 	{
+		behaviors: [operator_variant.linker_behavior],
+
 		properties: {
 			value: { type: String, value: '' },
 			placeholder: { type: String, value: '' },
 			required: { type: Boolean, value: false },
 			readonly: { type: Boolean, value: false },
-			linker: { type: String, value: '' },
 
 		},
 
 		data: {
 			focus: false,
-			parent: null as null | claim.TInstance,
 
 		},
 
@@ -86,24 +81,6 @@ export const behavior = Behavior(
 		},
 
 		lifetimes: {
-			attached(): void {
-				let { linker } = this.data
-
-				if (label_variant.linked.has(linker) === false
-
-				) {
-					return
-
-
-				}
-
-				this.setData(
-					{ parent: label_variant.linked.get(linker) as claim.TInstance },
-
-				)
-
-			},
-
 			ready(): void {
 				this.set_style_()
 
@@ -112,6 +89,11 @@ export const behavior = Behavior(
 		},
 
 		methods: {
+			self(): operator_variant.TLinkerBehaviorInstance {
+				return this as unknown as operator_variant.TLinkerBehaviorInstance
+
+			},
+
 			update_(value: unknown): void {
 				let v = this.data.value
 
@@ -153,16 +135,10 @@ export const behavior = Behavior(
 			},
 
 			set_style_(): void {
-				let { parent } = this.data
+				let parent = this.self().get_parent()
 
-
-				// eslint-disable-next-line @typescript-eslint/unbound-method
-				if (detective.is_function(parent?.set_style)
-
-				) {
-					parent.set_style(this.data as TBehaviorProperty & TBehaviorData)
-
-				}
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+				parent?.set_style?.(this)
 
 
 			},

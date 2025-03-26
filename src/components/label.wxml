@@ -1,4 +1,4 @@
-<label class="dx-label class" style="{{ style }}">
+<label class="dx-label class" id="{{ _id }}" style="{{ style }}">
 	<block wx:if="{{ name }}">
 		<view class="head" wx:if="{{ newline }}">
 			<text class="name">{{ name }}</text>

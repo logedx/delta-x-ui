@@ -4,12 +4,13 @@ import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
 import * as claim_variant from './claim.variant.js'
-import * as label_variant from './label.variant.js'
+import * as operator_variant from './operator.variant.js'
 
 
 
 
-export type TProperty = claim_variant.TBehaviorProperty & {
+
+type TProperty = {
 	icon: string
 	mode: '' | 'time' | 'date'
 
@@ -17,7 +18,7 @@ export type TProperty = claim_variant.TBehaviorProperty & {
 
 Component(
 	{
-		behaviors: [claim_variant.behavior, label_variant.behavior],
+		behaviors: [claim_variant.behavior],
 
 		relations: {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
@@ -114,9 +115,15 @@ Component(
 		},
 
 		methods: {
+			self(): operator_variant.TLinkerBehaviorInstance {
+				return this as unknown as operator_variant.TLinkerBehaviorInstance
+
+			},
+
 			set_style(): void {
-				let { time } = this.data
-				let { parent, mode } = this.data as unknown as TProperty & claim_variant.TBehaviorData
+				let { mode, time } = this.data
+
+				let parent = this.self().get_parent()
 
 				let css = new style.Variable<'justify-content' | 'date-picker-grow' | 'time-picker-grow'>('dx', 'datetime')
 

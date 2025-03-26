@@ -1,41 +1,24 @@
-import * as cassette from './cassette.js'
+import * as lister_variant from './lister.variant.js'
+import * as operator_variant from './operator.variant.js'
 
 
-export enum TEvent {
-	refresh = 'refresh',
-	last = 'last',
-
-}
-
-export type TProperty = Pick<cassette.TProperty, 'loading' | 'container'>
-	& {
-		value: Array<unknown>
-		finished: boolean
-
-	}
 
 
 Component(
 	{
+		behaviors: [operator_variant.hash_behavior],
+
 		relations: {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			'./lamp': {
-				type: 'child',
+			'dx-lister': {
+				type: 'descendant',
+
+				target: lister_variant.behavior,
 
 				linked(target) {
-					let { child, value } = this.data
+					this.set_style(target)
 
-					// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-					target.set_style?.(child.length, value.length)
-
-					child.push(target)
-
-					this.setData(
-						{ child },
-
-					)
-
-					this.set_style()
+					this.push_child_(target)
 
 				},
 
@@ -68,15 +51,20 @@ Component(
 		data: {
 			classx: '',
 
-			child: [] as Array<WechatMiniprogram.Component.TrivialInstance>,
-
 		},
 
 		methods: {
-			set_style(): void {
-				let { child } = this.data
+			self(): operator_variant.THashBehaviorInstance {
+				return this as unknown as operator_variant.THashBehaviorInstance
+
+			},
+
+			set_style(target: WechatMiniprogram.Component.TrivialInstance): void {
+				let { value } = this.data
 
 				let classx = ''
+
+				let child = this.self().get_child()
 
 				if (child.length > 0) {
 					classx = 'x'
@@ -88,9 +76,15 @@ Component(
 
 				)
 
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+				target.set_style?.(child.length, value.length)
 
 			},
 
+			push_child_(target: WechatMiniprogram.Component.TrivialInstance): void {
+				this.self().push_child(target)
+
+			},
 
 			on_lower(): void {
 				let { finished } = this.data
@@ -100,7 +94,7 @@ Component(
 
 				}
 
-				this.triggerEvent(TEvent.last)
+				this.triggerEvent(lister_variant.TEvent.last)
 				this.setData(
 					{ loading: true },
 
@@ -109,7 +103,7 @@ Component(
 			},
 
 			on_refresh(): void {
-				this.triggerEvent(TEvent.refresh)
+				this.triggerEvent(lister_variant.TEvent.refresh)
 				this.setData(
 					{ loading: true },
 

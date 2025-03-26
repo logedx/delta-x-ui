@@ -1,3 +1,8 @@
+import * as lister_variant from './lister.variant.js'
+
+
+
+
 enum TEvent {
 	select = 'select',
 
@@ -5,10 +10,12 @@ enum TEvent {
 
 Component(
 	{
+		behaviors: [lister_variant.behavior],
+
 		relations: {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'./lister': {
-				type: 'parent',
+				type: 'ancestor',
 
 			},
 

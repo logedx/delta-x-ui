@@ -52,6 +52,7 @@ Component(
 		},
 
 		properties: {
+			id: { type: String, value: '' },
 			into: { type: String, value: '' },
 			loading: { type: Boolean, value: false },
 

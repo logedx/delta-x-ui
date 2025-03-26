@@ -2,6 +2,7 @@
 	scroll-y
 	enable-passive
 	scroll-with-animation
+	id="{{ id }}"
 	class="dx-cassette class"
 	type="{{ lister ? 'list' : 'custom' }}"
 	bounces="{{ false }}"

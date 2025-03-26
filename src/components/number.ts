@@ -2,11 +2,12 @@ import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
 import * as claim_variant from './claim.variant.js'
+import * as operator_variant from './operator.variant.js'
 
 
 
 
-export type TProperty = Omit<claim_variant.TBehaviorProperty, 'value'> & {
+export type TProperty = {
 	value: number
 	digit: number
 	max: number
@@ -22,27 +23,11 @@ Component(
 			'./claim': {
 				type: 'ancestor',
 
-				linked(target) {
-					this.setData(
-						{ parent: target },
-
-					)
-
-				},
-
 			},
 
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'./label': {
 				type: 'ancestor',
-
-				linked(target) {
-					this.setData(
-						{ parent: target },
-
-					)
-
-				},
 
 			},
 
@@ -179,23 +164,30 @@ Component(
 			update(input: string): void {
 				input = this.limit(input)
 
-				// eslint-disable-next-line consistent-this
-				let self = this as unknown as claim_variant.TBehaviorMethod
-
 				this.setData(
 					{ input },
 
 				)
 
-				self.update_(
+				this.self_().update_(
 					Number(input),
 
 				)
 
 			},
 
+			self(): operator_variant.TLinkerBehaviorInstance {
+				return this as unknown as operator_variant.TLinkerBehaviorInstance
+
+			},
+
+			self_(): claim_variant.TBehaviorInstance {
+				return this as unknown as claim_variant.TBehaviorInstance
+
+			},
+
 			set_style(): void {
-				let { parent } = this.data as unknown as claim_variant.TBehaviorData
+				let parent = this.self().get_parent()
 
 				let css = new style.Variable<'text-align'>('dx', 'number')
 
