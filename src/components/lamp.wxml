@@ -1,3 +1,8 @@
-<dx-label class="dx-lamp" name="{{ name }}" serif="{{ serif }}">
+<dx-label
+	name="{{ name }}"
+	class="dx-lamp {{ classx }}"
+	serif="{{ serifx || serif }}"
+	bind:tap="on_select"
+>
 	<dx-indicator icon="{{ icon }}" wx:if="{{ check }}" />
 </dx-label>

@@ -1,7 +1,8 @@
 <dx-cassette
 	lister
 	refresher
-	class="class"
+	id="{{ _id }}"
+	class="dx-lister class {{ classx }}"
 	container="{{ container }}"
 	model:loading="{{ loading }}"
 	bind:lower="on_lower"

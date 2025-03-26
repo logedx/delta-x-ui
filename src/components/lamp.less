@@ -1,0 +1,24 @@
+.dx-lamp {
+	--dx-lamp-radius: calc(var(--radius) * 2);
+
+	&.x,
+	&.x0,
+	&.x1 {
+		padding: var(--u-02-s);
+		background: var(--white);
+
+	}
+
+	&.x0 {
+		border-top-left-radius: var(--dx-lamp-radius);
+		border-top-right-radius: var(--dx-lamp-radius);
+
+	}
+
+	&.x1 {
+		border-bottom-left-radius: var(--dx-lamp-radius);
+		border-bottom-right-radius: var(--dx-lamp-radius);
+
+	}
+
+}

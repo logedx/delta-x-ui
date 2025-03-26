@@ -51,6 +51,8 @@ pagin.on(
 Component(
 	{
 		data: {
+			select: 0,
+
 			loading: false,
 			finished: false,
 
@@ -86,6 +88,22 @@ Component(
 
 			async on_refresh(): Promise<void> {
 				await pagin.first()
+
+			},
+
+			on_select(
+				e: WechatMiniprogram.CustomEvent<
+						{ value: number }
+
+					>,
+
+			): void {
+				let { value } = e.detail
+
+				this.setData(
+					{ select: value },
+
+				)
 
 			},
 

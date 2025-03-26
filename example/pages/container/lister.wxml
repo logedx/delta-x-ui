@@ -8,20 +8,13 @@
 		bind:last="on_last"
 		bind:refresh="on_refresh"
 	>
-		<dx-nameplate
+		<dx-lamp
 			slot:item
 			slot:index
-			class="nameplate"
-			label="Data.{{ index }}"
-		>
-			<dx-icon
-				slot="icon"
-				size="var(--u-04-xs)"
-				src="/example/icon/caret-down.svg"
-			/>
-
-			<text class="item">{{ item.label }}</text>
-		</dx-nameplate>
+			name="Data.{{ index }}"
+			check="{{ index === select }}"
+			bind:select="on_select"
+		/>
 	</dx-lister>
 
 	<author slot="footer" />
