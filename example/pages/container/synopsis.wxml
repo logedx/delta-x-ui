@@ -8,7 +8,7 @@
 			/>
 
 			<dx-label serif name="default">
-				<text class="slot" />
+				<text class="slot">slot</text>
 			</dx-label>
 		</dx-nameplate>
 
@@ -20,7 +20,7 @@
 			/>
 
 			<dx-synopsis title="title" class="empty">
-				<text class="slot" />
+				<text class="slot">slot</text>
 			</dx-synopsis>
 		</dx-nameplate>
 
@@ -36,7 +36,7 @@
 					title="title"
 					thumbnail="/example/image/pexels-pixabay-57416.jpg"
 				>
-					<text class="slot" />
+					<text class="slot">slot</text>
 				</dx-synopsis>
 			</dx-label>
 
@@ -46,7 +46,7 @@
 					size="var(--u-10-xs)"
 					thumbnail="/example/image/pexels-pixabay-57416.jpg"
 				>
-					<text class="slot" />
+					<text class="slot">slot</text>
 				</dx-synopsis>
 			</dx-label>
 		</dx-nameplate>
@@ -63,7 +63,7 @@
 					title="title"
 					thumbnail="/example/image/pexels-pixabay-57416.jpg"
 				>
-					<text class="slot" />
+					<text class="slot">slot</text>
 				</dx-synopsis>
 			</dx-label>
 
@@ -73,26 +73,72 @@
 					title="title"
 					thumbnail="/example/image/pexels-pixabay-57416.jpg"
 				>
-					<text class="slot" />
+					<text class="slot">slot</text>
 				</dx-synopsis>
 			</dx-label>
 		</dx-nameplate>
 
-		<dx-nameplate class="nameplate" label="Column">
+		<dx-nameplate class="nameplate" label="Direction">
 			<dx-icon
 				slot="icon"
 				size="var(--u-04-xs)"
 				src="/example/icon/columns.svg"
 			/>
 
-			<dx-synopsis
-				column
-				title="title"
-				size="var(--u-10-l)"
-				thumbnail="/example/image/pexels-pixabay-57416.jpg"
-			>
-				<text class="slot" />
-			</dx-synopsis>
+			<dx-label serif newline name="left-to-right">
+				<dx-synopsis
+					title="title"
+					size="var(--u-10-l)"
+					direction="left-to-right"
+					thumbnail="/example/image/pexels-pixabay-57416.jpg"
+				>
+					<text class="slot">slot</text>
+				</dx-synopsis>
+			</dx-label>
+
+			<dx-label serif newline name="left-to-right-between">
+				<dx-synopsis
+					title="title"
+					size="var(--u-10-l)"
+					direction="left-to-right-between"
+					thumbnail="/example/image/pexels-pixabay-57416.jpg"
+				>
+					<text class="slot">slot</text>
+				</dx-synopsis>
+			</dx-label>
+
+			<dx-label serif newline name="right-to-left">
+				<dx-synopsis
+					title="title"
+					size="var(--u-10-l)"
+					direction="right-to-left"
+					thumbnail="/example/image/pexels-pixabay-57416.jpg"
+				>
+					<text class="slot">slot</text>
+				</dx-synopsis>
+			</dx-label>
+
+			<dx-label serif newline name="right-to-left-between">
+				<dx-synopsis
+					title="title"
+					size="var(--u-10-l)"
+					direction="right-to-left-between"
+					thumbnail="/example/image/pexels-pixabay-57416.jpg"
+				>
+					<text class="slot">slot</text>
+				</dx-synopsis>
+			</dx-label>
+
+			<dx-label newline name="top-to-bottom">
+				<dx-synopsis
+					title="title"
+					size="var(--u-10-l)"
+					direction="top-to-bottom"
+					thumbnail="/example/image/pexels-pixabay-57416.jpg"
+				>
+					<text class="slot">slot</text>
+				</dx-synopsis>
+			</dx-label>
 		</dx-nameplate>
 	</dx-cassette>
 

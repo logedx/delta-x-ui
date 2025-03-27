@@ -1,18 +1,39 @@
 <view class="dx-synopsis class" style="{{ style }}">
-	<view class="thumbnail">
-		<dx-avatar
-			size="{{ size }}"
-			src="{{ thumbnail }}"
-			square="{{ square }}"
-			class="avatar"
-		/>
-	</view>
-
-	<view class="content">
-		<text class="title">{{ title }}</text>
-
-		<view class="exhibit">
-			<slot />
+	<block wx:if="{{ order }}">
+		<view class="thumbnail">
+			<dx-avatar
+				size="{{ size }}"
+				src="{{ thumbnail }}"
+				square="{{ square }}"
+				class="avatar"
+			/>
 		</view>
-	</view>
+
+		<view class="content">
+			<text class="title">{{ title }}</text>
+
+			<view class="exhibit">
+				<slot />
+			</view>
+		</view>
+	</block>
+
+	<block wx:else>
+		<view class="content">
+			<text class="title">{{ title }}</text>
+
+			<view class="exhibit">
+				<slot />
+			</view>
+		</view>
+
+		<view class="thumbnail">
+			<dx-avatar
+				size="{{ size }}"
+				src="{{ thumbnail }}"
+				square="{{ square }}"
+				class="avatar"
+			/>
+		</view>
+	</block>
 </view>
