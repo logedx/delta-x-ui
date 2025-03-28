@@ -19,6 +19,17 @@ export async function create(code: string, appid: string): HttpTaskUnpackingResu
 
 }
 
+export async function create_scope(id: string): HttpTaskUnpackingResult<void> {
+	let h = http.post(
+		`/user/${id}/scope`,
+
+
+	)
+
+	await h.resp()
+
+}
+
 
 export async function update(
 	id: string,
