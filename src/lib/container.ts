@@ -32,6 +32,19 @@ export type PaginationUpdateHandler<T> = (data: Array<T>, finished: boolean) => 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PaginationLoadingHandler = (value: boolean) => any
 
+export type PaginationQueue = {
+	timer: number
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	promise: Promise<any>
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	resolve: (...v: Array<any>) => void
+
+	reject: (e: Error) => void
+
+
+}
+
 export class Pagination<
 	T extends object,
 	P extends object = object,
@@ -49,6 +62,10 @@ export class Pagination<
 	#params_ = {} as P
 
 
+
+	#delay = 88
+
+	#queue: null | PaginationQueue = null
 
 	#loading = false
 
@@ -73,6 +90,10 @@ export class Pagination<
 	}
 
 
+	set delay(v: number) {
+		this.#delay = v
+
+	}
 
 	get loading(): boolean {
 		return this.#loading
@@ -126,6 +147,64 @@ export class Pagination<
 			console.error(e)
 
 		}
+
+	}
+
+	async #debounce_retrieve(): Promise<Array<V>> {
+		if (detective.is_exist(this.#queue)
+
+		) {
+			let { timer, reject } = this.#queue
+
+			clearTimeout(timer)
+
+			reject(
+				new Error('request is canceled'),
+
+			)
+
+			this.#queue = null
+
+		}
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function
+		let resolve: (...v: Array<any>) => void = () => { }
+
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
+		let reject: (e: Error) => void = () => { }
+
+		let promise = new Promise<Array<V>>(
+			(res, rej) => {
+				resolve = res
+				reject = rej
+
+			},
+
+		)
+
+		let timer = setTimeout(
+			() => {
+				this.#queue = null
+
+				this.#retrieve()
+					.then(resolve)
+					.catch(reject)
+
+			},
+
+			this.#delay,
+
+		)
+
+		this.#queue = {
+			timer,
+			promise,
+			resolve,
+			reject,
+
+		}
+
+		return promise
 
 	}
 
@@ -346,7 +425,7 @@ export class Pagination<
 
 		}
 
-		return this.clear().#retrieve()
+		return this.clear().#debounce_retrieve()
 
 	}
 
@@ -358,7 +437,7 @@ export class Pagination<
 
 		this.#skip = this.#skip + this.#limit
 
-		return this.#retrieve()
+		return this.#debounce_retrieve()
 
 	}
 
