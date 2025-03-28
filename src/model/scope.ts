@@ -27,9 +27,7 @@ export type TRawDocType = model.TRawDocType<
 		lock: boolean
 
 		value: number
-		deadline: string
 
-		actived: Date
 		expired: Date
 
 	}
