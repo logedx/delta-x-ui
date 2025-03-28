@@ -35,8 +35,8 @@ export async function update(
 	id: string,
 
 	params: {
+		nickname?: string
 		phone?: string
-		scope?: null | { value: number, deadline: string }
 
 	},
 
