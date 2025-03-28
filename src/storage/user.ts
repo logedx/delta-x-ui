@@ -53,7 +53,10 @@ export async function retrieve(id: string): HttpTaskUnpackingResult<user_model.T
 }
 
 export async function retrieve_pagination(
-	params: container.PaginationParams,
+	params: container.PaginationParams<
+			{ scope: boolean }
+
+		>,
 
 ): HttpTaskUnpackingResult<
 	Array<user_model.THydratedDocumentType>
