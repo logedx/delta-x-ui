@@ -11,6 +11,7 @@ export enum Mode {
 }
 
 export enum Role {
+	'普通' = 0b0_0000_0000_0000,
 	'管理' = 0b0_0000_0000_0001,
 	'财务' = 0b0_0000_0001_0000,
 	'运营' = 0b0_0001_0000_0000,
@@ -27,10 +28,8 @@ export type TRawDocType = model.TRawDocType<
 		lock: boolean
 
 		value: number
-		deadline: string
 
-		actived: Date
-		expired: Date
+		expire: Date
 
 	}
 
@@ -39,7 +38,6 @@ export type TRawDocType = model.TRawDocType<
 export type TPopulatePaths = object
 
 export type TVirtuals = {
-	role: keyof typeof Role
 	is_expire: boolean
 
 }
