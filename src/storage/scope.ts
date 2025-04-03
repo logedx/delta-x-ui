@@ -13,7 +13,7 @@ export async function option(): HttpTaskUnpackingResult<string> {
 
 	)
 
-	let doc = await h.resp()
+	let doc = await h.collect()
 
 	return doc.data
 
@@ -27,7 +27,7 @@ export async function create(value: string): HttpTaskUnpackingResult<void> {
 
 	)
 
-	await h.resp()
+	await h.finish
 
 }
 
@@ -46,7 +46,7 @@ export async function update(
 
 	)
 
-	await h.resp()
+	await h.finish
 
 }
 
@@ -57,7 +57,7 @@ export async function retrieve(id: string): HttpTaskUnpackingResult<scope_model.
 
 	)
 
-	let doc = await h.resp()
+	let doc = await h.collect()
 
 	return doc.data
 
@@ -81,7 +81,7 @@ export async function retrieve_pagination(
 
 	)
 
-	let doc = await h.resp()
+	let doc = await h.collect()
 
 	return doc.data
 
@@ -94,7 +94,7 @@ export async function delete_(id: string): HttpTaskUnpackingResult<void> {
 
 	)
 
-	await h.resp()
+	await h.finish
 
 
 }

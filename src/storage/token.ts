@@ -13,7 +13,7 @@ export async function create(): HttpTaskUnpackingResult<CreateResult> {
 
 	)
 
-	let doc = await h.resp()
+	let doc = await h.collect()
 
 	return doc.data
 
@@ -35,7 +35,7 @@ export async function update(
 
 	)
 
-	let doc = await h.resp()
+	let doc = await h.collect()
 
 	return doc.data
 
@@ -48,7 +48,7 @@ export type RetrieveResult = Pick<token_model.TRawDocType, 'expire' | 'scope'>
 export async function retrieve(): HttpTaskUnpackingResult<RetrieveResult> {
 	let h = http.get<RetrieveResult>('/token')
 
-	let doc = await h.resp()
+	let doc = await h.collect()
 
 	return doc.data
 

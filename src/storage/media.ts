@@ -43,7 +43,7 @@ export async function create_(
 
 	)
 
-	return h.resp()
+	return h.finish
 
 }
 
@@ -75,7 +75,7 @@ export async function create_many_(
 	)
 
 	let doc = h.map(
-		v => v.resp(),
+		v => v.collect(),
 
 	)
 
@@ -87,6 +87,6 @@ export async function create_many_(
 export async function delete_(...src: Array<string>): HttpTaskUnpackingResult<void> {
 	let h = http.delete('/media', src)
 
-	await h.resp()
+	await h.finish
 
 }
