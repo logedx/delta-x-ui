@@ -29,7 +29,7 @@ export async function create(
 
 	)
 
-	return h.resp()
+	return h.collect()
 
 }
 
@@ -43,7 +43,7 @@ export async function query(
 
 	)
 
-	return h.resp()
+	return h.collect()
 
 
 }
@@ -58,7 +58,7 @@ export async function retrieve(
 
 	)
 
-	return h.resp()
+	return h.collect()
 
 
 }
