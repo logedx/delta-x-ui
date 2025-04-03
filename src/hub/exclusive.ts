@@ -2,6 +2,7 @@ import * as container from '../lib/container.js'
 
 import * as user_storage from '../storage/user.js'
 import * as scope_storage from '../storage/scope.js'
+import * as stamp_storage from '../storage/stamp.js'
 
 
 
@@ -50,5 +51,20 @@ export const scope = new container.Exclusive()
 		'delete',
 
 		scope_storage.delete_,
+
+	)
+
+
+export const stamp = new container.Exclusive()
+	.on(
+		'create',
+
+		stamp_storage.create,
+
+	)
+	.on(
+		'retrieve',
+
+		stamp_storage.retrieve,
 
 	)
