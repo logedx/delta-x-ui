@@ -504,8 +504,8 @@ export type ExclusiveHandler =(...args: Array<any>) => any
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExclusiveParameters<F> = F extends (arg0: any, ...rest: infer R) => any ? R : never;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-invalid-void-type
-export type ExclusiveCreateHandler = (...args: Array<any>) => Promise<void | string>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ExclusiveCreateHandler = (...args: Array<any>) => Promise<any>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExclusiveUpdateHandler = (_id: string, ...args: Array<any>) => Promise<void>
@@ -685,7 +685,7 @@ export class Exclusive<
 
 		)
 
-		if (detective.is_required_string(res)
+		if (detective.is_object_id_string(res)
 
 		) {
 			this.#id = res
