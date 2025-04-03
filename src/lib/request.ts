@@ -419,7 +419,7 @@ export class Http {
 export class HttpTask<T extends SuccessRestult, H extends object = object> {
 	#link = null as null | WechatMiniprogram.RequestTask
 
-	#body: Promise<
+	#collect: Promise<
 		HttpTaskResult<T, H>
 
 	>
@@ -439,7 +439,7 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 		if (detective.is_promise(option)
 
 		) {
-			this.#body = option.then(
+			this.#collect = option.then(
 				v => this.#create_task(hostname, v),
 
 			)
@@ -447,7 +447,7 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 		}
 
 		else {
-			this.#body = this.#create_task(hostname, option)
+			this.#collect = this.#create_task(hostname, option)
 
 		}
 
@@ -477,14 +477,19 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 	}
 
-	get body(): Promise<HttpTaskResult<T, H>> {
-		return this.#body
+	get finish(): Promise<HttpTaskResult<T, H>> {
+		return this.#collect
 
 	}
 
 
 	resp(): Promise<HttpTaskResult<T, H>> {
-		return this.#body
+		return this.#collect
+
+	}
+
+	collect(): Promise<HttpTaskResult<T, H>> {
+		return this.#collect
 
 	}
 
