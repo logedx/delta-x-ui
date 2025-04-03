@@ -23,6 +23,10 @@ export type TRawDocType = model.TRawDocType<
 
 export type TPopulatePaths = object
 
-export type TVirtuals = object
+export type TVirtuals = {
+	lave: number
+	method: '*' | 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT'
+
+}
 
 export type THydratedDocumentType = model.HydratedDocument<TRawDocType, TVirtuals>
