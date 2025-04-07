@@ -57,10 +57,11 @@ Component(
 			set_style(): void {
 				let parent = this.self().get_parent()
 
-				let css = new style.Variable<'text-align'>('dx', 'input')
+				let css = new style.Variable<'text-align' | 'padding'>('dx', 'input')
 
 				if (parent) {
 					css.set('text-align', 'left')
+					css.set('padding', 0)
 
 				}
 

@@ -87,10 +87,11 @@ Component(
 			set_style(): void {
 				let parent = this.self().get_parent()
 
-				let css = new style.Variable<'justify-content'>('dx', 'turnstile')
+				let css = new style.Variable<'justify-content' | 'padding'>('dx', 'turnstile')
 
 				if (parent) {
 					css.set('justify-content', 'space-between')
+					css.set('padding', 0)
 
 				}
 
