@@ -623,14 +623,13 @@ export class Exclusive<
 
 
 
-	#wait(value: boolean): void {
+	#wait(value = true): void {
 		if (value && this.#loading) {
 			throw new Error('container is loading')
 
 		}
 
 		this.#loading = value
-
 
 
 		if (this.#linker === null) {
@@ -644,6 +643,25 @@ export class Exclusive<
 
 			)
 
+
+	}
+
+	#finish(
+		fn: (...args: Array<unknown>) => void,
+
+		...args: Array<unknown>
+
+	): void {
+		wx.nextTick(
+			() => {
+				this.#wait(false)
+
+				fn(...args)
+
+			},
+
+		)
+
 	}
 
 
@@ -652,21 +670,36 @@ export class Exclusive<
 		fn: (...args: Array<any>) => Promise<V>,
 
 	): Promise<V> {
-		this.#wait(true)
+		this.#wait()
 
-		return fn().finally(
-			() => {
-				wx.nextTick(
-					() => {
-						this.#wait(false)
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function
+		let resolve: (...v: Array<any>) => void = () => { }
 
-					},
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
+		let reject: (e: unknown) => void = () => { }
 
-				)
+		let promise = new Promise<V>(
+			(res, rej) => {
+				resolve = res
+				reject = rej
 
 			},
 
 		)
+
+		try {
+			let v = await fn()
+
+			this.#finish(resolve, v)
+
+		}
+
+		catch (e) {
+			this.#finish(reject, e)
+
+		}
+
+		return promise
 
 
 	}
@@ -829,7 +862,6 @@ export class Exclusive<
 		throw new Error('method is not exist')
 
 	}
-
 
 	clear(): void {
 		this.#id = null
