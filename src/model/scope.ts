@@ -2,7 +2,7 @@
  * 权限范围模型
  */
 import * as model from '../lib/model.js'
-
+import * as detective from '../lib/detective.js'
 
 
 export enum Mode {
@@ -43,3 +43,135 @@ export type TVirtuals = {
 }
 
 export type THydratedDocumentType = model.HydratedDocument<TRawDocType, TVirtuals>
+
+
+export function align(...mode: Array<Mode>): number {
+	let value = Object.values(Role)
+		.filter(detective.is_finite_number)
+		.reduce(
+			(a, b) => a | b,
+
+			0,
+
+		)
+
+	return mode.reduce(
+		(a, m) => a | chmod(value, m),
+
+		0,
+
+	)
+
+}
+
+export function some(value: Role, ...role: Array<Role>): boolean {
+	value = Math.abs(value)
+
+	if (value === Role.无限) {
+		return true
+
+	}
+
+	return role.some(
+		v => (v & value) > 0,
+
+	)
+
+}
+
+export function mixed(value: Role, ...role: Array<Role>): Role {
+	value = Math.abs(value)
+
+	if (value === Role.无限) {
+		return Role.无限
+
+	}
+
+
+	return role.reduce(
+		(a, b) => a | Math.abs(b),
+
+		value,
+
+	)
+
+}
+
+export function pick(value: Role, ...mode: Array<Mode>): number {
+	return value & align(...mode)
+
+
+}
+
+export function exclude(value: Role, ...mode: Array<Mode>): number {
+	value = Math.abs(value)
+
+	return value & (
+		value ^ align(...mode)
+
+	)
+
+}
+
+export function derive(value: Role, ...mode: Array<Mode>): number {
+	value = Math.abs(value)
+
+	return mode.reduce(
+		(a, b) => a | chmod(value, b),
+
+		value,
+
+	)
+
+}
+
+export function chmod(value: Role, mode: Mode): Role {
+	value = Math.abs(value)
+
+	if (value === Role.无限) {
+		return Role.无限
+
+	}
+
+	return value << Math.abs(mode)
+
+}
+
+export function vtmod(value: Role): Mode {
+	value = Math.abs(value)
+
+	if (value <= Role.普通) {
+		return Mode.普通
+
+	}
+
+	if (value === Role.无限) {
+		return Mode.系统
+
+	}
+
+	let vxmode = Object.values(Mode)
+		.filter(detective.is_finite_number)
+		.toSorted(
+			(a, b) => a - b,
+
+		)
+
+	return vxmode.reduce(
+		(a, b) => {
+			let v = value & align(b)
+
+			if (v > 0) {
+				return b
+
+			}
+
+			return a
+
+		},
+
+		Mode.普通,
+
+	)
+
+}
