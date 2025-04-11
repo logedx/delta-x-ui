@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/naming-convention, init-declarations
+// eslint-disable-next-line @typescript-eslint/naming-convention
 declare const __wxConfig: {
 	pages?: Array<string>
 
