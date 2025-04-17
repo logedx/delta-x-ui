@@ -706,7 +706,7 @@ export class Exclusive<
 
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async #create(...args: Array<any>): Promise<void> {
+	async #create(...args: Array<any>): Promise<any> {
 		if (this.#create_handle === null) {
 			throw new Error('container cannot be created')
 
@@ -727,18 +727,19 @@ export class Exclusive<
 
 		this.#data = null
 
+		return res
 
 	}
 
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async #update(...args: Array<any>): Promise<void> {
+	async #update(...args: Array<any>): Promise<any> {
 		if (this.#id === null || this.#update_handle === null) {
 			throw new Error('container cannot be updated')
 
 		}
 
-		await this.#call(
+		let res = await this.#call(
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return
 			() => this.#update_handle!(this.#id, ...args),
 
@@ -746,37 +747,41 @@ export class Exclusive<
 
 		this.#data = null
 
+		return res
 
 	}
 
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async #retrieve(_id: string, ...args: Array<any>): Promise<void> {
+	async #retrieve(_id: string, ...args: Array<any>): Promise<any> {
 		if (this.#retrieve_handle === null) {
 			throw new Error('container cannot be retrieved')
 
 		}
 
-		this.#data = await this.#call(
+		let res = await this.#call(
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return
 			() => this.#retrieve_handle!(_id, ...args),
 
 		)
 
 		this.#id = _id
+		this.#data = res
+
+		return res
 
 
 	}
 
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async #delete(...args: Array<any>): Promise<void> {
+	async #delete(...args: Array<any>): Promise<any> {
 		if (this.#id === null || this.#delete_handle === null) {
 			throw new Error('container cannot be deleted')
 
 		}
 
-		await this.#call(
+		let res = await this.#call(
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return
 			() => this.#delete_handle!(this.#id, ...args),
 
@@ -784,6 +789,7 @@ export class Exclusive<
 
 		this.clear()
 
+		return res
 
 	}
 
