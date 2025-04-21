@@ -1,9 +1,11 @@
 <textarea
+	auto-height
 	hold-keyboard
 	confirm-type="done"
 	class="dx-textarea class"
 	value="{{ value }}"
 	style="{{ style }}"
+	maxlength="{{ -1 }}"
 	disabled="{{ readonly }}"
 	cursor-spacing="{{ 150 }}"
 	placeholder="{{ placeholder }}"
