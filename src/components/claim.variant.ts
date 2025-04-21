@@ -7,12 +7,7 @@ export enum TEvent {
 	update = 'update',
 	notify = 'notify',
 
-}
-
-
-export enum TEvent {
-	submit = 'submit',
-	abnormal = 'abnormal',
+	confirm = 'confirm',
 
 }
 
@@ -41,6 +36,7 @@ type TBehaviorMethod = {
 	on_focus(): void
 	on_blur(): void
 	on_input(e: WechatMiniprogram.CustomEvent<{ value: string }>): void
+	on_confirm(): void
 	on_keyboard_height_change(e: WechatMiniprogram.CustomEvent<{ height: number, duration: number }>): void
 
 }
@@ -168,6 +164,11 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 					value.trim(),
 
 				)
+
+			},
+
+			on_confirm(): void {
+				this.triggerEvent(TEvent.confirm)
 
 			},
 
