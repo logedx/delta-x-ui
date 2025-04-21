@@ -878,12 +878,12 @@ export class Exclusive<
 
 	get(): Awaited<ReturnType<R>>
 
-	get<T = Awaited<ReturnType<R>>, K extends keyof T = keyof T>(
+	get<K extends keyof Awaited<ReturnType<R>>>(
 		key: K extends string ? Lowercase<K> : K,
 
 	): Awaited<ReturnType<R>>[K]
 
-	get<T = Awaited<ReturnType<R>>, K extends keyof T = keyof T>(
+	get<T extends Awaited<ReturnType<R>>, K extends keyof T>(
 		key: K extends string ? Lowercase<K> : K,
 
 		_default: T[K]
@@ -913,7 +913,7 @@ export class Exclusive<
 	}
 
 
-	pick<T = Awaited<ReturnType<R>>, K extends keyof T = keyof T>(...keys: Array<K>): Pick<T, K> {
+	pick<T extends Awaited<ReturnType<R>>, K extends keyof T>(...keys: Array<K>): Pick<T, K> {
 		if (detective.is_object(this.#data) === false
 
 		) {
