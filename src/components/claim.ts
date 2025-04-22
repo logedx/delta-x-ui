@@ -59,6 +59,7 @@ Component(
 
 		data: {
 			style: '',
+			newline: true,
 
 			notice: false,
 

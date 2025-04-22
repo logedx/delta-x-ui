@@ -191,7 +191,9 @@ Component(
 
 				let css = new style.Variable<'text-align'>('dx', 'number')
 
-				if (parent) {
+				if (parent?.data?.newline === true
+
+				) {
 					css.set('text-align', 'left')
 
 				}

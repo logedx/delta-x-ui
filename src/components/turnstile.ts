@@ -89,7 +89,9 @@ Component(
 
 				let css = new style.Variable<'justify-content' | 'padding'>('dx', 'turnstile')
 
-				if (parent) {
+				if (parent?.data?.newline === true
+
+				) {
 					css.set('justify-content', 'space-between')
 					css.set('padding', 0)
 

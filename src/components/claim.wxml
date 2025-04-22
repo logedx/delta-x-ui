@@ -1,7 +1,7 @@
 <view class="dx-claim class" id="{{ _id }}" style="{{ style }}">
 	<view class="flag" />
 
-	<dx-label newline name="{{ name }}">
+	<dx-label name="{{ name }}" newline="{{ newline }}">
 		<text
 			slot="head"
 			class="notice"

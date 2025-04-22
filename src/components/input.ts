@@ -59,7 +59,9 @@ Component(
 
 				let css = new style.Variable<'text-align' | 'padding'>('dx', 'input')
 
-				if (parent) {
+				if (parent?.data?.newline === true
+
+				) {
 					css.set('text-align', 'left')
 					css.set('padding', 0)
 

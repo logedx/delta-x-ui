@@ -127,7 +127,9 @@ Component(
 
 				let css = new style.Variable<'justify-content' | 'date-picker-grow' | 'time-picker-grow'>('dx', 'datetime')
 
-				if (parent) {
+				if (parent?.data?.newline === true
+
+				) {
 					css.set('justify-content', 'flex-start')
 
 					if (mode === 'time' || detective.is_required_string(time)
