@@ -2,10 +2,11 @@
 	<block wx:if="{{ order }}">
 		<view class="thumbnail">
 			<dx-avatar
+				class="avatar"
 				size="{{ size }}"
 				src="{{ thumbnail }}"
 				square="{{ square }}"
-				class="avatar"
+				bind:tap="on_preview"
 			/>
 		</view>
 
@@ -29,10 +30,11 @@
 
 		<view class="thumbnail">
 			<dx-avatar
+				class="avatar"
 				size="{{ size }}"
 				src="{{ thumbnail }}"
 				square="{{ square }}"
-				class="avatar"
+				bind:tap="on_preview"
 			/>
 		</view>
 	</block>

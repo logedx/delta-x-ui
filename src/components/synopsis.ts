@@ -149,6 +149,18 @@ Component(
 
 			},
 
+			on_preview(): void {
+				let { thumbnail } = this.data
+
+				// eslint-disable-next-line @typescript-eslint/no-floating-promises
+				wx.previewImage(
+					{ urls: [thumbnail], current: thumbnail },
+
+				)
+
+
+			},
+
 		},
 
 	},
