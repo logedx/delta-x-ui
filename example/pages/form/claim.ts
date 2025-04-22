@@ -1,3 +1,8 @@
+import * as fs from '/src/lib/fs.js'
+
+
+
+
 Component(
 	{
 		data: {
@@ -6,6 +11,7 @@ Component(
 			datetime: '',
 			textarea: '',
 			turnstile: '',
+			sticker: '',
 
 		},
 

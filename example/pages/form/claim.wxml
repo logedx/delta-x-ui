@@ -164,6 +164,26 @@
 				/>
 			</dx-claim>
 		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Sticker">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-claim name="default" value="该字段不可为空">
+				<dx-sticker model:value="{{ sticker }}" />
+			</dx-claim>
+
+			<dx-claim name="required" value="该字段不可为空">
+				<dx-sticker required model:value="{{ sticker }}" />
+			</dx-claim>
+
+			<dx-claim name="readonly" value="该字段不可为空">
+				<dx-sticker readonly model:value="{{ sticker }}" />
+			</dx-claim>
+		</dx-nameplate>
 	</dx-cassette>
 
 	<author slot="footer" />

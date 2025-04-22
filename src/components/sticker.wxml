@@ -1,20 +1,22 @@
-<view class="dx-sticker class">
-	<view class="handle" wx:if="{{ src }}">
-		<text bind:tap="on_delete">删除</text>
+<view class="dx-sticker class" style="{{ style }}">
+	<view class="loading" wx:if="{{ loading }}">
+		<dx-loading size="var(--strong)" color="var(--h-ab-00)" />
 	</view>
 
-	<dx-avatar
-		square
-		size="100%"
-		src="{{ safety(resolve, src) }}"
+	<image
+		fade-in
+		mode="aspectFit"
+		src="{{ src || value }}"
 		bind:tap="on_preview"
 		bind:longpress="on_update"
-		wx:if="{{ src }}"
+		wx:elif="{{ src || value }}"
 	/>
 
-	<dx-avatar square size="100%" bind:tap="on_update" wx:else />
+	<view class="create" bind:tap="on_update" wx:elif="{{ !readonly }}">
+		<dx-icon size="var(--strong)" src="{{ icon }}" />
+	</view>
 
-	<view class="loading" wx:if="{{ loading }}">
-		<dx-loading size="var(--u-06-s)" color="var(--h-ab-00)" />
+	<view class="handle" wx:if="{{ (src || value) && !required && !readonly }}">
+		<text bind:tap="on_delete">删除</text>
 	</view>
 </view>

@@ -13,6 +13,7 @@
 		"dx-number": "/src/components/number",
 		"dx-datetime": "/src/components/datetime",
 		"dx-textarea": "/src/components/textarea",
-		"dx-turnstile": "/src/components/turnstile"
+		"dx-turnstile": "/src/components/turnstile",
+		"dx-sticker": "/src/components/sticker"
 	}
 }

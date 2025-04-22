@@ -6,11 +6,18 @@
 			src="/example/icon/caret-down.svg"
 		/>
 
-		<dx-sticker
-			class="example"
-			model:src="{{ src }}"
-			bind:update="on_update_image"
-		/>
+		<dx-label serif name="base64">
+			<dx-sticker model:value="{{ src }}" />
+		</dx-label>
+
+		<dx-label name="upload">
+			<dx-sticker
+				name="demo"
+				model="demo"
+				folder="/demo"
+				model:value="{{ src }}"
+			/>
+		</dx-label>
 	</dx-nameplate>
 
 	<author slot="footer" />
