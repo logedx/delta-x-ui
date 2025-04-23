@@ -142,8 +142,7 @@ Component(
 
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					(...args: Array<any>) => {
-						// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-						this.triggerEvent(turnstile_variant.TEvent.notify, ...args)
+						this.triggerEvent(turnstile_variant.TEvent.notify, args)
 
 
 					},
