@@ -62,22 +62,15 @@ Component(
 			set_style(target: WechatMiniprogram.Component.TrivialInstance): void {
 				let { value } = this.data
 
-				let classx = ''
-
 				let child = this.self().get_child()
 
-				if (child.length > 0) {
-					classx = 'x'
-
-				}
-
 				this.setData(
-					{ classx },
+					{ classx: 'x' },
 
 				)
 
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-				target.set_style?.(child.length, value.length)
+				target.set_style?.(child.length + 1, value.length)
 
 			},
 
