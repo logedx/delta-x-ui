@@ -6,7 +6,7 @@
 				size="{{ size }}"
 				src="{{ thumbnail }}"
 				square="{{ square }}"
-				bind:tap="on_preview"
+				catch:tap="on_preview"
 			/>
 		</view>
 
@@ -34,7 +34,7 @@
 				size="{{ size }}"
 				src="{{ thumbnail }}"
 				square="{{ square }}"
-				bind:tap="on_preview"
+				catch:tap="on_preview"
 			/>
 		</view>
 	</block>
