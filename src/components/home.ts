@@ -1,8 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/naming-convention
-declare const __wxConfig: {
-	pages?: Array<string>
+import * as app from '../lib/app.js'
+import * as detective from '../lib/detective.js'
 
-}
 
 
 export type TProperty = {
@@ -31,15 +29,19 @@ Component(
 
 		methods: {
 			async on_redirect_to_home(): Promise<void> {
-				let [page] = __wxConfig.pages ?? []
+				let [url] = app.pages()
 
-				if (page) {
-					await wx.redirectTo(
-						{ url: `/${page}` },
+				if (detective.is_empty(url)
 
-					)
+				) {
+					return
 
 				}
+
+				await wx.redirectTo(
+					{ url },
+
+				)
 
 
 			},
