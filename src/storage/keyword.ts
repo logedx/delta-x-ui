@@ -9,8 +9,8 @@ import * as keyword_model from '../model/keyword.js'
 
 export async function create(
 	params: {
-		model: string
 		name: string
+		label: string
 		value: string
 
 	},
@@ -27,7 +27,7 @@ export async function create(
 
 export async function retrieve_pagination(
 	params: container.PaginationParams<
-			{ model: string, name: string }
+			{ name: string, label: string, letter: string }
 
 		>,
 
