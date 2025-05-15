@@ -3,7 +3,7 @@ import * as lister_variant from './lister.variant.js'
 
 
 
-enum TEvent {
+export enum TEvent {
 	select = 'select',
 
 }

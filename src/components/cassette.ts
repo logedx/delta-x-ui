@@ -3,7 +3,7 @@ import * as detective from '../lib/detective.js'
 
 
 
-enum TActive {
+export enum TActive {
 	none,
 	last,
 	refresh,

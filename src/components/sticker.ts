@@ -13,7 +13,7 @@ import * as media_storage from '../storage/media.js'
 
 
 
-enum TEvent {
+export enum TEvent {
 	upload = 'upload'
 
 }
