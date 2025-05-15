@@ -1,4 +1,5 @@
 import * as style from '../lib/style.js'
+import * as detective from '../lib/detective.js'
 
 import * as synopsis_variant from './synopsis.variant.js'
 
@@ -151,6 +152,13 @@ Component(
 
 			on_preview(): void {
 				let { thumbnail } = this.data
+
+				if (detective.is_empty(thumbnail)
+
+				) {
+					return
+
+				}
 
 				// eslint-disable-next-line @typescript-eslint/no-floating-promises
 				wx.previewImage(
