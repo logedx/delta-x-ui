@@ -3,12 +3,6 @@ import * as detective from '../lib/detective.js'
 
 
 
-export type TProperty = {
-	src: string
-	size: string
-
-}
-
 
 Component(
 	{

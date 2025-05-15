@@ -1,10 +1,6 @@
 import * as style from '../lib/style.js'
 
-export type TProperty = {
-	size: string
-	color: string
 
-}
 
 
 Component(

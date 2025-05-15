@@ -9,13 +9,6 @@ import * as operator_variant from './operator.variant.js'
 
 
 
-
-type TProperty = {
-	icon: string
-	mode: '' | 'time' | 'date'
-
-}
-
 Component(
 	{
 		behaviors: [claim_variant.behavior],
@@ -61,9 +54,10 @@ Component(
 		},
 
 		properties: {
+			// '' | 'time' | 'date'
+			mode: { type: String, value: '' },
 			value: { type: String, value: '' },
 			icon: { type: String, value: '' },
-			mode: { type: String, value: '' },
 			placeholder: { type: String, value: '' },
 
 		},
@@ -74,12 +68,12 @@ Component(
 			date: '',
 			time: '',
 
-			is_date(mode: TProperty['mode']): boolean {
+			is_date(mode: '' | 'time' | 'date'): boolean {
 				return mode !== 'time'
 
 			},
 
-			is_time(mode: TProperty['mode'], date: string): boolean {
+			is_time(mode: '' | 'time' | 'date', date: string): boolean {
 				if (mode === 'time') {
 					return true
 

@@ -1,12 +1,7 @@
 import * as style from '../lib/style.js'
 import * as detecive from '../lib/detective.js'
 
-export type TProperty = {
-	src: string
-	size: string
-	radius: string
 
-}
 
 
 Component(

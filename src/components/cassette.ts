@@ -25,19 +25,6 @@ export enum TEvent {
 }
 
 
-export type TProperty = {
-	into: string
-	loading: boolean
-
-	lister: boolean
-	refresher: boolean
-	container?: 'draggable-sheet' | 'nested-scroll-view' | 'pop-gesture'
-
-	direction: TDirection
-
-}
-
-
 Component(
 	{
 		// eslint-disable-next-line @typescript-eslint/naming-convention
@@ -58,6 +45,8 @@ Component(
 
 			lister: { type: Boolean, value: false },
 			refresher: { type: Boolean, value: false },
+
+			// '' | 'draggable-sheet' | 'nested-scroll-view' | 'pop-gesture'
 			container: { type: String, value: '' },
 
 			direction: { type: String, value: TDirection.none },

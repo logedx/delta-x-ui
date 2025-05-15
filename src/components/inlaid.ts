@@ -1,24 +1,7 @@
 import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
-export type TProperty = {
-	value: Array<unknown>
 
-	loading: boolean
-	finished: boolean
-
-	legend: boolean
-	cassette: boolean
-
-	gap: string
-	into: string
-
-}
-
-export type Tmethod = {
-	refresh(): void
-
-}
 
 
 Component(
@@ -38,6 +21,7 @@ Component(
 		} as WechatMiniprogram.Component.ComponentOptions,
 
 		properties: {
+			// Array<unknown>
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			value: { type: Array, optionalTypes: [Object], value: [] },
 

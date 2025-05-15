@@ -7,13 +7,6 @@ import * as operator_variant from './operator.variant.js'
 
 
 
-export type TProperty = {
-	value: number
-	digit: number
-	max: number
-
-}
-
 Component(
 	{
 		behaviors: [claim_variant.behavior],

@@ -1,12 +1,3 @@
-export type TProperty = {
-	back: string
-	home: string
-	sink: boolean
-	loading: boolean
-
-}
-
-
 Component(
 	{
 		// eslint-disable-next-line @typescript-eslint/naming-convention

@@ -6,13 +6,6 @@ import * as style from '../lib/style.js'
 
 
 
-
-export type TProperty = {
-	src: Array<string>
-	resolve: ((v: string) => string)
-
-}
-
 Component(
 	{
 		// eslint-disable-next-line @typescript-eslint/naming-convention
@@ -25,8 +18,10 @@ Component(
 		},
 
 		properties: {
+			// array<string>
 			src: { type: Array, value: [] },
 
+			// (v: string) => string
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			resolve: { type: Object, optionalTypes: [Object], value: (v: string) => v },
 
@@ -105,8 +100,8 @@ Component(
 				>,
 
 			): Promise<void> {
-				let { src } = this.data as Pick<TProperty, 'src'>
 				let { index } = e.currentTarget.dataset
+				let { src } = this.data as { src: Array<string> }
 
 				await wx.previewImage(
 					{ urls: src, current: src[index] },
@@ -189,8 +184,8 @@ Component(
 
 
 			): void {
-				let { src } = this.data as Pick<TProperty, 'src'>
 				let { index } = e.currentTarget.dataset
+				let { src } = this.data as { src: Array<string> }
 
 				src.splice(index, 1)
 
@@ -208,7 +203,7 @@ Component(
 			},
 
 			move(source: number, target: number): void {
-				let { src } = this.data as Pick<TProperty, 'src'>
+				let { src } = this.data as { src: Array<string> }
 
 				source = Math.min(
 					Math.max(0, source), src.length - 1,
@@ -261,7 +256,7 @@ Component(
 
 			deduplication(value: Array<string>): void {
 				let v = [...new Set(value)]
-				let { src } = this.data as Pick<TProperty, 'src'>
+				let { src } = this.data as { src: Array<string> }
 
 				if (v.join(',') === src.join(',')
 

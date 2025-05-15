@@ -1,9 +1,6 @@
 import * as style from '../lib/style.js'
 
-export type TProperty = {
-	sink: boolean
 
-}
 
 
 Component(

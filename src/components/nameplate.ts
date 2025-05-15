@@ -1,10 +1,6 @@
 import * as style from '../lib/style.js'
 
-export type TProperty = {
-	label: string
-	divide: boolean
 
-}
 
 
 Component(

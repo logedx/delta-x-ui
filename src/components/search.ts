@@ -3,15 +3,6 @@ export enum TEvent {
 
 }
 
-export type TProperty = {
-	value: string
-	placeholder: string
-	focus: boolean
-	icon: string
-	handle: Array<string>
-
-}
-
 
 Component(
 	{
@@ -29,6 +20,8 @@ Component(
 			placeholder: { type: String, value: '' },
 			focus: { type: Boolean, value: false },
 			icon: { type: String, value: '' },
+
+			// Array<string>
 			handle: { type: Array, value: [] },
 
 		},

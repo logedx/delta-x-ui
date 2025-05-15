@@ -48,12 +48,6 @@ declare global {
 }
 
 
-export type TProperty = {
-	back: string
-	home: string
-
-}
-
 
 Component(
 	{

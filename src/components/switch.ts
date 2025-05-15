@@ -1,12 +1,6 @@
 import * as style from '../lib/style.js'
 
-export type TProperty = {
-	value: boolean
-	size: string
-	color: string
-	disabled: boolean
 
-}
 
 
 Component(

@@ -1,11 +1,7 @@
 import * as style from '../lib/style.js'
 
-export type TProperty = {
-	src: string
-	size: string
-	square: boolean
 
-}
+
 
 export enum TEvent {
 	load = 'load',

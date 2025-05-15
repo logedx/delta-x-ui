@@ -1,12 +1,7 @@
 import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
-export type TProperty = {
-	background: string
-	back: string
-	home: string
 
-}
 
 
 Component(

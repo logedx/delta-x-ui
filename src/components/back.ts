@@ -1,10 +1,3 @@
-export type TProperty = {
-	src: string
-	size: string
-
-}
-
-
 Component(
 	{
 		// eslint-disable-next-line @typescript-eslint/naming-convention

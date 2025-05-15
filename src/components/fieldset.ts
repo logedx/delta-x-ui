@@ -3,12 +3,6 @@ export enum TEvent {
 
 }
 
-export type TProperty = {
-	icon: string
-	value: Array<[string, unknown] | [string, string, true]>
-
-}
-
 
 Component(
 	{
@@ -23,6 +17,8 @@ Component(
 
 		properties: {
 			icon: { type: String, value: '' },
+
+			// Array<[string, unknown] | [string, string, true]>
 			value: { type: Array, value: [] },
 
 		},

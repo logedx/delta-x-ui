@@ -1,13 +1,6 @@
 import * as style from '../lib/style.js'
 
 
-export type TProperty = {
-	row: number
-	column: number
-	gap: string
-	separator: string
-
-}
 
 
 Component(
