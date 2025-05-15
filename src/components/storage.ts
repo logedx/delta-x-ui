@@ -1,7 +1,7 @@
 import * as fs from '../lib/fs.js'
 import * as detective from '../lib/detective.js'
 
-import { Variable } from '../lib/style.js'
+import * as style from '../lib/style.js'
 
 
 
@@ -71,7 +71,7 @@ Component(
 			on_toggle(): void {
 				let { src, open } = this.data
 
-				let css = new Variable<'label-padding-bottom' | 'label-opration-arrow-rotate'>('dx', 'storage')
+				let css = new style.Variable<'label-padding-bottom' | 'label-opration-arrow-rotate'>('dx', 'storage')
 
 				if (src.length > 0) {
 					open = !open

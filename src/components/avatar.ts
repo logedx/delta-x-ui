@@ -1,4 +1,4 @@
-import { Variable } from '../lib/style.js'
+import * as style from '../lib/style.js'
 
 export type TProperty = {
 	src: string
@@ -64,7 +64,7 @@ Component(
 			set_style(): void {
 				let { size, square } = this.data
 
-				let css = new Variable<'size' | 'radius'>('dx', 'avatar')
+				let css = new style.Variable<'size' | 'radius'>('dx', 'avatar')
 
 				css.set('size', size)
 

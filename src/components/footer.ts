@@ -1,4 +1,4 @@
-import { Variable } from '../lib/style.js'
+import * as style from '../lib/style.js'
 
 export type TProperty = {
 	sink: boolean
@@ -39,7 +39,7 @@ Component(
 			set_style(): void {
 				let { sink } = this.data
 
-				let css = new Variable<'padding-bottom'>('dx', 'footer')
+				let css = new style.Variable<'padding-bottom'>('dx', 'footer')
 
 
 				if (sink) {

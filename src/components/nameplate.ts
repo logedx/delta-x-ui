@@ -1,4 +1,4 @@
-import { Variable } from '../lib/style.js'
+import * as style from '../lib/style.js'
 
 export type TProperty = {
 	label: string
@@ -53,7 +53,7 @@ Component(
 			set_style(): void {
 				let { divide } = this.data
 
-				let css = new Variable<'margin-top'>('dx', 'nameplate')
+				let css = new style.Variable<'margin-top'>('dx', 'nameplate')
 
 				if (divide) {
 					css.set('margin-top', 'var(--u-02-s)')

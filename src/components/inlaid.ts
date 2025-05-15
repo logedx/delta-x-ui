@@ -1,4 +1,4 @@
-import { Variable } from '../lib/style.js'
+import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
 export type TProperty = {
@@ -60,7 +60,7 @@ Component(
 			data: [] as Array<unknown>,
 
 			style(gap: string): string {
-				let css = new Variable<'gap'>('dx', 'inlaid')
+				let css = new style.Variable<'gap'>('dx', 'inlaid')
 
 				css.set('gap', gap)
 

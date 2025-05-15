@@ -1,4 +1,4 @@
-import { Variable } from '../lib/style.js'
+import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
 
 export type TProperty = {
@@ -47,7 +47,7 @@ Component(
 				let win = wx.getWindowInfo()
 				let menu = wx.getMenuButtonBoundingClientRect()
 
-				let css = new Variable<
+				let css = new style.Variable<
 						| 'background' | 'padding' | 'top' | 'min-height'
 						| 'safe-padding-left' | 'safe-padding-right'
 

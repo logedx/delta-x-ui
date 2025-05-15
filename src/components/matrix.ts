@@ -1,4 +1,4 @@
-import { Variable } from '../lib/style.js'
+import * as style from '../lib/style.js'
 
 
 export type TProperty = {
@@ -54,7 +54,7 @@ Component(
 			set_style(): void {
 				let { gap, row, column } = this.data
 
-				let css = new Variable<'row' | 'column' | 'gap'>('dx', 'matrix')
+				let css = new style.Variable<'row' | 'column' | 'gap'>('dx', 'matrix')
 
 				css.set('row', row)
 				css.set('row', column)

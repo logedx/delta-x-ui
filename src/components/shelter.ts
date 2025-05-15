@@ -1,4 +1,4 @@
-import { Variable } from '../lib/style.js'
+import * as style from '../lib/style.js'
 
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
@@ -93,7 +93,7 @@ Component(
 				let window = wx.getWindowInfo()
 				let menu = wx.getMenuButtonBoundingClientRect()
 
-				let css = new Variable<'breadcrumb-top' | 'breadcrumb-height' | 'layout-body-padding-top'>('dx', 'shelter')
+				let css = new style.Variable<'breadcrumb-top' | 'breadcrumb-height' | 'layout-body-padding-top'>('dx', 'shelter')
 
 				css.set('layout-body-padding-top', `${window.safeArea?.top ?? 0}px`)
 				css.set('breadcrumb-top', `${menu.top}px`)
