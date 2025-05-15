@@ -369,7 +369,7 @@ export class Http {
 
 	}
 
-	async call<F extends HttpFunction>(fn: F, ...args: Parameters<F>): Promise<Awaited<ReturnType<F>>> {
+	async clamp<F extends HttpFunction>(fn: F, ...args: Parameters<F>): Promise<Awaited<ReturnType<F>>> {
 		try {
 			await wx.showLoading(
 				{ title: '' },
@@ -424,7 +424,7 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 	>
 
-	static #burse = 0
+	static #offset = 0
 
 	static #latest = new Date()
 
@@ -461,7 +461,7 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 	static get now(): Date {
 		return new Date(
-			this.#burse + Date.now(),
+			this.#offset + Date.now(),
 
 		)
 
@@ -595,7 +595,7 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 							)
 
-							HttpTask.#burse = Math.floor(
+							HttpTask.#offset = Math.floor(
 								latest.valueOf() - Date.now(),
 
 							)
@@ -612,8 +612,28 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 									e.code = res.statusCode
 									e.header = res.header
 
+									e.name = res.data.name
 									e.message = res.data.message
-									e.exception = res.data.stack
+
+									if (res.data.stack.length > 0) {
+										e.stack = res.data.stack.join('\n')
+
+									}
+
+									else {
+										let stack = [
+											`${e.name}: ${e.message}`,
+											`	at ${res.statusCode}`,
+											`	at ${res.errMsg}`,
+											`	at ${option.method} ${option.url}`,
+											`	at #create_task (delta-x-ui)`,
+											`	at new HttpError (delta-x-ui)`,
+
+										]
+
+										e.stack = stack.join('\n')
+
+									}
 
 								}
 
@@ -629,10 +649,20 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 						},
 
 						fail(res): void {
-							reject(
-								new Error(res.errMsg),
+							let e = new HttpError()
 
-							)
+							let stack = [
+								`${e.name}: unable to connect`,
+								`	at ${res.errMsg}`,
+								`	at ${option.method} ${option.url}`,
+								`	at #create_task (delta-x-ui)`,
+								`	at new HttpError (delta-x-ui)`,
+
+							]
+
+							e.stack = stack.join('\n')
+
+							reject(e)
 
 						},
 
@@ -648,16 +678,26 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 }
 
 export class HttpError extends Error {
+	name = 'HttpError'
+
 	code = 400
 
 	#header = {}
 
-	#stack = '' as string
-
-	#exception = [] as Array<string>
-
 	set header(v: object) {
 		this.#header = v
+
+	}
+
+	get exception(): Array<string> {
+		if (detective.is_empty(this.stack)
+
+		) {
+			return []
+
+		}
+
+		return this.stack.split('\n')
 
 	}
 
@@ -678,26 +718,5 @@ export class HttpError extends Error {
 
 	}
 
-	set stack(v: string) {
-		this.#stack = v
-		this.#exception = v.split('\n')
-
-	}
-
-	get stack(): string {
-		return this.#stack
-
-	}
-
-	set exception(v: Array<string>) {
-		this.#exception = v
-		this.#stack = v.join('\n')
-
-	}
-
-	get exception(): Array<string> {
-		return this.#exception
-
-	}
 
 }
