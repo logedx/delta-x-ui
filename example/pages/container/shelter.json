@@ -1,6 +1,7 @@
 {
 	"disableScroll": true,
 	"navigationStyle": "custom",
+	"navigationBarTextStyle": "black",
 	"usingComponents": {
 		"author": "/example/components/author",
 		"dx-shelter": "/src/components/shelter",
