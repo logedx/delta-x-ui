@@ -5,5 +5,5 @@
 
 	<text class="placeholder" wx:else>{{ placeholder }}</text>
 
-	<dx-indicator icon="{{ icon }}" wx:if="{{ !readonly }}" />
+	<dx-indicator class="icon" icon="{{ icon }}" wx:if="{{ !readonly }}" />
 </view>

@@ -189,11 +189,12 @@ Component(
 			set_style(): void {
 				let parent = this.self().get_parent()
 
-				let css = new style.Variable<'text-align'>('dx', 'number')
+				let css = new style.Variable<'padding' | 'text-align'>('dx', 'number')
 
 				if (parent?.data?.newline === true
 
 				) {
+					css.set('padding', '0')
 					css.set('text-align', 'left')
 
 				}

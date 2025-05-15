@@ -97,7 +97,7 @@ Component(
 				if (parent?.data?.newline === true
 
 				) {
-					css.set('icon-justify-content', 'center')
+					css.set('icon-justify-content', 'flex-end')
 
 				}
 
