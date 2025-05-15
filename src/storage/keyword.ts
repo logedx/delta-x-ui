@@ -52,7 +52,7 @@ export async function retrieve_pagination(
 
 export async function delete_(_id: string): HttpTaskUnpackingResult<void> {
 	let h = http.delete(
-		`/user/${_id}`,
+		`/keyword/${_id}`,
 
 	)
 
