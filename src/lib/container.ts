@@ -139,7 +139,10 @@ export class Pagination<
 
 	#synch(): void {
 		try {
-			this.#update_handler(this, this.#finished)
+			this.#update_handler(
+				this.#collect(), this.#finished,
+
+			)
 
 		}
 
@@ -147,6 +150,11 @@ export class Pagination<
 			console.error(e)
 
 		}
+
+	}
+
+	#collect(): Array<V> {
+		return [...this]
 
 	}
 
@@ -375,7 +383,7 @@ export class Pagination<
 		) {
 			[this[b], this[a]] = [this[a], this[b]]
 
-			this.#update_handler(this, this.#finished)
+			this.#synch()
 
 			return [this[b], this[a]]
 
@@ -394,14 +402,14 @@ export class Pagination<
 	delete(index: number): void {
 		this.splice(index, 1)
 
-		this.#update_handler(this, this.#finished)
+		this.#synch()
 
 	}
 
 	replace(index: number, item: V): void {
 		this[index] = item
 
-		this.#update_handler(this, this.#finished)
+		this.#synch()
 
 	}
 
