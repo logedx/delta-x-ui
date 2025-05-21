@@ -369,7 +369,18 @@ export class Http {
 
 	}
 
-	async clamp<F extends HttpFunction>(fn: F, ...args: Parameters<F>): Promise<Awaited<ReturnType<F>>> {
+	static async clamp<F extends HttpFunction>(
+		fn: F,
+
+		...args: Parameters<F>
+
+	): Promise<
+		Awaited<
+			ReturnType<F>
+
+		>
+
+	> {
 		try {
 			await wx.showLoading(
 				{ title: '' },
