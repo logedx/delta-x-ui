@@ -38,11 +38,6 @@ Component(
 
 			},
 
-			on_catch(): void {
-				// 
-
-			},
-
 			on_value_confirm(
 				e: WechatMiniprogram.CustomEvent<
 					{ value: string }

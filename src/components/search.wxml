@@ -1,4 +1,4 @@
-<view class="dx-search class" catch:tap="on_catch" catch:longpress="on_catch">
+<view class="dx-search class">
 	<view class="enter">
 		<dx-icon
 			class="icon"
