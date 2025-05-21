@@ -387,13 +387,8 @@ export class Http {
 
 			)
 
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-			let data = await fn(...args)
-
-			await wx.hideLoading()
-
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-			return data
+			return await fn(...args)
 
 		}
 
@@ -420,6 +415,11 @@ export class Http {
 			)
 
 			throw e
+
+		}
+
+		finally {
+			await wx.hideLoading()
 
 		}
 
