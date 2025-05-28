@@ -5,9 +5,9 @@ import * as structure from './structure.js'
 
 
 export type PaginationBaseParams = {
-	skip: number
+	skip : number
 	limit: number
-	sort: string | Array<string>
+	sort : string | string[]
 
 }
 
@@ -22,35 +22,40 @@ export type PaginationCallHandler<T extends object = object> = (
 ) => T
 
 export type PaginationRetrieveHandler<T extends object, P extends object> = (params: PaginationParams<P>) => request.HttpTaskUnpackingResult<
-	Array<T>
+	T[]
 
 >
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type PaginationUpdateHandler<T> = (data: Array<T>, finished: boolean) => any
+export type PaginationUpdateHandler<T> = (data: T[], finished: boolean) => any
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PaginationLoadingHandler = (value: boolean) => any
 
 export type PaginationQueue = {
-	timer: number
+	timer  : number
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	promise: Promise<any>
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	resolve: (...v: Array<any>) => void
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style
+	resolve: (...v: any[]) => void
 
+	// eslint-disable-next-line @typescript-eslint/method-signature-style
 	reject: (e: Error) => void
 
 
 }
 
-export class Pagination<
+export class Pagination
+<
 	T extends object,
 	P extends object = object,
 
-	V = request.HttpBody<T>
-> extends Array<V> {
+	V = request.HttpBody<T>,
+>
+// eslint-disable-next-line @stylistic/indent
+extends Array<V>
+{
 	#skip = 0
 
 	#limit = 10
@@ -79,34 +84,40 @@ export class Pagination<
 
 	#retrieve_handler: PaginationRetrieveHandler<T, P> = () => Promise.resolve([])
 
-	#update_handler: PaginationUpdateHandler<V> = () => {
+	#update_handler: PaginationUpdateHandler<V> = () =>
+	{
 		// 
 
 	}
 
-	#loading_handler: PaginationLoadingHandler = () => {
+	#loading_handler: PaginationLoadingHandler = () =>
+	{
 		// 
 
 	}
 
 
-	set delay(v: number) {
+	set delay (v: number)
+	{
 		this.#delay = v
 
 	}
 
-	get loading(): boolean {
+	get loading (): boolean
+	{
 		return this.#loading
 
 	}
 
-	get finished(): boolean {
+	get finished (): boolean
+	{
 		return this.#finished
 
 	}
 
 
-	constructor(params?: P) {
+	constructor (params?: P)
+	{
 		super()
 
 		params = params ?? {} as P
@@ -117,28 +128,34 @@ export class Pagination<
 
 	}
 
-	#is_sort(v: unknown): v is string {
+	#is_sort (v: unknown): v is string
+	{
 		return detective.is_required_string(v) && (/^-?[a-z]+$/).test(v)
 
 	}
 
-	#ding(value: boolean): void {
+	#ding (value: boolean): void
+	{
 		this.#loading = value
 
-		try {
+		try
+		{
 			this.#loading_handler(value)
 
 		}
 
-		catch (e) {
+		catch (e)
+		{
 			console.error(e)
 
 		}
 
 	}
 
-	#synch(): void {
-		try {
+	#synch (): void
+	{
+		try
+		{
 			this.#update_handler(
 				this.#collect(), this.#finished,
 
@@ -146,22 +163,24 @@ export class Pagination<
 
 		}
 
-		catch (e) {
+		catch (e)
+		{
 			console.error(e)
 
 		}
 
 	}
 
-	#collect(): Array<V> {
+	#collect (): V[]
+	{
 		return [...this]
 
 	}
 
-	async #debounce_retrieve(): Promise<Array<V>> {
-		if (detective.is_exist(this.#queue)
-
-		) {
+	async #debounce_retrieve (): Promise<V[]>
+	{
+		if (detective.is_exist(this.#queue) )
+		{
 			let { timer, reject } = this.#queue
 
 			clearTimeout(timer)
@@ -175,14 +194,23 @@ export class Pagination<
 
 		}
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function
-		let resolve: (...v: Array<any>) => void = () => { }
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		let resolve: (...v: any[]) => void = () =>
+		{
+			// 
 
-		// eslint-disable-next-line @typescript-eslint/no-empty-function
-		let reject: (e: Error) => void = () => { }
+		}
 
-		let promise = new Promise<Array<V>>(
-			(res, rej) => {
+
+		let reject: (e: Error) => void = () =>
+		{
+			// 
+
+		}
+
+		let promise = new Promise<V[]>(
+			(res, rej) =>
+			{
 				resolve = res
 				reject = rej
 
@@ -191,7 +219,8 @@ export class Pagination<
 		)
 
 		let timer = setTimeout(
-			() => {
+			() =>
+			{
 				this.#queue = null
 
 				this.#retrieve()
@@ -216,7 +245,8 @@ export class Pagination<
 
 	}
 
-	async #retrieve(): Promise<Array<V>> {
+	async #retrieve (): Promise<V[]>
+	{
 		let skip = this.#skip
 		let limit = this.#limit
 		let sort = this.#sort
@@ -224,8 +254,10 @@ export class Pagination<
 
 		this.#ding(true)
 
-		try {
-			if (this.#linker && this.#call_handler) {
+		try
+		{
+			if (this.#linker && this.#call_handler)
+			{
 				this.#params = this.#call_handler(this.#linker, this.#skip, this.#limit, this.#sort)
 
 			}
@@ -238,17 +270,19 @@ export class Pagination<
 
 			this.#finished = items.length < this.#limit
 
-			this.push(...items as Array<V>)
+			this.push(...items as V[])
 
 			this.#synch()
 
-			return items as Array<V>
+			return items as V[]
 
 		}
 
-		finally {
+		finally
+		{
 			wx.nextTick(
-				() => {
+				() =>
+				{
 					this.#ding(false)
 
 				},
@@ -259,37 +293,42 @@ export class Pagination<
 
 	}
 
-	on(name: 'call', fn: PaginationCallHandler<P>): this;
+	on
+	(name: 'call', fn: PaginationCallHandler<P>): this
 
-	on(name: 'loading', fn: PaginationLoadingHandler): this;
+	on
+	(name: 'loading', fn: PaginationLoadingHandler): this
 
-	on(name: 'update', fn: PaginationUpdateHandler<V>): this;
+	on
+	(name: 'update', fn: PaginationUpdateHandler<V>): this
 
-	on(name: 'retrieve', fn: PaginationRetrieveHandler<T, P>): this;
+	on
+	(name: 'retrieve', fn: PaginationRetrieveHandler<T, P>): this
 
-	on(
-		name: string,
-
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		fn: (...args: Array<any>) => any,
-
-	): this {
-		if (name === 'call') {
+	on
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	(name: string, fn: (...args: any[]) => any): this
+	{
+		if (name === 'call')
+		{
 			this.#call_handler = fn as PaginationCallHandler<P>
 
 		}
 
-		if (name === 'loading') {
+		if (name === 'loading')
+		{
 			this.#loading_handler = fn as PaginationLoadingHandler
 
 		}
 
-		if (name === 'update') {
+		if (name === 'update')
+		{
 			this.#update_handler = fn as PaginationUpdateHandler<V>
 
 		}
 
-		if (name === 'retrieve') {
+		if (name === 'retrieve')
+		{
 			this.#retrieve_handler = fn as PaginationRetrieveHandler<T, P>
 
 		}
@@ -299,17 +338,22 @@ export class Pagination<
 	}
 
 
-	params(key: 'limit', value: number): this
+	params
+	(key: 'limit', value: number): this
 
-	params(key: 'sort', value: PaginationParams['sort']): this
+	params
+	(key: 'sort', value: PaginationParams['sort']): this
 
-	params<K extends keyof P>(key: K, value?: P[K]): this
+	params
+	<K extends keyof P>(key: K, value?: P[K]): this
 
-	params(key: string, value?: unknown): this {
-		if (key === 'limit') {
-			if (detective.is_natural_number(value)
-
-			) {
+	params
+	(key: string, value?: unknown): this
+	{
+		if (key === 'limit')
+		{
+			if (detective.is_natural_number(value) )
+			{
 				this.#limit = value
 
 				return this
@@ -320,10 +364,10 @@ export class Pagination<
 
 		}
 
-		if (key === 'sort') {
-			if (this.#is_sort(value)
-
-			) {
+		if (key === 'sort')
+		{
+			if (this.#is_sort(value) )
+			{
 				this.#sort = value
 
 				return this
@@ -332,9 +376,8 @@ export class Pagination<
 
 
 			// eslint-disable-next-line @typescript-eslint/unbound-method
-			if (detective.is_array(value) && value.every(this.#is_sort)
-
-			) {
+			if (detective.is_array(value) && value.every(this.#is_sort) )
+			{
 				this.#sort = value
 
 				return this
@@ -348,14 +391,14 @@ export class Pagination<
 
 
 
-		if (detective.is_undefined(value)
-
-		) {
+		if (detective.is_undefined(value) )
+		{
 			delete this.#params[key as keyof P]
 
 		}
 
-		else {
+		else
+		{
 			this.#params[key as keyof P] = value as P[keyof P]
 
 		}
@@ -364,10 +407,10 @@ export class Pagination<
 
 	}
 
-	get(index: number): null | V {
-		if (detective.is_undefined(this[index])
-
-		) {
+	get (index: number): null | V
+	{
+		if (detective.is_undefined(this[index]) )
+		{
 			return null
 
 		}
@@ -376,11 +419,11 @@ export class Pagination<
 
 	}
 
-	swap(a: number, b: number): [V, V] {
+	swap (a: number, b: number): [V, V]
+	{
 		if (detective.is_exist(this[a])
-			&& detective.is_exist(this[b])
-
-		) {
+			&& detective.is_exist(this[b]) )
+		{
 			[this[b], this[a]] = [this[a], this[b]]
 
 			this.#synch()
@@ -394,32 +437,38 @@ export class Pagination<
 
 	}
 
-	update(index: number, value: V): void {
+	update (index: number, value: V): void
+	{
 		this[index] = value
 
 	}
 
-	delete(index: number): void {
+	delete (index: number): void
+	{
 		this.splice(index, 1)
 
 		this.#synch()
 
 	}
 
-	replace(index: number, item: V): void {
+	replace (index: number, item: V): void
+	{
 		this[index] = item
 
 		this.#synch()
 
 	}
 
-	reset(): this {
+	reset (): this
+	{
 		this.#params = structure.clone(this.#params_)
 
 		return this
+
 	}
 
-	clear(): this {
+	clear (): this
+	{
 		this.#skip = 0
 		this.length = 0
 
@@ -427,8 +476,10 @@ export class Pagination<
 
 	}
 
-	first(): Promise<Array<V>> {
-		if (this.#loading) {
+	first (): Promise<V[]>
+	{
+		if (this.#loading)
+		{
 			throw new Error('Pagination is loading')
 
 		}
@@ -437,8 +488,10 @@ export class Pagination<
 
 	}
 
-	next(): Promise<Array<V>> {
-		if (this.#finished) {
+	next (): Promise<V[]>
+	{
+		if (this.#finished)
+		{
 			return Promise.resolve([])
 
 		}
@@ -449,24 +502,26 @@ export class Pagination<
 
 	}
 
-	link(
+	link (
 		v: WechatMiniprogram.Component.TrivialInstance,
 
 		map?: Optional<
 			{
-				data: string
-				loading: string
+				data    : string
+				loading : string
 				finished: string
 
 			}
 
 		>,
 
-	): this {
+	): this
+	{
 		this.on(
 			'loading',
 
-			(a) => {
+			a =>
+			{
 				v.setData(
 					{ [map?.loading ?? 'loading']: a },
 
@@ -479,7 +534,8 @@ export class Pagination<
 		this.on(
 			'update',
 
-			(a, b) => {
+			(a, b) =>
+			{
 				v.setData(
 					{ [map?.data ?? 'data']: a, [map?.finished ?? 'finished']: b },
 
@@ -495,7 +551,8 @@ export class Pagination<
 
 	}
 
-	unlink(): void {
+	unlink (): void
+	{
 		this.clear()
 		this.reset()
 
@@ -507,32 +564,31 @@ export class Pagination<
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ExclusiveHandler =(...args: Array<any>) => any
+export type ExclusiveHandler = (...args: any[]) => any
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ExclusiveParameters<F> = F extends (arg0: any, ...rest: infer R) => any ? R : never;
+export type ExclusiveParameters<F> = F extends (arg0: any, ...rest: infer R) => any ? R : never
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ExclusiveCreateHandler = (...args: Array<any>) => Promise<any>
+export type ExclusiveCreateHandler = (...args: any[]) => Promise<any>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ExclusiveUpdateHandler = (_id: string, ...args: Array<any>) => Promise<void>
+export type ExclusiveUpdateHandler = (_id: string, ...args: any[]) => Promise<void>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ExclusiveRetrieveHandler = (_id: string, ...args: Array<any>) => Promise<any>
+export type ExclusiveRetrieveHandler = (_id: string, ...args: any[]) => Promise<any>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ExclusiveDeleteHandler = (_id: string, ...args: Array<any>) => Promise<void>
+export type ExclusiveDeleteHandler = (_id: string, ...args: any[]) => Promise<void>
 
-export type ExclusiveParametersHandler<F extends ExclusiveHandler> = (...args: ExclusiveParameters<F>) => ReturnType<F>;
+export type ExclusiveParametersHandler<F extends ExclusiveHandler> = (...args: ExclusiveParameters<F>) => ReturnType<F>
 
 export type ExclusiveHandlerCall<C, U, R, D> = Exclude<
 	| (C extends never ? never : 'create')
 	| (U extends never ? never : 'update')
 	| (R extends never ? never : 'retrieve')
-	| (D extends never ? never : 'delete')
+	| (D extends never ? never : 'delete'),
 
-	,
 
 	never
 
@@ -543,17 +599,17 @@ export type ExclusiveHandlerCallParams<
 	C extends ExclusiveCreateHandler,
 	U extends ExclusiveUpdateHandler,
 	R extends ExclusiveRetrieveHandler,
-	D extends ExclusiveDeleteHandler
+	D extends ExclusiveDeleteHandler,
 
 > = F extends 'create'
 	? Parameters<C>
 	: F extends 'update'
-	? ExclusiveParameters<U>
-	: F extends 'retrieve'
-	? Parameters<R>
-	: F extends 'delete'
-	? ExclusiveParameters<D>
-	: never
+		? ExclusiveParameters<U>
+		: F extends 'retrieve'
+			? Parameters<R>
+			: F extends 'delete'
+				? ExclusiveParameters<D>
+				: never
 
 
 export class Exclusive<
@@ -563,9 +619,10 @@ export class Exclusive<
 
 	R extends ExclusiveRetrieveHandler = never,
 
-	D extends ExclusiveDeleteHandler = never
+	D extends ExclusiveDeleteHandler = never,
 
-> {
+>
+{
 	#id: null | string = null
 
 	#data: unknown = null
@@ -590,11 +647,11 @@ export class Exclusive<
 
 
 
-	get _id(): string {
+	get _id (): string
+	{
 		if (detective.is_exist(this.#id)
-
-
-		) {
+		)
+		{
 			return this.#id
 
 		}
@@ -603,27 +660,32 @@ export class Exclusive<
 
 	}
 
-	get loading(): boolean {
+	get loading (): boolean
+	{
 		return this.#loading
 
 	}
 
-	get create(): C {
+	get create (): C
+	{
 		return this.#create.bind(this) as C
 
 	}
 
-	get update(): ExclusiveParametersHandler<U> {
+	get update (): ExclusiveParametersHandler<U>
+	{
 		return this.#update.bind(this) as ExclusiveParametersHandler<U>
 
 	}
 
-	get retrieve(): R {
+	get retrieve (): R
+	{
 		return this.#retrieve.bind(this) as R
 
 	}
 
-	get delete(): ExclusiveParametersHandler<D> {
+	get delete (): ExclusiveParametersHandler<D>
+	{
 		return this.#delete.bind(this) as ExclusiveParametersHandler<D>
 
 	}
@@ -631,8 +693,10 @@ export class Exclusive<
 
 
 
-	#wait(value = true): void {
-		if (value && this.#loading) {
+	#wait (value = true): void
+	{
+		if (value && this.#loading)
+		{
 			throw new Error('container is loading')
 
 		}
@@ -640,7 +704,8 @@ export class Exclusive<
 		this.#loading = value
 
 
-		if (this.#linker === null) {
+		if (this.#linker === null)
+		{
 			return
 
 		}
@@ -654,14 +719,16 @@ export class Exclusive<
 
 	}
 
-	#finish(
-		fn: (...args: Array<unknown>) => void,
+	#finish (
+		fn: (...args: unknown[]) => void,
 
-		...args: Array<unknown>
+		...args: unknown[]
 
-	): void {
+	): void
+	{
 		wx.nextTick(
-			() => {
+			() =>
+			{
 				this.#wait(false)
 
 				fn(...args)
@@ -675,19 +742,29 @@ export class Exclusive<
 
 	async #call<V>(
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		fn: (...args: Array<any>) => Promise<V>,
+		fn: (...args: any[]) => Promise<V>,
 
-	): Promise<V> {
+	): Promise<V>
+	{
 		this.#wait()
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function
-		let resolve: (...v: Array<any>) => void = () => { }
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		let resolve: (...v: any[]) => void = () =>
+		{
+			// 
 
-		// eslint-disable-next-line @typescript-eslint/no-empty-function
-		let reject: (e: unknown) => void = () => { }
+		}
+
+
+		let reject: (e: unknown) => void = () =>
+		{
+			// 
+
+		}
 
 		let promise = new Promise<V>(
-			(res, rej) => {
+			(res, rej) =>
+			{
 				resolve = res
 				reject = rej
 
@@ -695,14 +772,16 @@ export class Exclusive<
 
 		)
 
-		try {
+		try
+		{
 			let v = await fn()
 
 			this.#finish(resolve, v)
 
 		}
 
-		catch (e) {
+		catch (e)
+		{
 			this.#finish(reject, e)
 
 		}
@@ -714,8 +793,10 @@ export class Exclusive<
 
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async #create(...args: Array<any>): Promise<any> {
-		if (this.#create_handle === null) {
+	async #create (...args: any[]): Promise<any>
+	{
+		if (this.#create_handle === null)
+		{
 			throw new Error('container cannot be created')
 
 		}
@@ -726,9 +807,8 @@ export class Exclusive<
 
 		)
 
-		if (detective.is_object_id_string(res)
-
-		) {
+		if (detective.is_object_id_string(res) )
+		{
 			this.#id = res
 
 		}
@@ -741,8 +821,10 @@ export class Exclusive<
 
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async #update(...args: Array<any>): Promise<any> {
-		if (this.#id === null || this.#update_handle === null) {
+	async #update (...args: any[]): Promise<any>
+	{
+		if (this.#id === null || this.#update_handle === null)
+		{
 			throw new Error('container cannot be updated')
 
 		}
@@ -761,8 +843,10 @@ export class Exclusive<
 
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async #retrieve(_id: string, ...args: Array<any>): Promise<any> {
-		if (this.#retrieve_handle === null) {
+	async #retrieve (_id: string, ...args: any[]): Promise<any>
+	{
+		if (this.#retrieve_handle === null)
+		{
 			throw new Error('container cannot be retrieved')
 
 		}
@@ -783,8 +867,10 @@ export class Exclusive<
 
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async #delete(...args: Array<any>): Promise<any> {
-		if (this.#id === null || this.#delete_handle === null) {
+	async #delete (...args: any[]): Promise<any>
+	{
+		if (this.#id === null || this.#delete_handle === null)
+		{
 			throw new Error('container cannot be deleted')
 
 		}
@@ -812,29 +898,34 @@ export class Exclusive<
 
 	on<F extends ExclusiveDeleteHandler>(name: 'delete', fn: F): Exclusive<C, U, R, F>
 
-	on(
+	on (
 		name: string,
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		fn: (...args: Array<any>) => any,
+		fn: (...args: any[]) => any,
 
-	): this {
-		if (name === 'create') {
+	): this
+	{
+		if (name === 'create')
+		{
 			this.#create_handle = fn
 
 		}
 
-		if (name === 'update') {
+		if (name === 'update')
+		{
 			this.#update_handle = fn
 
 		}
 
-		if (name === 'retrieve') {
+		if (name === 'retrieve')
+		{
 			this.#retrieve_handle = fn
 
 		}
 
-		if (name === 'delete') {
+		if (name === 'delete')
+		{
 			this.#delete_handle = fn
 
 		}
@@ -844,31 +935,34 @@ export class Exclusive<
 	}
 
 
-	async emit<
-		M extends ExclusiveHandlerCall<C, U, R, D>
-
-	>(
+	async emit<M extends ExclusiveHandlerCall<C, U, R, D>> (
 		method: M,
 
 		...args: ExclusiveHandlerCallParams<M, C, U, R, D>
 
-	): Promise<void> {
-		if (method === 'create') {
+	)
+	: Promise<void>
+	{
+		if (method === 'create')
+		{
 			await this.#create(...args)
 
 		}
 
-		if (method === 'update') {
+		if (method === 'update')
+		{
 			await this.#update(...args)
 
 		}
 
-		if (method === 'retrieve') {
+		if (method === 'retrieve')
+		{
 			await this.#retrieve(...args as [string])
 
 		}
 
-		if (method === 'delete') {
+		if (method === 'delete')
+		{
 			await this.#delete(...args)
 
 		}
@@ -877,40 +971,46 @@ export class Exclusive<
 
 	}
 
-	clear(): void {
+	clear (): void
+	{
 		this.#id = null
 		this.#data = null
 
 	}
 
 
-	get(): Awaited<ReturnType<R>>
+	get
+	(): Awaited<ReturnType<R>>
 
-	get<K extends keyof Awaited<ReturnType<R>>>(
+	get
+	<K extends keyof Awaited<ReturnType<R>>> (
 		key: K extends string ? Lowercase<K> : K,
 
-	): Awaited<ReturnType<R>>[K]
+	)
+	: Awaited<ReturnType<R>>[K]
 
-	get<T extends Awaited<ReturnType<R>>, K extends keyof T>(
+	get
+	<T extends Awaited<ReturnType<R>>, K extends keyof T> (
 		key: K extends string ? Lowercase<K> : K,
 
 		_default: T[K]
 
-	): Exclude<T[K], undefined>
+	)
+	: Exclude<T[K], undefined>
 
+	get
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-	get(key?: any, _default?: any): any {
-		if (detective.is_object(this.#data) === false
-
-		) {
+	(key?: any, _default?: any): any
+	{
+		if (detective.is_object(this.#data) === false)
+		{
 			throw new Error('data is not exist')
 
 		}
 
 
-		if (detective.is_exist(key)
-
-		) {
+		if (detective.is_exist(key) )
+		{
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-argument
 			return structure.get(this.#data, key, _default)
 
@@ -921,10 +1021,11 @@ export class Exclusive<
 	}
 
 
-	pick<T extends Awaited<ReturnType<R>>, K extends keyof T>(...keys: Array<K>): Pick<T, K> {
-		if (detective.is_object(this.#data) === false
-
-		) {
+	pick
+	<T extends Awaited<ReturnType<R>>, K extends keyof T> (...keys: K[]): Pick<T, K>
+	{
+		if (detective.is_object(this.#data) === false)
+		{
 			throw new Error('data is not exist')
 
 		}
@@ -934,15 +1035,13 @@ export class Exclusive<
 	}
 
 
-	link(
-		v: WechatMiniprogram.Component.TrivialInstance,
-
-		map?: { loading: string },
-
-	): this {
+	link
+	(v: WechatMiniprogram.Component.TrivialInstance, map?: { loading: string }): this
+	{
 		this.#linker = v
 
-		if (map) {
+		if (map)
+		{
 			this.#linker_map = map
 
 		}
@@ -952,7 +1051,8 @@ export class Exclusive<
 	}
 
 
-	unlink(): void {
+	unlink (): void
+	{
 		this.clear()
 
 		this.#linker = null

@@ -17,11 +17,9 @@ type RequestHttpTaskResult = request.HttpTaskResult<
 
 >
 
-export async function create(
-	cypher: string,
-	path: string,
-
-): HttpTaskUnpackingResult<RequestHttpTaskResult> {
+export async function create
+(cypher: string, path: string): HttpTaskUnpackingResult<RequestHttpTaskResult>
+{
 	let h = http.post<THydratedDocumentTypeResult, RequestHttpTaskResult['header']>(
 		'/stamp',
 
@@ -34,10 +32,9 @@ export async function create(
 }
 
 
-export async function query(
-	value: string,
-
-): HttpTaskUnpackingResult<RequestHttpTaskResult> {
+export async function query
+(value: string): HttpTaskUnpackingResult<RequestHttpTaskResult>
+{
 	let h = http.option<THydratedDocumentTypeResult, RequestHttpTaskResult['header']>(
 		`/stamp/${value}`,
 
@@ -49,10 +46,9 @@ export async function query(
 }
 
 
-export async function retrieve(
-	id: string,
-
-): HttpTaskUnpackingResult<RequestHttpTaskResult> {
+export async function retrieve
+(id: string): HttpTaskUnpackingResult<RequestHttpTaskResult>
+{
 	let h = http.get<THydratedDocumentTypeResult, RequestHttpTaskResult['header']>(
 		`/stamp/${id}`,
 

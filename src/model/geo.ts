@@ -2,7 +2,7 @@ import * as model from '../lib/model.js'
 
 
 export type TPointRawDocType = {
-	type: string
+	type       : string
 	coordinates: [number, number]
 
 }

@@ -3,7 +3,8 @@ import * as operator_variant from './operator.variant.js'
 
 
 
-export enum TEvent {
+export enum TEvent
+{
 	update = 'update',
 	notify = 'notify',
 
@@ -17,11 +18,11 @@ type TBehaviorData = {
 
 }
 
-type TBehaviorProperty ={
-	value: WechatMiniprogram.Component.FullProperty<StringConstructor>
+type TBehaviorProperty = {
+	value      : WechatMiniprogram.Component.FullProperty<StringConstructor>
 	placeholder: WechatMiniprogram.Component.FullProperty<StringConstructor>
-	required: WechatMiniprogram.Component.FullProperty<BooleanConstructor>
-	readonly: WechatMiniprogram.Component.FullProperty<BooleanConstructor>
+	required   : WechatMiniprogram.Component.FullProperty<BooleanConstructor>
+	readonly   : WechatMiniprogram.Component.FullProperty<BooleanConstructor>
 
 }
 
@@ -56,10 +57,10 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 		behaviors: [operator_variant.linker_behavior],
 
 		properties: {
-			value: { type: String, value: '' },
+			value      : { type: String, value: '' },
 			placeholder: { type: String, value: '' },
-			required: { type: Boolean, value: false },
-			readonly: { type: Boolean, value: false },
+			required   : { type: Boolean, value: false },
+			readonly   : { type: Boolean, value: false },
 
 		},
 
@@ -69,7 +70,8 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 		},
 
 		observers: {
-			value(v: unknown): void {
+			value (v: unknown): void
+			{
 				this.update_(v)
 
 			},
@@ -77,7 +79,8 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 		},
 
 		lifetimes: {
-			ready(): void {
+			ready (): void
+			{
 				this.set_style_()
 
 			},
@@ -85,17 +88,20 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 		},
 
 		methods: {
-			self(): operator_variant.TLinkerBehaviorInstance {
+			self (): operator_variant.TLinkerBehaviorInstance
+			{
 				return this as unknown as operator_variant.TLinkerBehaviorInstance
 
 			},
 
-			update_(value: unknown): void {
+			update_ (value: unknown): void
+			{
 				let v = this.data.value
 
 				this.set_style_()
 
-				if (v === value) {
+				if (v === value)
+				{
 					return
 
 				}
@@ -114,7 +120,8 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 
 			},
 
-			focus_(): void {
+			focus_ (): void
+			{
 				this.setData(
 					{ focus: true },
 
@@ -122,7 +129,8 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 
 			},
 
-			blur_(): void {
+			blur_ (): void
+			{
 				this.setData(
 					{ focus: false },
 
@@ -130,7 +138,8 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 
 			},
 
-			set_style_(): void {
+			set_style_ (): void
+			{
 				let parent = this.self().get_parent()
 
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
@@ -139,25 +148,28 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 
 			},
 
-			on_focus(): void {
+			on_focus (): void
+			{
 				this.focus_()
 				this.set_style_()
 
 			},
 
-			on_blur(): void {
+			on_blur (): void
+			{
 				this.blur_()
 				this.set_style_()
 
 			},
 
-			on_input(
+			on_input (
 				e: WechatMiniprogram.CustomEvent<
 					{ value: string }
 
 				>,
 
-			): void {
+			): void
+			{
 				let { value } = e.detail
 
 				this.update_(
@@ -167,18 +179,20 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 
 			},
 
-			on_confirm(): void {
+			on_confirm (): void
+			{
 				this.triggerEvent(TEvent.confirm)
 
 			},
 
-			on_keyboard_height_change(
+			on_keyboard_height_change (
 				e: WechatMiniprogram.CustomEvent<
 					{ height: number, duration: number }
 
 				>,
 
-			): void {
+			): void
+			{
 				let { height } = e.detail
 
 				this.setData(

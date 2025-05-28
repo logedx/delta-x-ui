@@ -18,7 +18,8 @@ Component(
 			'./claim': {
 				type: 'ancestor',
 
-				linked(target) {
+				linked (target)
+				{
 					this.setData(
 						{ parent: target },
 
@@ -32,7 +33,8 @@ Component(
 			'./label': {
 				type: 'ancestor',
 
-				linked(target) {
+				linked (target)
+				{
 					this.setData(
 						{ parent: target },
 
@@ -55,9 +57,9 @@ Component(
 
 		properties: {
 			// '' | 'time' | 'date'
-			mode: { type: String, value: '' },
-			value: { type: String, value: '' },
-			icon: { type: String, value: '' },
+			mode       : { type: String, value: '' },
+			value      : { type: String, value: '' },
+			icon       : { type: String, value: '' },
 			placeholder: { type: String, value: '' },
 
 		},
@@ -68,13 +70,16 @@ Component(
 			date: '',
 			time: '',
 
-			is_date(mode: '' | 'time' | 'date'): boolean {
+			is_date (mode: '' | 'time' | 'date'): boolean
+			{
 				return mode !== 'time'
 
 			},
 
-			is_time(mode: '' | 'time' | 'date', date: string): boolean {
-				if (mode === 'time') {
+			is_time (mode: '' | 'time' | 'date', date: string): boolean
+			{
+				if (mode === 'time')
+				{
 					return true
 
 				}
@@ -86,7 +91,8 @@ Component(
 		},
 
 		observers: {
-			value(v: string) {
+			value (v: string)
+			{
 				this.cover(v)
 
 			},
@@ -94,14 +100,16 @@ Component(
 		},
 
 		lifetimes: {
-			attached() {
+			attached ()
+			{
 				let { value } = this.data
 
 				this.cover(value)
 
 			},
 
-			ready(): void {
+			ready (): void
+			{
 				this.set_style()
 
 			},
@@ -109,31 +117,32 @@ Component(
 		},
 
 		methods: {
-			self(): operator_variant.TLinkerBehaviorInstance {
+			self (): operator_variant.TLinkerBehaviorInstance
+			{
 				return this as unknown as operator_variant.TLinkerBehaviorInstance
 
 			},
 
-			set_style(): void {
+			set_style (): void
+			{
 				let { mode, time } = this.data
 
 				let parent = this.self().get_parent()
 
 				let css = new style.Variable<'justify-content' | 'date-picker-grow' | 'time-picker-grow'>('dx', 'datetime')
 
-				if (parent?.data?.newline === true
-
-				) {
+				if (parent?.data?.newline === true)
+				{
 					css.set('justify-content', 'flex-start')
 
-					if (mode === 'time' || detective.is_required_string(time)
-
-					) {
+					if (mode === 'time' || detective.is_required_string(time) )
+					{
 						css.set('time-picker-grow', '1')
 
 					}
 
-					else {
+					else
+					{
 						css.set('date-picker-grow', '1')
 
 					}
@@ -147,30 +156,29 @@ Component(
 
 			},
 
-			cover(v: string) {
+			cover (v: string): void
+			{
 				let date = ''
 				let time = ''
 
 				let { mode } = this.data
 
-				if (mode === 'time') {
-					if (detective.is_24_hour_system_string(v)
-
-					) {
+				if (mode === 'time')
+				{
+					if (detective.is_24_hour_system_string(v) )
+					{
 						time = v
 
 					}
 
 				}
 
-				else if (detective.is_date_string(v)
-
-				) {
+				else if (detective.is_date_string(v) )
+				{
 					date = moment(v).format('YYYY-MM-DD')
 
-					if (detective.is_empty(mode)
-
-					) {
+					if (detective.is_empty(mode) )
+					{
 						time = moment(v).format('HH:mm')
 
 					}
@@ -188,12 +196,12 @@ Component(
 
 			},
 
-			update(date: string, time: string): void {
+			update (date: string, time: string): void
+			{
 				let v = [date]
 
-				if (detective.is_24_hour_system_string(time)
-
-				) {
+				if (detective.is_24_hour_system_string(time) )
+				{
 					v.push(time)
 
 				}
@@ -217,17 +225,21 @@ Component(
 
 			},
 
-			on_update_date(
+			on_update_date
+			(
 				e: WechatMiniprogram.CustomEvent<
 					{ value: string }
 
 				>,
 
-			) {
+			)
+			: void
+			{
 				let { value } = e.detail
 				let { mode, time } = this.data
 
-				if (mode === 'time') {
+				if (mode === 'time')
+				{
 					return
 
 				}
@@ -237,17 +249,21 @@ Component(
 
 			},
 
-			on_update_time(
+			on_update_time
+			(
 				e: WechatMiniprogram.CustomEvent<
 					{ value: string }
 
 				>,
 
-			) {
+			)
+			: void
+			{
 				let { value } = e.detail
 				let { mode, date } = this.data
 
-				if (mode === 'time') {
+				if (mode === 'time')
+				{
 					let v = value.replaceAll(':', '')
 
 					this.setData(

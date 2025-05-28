@@ -4,9 +4,9 @@ import * as detective from '../lib/detective.js'
 
 
 
-type Linker = 	{
+type Linker = {
 	parent: WechatMiniprogram.Component.TrivialInstance
-	child: Array<WechatMiniprogram.Component.TrivialInstance>
+	child : WechatMiniprogram.Component.TrivialInstance[]
 
 }
 
@@ -45,7 +45,8 @@ export const hash_behavior = Behavior<THashBehaviorData, THashBehaviorProperty, 
 		},
 
 		lifetimes: {
-			created(): void {
+			created (): void
+			{
 				let _id = `x${alchemy.hex(8)}`
 
 				this.setData(
@@ -55,7 +56,8 @@ export const hash_behavior = Behavior<THashBehaviorData, THashBehaviorProperty, 
 
 			},
 
-			attached(): void {
+			attached (): void
+			{
 				let { _id } = this.data
 
 				linked.set(
@@ -65,7 +67,8 @@ export const hash_behavior = Behavior<THashBehaviorData, THashBehaviorProperty, 
 
 			},
 
-			detached(): void {
+			detached (): void
+			{
 				let { _id } = this.data
 
 				linked.delete(_id)
@@ -75,14 +78,14 @@ export const hash_behavior = Behavior<THashBehaviorData, THashBehaviorProperty, 
 		},
 
 		methods: {
-			get_child(): Array<WechatMiniprogram.Component.TrivialInstance> {
+			get_child (): WechatMiniprogram.Component.TrivialInstance[]
+			{
 				let { _id } = this.data
 
 				let v = linked.get(_id)
 
-				if (detective.is_empty(v)
-
-				) {
+				if (detective.is_empty(v) )
+				{
 					return []
 
 				}
@@ -91,14 +94,14 @@ export const hash_behavior = Behavior<THashBehaviorData, THashBehaviorProperty, 
 
 			},
 
-			push_child(target: WechatMiniprogram.Component.TrivialInstance): void {
+			push_child (target: WechatMiniprogram.Component.TrivialInstance): void
+			{
 				let { _id } = this.data
 
 				let v = linked.get(_id)
 
-				if (detective.is_empty(v)
-
-				) {
+				if (detective.is_empty(v) )
+				{
 					return
 
 				}
@@ -157,12 +160,12 @@ export const linker_behavior = Behavior<TLinkerBehaviorData, TLinkerBehaviorProp
 		},
 
 		lifetimes: {
-			attached(): void {
+			attached (): void
+			{
 				let { is } = this.data
 
-				if (detective.is_empty(is)
-
-				) {
+				if (detective.is_empty(is) )
+				{
 					return
 
 
@@ -176,7 +179,8 @@ export const linker_behavior = Behavior<TLinkerBehaviorData, TLinkerBehaviorProp
 		},
 
 		methods: {
-			get_parent(): null | WechatMiniprogram.Component.TrivialInstance {
+			get_parent (): null | WechatMiniprogram.Component.TrivialInstance
+			{
 				let { hash } = this.data
 
 				return linked.get(hash)?.parent ?? null
@@ -194,7 +198,8 @@ export const linker_behavior = Behavior<TLinkerBehaviorData, TLinkerBehaviorProp
 
 
 
-export enum TEvent {
+export enum TEvent
+{
 	submit = 'submit',
 	abnormal = 'abnormal',
 
@@ -233,9 +238,11 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 		},
 
 		lifetimes: {
-			ready(): void {
+			ready (): void
+			{
 				wx.nextTick(
-					() => {
+					() =>
+					{
 						this.location()
 
 					},
@@ -248,14 +255,16 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 		},
 
 		methods: {
-			location(): void {
+			location (): void
+			{
 				let { _id } = this.data as unknown as THashBehaviorData
 
 				let query = this.createSelectorQuery()
 
 				query.select(`#${_id}`).boundingClientRect()
 				query.exec(
-					([res]) => {
+					([res]) =>
+					{
 						// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
 						let top = Math.floor(res?.top ?? 0)
 						// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument

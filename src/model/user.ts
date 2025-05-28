@@ -15,12 +15,12 @@ export type TRawDocType = model.TRawDocType<
 
 		active: boolean
 
-		avatar: string
+		avatar  : string
 		nickname: string
 
 		phone?: string
 
-		wxopenid?: string
+		wxopenid? : string
 		wxsession?: string
 
 		scope: null | scope_model.THydratedDocumentType

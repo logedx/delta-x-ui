@@ -5,7 +5,8 @@ Component(
 
 			loading: () => new Promise(
 				resolve => setTimeout(
-					() => {
+					() =>
+					{
 						resolve([1, 2, 3, 4])
 
 					},
@@ -18,8 +19,10 @@ Component(
 
 			exception: () => new Promise(
 				(_, reject) => setTimeout(
-					() => {
-						reject(new Error('exception'))
+					() =>
+					{
+						reject(new Error('exception') )
+
 					},
 
 					2000,

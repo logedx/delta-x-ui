@@ -1,4 +1,5 @@
-export enum TEvent {
+export enum TEvent
+{
 	active = 'active',
 
 }
@@ -24,13 +25,15 @@ Component(
 		},
 
 		methods: {
-			on_active(
+			on_active
+			(
 				e: WechatMiniprogram.BaseEvent<
 					object, { name: string }
 
 					>,
 
-			): void {
+			): void
+			{
 				this.triggerEvent(TEvent.active, e.currentTarget.dataset)
 
 			},

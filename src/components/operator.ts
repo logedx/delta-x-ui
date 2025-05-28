@@ -14,7 +14,7 @@ type TClaimInstance = WechatMiniprogram.Component.Instance<
 	},
 
 	{
-		name: WechatMiniprogram.Component.FullProperty<StringConstructor>,
+		name : WechatMiniprogram.Component.FullProperty<StringConstructor>
 		value: WechatMiniprogram.Component.FullProperty<StringConstructor>
 
 	},
@@ -32,7 +32,8 @@ Component(
 
 				target: operator_variant.behavior,
 
-				linked(target) {
+				linked (target)
+				{
 					let { node } = this.data
 
 					node.push(target as TClaimInstance)
@@ -59,26 +60,27 @@ Component(
 		},
 
 		properties: {
-			name: { type: String, value: '' },
-			once: { type: Boolean, value: false },
-			wait: { type: Boolean, value: false },
+			name   : { type: String, value: '' },
+			once   : { type: Boolean, value: false },
+			wait   : { type: Boolean, value: false },
 			loading: { type: Boolean, value: false },
 
 		},
 
 		data: {
-			into: '',
+			into : '',
 			style: '',
 
 			submit: false,
 
-			node: [] as Array<TClaimInstance>,
+			node: [] as TClaimInstance[],
 
 
 		},
 
 		methods: {
-			filter(): Array<TClaimInstance> {
+			filter (): TClaimInstance[]
+			{
 				let { node } = this.data
 
 				return node.filter(
@@ -88,12 +90,12 @@ Component(
 
 			},
 
-			check(): boolean {
+			check (): boolean
+			{
 				let [node, ...orther] = this.filter()
 
-				if (detective.is_empty(node)
-
-				) {
+				if (detective.is_empty(node) )
+				{
 					return false
 
 				}
@@ -112,9 +114,11 @@ Component(
 
 			},
 
-			scroll(): void {
+			scroll (): void
+			{
 				wx.nextTick(
-					() => {
+					() =>
+					{
 						this.setData(
 							{ into: 'anchor' },
 
@@ -126,7 +130,8 @@ Component(
 
 			},
 
-			set_style(offset: number): void {
+			set_style (offset: number): void
+			{
 				let css = new style.Variable<'offset'>('dx', 'operator', 'anchor')
 
 				css.set('offset', `${offset}px`)
@@ -138,18 +143,19 @@ Component(
 
 			},
 
-			on_submit(): void {
+			on_submit (): void
+			{
 				let { once, wait, loading, submit } = this.data
 
 
-				if (wait || loading || submit || this.check()
-
-				) {
+				if (wait || loading || submit || this.check() )
+				{
 					return
 
 				}
 
-				if (once) {
+				if (once)
+				{
 					this.setData(
 						{ submit: true },
 

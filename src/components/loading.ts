@@ -6,7 +6,7 @@ import * as style from '../lib/style.js'
 Component(
 	{
 		properties: {
-			src: { type: String, value: '' },
+			src : { type: String, value: '' },
 			size: { type: String, value: 'var(--u-04-l)' },
 
 		},
@@ -17,7 +17,8 @@ Component(
 		},
 
 		lifetimes: {
-			attached(): void {
+			attached (): void
+			{
 				this.set_style()
 
 			},
@@ -25,7 +26,8 @@ Component(
 		},
 
 		methods: {
-			set_style(): void {
+			set_style (): void
+			{
 				let { size } = this.data
 
 				let css = new style.Variable<'size'>('dx', 'loading')

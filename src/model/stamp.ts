@@ -8,7 +8,7 @@ import * as model from '../lib/model.js'
 
 export type TRawDocType = model.TRawDocType<
 	{
-		value: string
+		value : string
 		symbol: string
 
 		expire: Date
@@ -24,7 +24,7 @@ export type TRawDocType = model.TRawDocType<
 export type TPopulatePaths = object
 
 export type TVirtuals = {
-	lave: number
+	lave  : number
 	method: '*' | 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT'
 
 }

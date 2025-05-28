@@ -118,8 +118,8 @@ Component(
 
 			kits: [
 				{
-					label: 'Container',
-					icon: '/example/icon/container.svg',
+					label     : 'Container',
+					icon      : '/example/icon/container.svg',
 					components: [
 						[
 							{ name: 'layout', icon: '/example/icon/layout.svg', url: '/example/pages/container/layout' },
@@ -162,8 +162,8 @@ Component(
 				},
 
 				{
-					label: 'Basic',
-					icon: '/example/icon/basic.svg',
+					label     : 'Basic',
+					icon      : '/example/icon/basic.svg',
 					components: [
 						[
 							{ name: 'breadcrumb', icon: '/example/icon/select.svg', url: '/example/pages/basic/breadcrumb' },
@@ -186,8 +186,8 @@ Component(
 				},
 
 				{
-					label: 'Form',
-					icon: '/example/icon/form.svg',
+					label     : 'Form',
+					icon      : '/example/icon/form.svg',
 					components: [
 						[
 							{ name: 'operator', icon: '/example/icon/hybrid-app.svg', url: '/example/pages/form/operator' },
@@ -227,8 +227,8 @@ Component(
 				},
 
 				{
-					label: 'Feedback',
-					icon: '/example/icon/feedback.svg',
+					label     : 'Feedback',
+					icon      : '/example/icon/feedback.svg',
 					components: [
 						[
 							{ name: 'login', icon: '/example/icon/login.svg', url: '/example/pages/feedback/login' },
@@ -245,8 +245,10 @@ Component(
 			],
 
 
-			name(index: number, data: Array<string>): string {
-				if (data[index]) {
+			name (index: number, data: string[]): string
+			{
+				if (data[index])
+				{
 					return data[index].slice(2)
 
 				}
@@ -255,8 +257,10 @@ Component(
 
 			},
 
-			style(index: number, data: Array<string>): string {
-				if (data[index]) {
+			style (index: number, data: string[]): string
+			{
+				if (data[index])
+				{
 					return `--style: var(${data[index]});`
 
 				}
@@ -268,7 +272,7 @@ Component(
 		},
 
 		methods: {
-			async on_navigate_to(
+			async on_navigate_to (
 				e: WechatMiniprogram.BaseEvent<
 					object,
 
@@ -276,7 +280,9 @@ Component(
 
 				>,
 
-			): Promise<void> {
+			)
+			: Promise<void>
+			{
 				let { url } = e.currentTarget.dataset
 
 				await wx.navigateTo(

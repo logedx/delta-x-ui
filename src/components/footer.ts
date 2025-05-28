@@ -25,7 +25,8 @@ Component(
 		},
 
 		observers: {
-			sink(): void {
+			sink (): void
+			{
 				this.set_style()
 
 			},
@@ -33,13 +34,15 @@ Component(
 		},
 
 		methods: {
-			set_style(): void {
+			set_style (): void
+			{
 				let { sink } = this.data
 
 				let css = new style.Variable<'padding-bottom'>('dx', 'footer')
 
 
-				if (sink) {
+				if (sink)
+				{
 					css.set('padding-bottom', 'none')
 
 				}

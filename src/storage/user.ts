@@ -7,7 +7,9 @@ import * as user_model from '../model/user.js'
 
 
 
-export async function create(code: string, appid: string): HttpTaskUnpackingResult<void> {
+export async function create
+(code: string, appid: string): HttpTaskUnpackingResult<void>
+{
 	let h = http.post(
 		'/user',
 
@@ -19,7 +21,9 @@ export async function create(code: string, appid: string): HttpTaskUnpackingResu
 
 }
 
-export async function create_scope(id: string): HttpTaskUnpackingResult<void> {
+export async function create_scope
+(id: string): HttpTaskUnpackingResult<void>
+{
 	let h = http.post(
 		`/user/${id}/scope`,
 
@@ -31,16 +35,19 @@ export async function create_scope(id: string): HttpTaskUnpackingResult<void> {
 }
 
 
-export async function update(
+export async function update
+(
 	id: string,
 
 	params: {
 		nickname?: string
-		phone?: string
+		phone?   : string
 
 	},
 
-): HttpTaskUnpackingResult<void> {
+)
+: HttpTaskUnpackingResult<void>
+{
 	let h = http.put(
 		`/user/${id}`, params,
 
@@ -51,7 +58,9 @@ export async function update(
 }
 
 
-export async function retrieve(id: string): HttpTaskUnpackingResult<user_model.THydratedDocumentType> {
+export async function retrieve
+(id: string): HttpTaskUnpackingResult<user_model.THydratedDocumentType>
+{
 	let h = http.get<user_model.THydratedDocumentType>(
 		`/user/${id}`,
 
@@ -63,18 +72,21 @@ export async function retrieve(id: string): HttpTaskUnpackingResult<user_model.T
 
 }
 
-export async function retrieve_pagination(
+export async function retrieve_pagination
+(
 	params: container.PaginationParams<
 			{ scope: boolean }
 
 		>,
 
-): HttpTaskUnpackingResult<
-	Array<user_model.THydratedDocumentType>
+)
+: HttpTaskUnpackingResult<
+	user_model.THydratedDocumentType[]
 
-> {
+>
+{
 	let h = http.get<
-		Array<user_model.THydratedDocumentType>
+		user_model.THydratedDocumentType[]
 
 	>(
 		'/user', params,

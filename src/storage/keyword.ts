@@ -7,15 +7,18 @@ import * as keyword_model from '../model/keyword.js'
 
 
 
-export async function create(
+export async function create
+(
 	params: {
-		name: string
+		name : string
 		label: string
 		value: string
 
 	},
 
-): HttpTaskUnpackingResult<void> {
+)
+: HttpTaskUnpackingResult<void>
+{
 	let h = http.post(
 		'/keyword', params,
 
@@ -25,18 +28,21 @@ export async function create(
 
 }
 
-export async function retrieve_pagination(
+export async function retrieve_pagination
+(
 	params: container.PaginationParams<
 			{ name: string, label: string, letter: string }
 
 		>,
 
-): HttpTaskUnpackingResult<
-	Array<keyword_model.THydratedDocumentType>
+)
+: HttpTaskUnpackingResult<
+	keyword_model.THydratedDocumentType[]
 
-> {
+>
+{
 	let h = http.get<
-		Array<keyword_model.THydratedDocumentType>
+		keyword_model.THydratedDocumentType[]
 
 	>(
 		'/keyword', params,
@@ -50,7 +56,8 @@ export async function retrieve_pagination(
 }
 
 
-export async function delete_(_id: string): HttpTaskUnpackingResult<void> {
+export async function delete_ (_id: string): HttpTaskUnpackingResult<void>
+{
 	let h = http.delete(
 		`/keyword/${_id}`,
 

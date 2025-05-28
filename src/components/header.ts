@@ -17,8 +17,8 @@ Component(
 
 		properties: {
 			background: { type: String, value: '' },
-			back: { type: String, value: '' },
-			home: { type: String, value: '' },
+			back      : { type: String, value: '' },
+			home      : { type: String, value: '' },
 
 		},
 
@@ -28,7 +28,8 @@ Component(
 		},
 
 		lifetimes: {
-			attached(): void {
+			attached (): void
+			{
 				this.set_style()
 
 			},
@@ -36,31 +37,30 @@ Component(
 		},
 
 		methods: {
-			set_style(): void {
+			set_style (): void
+			{
 				let { background, back, home } = this.data
 
 				let win = wx.getWindowInfo()
 				let menu = wx.getMenuButtonBoundingClientRect()
 
 				let css = new style.Variable<
-						| 'background' | 'padding' | 'top' | 'min-height'
-						| 'safe-padding-left' | 'safe-padding-right'
+					| 'background' | 'padding' | 'top' | 'min-height'
+					| 'safe-padding-left' | 'safe-padding-right'
 
 					>('dx', 'header')
 
 				let padding = win.windowWidth - menu.right
 
-				if (detective.is_required_string(background)
-
-				) {
+				if (detective.is_required_string(background) )
+				{
 					css.set('background', background)
 
 				}
 
 				if (detective.is_required_string(back)
-					|| detective.is_required_string(home)
-
-				) {
+					|| detective.is_required_string(home) )
+				{
 					css.set('padding', `${padding}px`)
 
 				}

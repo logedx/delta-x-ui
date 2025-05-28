@@ -4,7 +4,7 @@ import * as detective from './detective.js'
 
 
 export type ReadFile = {
-	ext: string
+	ext : string
 	path: string
 
 	size: number
@@ -18,7 +18,8 @@ export type ReadFile = {
 
 
 
-enum TMimeType {
+enum TMimeType
+{
 	gif = 'image/gif',
 	jpg = 'image/jpeg',
 	// eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
@@ -29,8 +30,10 @@ enum TMimeType {
 
 }
 
-export class MimeType {
-	static to(mime: string): null | keyof typeof TMimeType {
+export class MimeType
+{
+	static to (mime: string): null | keyof typeof TMimeType
+	{
 		let value = Object.keys(TMimeType)
 			.find(
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
@@ -43,15 +46,16 @@ export class MimeType {
 
 	}
 
-	static get(extension: string): null | TMimeType {
+	static get (extension: string): null | TMimeType
+	{
 		return TMimeType[extension as keyof typeof TMimeType] ?? null
 
 	}
 
-	static parse(data_url: string): [string, string] {
-		if (detective.is_data_url_string(data_url) === false
-
-		) {
+	static parse (data_url: string): [string, string]
+	{
+		if (detective.is_data_url_string(data_url) === false)
+		{
 			throw new TypeError('invalid data url')
 
 		}
@@ -67,7 +71,8 @@ export class MimeType {
 
 
 
-export function lookup(v: string): string {
+export function lookup (v: string): string
+{
 	let [ext] = v.split('.').slice(-1)
 
 	return ext ?? ''
@@ -77,25 +82,32 @@ export function lookup(v: string): string {
 
 
 
-export function create(filename: string, data: ArrayBuffer): Promise<string>
+export function create
+(filename: string, data: ArrayBuffer): Promise<string>
 
-export function create(
+export function create
+(
 	filename: string,
 	data: string,
 	encoding: WechatMiniprogram.WriteFileOption['encoding']
 
-): Promise<string>
+)
+: Promise<string>
 
-export function create(
+export function create
+(
 	filename: string,
 	data: string | ArrayBuffer,
 	encoding?: WechatMiniprogram.WriteFileOption['encoding'],
 
-): Promise<string> {
+)
+: Promise<string>
+{
 	let path = `${wx.env.USER_DATA_PATH}/${filename}`
 
 	return new Promise<string>(
-		(resolve, reject) => {
+		(resolve, reject) =>
+		{
 			wx.getFileSystemManager()
 				.writeFile(
 					{
@@ -107,12 +119,14 @@ export function create(
 						// eslint-disable-next-line @typescript-eslint/naming-convention
 						filePath: path,
 
-						success() {
+						success ()
+						{
 							resolve(path)
 
 						},
 
-						fail(e) {
+						fail (e)
+						{
 							reject(
 								new Error(e.errMsg),
 
@@ -135,30 +149,34 @@ export function create(
 
 
 
-export function read(
+export function read
+(
 	path: string,
 	encoding?: WechatMiniprogram.ReadFileOption['encoding'],
 
-): Promise<ReadFile> {
+)
+: Promise<ReadFile>
+{
 	let ext = lookup(path)
 	let mime = MimeType.get(ext)
 
 	let fs = wx.getFileSystemManager()
 
 	let info = new Promise<{ size: number, hash: string }>(
-		(resolve, reject) => {
+		(resolve, reject) =>
+		{
 			fs.getFileInfo(
 				{
 					// eslint-disable-next-line @typescript-eslint/naming-convention
 					filePath: path,
 
-					success(res): void {
+					success (res): void
+					{
 						let hash = ''
 
 						if (detective.is_object_keyof(res, 'digest')
-							&& detective.is_string(res.digest)
-
-						) {
+							&& detective.is_string(res.digest) )
+						{
 							hash = res.digest
 
 						}
@@ -171,7 +189,8 @@ export function read(
 
 					},
 
-					fail(e): void {
+					fail (e): void
+					{
 						reject(
 							new Error(e.errMsg),
 
@@ -189,7 +208,8 @@ export function read(
 
 
 	let file = new Promise<string | ArrayBuffer>(
-		(resolve, reject) => {
+		(resolve, reject) =>
+		{
 			fs.readFile(
 				{
 					encoding,
@@ -197,12 +217,14 @@ export function read(
 					// eslint-disable-next-line @typescript-eslint/naming-convention
 					filePath: path,
 
-					success(res): void {
+					success (res): void
+					{
 						resolve(res.data)
 
 					},
 
-					fail(e): void {
+					fail (e): void
+					{
 						reject(
 							new Error(e.errMsg),
 
@@ -229,16 +251,16 @@ export function read(
 
 
 
-export async function read_from(data_url: string): Promise<ReadFile> {
+export async function read_from (data_url: string): Promise<ReadFile>
+{
 	let [mime, data] = MimeType.parse(data_url)
 
 	let [encoding, context] = data.split(',')
 
 	let filename = `${Date.now()}.${MimeType.to(mime)}`
 
-	if (detective.is_empty(context)
-
-	) {
+	if (detective.is_empty(context) )
+	{
 		[encoding, context] = ['utf8', encoding]
 
 	}
@@ -256,7 +278,8 @@ export async function read_from(data_url: string): Promise<ReadFile> {
 
 
 
-export async function choose_image(quantity = 1): Promise<Array<ReadFile>> {
+export async function choose_image (quantity = 1): Promise<ReadFile[]>
+{
 	let paths = await wx.chooseImage(
 		{ count: quantity },
 

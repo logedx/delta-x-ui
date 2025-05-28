@@ -28,10 +28,10 @@ Component(
 		data: {
 			loading: false,
 
-			safety(f: (v: string) => string, v: string): string {
-				if (detective.is_function(f)
-
-				) {
+			safety (f: (v: string) => string, v: string): string
+			{
+				if (detective.is_function(f) )
+				{
 					return f(v)
 
 				}
@@ -43,7 +43,8 @@ Component(
 		},
 
 		observers: {
-			src() {
+			src ()
+			{
 				this.setData(
 					{ loading: false },
 
@@ -54,7 +55,7 @@ Component(
 		},
 
 		methods: {
-			async on_preview(
+			async on_preview (
 				e: WechatMiniprogram.BaseEvent<
 					object,
 
@@ -62,9 +63,10 @@ Component(
 
 				>,
 
-			): Promise<void> {
+			): Promise<void>
+			{
 				let { index } = e.currentTarget.dataset
-				let { src } = this.data as { src: Array<string> }
+				let { src } = this.data as { src: string[] }
 
 				await wx.previewImage(
 					{ urls: src, current: src[index] },
@@ -74,7 +76,7 @@ Component(
 
 			},
 
-			on_move_up(
+			on_move_up (
 				e: WechatMiniprogram.BaseEvent<
 					object,
 
@@ -82,7 +84,8 @@ Component(
 
 				>,
 
-			): void {
+			): void
+			{
 				let { index } = e.currentTarget.dataset
 
 				this.move(index, index - 1)
@@ -90,7 +93,7 @@ Component(
 
 			},
 
-			on_move_down(
+			on_move_down (
 				e: WechatMiniprogram.BaseEvent<
 					object,
 
@@ -98,7 +101,8 @@ Component(
 
 				>,
 
-			): void {
+			): void
+			{
 				let { index } = e.currentTarget.dataset
 
 				this.move(index, index + 1)
@@ -106,7 +110,7 @@ Component(
 
 			},
 
-			async on_insert(
+			async on_insert (
 				e: WechatMiniprogram.BaseEvent<
 					object,
 
@@ -115,14 +119,15 @@ Component(
 				>,
 
 
-			): Promise<void> {
+			): Promise<void>
+			{
 				let { index } = e.currentTarget.dataset
 
 				await this.handle('insert', index)
 
 			},
 
-			async on_update(
+			async on_update (
 				e: WechatMiniprogram.BaseEvent<
 					object,
 
@@ -130,14 +135,15 @@ Component(
 
 				>,
 
-			): Promise<void> {
+			): Promise<void>
+			{
 				let { index } = e.currentTarget.dataset
 
 				await this.handle('update', index)
 
 			},
 
-			on_delete(
+			on_delete (
 				e: WechatMiniprogram.BaseEvent<
 					object,
 
@@ -146,9 +152,10 @@ Component(
 				>,
 
 
-			): void {
+			): void
+			{
 				let { index } = e.currentTarget.dataset
-				let { src } = this.data as { src: Array<string> }
+				let { src } = this.data as { src: string[] }
 
 				src.splice(index, 1)
 
@@ -160,8 +167,9 @@ Component(
 
 			},
 
-			move(source: number, target: number): void {
-				let { src } = this.data as { src: Array<string> }
+			move (source: number, target: number): void
+			{
+				let { src } = this.data as { src: string[] }
 
 				source = Math.min(
 					Math.max(0, source), src.length - 1,
@@ -183,7 +191,8 @@ Component(
 
 			},
 
-			update(src: Array<string>) {
+			update (src: string[])
+			{
 				this.setData(
 					{ src: [...src] },
 
@@ -191,12 +200,8 @@ Component(
 
 			},
 
-			async handle(
-				event: 'insert' | 'update',
-
-				index: number,
-
-			): Promise<void> {
+			async handle (event: 'insert' | 'update', index: number): Promise<void>
+			{
 				let [value] = await fs.choose_image(1)
 
 				this.setData(

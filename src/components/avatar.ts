@@ -3,7 +3,8 @@ import * as style from '../lib/style.js'
 
 
 
-export enum TEvent {
+export enum TEvent
+{
 	load = 'load',
 	error = 'error',
 
@@ -13,8 +14,8 @@ export enum TEvent {
 Component(
 	{
 		properties: {
-			src: { type: String, value: '' },
-			size: { type: String, value: 'var(--u-06-s)' },
+			src   : { type: String, value: '' },
+			size  : { type: String, value: 'var(--u-06-s)' },
 			square: { type: Boolean, value: false },
 
 		},
@@ -26,7 +27,8 @@ Component(
 		},
 
 		observers: {
-			src(): void {
+			src (): void
+			{
 				this.setData(
 					{ error: false },
 
@@ -36,12 +38,14 @@ Component(
 
 			},
 
-			size(): void {
+			size (): void
+			{
 				this.set_style()
 
 			},
 
-			square(): void {
+			square (): void
+			{
 				this.set_style()
 
 			},
@@ -49,7 +53,8 @@ Component(
 		},
 
 		lifetimes: {
-			created(): void {
+			created (): void
+			{
 				this.set_style()
 
 			},
@@ -57,14 +62,16 @@ Component(
 		},
 
 		methods: {
-			set_style(): void {
+			set_style (): void
+			{
 				let { size, square } = this.data
 
 				let css = new style.Variable<'size' | 'radius'>('dx', 'avatar')
 
 				css.set('size', size)
 
-				if (square) {
+				if (square)
+				{
 					css.set('radius', 'var(--radius)')
 
 				}
@@ -76,20 +83,26 @@ Component(
 
 			},
 
-			on_load(
+			on_load
+			(
 				e: WechatMiniprogram.CustomEvent<{ height: number, width: number }>,
 
-			): void {
+			)
+			: void
+			{
 				this.triggerEvent(TEvent.load, e.detail)
 
 
 			},
 
-			on_error(
+			on_error
+			(
 				// eslint-disable-next-line @typescript-eslint/naming-convention
 				e: WechatMiniprogram.CustomEvent<{ errMsg: string }>,
 
-			): void {
+			)
+			: void
+			{
 				// eslint-disable-next-line @typescript-eslint/naming-convention
 				let { errMsg } = e.detail
 

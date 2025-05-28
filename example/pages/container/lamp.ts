@@ -6,7 +6,8 @@ import * as claim_variant from '../../../src/components/claim.variant.js'
 Component(
 	{
 		lifetimes: {
-			ready() {
+			ready ()
+			{
 				let channel = this.getOpenerEventChannel()
 
 				channel.on(
@@ -21,13 +22,14 @@ Component(
 		},
 
 		methods: {
-			on_notify(
+			on_notify (
 				e: WechatMiniprogram.BaseEvent<
 					object, { value: string }
 
 				>,
 
-			): void {
+			): void
+			{
 				let { value } = e.currentTarget.dataset
 
 				let channel = this.getOpenerEventChannel()

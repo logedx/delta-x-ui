@@ -18,10 +18,10 @@ Component(
 		},
 
 		properties: {
-			title: { type: String, value: '' },
+			title    : { type: String, value: '' },
 			thumbnail: { type: String, value: '' },
-			size: { type: String, value: 'var(--u-10-xs)' },
-			square: { type: Boolean, value: false },
+			size     : { type: String, value: 'var(--u-10-xs)' },
+			square   : { type: Boolean, value: false },
 			direction: { type: String, value: synopsis_variant.Direction.left_to_right },
 
 		},
@@ -32,7 +32,8 @@ Component(
 		},
 
 		observers: {
-			direction(v: synopsis_variant.Direction): void {
+			direction (v: synopsis_variant.Direction): void
+			{
 				let order = v === synopsis_variant.Direction.left_to_right
 					|| v === synopsis_variant.Direction.top_to_bottom
 
@@ -48,7 +49,8 @@ Component(
 		},
 
 		lifetimes: {
-			attached(): void {
+			attached (): void
+			{
 				this.set_style()
 
 			},
@@ -56,7 +58,8 @@ Component(
 		},
 
 		methods: {
-			set_style(): void {
+			set_style (): void
+			{
 				type TVariable =
 					| 'border-radius'
 					| 'align-items' | 'justify-content' | 'flex-direction' | 'padding' | 'border-bottom'
@@ -69,25 +72,29 @@ Component(
 
 				let css = new style.Variable<TVariable>('dx', 'synopsis')
 
-				if (square) {
+				if (square)
+				{
 					css.set('border-radius', 'var(--radius)')
 
 				}
 
 
-				if (direction === synopsis_variant.Direction.left_to_right) {
+				if (direction === synopsis_variant.Direction.left_to_right)
+				{
 					// 
 
 				}
 
-				else if (direction === synopsis_variant.Direction.left_to_right_between) {
+				else if (direction === synopsis_variant.Direction.left_to_right_between)
+				{
 					css.set('title-text-align', 'right')
 
 					css.set('exhibit-align-items', 'flex-end')
 
 				}
 
-				else if (direction === synopsis_variant.Direction.right_to_left) {
+				else if (direction === synopsis_variant.Direction.right_to_left)
+				{
 					css.set('content-margin-left', 'none')
 					css.set('content-margin-right', 'var(--u-01-m)')
 
@@ -97,7 +104,8 @@ Component(
 
 				}
 
-				else if (direction === synopsis_variant.Direction.right_to_left_between) {
+				else if (direction === synopsis_variant.Direction.right_to_left_between)
+				{
 					css.set('justify-content', 'space-between')
 
 					css.set('content-margin-left', 'none')
@@ -105,7 +113,8 @@ Component(
 
 				}
 
-				else if (direction === synopsis_variant.Direction.top_to_bottom) {
+				else if (direction === synopsis_variant.Direction.top_to_bottom)
+				{
 					css.set('align-items', 'center')
 					css.set('flex-direction', 'column')
 					css.set('padding', 'var(--u-06-s) 0')
@@ -130,9 +139,9 @@ Component(
 
 
 				let direction_map: Record<synopsis_variant.Direction, boolean> = {
-					[synopsis_variant.Direction.left_to_right]: true,
-					[synopsis_variant.Direction.right_to_left]: false,
-					[synopsis_variant.Direction.top_to_bottom]: true,
+					[synopsis_variant.Direction.left_to_right]        : true,
+					[synopsis_variant.Direction.right_to_left]        : false,
+					[synopsis_variant.Direction.top_to_bottom]        : true,
 					[synopsis_variant.Direction.left_to_right_between]: true,
 					[synopsis_variant.Direction.right_to_left_between]: false,
 
@@ -150,12 +159,12 @@ Component(
 
 			},
 
-			on_preview(): void {
+			on_preview (): void
+			{
 				let { thumbnail } = this.data
 
-				if (detective.is_empty(thumbnail)
-
-				) {
+				if (detective.is_empty(thumbnail) )
+				{
 					return
 
 				}

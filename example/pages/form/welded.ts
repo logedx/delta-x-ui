@@ -3,14 +3,16 @@ import * as fs from '/src/lib/fs.js'
 Component(
 	{
 		data: {
-			src: [] as Array<string>,
+			src: [] as string[],
 
 		},
 
 		methods: {
-			update(src: Array<string>) {
+			update (src: string[])
+			{
 				setTimeout(
-					() => {
+					() =>
+					{
 						this.setData(
 							{ src },
 
@@ -26,13 +28,14 @@ Component(
 
 			},
 
-			on_inster_image(
+			on_inster_image (
 				e: WechatMiniprogram.CustomEvent<
 					{ value: fs.ReadFile, index: number }
 
 				>,
 
-			): void {
+			): void
+			{
 				let { src } = this.data
 				let { value, index } = e.detail
 
@@ -44,13 +47,14 @@ Component(
 
 			},
 
-			on_update_image(
+			on_update_image (
 				e: WechatMiniprogram.CustomEvent<
 					{ value: fs.ReadFile, index: number }
 
 				>,
 
-			): void {
+			): void
+			{
 				let { src } = this.data
 				let { value, index } = e.detail
 

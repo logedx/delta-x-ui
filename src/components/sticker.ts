@@ -13,8 +13,9 @@ import * as media_storage from '../storage/media.js'
 
 
 
-export enum TEvent {
-	upload = 'upload'
+export enum TEvent
+{
+	upload = 'upload',
 
 }
 
@@ -48,8 +49,8 @@ Component(
 		},
 
 		properties: {
-			name: { type: String, value: '' },
-			model: { type: String, value: '' },
+			name  : { type: String, value: '' },
+			model : { type: String, value: '' },
 			folder: { type: String, value: '' },
 
 			icon: { type: String, value: '../icon/upload_512dp_808695_FILL0_wght500_GRAD0_opsz48.png' },
@@ -59,13 +60,14 @@ Component(
 		data: {
 			style: '',
 
-			src: '',
+			src    : '',
 			loading: false,
 
 		},
 
 		observers: {
-			value() {
+			value ()
+			{
 				this.setData(
 					{ loading: false },
 
@@ -76,7 +78,8 @@ Component(
 		},
 
 		lifetimes: {
-			ready(): void {
+			ready (): void
+			{
 				this.set_style()
 
 			},
@@ -84,19 +87,20 @@ Component(
 		},
 
 		methods: {
-			self(): operator_variant.TLinkerBehaviorInstance {
+			self (): operator_variant.TLinkerBehaviorInstance
+			{
 				return this as unknown as operator_variant.TLinkerBehaviorInstance
 
 			},
 
-			set_style(): void {
+			set_style (): void
+			{
 				let parent = this.self().get_parent()
 
 				let css = new style.Variable<'icon-justify-content'>('dx', 'sticker')
 
-				if (parent?.data?.newline === true
-
-				) {
+				if (parent?.data?.newline === true)
+				{
 					css.set('icon-justify-content', 'flex-end')
 
 				}
@@ -108,14 +112,16 @@ Component(
 
 			},
 
-			async choose_image(): Promise<fs.ReadFile> {
+			async choose_image (): Promise<fs.ReadFile>
+			{
 				let [file] = await fs.choose_image(1)
 
 				return file
 
 			},
 
-			async create(file: fs.ReadFile): Promise<media_storage.CreateResult> {
+			async create (file: fs.ReadFile): Promise<media_storage.CreateResult>
+			{
 				let { name, model, folder } = this.data
 
 				return media_storage.create_(
@@ -125,12 +131,13 @@ Component(
 
 			},
 
-			async upload(file: fs.ReadFile): Promise<void> {
+			async upload (file: fs.ReadFile): Promise<void>
+			{
 				let doc = await this.create(file)
 
 				let data = {
 					value: doc.data,
-					src: structure.get(doc.header, 'x-access-uri'),
+					src  : structure.get(doc.header, 'x-access-uri'),
 
 				}
 
@@ -138,7 +145,8 @@ Component(
 				this.triggerEvent(TEvent.upload, data)
 
 				wx.nextTick(
-					() => {
+					() =>
+					{
 						this.setData(data)
 
 					},
@@ -147,16 +155,16 @@ Component(
 
 			},
 
-			async update(): Promise<void> {
+			async update (): Promise<void>
+			{
 				let file = await this.choose_image()
 
 				let { name, model, folder } = this.data
 
 				if (detective.is_required_string(name)
 					&& detective.is_required_string(model)
-					&& detective.is_path_string(folder)
-
-				) {
+					&& detective.is_path_string(folder) )
+				{
 					await this.upload(file)
 
 					return
@@ -165,7 +173,7 @@ Component(
 
 
 				let value = base64.encode(
-					String.fromCharCode(...new Uint8Array(file.data as ArrayBuffer)),
+					String.fromCharCode(...new Uint8Array(file.data as ArrayBuffer) ),
 
 				)
 
@@ -181,7 +189,8 @@ Component(
 
 			},
 
-			async on_preview(): Promise<void> {
+			async on_preview (): Promise<void>
+			{
 				let { src } = this.data
 
 				let { value } = (this as unknown as claim_variant.TBehaviorInstance).data
@@ -197,10 +206,12 @@ Component(
 
 			},
 
-			async on_update(): Promise<void> {
+			async on_update (): Promise<void>
+			{
 				let { readonly } = (this as unknown as claim_variant.TBehaviorInstance).data
 
-				if (readonly) {
+				if (readonly)
+				{
 					return
 
 				}
@@ -210,12 +221,14 @@ Component(
 
 				)
 
-				try {
+				try
+				{
 					await this.update()
 
 				}
 
-				finally {
+				finally
+				{
 					this.setData(
 						{ loading: false },
 
@@ -225,7 +238,8 @@ Component(
 
 			},
 
-			on_delete(): void {
+			on_delete (): void
+			{
 				this.setData(
 					{ value: '', src: '' },
 

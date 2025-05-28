@@ -1,27 +1,29 @@
 Component(
 	{
 		data: {
-			input: '',
+			input         : '',
 			input_required: '',
 
-			number: 0,
+			number         : 0,
 			number_required: 0,
 
-			datetime: '',
+			datetime         : '',
 			datetime_required: '',
 
-			textarea: '',
+			textarea         : '',
 			textarea_required: '',
 
-			wait: true,
+			wait   : true,
 			loading: false,
 
 		},
 
 		lifetimes: {
-			ready(): void {
+			ready (): void
+			{
 				setTimeout(
-					() => {
+					() =>
+					{
 						this.setData(
 							{ wait: false },
 
@@ -40,14 +42,16 @@ Component(
 
 
 		methods: {
-			on_submit(): void {
+			on_submit (): void
+			{
 				this.setData(
 					{ loading: true },
 
 				)
 
 				setTimeout(
-					() => {
+					() =>
+					{
 						this.setData(
 							{ loading: false },
 

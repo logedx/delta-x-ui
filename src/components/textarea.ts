@@ -41,7 +41,8 @@ Component(
 		},
 
 		lifetimes: {
-			ready(): void {
+			ready (): void
+			{
 				this.set_style()
 
 			},
@@ -49,19 +50,20 @@ Component(
 		},
 
 		methods: {
-			self(): operator_variant.TLinkerBehaviorInstance {
+			self (): operator_variant.TLinkerBehaviorInstance
+			{
 				return this as unknown as operator_variant.TLinkerBehaviorInstance
 
 			},
 
-			set_style(): void {
+			set_style (): void
+			{
 				let parent = this.self().get_parent()
 
 				let css = new style.Variable<'padding'>('dx', 'textarea')
 
-				if (parent?.data?.newline === true
-
-				) {
+				if (parent?.data?.newline === true)
+				{
 					css.set('padding', '0')
 
 				}

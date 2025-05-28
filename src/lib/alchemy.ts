@@ -6,7 +6,8 @@ import * as detective from './detective.js'
 /**
  * Randomly generate a hexadecimal string
  */
-export function hex(length = 32): string {
+export function hex (length = 32): string
+{
 	let RADIX = 16
 
 	return Array(length)
@@ -22,13 +23,14 @@ export function hex(length = 32): string {
 type PromiseWithResolvers<T> = {
 	promise: Promise<T>
 
-	resolve: (value: T) => void,
+	resolve(value: T): void
 
-	reject: (reason?: unknown) => void,
+	reject(reason?: unknown): void
 
 }
 
-export function with_resolvers<T>(): PromiseWithResolvers<T> {
+export function with_resolvers<T> (): PromiseWithResolvers<T>
+{
 	// eslint-disable-next-line init-declarations
 	let resolve: unknown
 
@@ -36,7 +38,8 @@ export function with_resolvers<T>(): PromiseWithResolvers<T> {
 	let reject: unknown
 
 	let promise = new Promise(
-		(res, rej) => {
+		(res, rej) =>
+		{
 			resolve = res
 
 			reject = rej
@@ -46,12 +49,13 @@ export function with_resolvers<T>(): PromiseWithResolvers<T> {
 	)
 
 	return { promise, resolve, reject } as PromiseWithResolvers<T>
+
 }
 
-export function _24_hour_system_number(value: string | Date): number {
-	if (detective.is_24_hour_system_string(value)
-
-	) {
+export function _24_hour_system_number (value: string | Date): number
+{
+	if (detective.is_24_hour_system_string(value) )
+	{
 		return Number(
 			value.replace(':', ''),
 
@@ -59,9 +63,8 @@ export function _24_hour_system_number(value: string | Date): number {
 
 	}
 
-	if (detective.is_date(value) || detective.is_date_string(value)
-
-	) {
+	if (detective.is_date(value) || detective.is_date_string(value) )
+	{
 		return Number(
 			moment(value).format('HHmm'),
 
@@ -75,10 +78,10 @@ export function _24_hour_system_number(value: string | Date): number {
 
 }
 
-export function _24_hour_system_string(value: number): string {
-	if (detective.is_24_hour_system_number(value) === false
-
-	) {
+export function _24_hour_system_string (value: number): string
+{
+	if (detective.is_24_hour_system_number(value) === false)
+	{
 		throw new TypeError('value is not a 24-hour system number')
 
 	}

@@ -13,16 +13,17 @@ Component(
 		},
 
 		properties: {
-			back: { type: String, value: '' },
-			home: { type: String, value: '' },
-			sink: { type: Boolean, value: false },
-			loading: { type: Boolean, value: false },
+			back    : { type: String, value: '' },
+			home    : { type: String, value: '' },
+			sink    : { type: Boolean, value: false },
+			loading : { type: Boolean, value: false },
 			contrast: { type: Boolean, value: false },
 
 		},
 
 		lifetimes: {
-			attached() {
+			attached ()
+			{
 				this.set_navigation_bar_color()
 
 			},
@@ -31,7 +32,8 @@ Component(
 
 		// eslint-disable-next-line @typescript-eslint/naming-convention
 		pageLifetimes: {
-			show() {
+			show ()
+			{
 				this.set_navigation_bar_color()
 
 			},
@@ -39,13 +41,15 @@ Component(
 		},
 
 		methods: {
-			set_navigation_bar_color(): void {
+			set_navigation_bar_color (): void
+			{
 				let { contrast } = this.data
 
 				// eslint-disable-next-line @typescript-eslint/naming-convention
 				let option = { frontColor: '#ffffff', backgroundColor: '#000000' }
 
-				if (contrast) {
+				if (contrast)
+				{
 					option.frontColor = '#000000'
 					option.backgroundColor = '#ffffff'
 

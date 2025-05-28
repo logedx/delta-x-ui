@@ -18,8 +18,8 @@ Component(
 		},
 
 		properties: {
-			label: { type: String, value: '' },
-			divide: { type: Boolean, value: false },
+			label  : { type: String, value: '' },
+			divide : { type: Boolean, value: false },
 			loading: { type: Boolean, value: false },
 
 		},
@@ -30,7 +30,8 @@ Component(
 		},
 
 		observers: {
-			divide(): void {
+			divide (): void
+			{
 				this.set_style()
 
 			},
@@ -38,7 +39,8 @@ Component(
 		},
 
 		lifetimes: {
-			attached(): void {
+			attached (): void
+			{
 				this.set_style()
 
 			},
@@ -46,12 +48,14 @@ Component(
 		},
 
 		methods: {
-			set_style(): void {
+			set_style (): void
+			{
 				let { divide } = this.data
 
 				let css = new style.Variable<'margin-top'>('dx', 'nameplate')
 
-				if (divide) {
+				if (divide)
+				{
 					css.set('margin-top', 'var(--u-02-s)')
 
 				}

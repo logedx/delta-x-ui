@@ -39,7 +39,7 @@ Component(
 		properties: {
 			value: { type: Number, value: 0 },
 			digit: { type: Number, value: 0 },
-			max: { type: Number, value: Infinity },
+			max  : { type: Number, value: Infinity },
 
 		},
 
@@ -51,7 +51,8 @@ Component(
 		},
 
 		observers: {
-			value(v: number): void {
+			value (v: number): void
+			{
 				this.update(
 					v.toString(),
 
@@ -62,7 +63,8 @@ Component(
 		},
 
 		lifetimes: {
-			ready(): void {
+			ready (): void
+			{
 				let { value } = this.data
 
 				this.update(
@@ -77,13 +79,16 @@ Component(
 		},
 
 		methods: {
-			cut(value: string): string {
+			cut (value: string): string
+			{
 				let { digit } = this.data
 
 				let index = value.indexOf('.')
 
-				if (index >= 0) {
-					if (digit > 0) {
+				if (index >= 0)
+				{
+					if (digit > 0)
+					{
 						index = index + 1 + digit
 
 					}
@@ -92,7 +97,8 @@ Component(
 
 				}
 
-				if (value === '0') {
+				if (value === '0')
+				{
 					return ''
 
 				}
@@ -101,28 +107,26 @@ Component(
 
 			},
 
-			align(value: string): string {
+			align (value: string): string
+			{
 				value = value.replace(/[^-.\d]/g, '')
 
 				let [integer, decimal] = value.split('.')
 
-				if (integer.includes('-')
-
-				) {
+				if (integer.includes('-') )
+				{
 					integer = `-${integer.replace(/-/g, '')}`
 
 				}
 
-				if (detective.is_exist(decimal) === false
-
-				) {
+				if (detective.is_exist(decimal) === false)
+				{
 					return integer
 
 				}
 
-				if (decimal.includes('-')
-
-				) {
+				if (decimal.includes('-') )
+				{
 					decimal = decimal.replace(/-/g, '')
 
 				}
@@ -132,14 +136,16 @@ Component(
 
 			},
 
-			limit(input: string): string {
+			limit (input: string): string
+			{
 				input = this.align(input)
 
 				let { max } = this.data
 
 				let value = Number(input) || 0
 
-				if (value >= 0 && value <= max) {
+				if (value >= 0 && value <= max)
+				{
 					return this.cut(input)
 
 				}
@@ -154,7 +160,8 @@ Component(
 
 			},
 
-			update(input: string): void {
+			update (input: string): void
+			{
 				input = this.limit(input)
 
 				this.setData(
@@ -169,24 +176,26 @@ Component(
 
 			},
 
-			self(): operator_variant.TLinkerBehaviorInstance {
+			self (): operator_variant.TLinkerBehaviorInstance
+			{
 				return this as unknown as operator_variant.TLinkerBehaviorInstance
 
 			},
 
-			self_(): claim_variant.TBehaviorInstance {
+			self_ (): claim_variant.TBehaviorInstance
+			{
 				return this as unknown as claim_variant.TBehaviorInstance
 
 			},
 
-			set_style(): void {
+			set_style (): void
+			{
 				let parent = this.self().get_parent()
 
 				let css = new style.Variable<'padding' | 'text-align'>('dx', 'number')
 
-				if (parent?.data?.newline === true
-
-				) {
+				if (parent?.data?.newline === true)
+				{
 					css.set('padding', '0')
 					css.set('text-align', 'left')
 
@@ -199,13 +208,14 @@ Component(
 
 			},
 
-			on_input(
+			on_input (
 				e: WechatMiniprogram.CustomEvent<
 					{ value: string }
 
 				>,
 
-			): void {
+			): void
+			{
 				let { value } = e.detail
 
 				this.update(value)

@@ -1,4 +1,5 @@
-export enum TEvent {
+export enum TEvent
+{
 	active = 'active',
 
 }
@@ -16,10 +17,10 @@ Component(
 		},
 
 		properties: {
-			value: { type: String, value: '' },
+			value      : { type: String, value: '' },
 			placeholder: { type: String, value: '' },
-			focus: { type: Boolean, value: false },
-			icon: { type: String, value: '' },
+			focus      : { type: Boolean, value: false },
+			icon       : { type: String, value: '' },
 
 			// Array<string>
 			handle: { type: Array, value: [] },
@@ -27,7 +28,8 @@ Component(
 		},
 
 		methods: {
-			active(index: number, type: 'tap' | 'longpress'): void {
+			active (index: number, type: 'tap' | 'longpress'): void
+			{
 				let { handle } = this.data
 
 				this.triggerEvent(
@@ -38,13 +40,14 @@ Component(
 
 			},
 
-			on_value_confirm(
+			on_value_confirm (
 				e: WechatMiniprogram.CustomEvent<
 					{ value: string }
 
 				>,
 
-			): void {
+			): void
+			{
 				let { value } = e.detail
 
 				this.setData(
@@ -56,26 +59,28 @@ Component(
 
 			},
 
-			on_active_tap(
+			on_active_tap (
 				e: WechatMiniprogram.BaseEvent<
 					Record<string, never>, { index: number }
 
 				>,
 
-			): void {
+			): void
+			{
 				let { index } = e.currentTarget.dataset
 
 				this.active(index, 'tap')
 
 			},
 
-			on_active_longpress(
+			on_active_longpress (
 				e: WechatMiniprogram.BaseEvent<
 					Record<string, never>, { index: number }
 
 				>,
 
-			): void {
+			): void
+			{
 				let { index } = e.currentTarget.dataset
 
 				this.active(index, 'longpress')

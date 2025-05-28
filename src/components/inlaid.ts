@@ -25,13 +25,13 @@ Component(
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			value: { type: Array, optionalTypes: [Object], value: [] },
 
-			loading: { type: Boolean, value: false },
+			loading : { type: Boolean, value: false },
 			finished: { type: Boolean, value: false },
 
-			legend: { type: Boolean, value: false },
+			legend  : { type: Boolean, value: false },
 			cassette: { type: Boolean, value: false },
 
-			gap: { type: String, value: 'var(--u-03-xs)' },
+			gap : { type: String, value: 'var(--u-03-xs)' },
 			into: { type: String, value: '' },
 
 		},
@@ -41,9 +41,10 @@ Component(
 
 			message: '',
 
-			data: [] as Array<unknown>,
+			data: [] as unknown[],
 
-			style(gap: string): string {
+			style (gap: string): string
+			{
 				let css = new style.Variable<'gap'>('dx', 'inlaid')
 
 				css.set('gap', gap)
@@ -55,8 +56,10 @@ Component(
 		},
 
 		observers: {
-			loading(v: boolean): void {
-				if (v) {
+			loading (v: boolean): void
+			{
+				if (v)
+				{
 					this.refresh()
 
 				}
@@ -65,9 +68,11 @@ Component(
 
 		},
 
-		export() {
+		export ()
+		{
 			return {
-				refresh: (): void => {
+				refresh: (): void =>
+				{
 					this.refresh()
 
 				},
@@ -78,10 +83,12 @@ Component(
 		},
 
 		methods: {
-			refresh(): void {
+			refresh (): void
+			{
 				let { value, lock } = this.data
 
-				if (lock) {
+				if (lock)
+				{
 					return
 
 				}
@@ -91,16 +98,17 @@ Component(
 
 				)
 
-				if (detective.is_function(value)
-
-				) {
-					try {
+				if (detective.is_function(value) )
+				{
+					try
+					{
 						// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 						value = value()
 
 					}
 
-					catch (e) {
+					catch (e)
+					{
 						this.exception(e)
 
 						return
@@ -109,19 +117,20 @@ Component(
 
 				}
 
-				if (detective.is_promise(value)
-
-				) {
+				if (detective.is_promise(value) )
+				{
 					value
 						.then(
-							v => {
+							v =>
+							{
 								this.update(v)
 
 							},
 
 						)
 						.catch(
-							(e: unknown) => {
+							(e: unknown) =>
+							{
 								this.exception(e)
 
 							},
@@ -136,10 +145,10 @@ Component(
 
 			},
 
-			update(value: unknown): void {
-				if (detective.is_empty(value)
-
-				) {
+			update (value: unknown): void
+			{
+				if (detective.is_empty(value) )
+				{
 					this.triggerEvent('update', [])
 					this.emit('※ empty ※')
 
@@ -147,24 +156,25 @@ Component(
 
 				}
 
-				if (detective.is_array(value) === false) {
+				if (detective.is_array(value) === false)
+				{
 					value = [value]
 
 				}
 
 				this.triggerEvent('update', value)
 
-				this.emit('', value as Array<unknown>)
+				this.emit('', value as unknown[])
 
 
 			},
 
-			exception(e: unknown): void {
+			exception (e: unknown): void
+			{
 				let message = ''
 
-				if (detective.is_error(e)
-
-				) {
+				if (detective.is_error(e) )
+				{
 					message = `※ ${e.name} - ${e.message} ※`
 
 				}
@@ -174,18 +184,20 @@ Component(
 
 			},
 
-			emit(
+			emit (
 				message: string,
-				data: Array<unknown> = [],
+				data: unknown[] = [],
 
-			): void {
+			): void
+			{
 				this.setData(
 					{ loading: false, message, data },
 
 				)
 
 				wx.nextTick(
-					() => {
+					() =>
+					{
 						this.setData(
 							{ finished: true, lock: false },
 

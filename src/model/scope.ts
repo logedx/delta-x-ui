@@ -5,12 +5,14 @@ import * as model from '../lib/model.js'
 import * as detective from '../lib/detective.js'
 
 
-export enum Mode {
-	'普通', '管理', '接口', '系统'
+export enum Mode
+{
+	'普通', '管理', '接口', '系统',
 
 }
 
-export enum Role {
+export enum Role
+{
 	'普通' = 0b0_0000_0000_0000,
 	'管理' = 0b0_0000_0000_0001,
 	'财务' = 0b0_0000_0001_0000,
@@ -45,7 +47,8 @@ export type TVirtuals = {
 export type THydratedDocumentType = model.HydratedDocument<TRawDocType, TVirtuals>
 
 
-export function align(...mode: Array<Mode>): number {
+export function align (...mode: Mode[]): number
+{
 	let value = Object.values(Role)
 		.filter(detective.is_finite_number)
 		.reduce(
@@ -64,10 +67,12 @@ export function align(...mode: Array<Mode>): number {
 
 }
 
-export function some(value: Role, ...role: Array<Role>): boolean {
+export function some (value: Role, ...role: Role[]): boolean
+{
 	value = Math.abs(value)
 
-	if (value === Role.无限) {
+	if (value === Role.无限)
+	{
 		return true
 
 	}
@@ -79,10 +84,12 @@ export function some(value: Role, ...role: Array<Role>): boolean {
 
 }
 
-export function mixed(value: Role, ...role: Array<Role>): Role {
+export function mixed (value: Role, ...role: Role[]): Role
+{
 	value = Math.abs(value)
 
-	if (value === Role.无限) {
+	if (value === Role.无限)
+	{
 		return Role.无限
 
 	}
@@ -97,13 +104,15 @@ export function mixed(value: Role, ...role: Array<Role>): Role {
 
 }
 
-export function pick(value: Role, ...mode: Array<Mode>): number {
+export function pick (value: Role, ...mode: Mode[]): number
+{
 	return value & align(...mode)
 
 
 }
 
-export function exclude(value: Role, ...mode: Array<Mode>): number {
+export function exclude (value: Role, ...mode: Mode[]): number
+{
 	value = Math.abs(value)
 
 	return value & (
@@ -113,7 +122,8 @@ export function exclude(value: Role, ...mode: Array<Mode>): number {
 
 }
 
-export function derive(value: Role, ...mode: Array<Mode>): number {
+export function derive (value: Role, ...mode: Mode[]): number
+{
 	value = Math.abs(value)
 
 	return mode.reduce(
@@ -125,10 +135,12 @@ export function derive(value: Role, ...mode: Array<Mode>): number {
 
 }
 
-export function chmod(value: Role, mode: Mode): Role {
+export function chmod (value: Role, mode: Mode): Role
+{
 	value = Math.abs(value)
 
-	if (value === Role.无限) {
+	if (value === Role.无限)
+	{
 		return Role.无限
 
 	}
@@ -137,15 +149,18 @@ export function chmod(value: Role, mode: Mode): Role {
 
 }
 
-export function vtmod(value: Role): Mode {
+export function vtmod (value: Role): Mode
+{
 	value = Math.abs(value)
 
-	if (value <= Role.普通) {
+	if (value <= Role.普通)
+	{
 		return Mode.普通
 
 	}
 
-	if (value === Role.无限) {
+	if (value === Role.无限)
+	{
 		return Mode.系统
 
 	}
@@ -158,10 +173,12 @@ export function vtmod(value: Role): Mode {
 		)
 
 	return vxmode.reduce(
-		(a, b) => {
+		(a, b) =>
+		{
 			let v = value & align(b)
 
-			if (v > 0) {
+			if (v > 0)
+			{
 				return b
 
 			}

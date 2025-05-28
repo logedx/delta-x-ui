@@ -1,7 +1,8 @@
 Component(
 	{
 		methods: {
-			on_active(): void {
+			on_active (): void
+			{
 				console.log('active')
 
 			},

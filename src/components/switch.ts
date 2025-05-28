@@ -15,9 +15,9 @@ Component(
 		},
 
 		properties: {
-			value: { type: Boolean, value: false },
-			size: { type: Number, value: 80 },
-			color: { type: String, value: 'var(--dark-primary)' },
+			value   : { type: Boolean, value: false },
+			size    : { type: Number, value: 80 },
+			color   : { type: String, value: 'var(--dark-primary)' },
 			disabled: { type: Boolean, value: false },
 
 		},
@@ -28,7 +28,8 @@ Component(
 		},
 
 		lifetimes: {
-			attached(): void {
+			attached (): void
+			{
 				this.set_style()
 
 			},
@@ -36,7 +37,8 @@ Component(
 		},
 
 		observers: {
-			value() {
+			value ()
+			{
 				this.set_style()
 
 			},
@@ -44,7 +46,8 @@ Component(
 		},
 
 		methods: {
-			set_style(): void {
+			set_style (): void
+			{
 				let { value, size, color } = this.data
 
 				let css = new style.Variable<'size' | 'color' | 'befor-left'>('dx', 'switch')
@@ -59,7 +62,8 @@ Component(
 
 				)
 
-				if (value) {
+				if (value)
+				{
 					css.set('color', color)
 					css.set('befor-left', 'calc(100% - var(--label) * var(--dx-switch-size) - var(--u-00-s) * 2)')
 
@@ -72,10 +76,12 @@ Component(
 
 			},
 
-			on_toggle(): void {
+			on_toggle (): void
+			{
 				let { value, disabled } = this.data
 
-				if (disabled) {
+				if (disabled)
+				{
 					return
 
 				}

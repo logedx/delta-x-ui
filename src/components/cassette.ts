@@ -3,21 +3,24 @@ import * as detective from '../lib/detective.js'
 
 
 
-export enum TActive {
+export enum TActive
+{
 	none,
 	last,
 	refresh,
 
 }
 
-export enum TDirection {
+export enum TDirection
+{
 	none = '',
 	up = 'up',
 	down = 'down',
 
 }
 
-export enum TEvent {
+export enum TEvent
+{
 	upper = 'upper',
 	lower = 'lower',
 	refresh = 'refresh',
@@ -39,11 +42,11 @@ Component(
 		},
 
 		properties: {
-			id: { type: String, value: '' },
-			into: { type: String, value: '' },
+			id     : { type: String, value: '' },
+			into   : { type: String, value: '' },
 			loading: { type: Boolean, value: false },
 
-			lister: { type: Boolean, value: false },
+			lister   : { type: Boolean, value: false },
 			refresher: { type: Boolean, value: false },
 
 			// '' | 'draggable-sheet' | 'nested-scroll-view' | 'pop-gesture'
@@ -63,19 +66,22 @@ Component(
 		},
 
 		observers: {
-			loading(v: boolean): void {
+			loading (v: boolean): void
+			{
 				let { trigger, active } = this.data
 
 				let is_reset_active = v === false && active !== TActive.none
 				let is_reset_trigger = v === false && active === TActive.refresh && trigger
 
 
-				if (is_reset_active) {
+				if (is_reset_active)
+				{
 					this.reset_active()
 
 				}
 
-				if (is_reset_trigger) {
+				if (is_reset_trigger)
+				{
 					this.reset_trigger()
 
 				}
@@ -86,9 +92,11 @@ Component(
 		},
 
 		lifetimes: {
-			ready(): void {
+			ready (): void
+			{
 				setTimeout(
-					() => {
+					() =>
+					{
 						this.setData(
 							{ lock: false },
 
@@ -105,7 +113,8 @@ Component(
 		},
 
 		methods: {
-			reset_active(): void {
+			reset_active (): void
+			{
 				this.setData(
 					{ active: TActive.none },
 
@@ -113,9 +122,11 @@ Component(
 
 			},
 
-			reset_trigger(): void {
+			reset_trigger (): void
+			{
 				setTimeout(
-					() => {
+					() =>
+					{
 						this.setData(
 							{ trigger: false },
 
@@ -129,15 +140,19 @@ Component(
 
 			},
 
-			on_catch_touch_move(): void {
+			on_catch_touch_move (): void
+			{
 				// empty
 
 			},
 
-			on_scroll_start(
+			on_scroll_start
+			(
 				e: WechatMiniprogram.ScrollViewScroll,
 
-			): void {
+			)
+			: void
+			{
 				let mark = e.detail.scrollTop
 
 				this.setData(
@@ -147,22 +162,27 @@ Component(
 
 			},
 
-			on_scroll(
+			on_scroll
+			(
 				e: WechatMiniprogram.ScrollViewScroll,
 
-			): void {
+			)
+			: void
+			{
 				let { mark } = this.data
 				let v = e.detail.scrollTop
 
 
 				let direction = TDirection.none
 
-				if (v > mark) {
+				if (v > mark)
+				{
 					direction = TDirection.up
 
 				}
 
-				if (v < mark) {
+				if (v < mark)
+				{
 					direction = TDirection.down
 
 				}
@@ -175,14 +195,15 @@ Component(
 
 			},
 
-			on_scroll_end(): void {
+			on_scroll_end (): void
+			{
 				let { into } = this.data
 
 				wx.nextTick(
-					() => {
-						if (detective.is_required_string(into)
-
-						) {
+					() =>
+					{
+						if (detective.is_required_string(into) )
+						{
 							this.setData(
 								{ into: '' },
 
@@ -201,15 +222,18 @@ Component(
 
 			},
 
-			on_scroll_to_upper(): void {
+			on_scroll_to_upper (): void
+			{
 				this.triggerEvent(TEvent.upper)
 
 			},
 
-			on_scroll_to_lower(): void {
+			on_scroll_to_lower (): void
+			{
 				let { loading, active } = this.data
 
-				if (loading || active !== TActive.none) {
+				if (loading || active !== TActive.none)
+				{
 					return
 
 				}
@@ -223,10 +247,12 @@ Component(
 
 			},
 
-			on_refresher_refresh(): void {
+			on_refresher_refresh (): void
+			{
 				let { loading, active } = this.data
 
-				if (loading || active !== TActive.none) {
+				if (loading || active !== TActive.none)
+				{
 					return
 
 				}

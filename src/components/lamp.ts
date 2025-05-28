@@ -3,7 +3,8 @@ import * as lister_variant from './lister.variant.js'
 
 
 
-export enum TEvent {
+export enum TEvent
+{
 	select = 'select',
 
 }
@@ -22,10 +23,10 @@ Component(
 		},
 
 		properties: {
-			name: { type: String, value: '' },
+			name : { type: String, value: '' },
 			serif: { type: Boolean, value: false },
 			check: { type: Boolean, value: false },
-			icon: { type: String, value: '../icon/check_128dp_F43048_FILL0_wght500_GRAD0_opsz48.png' },
+			icon : { type: String, value: '../icon/check_128dp_F43048_FILL0_wght500_GRAD0_opsz48.png' },
 
 		},
 
@@ -38,16 +39,19 @@ Component(
 		},
 
 		methods: {
-			set_style(index: number, length: number): void {
+			set_style (index: number, length: number): void
+			{
 				let classx = 'x'
 				let last = length - 1
 
-				if (index === 0) {
+				if (index === 0)
+				{
 					classx = 'x0'
 
 				}
 
-				if (index === last) {
+				if (index === last)
+				{
 					classx = 'x1'
 
 				}
@@ -59,10 +63,12 @@ Component(
 
 			},
 
-			on_select(): void {
+			on_select (): void
+			{
 				let { index } = this.data
 
-				if (index === null) {
+				if (index === null)
+				{
 					return
 
 				}

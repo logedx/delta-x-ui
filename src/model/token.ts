@@ -16,9 +16,9 @@ export type TRawDocType = model.TRawDocType<
 		scope: number
 
 		weapp: null | string
-		user: null | string
+		user : null | string
 
-		value: string
+		value  : string
 		refresh: string
 
 		expire: Date
@@ -29,14 +29,14 @@ export type TRawDocType = model.TRawDocType<
 
 export type TPopulatePaths = {
 	weapp: null | weapp_model.THydratedDocumentType
-	user: null | user_model.THydratedDocumentType
+	user : null | user_model.THydratedDocumentType
 
 }
 
 export type TVirtuals = {
 	is_super: boolean
 
-	is_usable: boolean
+	is_usable : boolean
 	is_survive: boolean
 
 	mode: scope_model.Mode
@@ -46,7 +46,7 @@ export type TVirtuals = {
 export type THydratedDocumentType = model.HydratedDocument<TRawDocType, TVirtuals>
 
 export type TSurviveHydratedDocumentType = model.HydratedDocument<
-	Omit<TRawDocType, 'weapp' | 'user'> & { weapp: weapp_model.THydratedDocumentType, user: user_model.THydratedDocumentType},
+	Omit<TRawDocType, 'weapp' | 'user'> & { weapp: weapp_model.THydratedDocumentType, user: user_model.THydratedDocumentType },
 
 	TVirtuals
 

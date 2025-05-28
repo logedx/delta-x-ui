@@ -1,4 +1,5 @@
-export enum Direction {
+export enum Direction
+{
 	left_to_right = 'left-to-right',
 	left_to_right_between = 'left-to-right-between',
 

@@ -13,14 +13,18 @@ let pagin = new container.Pagination<Item>()
 pagin.on(
 	'retrieve',
 
-	function (params: container.PaginationParams): Promise<Array<Item>> {
-		if (params.skip > 20) {
+	function (params: container.PaginationParams): Promise<Item[]>
+	{
+		if (params.skip > 20)
+		{
 			return Promise.resolve([])
+
 		}
 
-		let value = [] as Array<Item>
+		let value = [] as Item[]
 
-		for (let i = 0; i < params.limit; i++) {
+		for (let i = 0; i < params.limit; i++)
+		{
 			value.push(
 				{ label: `第${1 + i + params.skip}项` },
 
@@ -29,10 +33,13 @@ pagin.on(
 		}
 
 		return new Promise(
-			resolve => {
+			resolve =>
+			{
 				setTimeout(
-					() => {
+					() =>
+					{
 						resolve(value)
+
 					},
 
 					1000,
@@ -53,15 +60,16 @@ Component(
 		data: {
 			select: 0,
 
-			loading: false,
+			loading : false,
 			finished: false,
 
-			lister: [] as Array<Item>,
+			lister: [] as Item[],
 
 		},
 
 		lifetimes: {
-			attached(): void {
+			attached (): void
+			{
 				pagin.link(
 					this, { data: 'lister' },
 
@@ -72,7 +80,8 @@ Component(
 
 			},
 
-			detached(): void {
+			detached (): void
+			{
 				pagin.unlink()
 
 			},
@@ -81,23 +90,26 @@ Component(
 		},
 
 		methods: {
-			async on_last(): Promise<void> {
+			async on_last (): Promise<void>
+			{
 				await pagin.next()
 
 			},
 
-			async on_refresh(): Promise<void> {
+			async on_refresh (): Promise<void>
+			{
 				await pagin.first()
 
 			},
 
-			on_select(
+			on_select (
 				e: WechatMiniprogram.CustomEvent<
 						{ value: number }
 
 					>,
 
-			): void {
+			): void
+			{
 				let { value } = e.detail
 
 				this.setData(

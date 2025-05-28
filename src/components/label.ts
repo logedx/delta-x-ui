@@ -18,7 +18,8 @@ Component(
 
 				target: label_variant.behavior,
 
-				linked(target) {
+				linked (target)
+				{
 					this.push_child_(target)
 
 				},
@@ -41,9 +42,9 @@ Component(
 		},
 
 		properties: {
-			name: { type: String, value: '' },
-			value: { type: String, value: '' },
-			serif: { type: Boolean, value: false },
+			name   : { type: String, value: '' },
+			value  : { type: String, value: '' },
+			serif  : { type: Boolean, value: false },
 			newline: { type: Boolean, value: false },
 
 		},
@@ -54,12 +55,14 @@ Component(
 		},
 
 		observers: {
-			serif(): void {
+			serif (): void
+			{
 				this.set_style()
 
 			},
 
-			newline(): void {
+			newline (): void
+			{
 				this.set_style()
 
 			},
@@ -67,7 +70,8 @@ Component(
 		},
 
 		lifetimes: {
-			attached(): void {
+			attached (): void
+			{
 				this.set_style()
 
 			},
@@ -75,22 +79,26 @@ Component(
 		},
 
 		methods: {
-			self(): operator_variant.THashBehaviorInstance {
+			self (): operator_variant.THashBehaviorInstance
+			{
 				return this as unknown as operator_variant.THashBehaviorInstance
 
 			},
 
-			set_style(): void {
+			set_style (): void
+			{
 				let { serif, newline } = this.data
 
 				let css = new style.Variable<'serif' | 'newline'>('dx', 'label')
 
-				if (serif) {
+				if (serif)
+				{
 					css.set('serif', 'block')
 
 				}
 
-				if (newline) {
+				if (newline)
+				{
 					css.set('newline', 'block')
 
 				}
@@ -103,7 +111,8 @@ Component(
 
 			},
 
-			push_child_(target: WechatMiniprogram.Component.TrivialInstance): void {
+			push_child_ (target: WechatMiniprogram.Component.TrivialInstance): void
+			{
 				this.self().push_child(target)
 
 			},

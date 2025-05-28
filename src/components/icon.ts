@@ -13,8 +13,8 @@ Component(
 		},
 
 		properties: {
-			src: { type: String, value: '' },
-			size: { type: String, value: 'var(--u-06-s)' },
+			src   : { type: String, value: '' },
+			size  : { type: String, value: 'var(--u-06-s)' },
 			radius: { type: String, value: '' },
 
 		},
@@ -24,7 +24,8 @@ Component(
 		},
 
 		lifetimes: {
-			attached(): void {
+			attached (): void
+			{
 				this.set_style()
 
 			},
@@ -32,23 +33,22 @@ Component(
 		},
 
 		methods: {
-			set_style(): void {
+			set_style (): void
+			{
 				let { src, size, radius } = this.data
 
 				let css = new style.Variable<'size' | 'radius' | 'background-display'>('dx', 'icon')
 
 				css.set('size', size)
 
-				if (detecive.is_required_string(radius)
-
-				) {
+				if (detecive.is_required_string(radius) )
+				{
 					css.set('radius', radius)
 
 				}
 
-				if (detecive.is_empty_string(src)
-
-				) {
+				if (detecive.is_empty_string(src) )
+				{
 					css.set('background-display', 'block')
 
 				}

@@ -1,7 +1,8 @@
 Component(
 	{
 		methods: {
-			on_lower(): void {
+			on_lower (): void
+			{
 				console.log('lower')
 
 

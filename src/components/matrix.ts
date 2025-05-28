@@ -18,9 +18,9 @@ Component(
 		} as WechatMiniprogram.Component.ComponentOptions,
 
 		properties: {
-			row: { type: Number, value: 1 },
-			column: { type: Number, value: 1 },
-			gap: { type: String, value: '' },
+			row      : { type: Number, value: 1 },
+			column   : { type: Number, value: 1 },
+			gap      : { type: String, value: '' },
 			separator: { type: String, value: '' },
 
 		},
@@ -28,7 +28,8 @@ Component(
 		data: {
 			style: '',
 
-			ceil(value: number): number {
+			ceil (value: number): number
+			{
 				return Math.ceil(value)
 
 			},
@@ -36,7 +37,8 @@ Component(
 		},
 
 		lifetimes: {
-			attached(): void {
+			attached (): void
+			{
 				this.set_style()
 
 			},
@@ -44,7 +46,8 @@ Component(
 		},
 
 		methods: {
-			set_style(): void {
+			set_style (): void
+			{
 				let { gap, row, column } = this.data
 
 				let css = new style.Variable<'row' | 'column' | 'gap'>('dx', 'matrix')
@@ -52,7 +55,8 @@ Component(
 				css.set('row', row)
 				css.set('row', column)
 
-				if (gap !== '') {
+				if (gap !== '')
+				{
 					css.set('gap', gap)
 
 				}

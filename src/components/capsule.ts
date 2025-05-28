@@ -26,7 +26,8 @@ Component(
 		},
 
 		observers: {
-			color(): void {
+			color (): void
+			{
 				this.set_style()
 
 			},
@@ -34,13 +35,15 @@ Component(
 		},
 
 		methods: {
-			set_style(): void {
+			set_style (): void
+			{
 				let { color } = this.data
 
 				let css = new style.Variable<'color'>('dx', 'capsule')
 
 
-				if (color) {
+				if (color)
+				{
 					css.set('color', color)
 
 				}

@@ -2,7 +2,7 @@ Component(
 	{
 		data: {
 			integer: 0,
-			digit: Math.PI,
+			digit  : Math.PI,
 
 		},
 

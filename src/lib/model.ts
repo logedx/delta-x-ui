@@ -18,7 +18,7 @@ export type OTRawDocType<T> = Omit<T, 'updated' | 'created' | 'updated_hex' | 'c
 
 export type HydratedDocument<
 	R extends Record<string, unknown> | TRawDocType<Record<string, unknown>>,
-	V extends object | Record<string, unknown> = Record<string, unknown>
+	V extends object | Record<string, unknown> = Record<string, unknown>,
 
 > = { _id: string } & R & V
 

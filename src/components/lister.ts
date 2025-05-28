@@ -15,7 +15,8 @@ Component(
 
 				target: lister_variant.behavior,
 
-				linked(target) {
+				linked (target)
+				{
 					this.set_style(target)
 
 					this.push_child_(target)
@@ -39,7 +40,7 @@ Component(
 		} as WechatMiniprogram.Component.ComponentOptions,
 
 		properties: {
-			value: { type: Array, value: [] },
+			value   : { type: Array, value: [] },
 			finished: { type: Boolean, value: false },
 
 			loading: { type: Boolean, value: false },
@@ -54,12 +55,14 @@ Component(
 		},
 
 		methods: {
-			self(): operator_variant.THashBehaviorInstance {
+			self (): operator_variant.THashBehaviorInstance
+			{
 				return this as unknown as operator_variant.THashBehaviorInstance
 
 			},
 
-			set_style(target: WechatMiniprogram.Component.TrivialInstance): void {
+			set_style (target: WechatMiniprogram.Component.TrivialInstance): void
+			{
 				let { value } = this.data
 
 				let child = this.self().get_child()
@@ -74,15 +77,18 @@ Component(
 
 			},
 
-			push_child_(target: WechatMiniprogram.Component.TrivialInstance): void {
+			push_child_ (target: WechatMiniprogram.Component.TrivialInstance): void
+			{
 				this.self().push_child(target)
 
 			},
 
-			on_lower(): void {
+			on_lower (): void
+			{
 				let { finished } = this.data
 
-				if (finished) {
+				if (finished)
+				{
 					return
 
 				}
@@ -95,7 +101,8 @@ Component(
 
 			},
 
-			on_refresh(): void {
+			on_refresh (): void
+			{
 				this.triggerEvent(lister_variant.TEvent.refresh)
 				this.setData(
 					{ loading: true },

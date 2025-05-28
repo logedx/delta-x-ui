@@ -11,26 +11,32 @@ Component(
 		},
 
 		methods: {
-			on_handle_tap(
+			on_handle_tap
+			(
 				e: WechatMiniprogram.CustomEvent<
 					{ index: number }
 
 				>,
 
-			): void {
+			)
+			: void
+			{
 				let { index } = e.detail
 
 				console.log('tap', index)
 
 			},
 
-			on_handle_longpress(
+			on_handle_longpress
+			(
 				e: WechatMiniprogram.CustomEvent<
 					{ index: number }
 
 				>,
 
-			): void {
+			)
+			: void
+			{
 				let { index } = e.detail
 
 				console.log('longpress', index)

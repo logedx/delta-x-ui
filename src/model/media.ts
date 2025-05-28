@@ -15,19 +15,19 @@ export type TRawDocType = model.TRawDocType<
 		size: number
 		mime: string
 
-		folder: string
+		folder  : string
 		filename: string
 
-		store: 'alioss'
+		store : 'alioss'
 		bucket: string
 
 
-		src?: string
+		src? : string
 		hash?: string
 
 		linker: Array<
 			{
-				name: string
+				name : string
 				model: string
 
 			}

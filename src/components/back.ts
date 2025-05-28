@@ -10,14 +10,16 @@ Component(
 		},
 
 		properties: {
-			src: { type: String, value: '' },
+			src : { type: String, value: '' },
 			size: { type: String, value: 'var(--u-04-l)' },
 
 		},
 
 		methods: {
-			async on_navigate_back(): Promise<void> {
-				await wx.navigateBack()
+			on_navigate_back (): void
+			{
+				// eslint-disable-next-line @typescript-eslint/no-floating-promises
+				wx.navigateBack()
 
 			},
 

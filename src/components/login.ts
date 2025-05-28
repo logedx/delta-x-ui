@@ -19,7 +19,8 @@ Component(
 
 
 // must be synchronous function
-function inject(): void {
+function inject (): void
+{
 	let app = getApp()
 
 	http.hostname = app.hostname as string
@@ -37,23 +38,25 @@ function inject(): void {
 }
 
 
-function create_proxy(): request.HttpOptionTransform {
+function create_proxy (): request.HttpOptionTransform
+{
 	let bearer = token_storage.create()
 
 
-	function header(value: string): Parameters<typeof token_storage.update>[0] {
+	function header (value: string): Parameters<typeof token_storage.update>[0]
+	{
 		// eslint-disable-next-line @typescript-eslint/naming-convention
 		return { Authorization: `Bearer ${value}` }
 
 	}
 
 
-	return async function (option) {
+	return async function (option)
+	{
 		let token = await bearer
 
-		if (new Date() > new Date(token.expire)
-
-		) {
+		if (new Date() > new Date(token.expire) )
+		{
 			bearer = token_storage.update(
 				header(token.refresh),
 
@@ -73,7 +76,8 @@ function create_proxy(): request.HttpOptionTransform {
 }
 
 
-async function create_user(): Promise<void> {
+async function create_user (): Promise<void>
+{
 	let login = await wx.login()
 	let account = wx.getAccountInfoSync()
 

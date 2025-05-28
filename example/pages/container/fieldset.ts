@@ -16,10 +16,11 @@ Component(
 		},
 
 		methods: {
-			on_active(
+			on_active (
 				e: WechatMiniprogram.CustomEvent<{ name: string }>,
 
-			): void {
+			): void
+			{
 				console.log(e.detail)
 
 			},

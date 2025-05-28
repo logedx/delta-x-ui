@@ -1,34 +1,36 @@
 import * as style from '../lib/style.js'
 
-declare global {
+declare global
+{
 	// eslint-disable-next-line @typescript-eslint/no-namespace
-	namespace WechatMiniprogram {
+	namespace WechatMiniprogram
+	{
 		type WindowInfo = {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			pixelRatio: number
 
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			screenTop: number
+			screenTop   : number
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			screenWidth: number
+			screenWidth : number
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			screenHeight: number
 
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			windowHeight: number
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			windowWidth: number
+			windowWidth : number
 
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			statusBarHeight: number
 
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			safeArea?: {
-				top: number
-				right: number
+				top   : number
+				right : number
 				bottom: number
-				left: number
-				width: number
+				left  : number
+				width : number
 				height: number
 
 			}
@@ -37,7 +39,8 @@ declare global {
 
 
 		// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-		interface Wx {
+		interface Wx
+		{
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			getWindowInfo(): WindowInfo
 
@@ -75,7 +78,8 @@ Component(
 		},
 
 		lifetimes: {
-			attached(): void {
+			attached (): void
+			{
 				this.set_style()
 
 			},
@@ -83,7 +87,8 @@ Component(
 		},
 
 		methods: {
-			set_style(): void {
+			set_style (): void
+			{
 				let window = wx.getWindowInfo()
 				let menu = wx.getMenuButtonBoundingClientRect()
 
@@ -100,17 +105,20 @@ Component(
 
 			},
 
-			on_catch_touch_move(): void {
+			on_catch_touch_move (): void
+			{
 				// empty
 
 			},
 
-			on_scroll_to_upper(): void {
+			on_scroll_to_upper (): void
+			{
 				this.triggerEvent('upper')
 
 			},
 
-			on_scroll_to_lower(): void {
+			on_scroll_to_lower (): void
+			{
 				this.triggerEvent('lower')
 
 			},

@@ -10,9 +10,9 @@ import * as structure from './structure.js'
 
 
 export type FailResult = {
-	name: string
+	name   : string
 	message: string
-	stack: Array<string>
+	stack  : string[]
 
 }
 
@@ -21,12 +21,12 @@ export type SuccessRestult = string | ArrayBuffer | WechatMiniprogram.IAnyObject
 export type HttpBody<T> = structure.Replace<T, Date, string>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type HttpFunction = (...args: Array<any>) => Promise<any>
+export type HttpFunction = (...args: any[]) => Promise<any>
 
 export type Httpblockage = {
-	url: string
-	method: WechatMiniprogram.RequestOption['method']
-	handle: HttpFunction
+	url        : string
+	method     : WechatMiniprogram.RequestOption['method']
+	handle     : HttpFunction
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	handle_call: null | Promise<any>
 
@@ -42,15 +42,18 @@ export type HttpOptionTransform = (
 >
 
 export type HttpUploadOption = {
-	name: string
-	model: string
+	name  : string
+	model : string
 	folder: string
-	url: string
+	url   : string
 	method: WechatMiniprogram.RequestOption['method']
 
 }
 
-export type HttpTaskResult<T extends SuccessRestult, H extends object = object> = structure.Overwrite<
+export type HttpTaskResult
+<T extends SuccessRestult, H extends object = object>
+=
+structure.Overwrite<
 	WechatMiniprogram.RequestSuccessCallbackResult<
 		HttpBody<T>
 
@@ -63,8 +66,11 @@ export type HttpTaskResult<T extends SuccessRestult, H extends object = object> 
 
 >
 
+export type HttpTaskUnpackingResult
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-export type HttpTaskUnpackingResult<T extends void | SuccessRestult> = Promise<
+<T extends void | SuccessRestult>
+=
+Promise<
 	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 	T extends void ? void : HttpBody<T>
 
@@ -73,8 +79,10 @@ export type HttpTaskUnpackingResult<T extends void | SuccessRestult> = Promise<
 
 
 
-export function is_fail_result(v: unknown): v is FailResult {
-	if (detective.is_object(v) === false) {
+export function is_fail_result (v: unknown): v is FailResult
+{
+	if (detective.is_object(v) === false)
+	{
 		return false
 
 	}
@@ -88,8 +96,10 @@ export function is_fail_result(v: unknown): v is FailResult {
 }
 
 
-export function is_hostname(v: unknown): v is string {
-	if (detective.is_required_string(v) === false) {
+export function is_hostname (v: unknown): v is string
+{
+	if (detective.is_required_string(v) === false)
+	{
 		return false
 
 	}
@@ -100,48 +110,57 @@ export function is_hostname(v: unknown): v is string {
 }
 
 
-export class Http {
+export class Http
+{
 	#hostname = ''
 
 	#blockage = null as null | Httpblockage
 
 	#default_option: null | WechatMiniprogram.RequestOption = null
 
-	#option_transform: HttpOptionTransform = (option) => Promise.resolve(option)
+	#option_transform: HttpOptionTransform = option => Promise.resolve(option)
 
 
 
 
-	constructor(option?: WechatMiniprogram.RequestOption) {
-		if (option) {
+	constructor (option?: WechatMiniprogram.RequestOption)
+	{
+		if (option)
+		{
 			this.#default_option = option
 
 		}
 
 	}
 
-	get now(): Date {
+	get now (): Date
+	{
 		return HttpTask.now
 
 	}
 
-	static get now(): Date {
+	static get now (): Date
+	{
 		return HttpTask.now
 
 	}
 
-	get latest(): Date {
+	get latest (): Date
+	{
 		return HttpTask.latest
 
 	}
 
-	static get latest(): Date {
+	static get latest (): Date
+	{
 		return HttpTask.latest
 
 	}
 
-	set hostname(value: string) {
-		if (is_hostname(value) === false) {
+	set hostname (value: string)
+	{
+		if (is_hostname(value) === false)
+		{
 			throw new Error('invalid hostname')
 
 		}
@@ -150,42 +169,52 @@ export class Http {
 
 	}
 
-	proxy(fn: HttpOptionTransform): void {
+	proxy (fn: HttpOptionTransform): void
+	{
 		this.#option_transform = fn
 
 	}
 
-	blockage<F extends HttpFunction>(
+	blockage
+	<F extends HttpFunction> (
 		url: string,
 		method: WechatMiniprogram.RequestOption['method'],
 
 		fn: F,
 		...args: Parameters<F>
 
-	): void {
+	)
+	: void
+	{
 		this.#blockage = {
 			url,
 			method,
 
-			handle: () => fn(...args),
+			handle     : () => fn(...args),
 			handle_call: null,
 
 		}
 
 	}
 
-	create<T extends SuccessRestult, H extends object = object>(
+	create
+	<T extends SuccessRestult, H extends object = object> (
 		option: WechatMiniprogram.RequestOption | Promise<WechatMiniprogram.RequestOption>,
 
-	): HttpTask<T, H> {
+	)
+	: HttpTask<T, H>
+	{
 		return new HttpTask<T, H>(this.#hostname, option)
 
 	}
 
-	launch<T extends SuccessRestult, H extends object = object>(
+	launch
+	<T extends SuccessRestult, H extends object = object> (
 		option: WechatMiniprogram.RequestOption,
 
-	): HttpTask<T, H> {
+	)
+	: HttpTask<T, H>
+	{
 		let o = this.#option_transform(
 			{ ...this.#default_option, ...option },
 
@@ -193,13 +222,17 @@ export class Http {
 
 		)
 
-		if (this.#blockage) {
+		if (this.#blockage)
+		{
 			let { url, method, handle, handle_call } = this.#blockage
 
-			if (handle_call) {
+			if (handle_call)
+			{
 				o = o.then(
-					async v => {
-						if (v.url === url && v.method === method) {
+					async v =>
+					{
+						if (v.url === url && v.method === method)
+						{
 							return v
 
 						}
@@ -217,9 +250,11 @@ export class Http {
 
 			}
 
-			else {
+			else
+			{
 				o = o.then(
-					async v => {
+					async v =>
+					{
 						await handle()
 
 						return v
@@ -238,12 +273,15 @@ export class Http {
 
 	}
 
-	head<T extends SuccessRestult, H extends object = object>(
+	head
+	<T extends SuccessRestult, H extends object = object> (
 		url: string,
 		header?: WechatMiniprogram.RequestOption['header'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'header'>,
 
-	): HttpTask<T, H> {
+	)
+	: HttpTask<T, H>
+	{
 		return this.launch<T, H>(
 			{ ...option, url, header, method: 'HEAD' },
 
@@ -251,12 +289,15 @@ export class Http {
 
 	}
 
-	get<T extends SuccessRestult, H extends object = object>(
+	get
+	<T extends SuccessRestult, H extends object = object> (
 		url: string,
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
 
-	): HttpTask<T, H> {
+	)
+	: HttpTask<T, H>
+	{
 		return this.launch<T, H>(
 			{ ...option, url, data, method: 'GET' },
 
@@ -264,12 +305,15 @@ export class Http {
 
 	}
 
-	post<T extends SuccessRestult, H extends object = object>(
+	post
+	<T extends SuccessRestult, H extends object = object> (
 		url: string,
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
 
-	): HttpTask<T, H> {
+	)
+	: HttpTask<T, H>
+	{
 		return this.launch<T, H>(
 			{ ...option, url, data, method: 'POST' },
 
@@ -277,12 +321,15 @@ export class Http {
 
 	}
 
-	put<T extends SuccessRestult, H extends object = object>(
+	put
+	<T extends SuccessRestult, H extends object = object> (
 		url: string,
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
 
-	): HttpTask<T, H> {
+	)
+	: HttpTask<T, H>
+	{
 		return this.launch<T, H>(
 			{ ...option, url, data, method: 'PUT' },
 
@@ -290,12 +337,15 @@ export class Http {
 
 	}
 
-	delete<T extends SuccessRestult, H extends object = object>(
+	delete
+	<T extends SuccessRestult, H extends object = object> (
 		url: string,
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
 
-	): HttpTask<T, H> {
+	)
+	: HttpTask<T, H>
+	{
 		return this.launch<T, H>(
 			{ ...option, url, data, method: 'DELETE' },
 
@@ -303,12 +353,15 @@ export class Http {
 
 	}
 
-	option<T extends SuccessRestult, H extends object = object>(
+	option
+	<T extends SuccessRestult, H extends object = object> (
 		url: string,
 		header?: WechatMiniprogram.RequestOption['header'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'header'>,
 
-	): HttpTask<T, H> {
+	)
+	: HttpTask<T, H>
+	{
 		return this.launch<T, H>(
 			{ ...option, url, header, method: 'OPTIONS' },
 
@@ -316,29 +369,32 @@ export class Http {
 
 	}
 
-	async upload<T extends SuccessRestult, H extends object = object>(
+	async upload
+	<T extends SuccessRestult, H extends object = object> (
 		file: fs.ReadFile,
 		option: HttpUploadOption,
 
-	): Promise<
+	)
+	: Promise<
 		HttpTask<T, H>
 
-	> {
+	>
+	{
 		let header = {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			'Name': option.name,
+			'Name'          : option.name,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			'Model': option.model,
+			'Model'         : option.model,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			'Folder': option.folder,
+			'Folder'        : option.folder,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			'Accept': file.mime,
+			'Accept'        : file.mime,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			'Hash': file.hash,
+			'Hash'          : file.hash,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			'Content-Length': String(file.size),
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			'Content-Type': 'application/octet-stream',
+			'Content-Type'  : 'application/octet-stream',
 
 		}
 
@@ -349,17 +405,20 @@ export class Http {
 
 	}
 
-	async upload_many<T extends SuccessRestult, H extends object = object>(
-		files: Array<fs.ReadFile>,
+	async upload_many
+	<T extends SuccessRestult, H extends object = object> (
+		files: fs.ReadFile[],
 		option: HttpUploadOption,
 
-	): Promise<
+	)
+	: Promise<
 		Array<
 			HttpTask<T, H>
 
 		>
 
-	> {
+	>
+	{
 		let queue = files.map(
 			v => this.upload<T, H>(v, option),
 
@@ -369,19 +428,23 @@ export class Http {
 
 	}
 
-	static async clamp<F extends HttpFunction>(
+	static async clamp
+	<F extends HttpFunction> (
 		fn: F,
 
 		...args: Parameters<F>
 
-	): Promise<
+	)
+	: Promise<
 		Awaited<
 			ReturnType<F>
 
 		>
 
-	> {
-		try {
+	>
+	{
+		try
+		{
 			await wx.showLoading(
 				{ title: '' },
 
@@ -392,18 +455,19 @@ export class Http {
 
 		}
 
-		catch (e) {
+		catch (e)
+		{
 			let message = 'request failed'
 
-			if (detective.is_error(e)
-
-			) {
+			if (detective.is_error(e) )
+			{
 				message = e.message
 
 			}
 
 			if (detective.is_string(e)
-			) {
+			)
+			{
 				message = e
 
 			}
@@ -418,7 +482,8 @@ export class Http {
 
 		}
 
-		finally {
+		finally
+		{
 			await wx.hideLoading()
 
 		}
@@ -427,7 +492,8 @@ export class Http {
 
 }
 
-export class HttpTask<T extends SuccessRestult, H extends object = object> {
+export class HttpTask<T extends SuccessRestult, H extends object = object>
+{
 	#link = null as null | WechatMiniprogram.RequestTask
 
 	#collect: Promise<
@@ -441,15 +507,14 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 
 
-	constructor(
+	constructor
+	(
 		hostname: string,
 		option: WechatMiniprogram.RequestOption | Promise<WechatMiniprogram.RequestOption>,
-
-
-	) {
-		if (detective.is_promise(option)
-
-		) {
+	)
+	{
+		if (detective.is_promise(option) )
+		{
 			this.#collect = option.then(
 				v => this.#create_task(hostname, v),
 
@@ -457,7 +522,8 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 		}
 
-		else {
+		else
+		{
 			this.#collect = this.#create_task(hostname, option)
 
 		}
@@ -465,12 +531,14 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 	}
 
-	get now(): Date {
+	get now (): Date
+	{
 		return HttpTask.now
 
 	}
 
-	static get now(): Date {
+	static get now (): Date
+	{
 		return new Date(
 			this.#offset + Date.now(),
 
@@ -478,41 +546,45 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 	}
 
-	get latest(): Date {
+	get latest (): Date
+	{
 		return HttpTask.latest
 
 	}
 
-	static get latest(): Date {
+	static get latest (): Date
+	{
 		return new Date(this.#latest)
 
 	}
 
-	get finish(): Promise<HttpTaskResult<T, H>> {
+	get finish (): Promise<HttpTaskResult<T, H>>
+	{
 		return this.#collect
 
 	}
 
 
-	resp(): Promise<HttpTaskResult<T, H>> {
+	resp (): Promise<HttpTaskResult<T, H>>
+	{
 		return this.#collect
 
 	}
 
-	collect(): Promise<HttpTaskResult<T, H>> {
+	collect (): Promise<HttpTaskResult<T, H>>
+	{
 		return this.#collect
 
 	}
 
-	abort(): void {
+	abort (): void
+	{
 		this.#link?.abort()
 
 	}
 
-	on(
-		listener: (data: ArrayBuffer) => void,
-
-	): void {
+	on (listener: (data: ArrayBuffer) => void): void
+	{
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-expect-error
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-call
@@ -520,11 +592,13 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 	}
 
-	#parse(
+	#parse (
 		hostname: string,
 		option: WechatMiniprogram.RequestOption,
 
-	): WechatMiniprogram.RequestOption {
+	)
+	: WechatMiniprogram.RequestOption
+	{
 		// eslint-disable-next-line new-cap
 		let uri = new url_parse(hostname, true)
 
@@ -543,19 +617,18 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 		)
 
-		if (option.method === 'GET') {
+		if (option.method === 'GET')
+		{
 			let query = ''
 
-			if (detective.is_string(option.data)
-
-			) {
+			if (detective.is_string(option.data) )
+			{
 				query = option.data
 
 			}
 
-			if (detective.is_object(option.data)
-
-			) {
+			if (detective.is_object(option.data) )
+			{
 				query = query_string.stringify(
 					option.data,
 
@@ -566,9 +639,8 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 			}
 
-			if (detective.is_required_string(query)
-
-			) {
+			if (detective.is_required_string(query) )
+			{
 				uri.set('query', query)
 
 			}
@@ -577,7 +649,8 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 		}
 
-		if (detective.is_object(option.header) === false) {
+		if (detective.is_object(option.header) === false)
+		{
 			option.header = {}
 
 		}
@@ -586,21 +659,25 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 	}
 
-	#create_task(
+	#create_task (
 		hostname: string,
 		option: WechatMiniprogram.RequestOption,
 
-	): Promise<
+	)
+	: Promise<
 		HttpTaskResult<T, H>
 
-	> {
+	>
+	{
 		return new Promise<HttpTaskResult<T, H>>(
-			(resolve, reject) => {
+			(resolve, reject) =>
+			{
 				this.#link = wx.request<T>(
 					{
 						...this.#parse(hostname, option),
 
-						success(res): void {
+						success (res): void
+						{
 							let latest = moment(
 								structure.get(res.header, 'date', ''),
 
@@ -614,24 +691,26 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 							HttpTask.#latest = latest.toDate()
 
 
-							if (res.statusCode < 200 || res.statusCode > 299) {
+							if (res.statusCode < 200 || res.statusCode > 299)
+							{
 								let e = new HttpError(res.errMsg)
 
-								if (is_fail_result(res.data)
-
-								) {
+								if (is_fail_result(res.data) )
+								{
 									e.code = res.statusCode
 									e.header = res.header
 
 									e.name = res.data.name
 									e.message = res.data.message
 
-									if (res.data.stack.length > 0) {
+									if (res.data.stack.length > 0)
+									{
 										e.stack = res.data.stack.join('\n')
 
 									}
 
-									else {
+									else
+									{
 										let stack = [
 											`${e.name}: ${e.message}`,
 											`	at ${res.statusCode}`,
@@ -652,14 +731,16 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 
 							}
 
-							else {
+							else
+							{
 								resolve(res as HttpTaskResult<T, H>)
 
 							}
 
 						},
 
-						fail(res): void {
+						fail (res): void
+						{
 							let e = new HttpError()
 
 							let stack = [
@@ -684,26 +765,29 @@ export class HttpTask<T extends SuccessRestult, H extends object = object> {
 			},
 
 		)
+
 	}
 
 }
 
-export class HttpError extends Error {
+export class HttpError extends Error
+{
 	name = 'HttpError'
 
 	code = 400
 
 	#header = {}
 
-	set header(v: object) {
+	set header (v: object)
+	{
 		this.#header = v
 
 	}
 
-	get exception(): Array<string> {
-		if (detective.is_empty(this.stack)
-
-		) {
+	get exception (): string[]
+	{
+		if (detective.is_empty(this.stack) )
+		{
 			return []
 
 		}
@@ -712,13 +796,12 @@ export class HttpError extends Error {
 
 	}
 
-	get(key: string): string {
-		for (let [k, v] of Object.entries(this.#header)
-
-		) {
-			if (k.toLowerCase() === key.toLowerCase()
-
-			) {
+	get (key: string): string
+	{
+		for (let [k, v] of Object.entries(this.#header) )
+		{
+			if (k.toLowerCase() === key.toLowerCase() )
+			{
 				return v as string
 
 			}

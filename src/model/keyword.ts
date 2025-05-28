@@ -10,10 +10,10 @@ import * as weapp_model from './weapp.js'
 
 export type TRawDocType = model.TRawDocType<
 	{
-		weapp: string
-		name: string
-		label: string
-		value: string
+		weapp : string
+		name  : string
+		label : string
+		value : string
 		letter: string
 
 	}

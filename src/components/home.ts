@@ -16,18 +16,18 @@ Component(
 		},
 
 		properties: {
-			src: { type: String, value: '' },
+			src : { type: String, value: '' },
 			size: { type: String, value: 'var(--u-04-l)' },
 
 		},
 
 		methods: {
-			async on_redirect_to_home(): Promise<void> {
+			async on_redirect_to_home (): Promise<void>
+			{
 				let [url] = app.pages()
 
-				if (detective.is_empty(url)
-
-				) {
+				if (detective.is_empty(url) )
+				{
 					return
 
 				}

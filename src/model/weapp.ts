@@ -8,18 +8,18 @@ import * as model from '../lib/model.js'
 
 export type TRawDocType = model.TRawDocType<
 	{
-		appid: string
+		appid : string
 		bucket: string
 
-		secret?: string
-		mchid?: string
-		v3key?: string
-		sign?: string
+		secret?  : string
+		mchid?   : string
+		v3key?   : string
+		sign?    : string
 		evidence?: string
-		verify?: string
-		token?: string
-		refresh?: string
-		expired?: Date
+		verify?  : string
+		token?   : string
+		refresh? : string
+		expired? : Date
 
 		closed: Date
 

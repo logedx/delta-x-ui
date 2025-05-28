@@ -22,7 +22,8 @@ Component(
 
 				target: claim_variant.behavior,
 
-				linked(target) {
+				linked (target)
+				{
 					this.set_style(target as claim_variant.TBehaviorInstance)
 
 					this.push_child_(target)
@@ -52,13 +53,13 @@ Component(
 		} as WechatMiniprogram.Component.ComponentOptions,
 
 		properties: {
-			name: { type: String, value: '' },
+			name : { type: String, value: '' },
 			value: { type: String, value: '' },
 
 		},
 
 		data: {
-			style: '',
+			style  : '',
 			newline: true,
 
 			notice: false,
@@ -66,19 +67,22 @@ Component(
 		},
 
 		methods: {
-			it(): operator_variant.THashBehaviorInstance {
+			it (): operator_variant.THashBehaviorInstance
+			{
 				return this as unknown as operator_variant.THashBehaviorInstance
 
 			},
 
-			set_style(target: claim_variant.TBehaviorInstance): void {
+			set_style (target: claim_variant.TBehaviorInstance): void
+			{
 				let notice = false
 
 				let { value, required, focus, readonly } = target.data
 
 				let css = new style.Variable<'divider' | 'divider-color' | 'flag' | 'flag-color'>('dx', 'claim')
 
-				if (required) {
+				if (required)
+				{
 					notice = true
 
 					css.set('divider', 'flex')
@@ -89,9 +93,8 @@ Component(
 
 				}
 
-				if (detective.is_empty(value) === false
-
-				) {
+				if (detective.is_empty(value) === false)
+				{
 					notice = false
 
 					css.remove('divider')
@@ -102,16 +105,16 @@ Component(
 
 				}
 
-				if (focus) {
+				if (focus)
+				{
 					css.set('divider', 'flex')
 					css.set('divider-color', 'var(--h-ea-00)')
 
 					css.set('flag', 'flex')
 					css.set('flag-color', 'var(--h-ea-00)')
 
-					if (detective.is_empty(value) === false
-
-					) {
+					if (detective.is_empty(value) === false)
+					{
 						css.set('divider-color', 'var(--success)')
 
 						css.set('flag-color', 'var(--success)')
@@ -120,7 +123,8 @@ Component(
 
 				}
 
-				if (readonly) {
+				if (readonly)
+				{
 					notice = false
 
 					css.remove('divider')
@@ -145,7 +149,8 @@ Component(
 
 			},
 
-			push_child_(target: WechatMiniprogram.Component.TrivialInstance): void {
+			push_child_ (target: WechatMiniprogram.Component.TrivialInstance): void
+			{
 				this.it().push_child(target)
 
 			},

@@ -4,13 +4,14 @@ Component(
 	{
 		data: {
 			expire: null as null | Date,
-			scope: 0,
+			scope : 0,
 
 		},
 
 
 		lifetimes: {
-			async attached(): Promise<void> {
+			async attached (): Promise<void>
+			{
 				await this.retrieve()
 
 			},
@@ -19,7 +20,8 @@ Component(
 		},
 
 		methods: {
-			async retrieve(): Promise<void> {
+			async retrieve (): Promise<void>
+			{
 				let doc = await token_storage.retrieve()
 
 				this.setData(
