@@ -4,33 +4,57 @@ import * as structure from './structure.js'
 
 
 
+
 export type PaginationBaseParams = {
 	skip : number
 	limit: number
-	sort : string | string[]
+	sort : string[]
 
 }
 
-export type PaginationParams<T extends object = object> = PaginationBaseParams & Partial<T>
 
-export type PaginationCallHandler<T extends object = object> = (
-	linker: WechatMiniprogram.Component.TrivialInstance,
+export type PaginationParams<T extends object = object> = PaginationBaseParams & T
+
+
+export type PaginationCallHandler
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+<T extends [...any[], object] = [object]>
+=
+(
+	linker: WechatMiniprogram.Component.Instance<
+		structure.GetTupleLastElement<T>,
+
+		WechatMiniprogram.IAnyObject,
+		WechatMiniprogram.IAnyObject,
+		WechatMiniprogram.IAnyObject
+
+	>,
+
 	skip: PaginationBaseParams['skip'],
 	limit: PaginationBaseParams['limit'],
 	sort: PaginationBaseParams['sort'],
 
-) => T
+)
+=>
+T
 
-export type PaginationRetrieveHandler<T extends object, P extends object> = (params: PaginationParams<P>) => request.HttpTaskUnpackingResult<
-	T[]
 
->
+export type PaginationRetrieveHandler
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+<T extends object, P extends [...any[], object]>
+=
+P extends [...infer A, infer L extends object]
+	? (...args: [...A, PaginationParams<L>]) => request.HttpTaskUnpackingResult<T[]>
+	: never
+
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PaginationUpdateHandler<T> = (data: T[], finished: boolean) => any
 
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PaginationLoadingHandler = (value: boolean) => any
+
 
 export type PaginationQueue = {
 	timer  : number
@@ -46,12 +70,18 @@ export type PaginationQueue = {
 
 }
 
+
 export class Pagination
 <
 	T extends object,
-	P extends object = object,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	P extends [...any[], object] = [object],
 
 	V = request.HttpBody<T>,
+
+	// don't declare types like below, because type P will be extended
+	// L extends object = structure.GetTupleLastElement<P>,
+
 >
 // eslint-disable-next-line @stylistic/indent
 extends Array<V>
@@ -60,41 +90,36 @@ extends Array<V>
 
 	#limit = 10
 
-	#sort = '-created' as PaginationParams['sort']
-
-	#params = {} as P
-
-	#params_ = {} as P
+	#sort: PaginationParams['sort'] = ['-created']
 
 
-
-	#delay = 88
-
-	#queue: null | PaginationQueue = null
 
 	#loading = false
 
 	#finished = false
 
-	#linker: null | WechatMiniprogram.Component.TrivialInstance = null
+	#delay = 88
+
+	#queue?: PaginationQueue
+
+	#linker?: WechatMiniprogram.Component.Instance<
+		structure.GetTupleLastElement<P>,
+
+		WechatMiniprogram.IAnyObject,
+		WechatMiniprogram.IAnyObject,
+		WechatMiniprogram.IAnyObject
+
+	>
 
 
 
-	#call_handler: null | PaginationCallHandler<P> = null
+	#call_handler?: PaginationCallHandler<P>
 
-	#retrieve_handler: PaginationRetrieveHandler<T, P> = () => Promise.resolve([])
+	#retrieve_handler?: PaginationRetrieveHandler<T, P>
 
-	#update_handler: PaginationUpdateHandler<V> = () =>
-	{
-		// 
+	#update_handler?: PaginationUpdateHandler<V>
 
-	}
-
-	#loading_handler: PaginationLoadingHandler = () =>
-	{
-		// 
-
-	}
+	#loading_handler?: PaginationLoadingHandler
 
 
 	set delay (v: number)
@@ -115,19 +140,6 @@ extends Array<V>
 
 	}
 
-
-	constructor (params?: P)
-	{
-		super()
-
-		params = params ?? {} as P
-
-		this.#params = structure.clone(params)
-		this.#params_ = structure.clone(params)
-
-
-	}
-
 	#is_sort (v: unknown): v is string
 	{
 		return detective.is_required_string(v) && (/^-?[a-z]+$/).test(v)
@@ -140,7 +152,7 @@ extends Array<V>
 
 		try
 		{
-			this.#loading_handler(value)
+			this.#loading_handler?.(value)
 
 		}
 
@@ -156,7 +168,7 @@ extends Array<V>
 	{
 		try
 		{
-			this.#update_handler(
+			this.#update_handler?.(
 				this.#collect(), this.#finished,
 
 			)
@@ -190,7 +202,7 @@ extends Array<V>
 
 			)
 
-			this.#queue = null
+			this.#queue = undefined
 
 		}
 
@@ -221,7 +233,7 @@ extends Array<V>
 		let timer = setTimeout(
 			() =>
 			{
-				this.#queue = null
+				this.#queue = undefined
 
 				this.#retrieve()
 					.then(resolve)
@@ -245,27 +257,51 @@ extends Array<V>
 
 	}
 
-	async #retrieve (): Promise<V[]>
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	#call<L = PaginationParams<structure.GetTupleLastElement<P>>> (): [...any[], L]
 	{
 		let skip = this.#skip
 		let limit = this.#limit
 		let sort = this.#sort
 
 
+		if (this.#linker && this.#call_handler)
+		{
+			let args = this.#call_handler(this.#linker, this.#skip, this.#limit, this.#sort)
+
+			return [
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+				...args.slice(0, -1),
+
+				{ ...args.at(-1), skip, limit, sort } as L,
+
+			]
+
+		}
+
+
+		return [
+			{ skip, limit, sort } as L,
+
+		]
+
+	}
+
+	async #retrieve (): Promise<V[]>
+	{
+		if (detective.is_empty(this.#retrieve_handler) )
+		{
+			throw new Error('retrieve handler is not exist')
+
+		}
+
 		this.#ding(true)
 
 		try
 		{
-			if (this.#linker && this.#call_handler)
-			{
-				this.#params = this.#call_handler(this.#linker, this.#skip, this.#limit, this.#sort)
+			let args = this.#call()
 
-			}
-
-			let items = await this.#retrieve_handler(
-				{ ...this.#params, skip, limit, sort },
-
-			)
+			let items = await this.#retrieve_handler(...args)
 
 
 			this.#finished = items.length < this.#limit
@@ -338,70 +374,16 @@ extends Array<V>
 	}
 
 
-	params
-	(key: 'limit', value: number): this
-
-	params
-	(key: 'sort', value: PaginationParams['sort']): this
-
-	params
-	<K extends keyof P>(key: K, value?: P[K]): this
-
-	params
-	(key: string, value?: unknown): this
+	limit (value: PaginationParams['limit']): this
 	{
-		if (key === 'limit')
+		if (detective.is_natural_number(value) === false)
 		{
-			if (detective.is_natural_number(value) )
-			{
-				this.#limit = value
-
-				return this
-
-			}
-
-			throw new Error('invalid value')
-
-		}
-
-		if (key === 'sort')
-		{
-			if (this.#is_sort(value) )
-			{
-				this.#sort = value
-
-				return this
-
-			}
-
-
-			// eslint-disable-next-line @typescript-eslint/unbound-method
-			if (detective.is_array(value) && value.every(this.#is_sort) )
-			{
-				this.#sort = value
-
-				return this
-
-			}
-
 			throw new Error('invalid value')
 
 
 		}
 
-
-
-		if (detective.is_undefined(value) )
-		{
-			delete this.#params[key as keyof P]
-
-		}
-
-		else
-		{
-			this.#params[key as keyof P] = value as P[keyof P]
-
-		}
+		this.#limit = value
 
 		return this
 
@@ -459,14 +441,6 @@ extends Array<V>
 
 	}
 
-	reset (): this
-	{
-		this.#params = structure.clone(this.#params_)
-
-		return this
-
-	}
-
 	clear (): this
 	{
 		this.#skip = 0
@@ -502,8 +476,31 @@ extends Array<V>
 
 	}
 
-	link (
-		v: WechatMiniprogram.Component.TrivialInstance,
+	sort_by (...value: PaginationParams['sort']): Promise<V[]>
+	{
+		if (value.some(v => this.#is_sort(v) === false) )
+		{
+			throw new Error('invalid value')
+
+		}
+
+		this.#sort = value
+
+		return this.first()
+
+
+	}
+
+	link
+	(
+		v: WechatMiniprogram.Component.Instance<
+			structure.GetTupleLastElement<P>,
+
+			WechatMiniprogram.IAnyObject,
+			WechatMiniprogram.IAnyObject,
+			WechatMiniprogram.IAnyObject
+
+		>,
 
 		map?: Optional<
 			{
@@ -515,17 +512,19 @@ extends Array<V>
 
 		>,
 
-	): this
+	)
+	: this
 	{
 		this.on(
 			'loading',
 
 			a =>
 			{
-				v.setData(
-					{ [map?.loading ?? 'loading']: a },
+				(v as WechatMiniprogram.Component.TrivialInstance)
+					.setData(
+						{ [map?.loading ?? 'loading']: a },
 
-				)
+					)
 
 			},
 
@@ -536,10 +535,11 @@ extends Array<V>
 
 			(a, b) =>
 			{
-				v.setData(
-					{ [map?.data ?? 'data']: a, [map?.finished ?? 'finished']: b },
+				(v as WechatMiniprogram.Component.TrivialInstance)
+					.setData(
+						{ [map?.data ?? 'data']: a, [map?.finished ?? 'finished']: b },
 
-				)
+					)
 
 			},
 
@@ -554,9 +554,8 @@ extends Array<V>
 	unlink (): void
 	{
 		this.clear()
-		this.reset()
 
-		this.#linker = null
+		this.#linker = undefined
 
 	}
 
