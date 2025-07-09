@@ -558,20 +558,20 @@ export class HttpTask<T extends SuccessRestult, H extends object = object>
 
 	}
 
-	get finish (): Promise<HttpTaskResult<T, H>>
+	get finish (): Promise<HttpTaskResult<T, H> >
 	{
 		return this.#collect
 
 	}
 
 
-	resp (): Promise<HttpTaskResult<T, H>>
+	resp (): Promise<HttpTaskResult<T, H> >
 	{
 		return this.#collect
 
 	}
 
-	collect (): Promise<HttpTaskResult<T, H>>
+	collect (): Promise<HttpTaskResult<T, H> >
 	{
 		return this.#collect
 
@@ -669,7 +669,7 @@ export class HttpTask<T extends SuccessRestult, H extends object = object>
 
 	>
 	{
-		return new Promise<HttpTaskResult<T, H>>(
+		return new Promise<HttpTaskResult<T, H> >(
 			(resolve, reject) =>
 			{
 				this.#link = wx.request<T>(

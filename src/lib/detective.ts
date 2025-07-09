@@ -262,7 +262,7 @@ export function is_boolean_string
 
 
 export function is_object
-<T extends object = Record<PropertyKey, unknown>>
+<T extends object = Record<PropertyKey, unknown> >
 (v: unknown): v is T
 {
 	if (Array.isArray(v) )
@@ -276,7 +276,7 @@ export function is_object
 }
 
 export function is_object_legitimism
-<T extends object = Record<PropertyKey, unknown>>
+<T extends object = Record<PropertyKey, unknown> >
 (v: unknown): v is T
 {
 	if (v?.constructor?.name === 'Object')
