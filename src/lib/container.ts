@@ -17,14 +17,20 @@ export type PaginationParams<T extends object = object> = PaginationBaseParams &
 
 
 export type PaginationCallHandler
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-<T extends [...any[], object] = [object]>
+<
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	T extends [...any[], object] = [object],
+
+	TProperty extends WechatMiniprogram.IAnyObject = WechatMiniprogram.IAnyObject,
+	TData extends WechatMiniprogram.IAnyObject = WechatMiniprogram.IAnyObject,
+
+>
 =
 (
 	linker: WechatMiniprogram.Component.Instance<
-		structure.GetTupleLastElement<T>,
+		TData,
+		TProperty,
 
-		WechatMiniprogram.IAnyObject,
 		WechatMiniprogram.IAnyObject,
 		WechatMiniprogram.IAnyObject
 
@@ -258,7 +264,7 @@ extends Array<V>
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	#call<L = PaginationParams<structure.GetTupleLastElement<P>>> (): [...any[], L]
+	#call<L = PaginationParams<structure.GetTupleLastElement<P> > > (): [...any[], L]
 	{
 		let skip = this.#skip
 		let limit = this.#limit
@@ -330,7 +336,18 @@ extends Array<V>
 	}
 
 	on
-	(name: 'call', fn: PaginationCallHandler<P>): this
+	<
+		TProperty extends WechatMiniprogram.IAnyObject = WechatMiniprogram.IAnyObject,
+		TData extends WechatMiniprogram.IAnyObject = structure.GetTupleLastElement<P>,
+
+	>
+	(
+		name: 'call',
+
+		fn: PaginationCallHandler<P, TProperty, TData >
+
+	)
+	: this
 
 	on
 	(name: 'loading', fn: PaginationLoadingHandler): this
@@ -562,11 +579,9 @@ extends Array<V>
 }
 
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ExclusiveHandler = (...args: any[]) => any
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ExclusiveParameters<F> = F extends (arg0: any, ...rest: infer R) => any ? R : never
+export type ExclusiveHandler<T> = T extends (_id: string, ...args: infer A) => infer R
+	? (...args: A) => R
+	: never
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExclusiveCreateHandler = (...args: any[]) => Promise<any>
@@ -580,54 +595,20 @@ export type ExclusiveRetrieveHandler = (_id: string, ...args: any[]) => Promise<
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExclusiveDeleteHandler = (_id: string, ...args: any[]) => Promise<void>
 
-export type ExclusiveParametersHandler<F extends ExclusiveHandler> = (...args: ExclusiveParameters<F>) => ReturnType<F>
-
-export type ExclusiveHandlerCall<C, U, R, D> = Exclude<
-	| (C extends never ? never : 'create')
-	| (U extends never ? never : 'update')
-	| (R extends never ? never : 'retrieve')
-	| (D extends never ? never : 'delete'),
-
-
-	never
-
->
-
-export type ExclusiveHandlerCallParams<
-	F,
-	C extends ExclusiveCreateHandler,
-	U extends ExclusiveUpdateHandler,
-	R extends ExclusiveRetrieveHandler,
-	D extends ExclusiveDeleteHandler,
-
-> = F extends 'create'
-	? Parameters<C>
-	: F extends 'update'
-		? ExclusiveParameters<U>
-		: F extends 'retrieve'
-			? Parameters<R>
-			: F extends 'delete'
-				? ExclusiveParameters<D>
-				: never
-
-
 export class Exclusive<
 	C extends ExclusiveCreateHandler = never,
-
 	U extends ExclusiveUpdateHandler = never,
-
 	R extends ExclusiveRetrieveHandler = never,
-
 	D extends ExclusiveDeleteHandler = never,
 
 >
 {
-	#id: null | string = null
+	#id?: string
 
-	#data: unknown = null
+	#data?: unknown
 
 
-	#linker: null | WechatMiniprogram.Component.TrivialInstance = null
+	#linker?: WechatMiniprogram.Component.TrivialInstance
 
 	#linker_map = { loading: 'loading' }
 
@@ -635,21 +616,20 @@ export class Exclusive<
 	#loading = false
 
 
-	#create_handle: null | ExclusiveHandler = null
+	#create_handle?: ExclusiveCreateHandler
 
-	#update_handle: null | ExclusiveHandler = null
+	#update_handle?: ExclusiveUpdateHandler
 
-	#retrieve_handle: null | ExclusiveHandler = null
+	#retrieve_handle?: ExclusiveRetrieveHandler
 
-	#delete_handle: null | ExclusiveHandler = null
+	#delete_handle?: ExclusiveDeleteHandler
 
 
 
 
 	get _id (): string
 	{
-		if (detective.is_exist(this.#id)
-		)
+		if (detective.is_exist(this.#id) )
 		{
 			return this.#id
 
@@ -671,9 +651,9 @@ export class Exclusive<
 
 	}
 
-	get update (): ExclusiveParametersHandler<U>
+	get update (): ExclusiveHandler<U>
 	{
-		return this.#update.bind(this) as ExclusiveParametersHandler<U>
+		return this.#update.bind(this) as ExclusiveHandler<U>
 
 	}
 
@@ -683,9 +663,9 @@ export class Exclusive<
 
 	}
 
-	get delete (): ExclusiveParametersHandler<D>
+	get delete (): ExclusiveHandler<D>
 	{
-		return this.#delete.bind(this) as ExclusiveParametersHandler<D>
+		return this.#delete.bind(this) as ExclusiveHandler<D>
 
 	}
 
@@ -703,7 +683,7 @@ export class Exclusive<
 		this.#loading = value
 
 
-		if (this.#linker === null)
+		if (detective.is_empty(this.#linker) )
 		{
 			return
 
@@ -794,14 +774,15 @@ export class Exclusive<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	async #create (...args: any[]): Promise<any>
 	{
-		if (this.#create_handle === null)
+		if (detective.is_empty(this.#create_handle) )
 		{
 			throw new Error('container cannot be created')
 
 		}
 
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		let res = await this.#call(
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 			() => this.#create_handle!(...args),
 
 		)
@@ -812,7 +793,7 @@ export class Exclusive<
 
 		}
 
-		this.#data = null
+		this.#data = undefined
 
 		return res
 
@@ -820,23 +801,21 @@ export class Exclusive<
 
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async #update (...args: any[]): Promise<any>
+	async #update (...args: any[]): Promise<void>
 	{
-		if (this.#id === null || this.#update_handle === null)
+		if (detective.is_empty(this.#id) || detective.is_empty(this.#update_handle) )
 		{
 			throw new Error('container cannot be updated')
 
 		}
 
-		let res = await this.#call(
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return
-			() => this.#update_handle!(this.#id, ...args),
+		await this.#call(
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+			() => this.#update_handle!(this.#id!, ...args),
 
 		)
 
-		this.#data = null
-
-		return res
+		this.#data = undefined
 
 	}
 
@@ -844,14 +823,15 @@ export class Exclusive<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	async #retrieve (_id: string, ...args: any[]): Promise<any>
 	{
-		if (this.#retrieve_handle === null)
+		if (detective.is_empty(this.#retrieve_handle) )
 		{
 			throw new Error('container cannot be retrieved')
 
 		}
 
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		let res = await this.#call(
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 			() => this.#retrieve_handle!(_id, ...args),
 
 		)
@@ -868,21 +848,19 @@ export class Exclusive<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	async #delete (...args: any[]): Promise<any>
 	{
-		if (this.#id === null || this.#delete_handle === null)
+		if (detective.is_empty(this.#id) || detective.is_empty(this.#delete_handle) )
 		{
 			throw new Error('container cannot be deleted')
 
 		}
 
-		let res = await this.#call(
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return
-			() => this.#delete_handle!(this.#id, ...args),
+		await this.#call(
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+			() => this.#delete_handle!(this.#id!, ...args),
 
 		)
 
 		this.clear()
-
-		return res
 
 	}
 
@@ -897,35 +875,30 @@ export class Exclusive<
 
 	on<F extends ExclusiveDeleteHandler>(name: 'delete', fn: F): Exclusive<C, U, R, F>
 
-	on (
-		name: string,
-
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		fn: (...args: any[]) => any,
-
-	): this
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	on (name: string, fn: (...args: any[]) => any): this
 	{
 		if (name === 'create')
 		{
-			this.#create_handle = fn
+			this.#create_handle = fn as ExclusiveCreateHandler
 
 		}
 
 		if (name === 'update')
 		{
-			this.#update_handle = fn
+			this.#update_handle = fn as ExclusiveUpdateHandler
 
 		}
 
 		if (name === 'retrieve')
 		{
-			this.#retrieve_handle = fn
+			this.#retrieve_handle = fn as ExclusiveRetrieveHandler
 
 		}
 
 		if (name === 'delete')
 		{
-			this.#delete_handle = fn
+			this.#delete_handle = fn as ExclusiveDeleteHandler
 
 		}
 
@@ -934,62 +907,26 @@ export class Exclusive<
 	}
 
 
-	async emit<M extends ExclusiveHandlerCall<C, U, R, D>> (
-		method: M,
-
-		...args: ExclusiveHandlerCallParams<M, C, U, R, D>
-
-	)
-	: Promise<void>
-	{
-		if (method === 'create')
-		{
-			await this.#create(...args)
-
-		}
-
-		if (method === 'update')
-		{
-			await this.#update(...args)
-
-		}
-
-		if (method === 'retrieve')
-		{
-			await this.#retrieve(...args as [string])
-
-		}
-
-		if (method === 'delete')
-		{
-			await this.#delete(...args)
-
-		}
-
-		throw new Error('method is not exist')
-
-	}
-
 	clear (): void
 	{
-		this.#id = null
-		this.#data = null
+		this.#id = undefined
+		this.#data = undefined
 
 	}
 
 
 	get
-	(): Awaited<ReturnType<R>>
+	(): Awaited<ReturnType<R> >
 
 	get
-	<K extends keyof Awaited<ReturnType<R>>> (
+	<K extends keyof Awaited<ReturnType<R> > > (
 		key: K extends string ? Lowercase<K> : K,
 
 	)
-	: Awaited<ReturnType<R>>[K]
+	: Awaited<ReturnType<R> >[K]
 
 	get
-	<T extends Awaited<ReturnType<R>>, K extends keyof T> (
+	<T extends Awaited<ReturnType<R> >, K extends keyof T> (
 		key: K extends string ? Lowercase<K> : K,
 
 		_default: T[K]
@@ -1021,7 +958,7 @@ export class Exclusive<
 
 
 	pick
-	<T extends Awaited<ReturnType<R>>, K extends keyof T> (...keys: K[]): Pick<T, K>
+	<T extends Awaited<ReturnType<R> >, K extends keyof T> (...keys: K[]): Pick<T, K>
 	{
 		if (detective.is_object(this.#data) === false)
 		{
@@ -1054,7 +991,7 @@ export class Exclusive<
 	{
 		this.clear()
 
-		this.#linker = null
+		this.#linker = undefined
 		this.#linker_map = { loading: 'loading' }
 
 	}
