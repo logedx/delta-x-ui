@@ -31,7 +31,7 @@ export async function create
 export async function retrieve_pagination
 (
 	params: container.PaginationParams<
-			{ name: string, label: string, letter: string }
+			{ name?: string, label?: string, letter?: string }
 
 		>,
 

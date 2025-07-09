@@ -73,7 +73,7 @@ export async function retrieve
 export async function retrieve_pagination
 (
 	params: container.PaginationParams<
-			{ scope: boolean }
+			{ scope?: boolean }
 
 		>,
 
