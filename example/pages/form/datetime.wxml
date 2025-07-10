@@ -47,6 +47,15 @@
 					model:value="{{ time }}"
 				/>
 			</dx-label>
+
+			<dx-label serif name="24 hour system number">
+				<dx-datetime
+					mode="time"
+					icon="/example/icon/clock.svg"
+					placeholder="请选择时间"
+					model:value="{{ _24_hour_system_number }}"
+				/>
+			</dx-label>
 		</dx-nameplate>
 
 		<dx-nameplate divide class="nameplate" label="Required">

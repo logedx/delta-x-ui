@@ -9,6 +9,13 @@ import * as operator_variant from './operator.variant.js'
 
 
 
+enum TType
+{
+	string,
+	number,
+
+}
+
 Component(
 	{
 		behaviors: [claim_variant.behavior],
@@ -58,7 +65,8 @@ Component(
 		properties: {
 			// '' | 'time' | 'date'
 			mode       : { type: String, value: '' },
-			value      : { type: String, value: '' },
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			value      : { type: String, optionalTypes: [Number], value: '' },
 			icon       : { type: String, value: '' },
 			placeholder: { type: String, value: '' },
 
@@ -69,6 +77,7 @@ Component(
 
 			date: '',
 			time: '',
+			type: TType.string,
 
 			is_date (mode: '' | 'time' | 'date'): boolean
 			{
@@ -91,7 +100,7 @@ Component(
 		},
 
 		observers: {
-			value (v: string)
+			value (v: string | number)
 			{
 				this.cover(v)
 
@@ -156,15 +165,52 @@ Component(
 
 			},
 
-			cover (v: string): void
+			cover (v: string | number): void
 			{
 				let date = ''
 				let time = ''
+				let type = TType.string
 
 				let { mode } = this.data
 
 				if (mode === 'time')
 				{
+					;[time, type] = this.time_parse(v)
+
+				}
+
+				else if (mode === 'date')
+				{
+					;[date, type] = this.date_parse(v)
+
+				}
+
+				else
+				{
+					;[date, time, type] = this.datetime_parse(v)
+
+				}
+
+
+				this.setData(
+					{ date, time, type },
+
+				)
+
+
+				this.set_style()
+
+			},
+
+			time_parse (v: string | number): [string, TType]
+			{
+				let time = ''
+				let type = TType.string
+
+				if (detective.is_string(v) )
+				{
+					type = TType.string
+
 					if (detective.is_24_hour_system_string(v) )
 					{
 						time = v
@@ -173,26 +219,54 @@ Component(
 
 				}
 
-				else if (detective.is_date_string(v) )
+				else if (detective.is_number(v) )
 				{
-					date = moment(v).format('YYYY-MM-DD')
+					type = TType.number
 
-					if (detective.is_empty(mode) )
+					if (detective.is_24_hour_system_number(v) )
 					{
-						time = moment(v).format('HH:mm')
+						time = v.toString()
+							.padStart(4, '0')
+							.replace(/^(\d{2})/, '$1:')
 
 					}
-
 
 				}
 
 
-				this.setData(
-					{ date, time },
+				return [time, type]
 
-				)
+			},
 
-				this.set_style()
+			date_parse (v: string | number): [string, TType]
+			{
+				let date = ''
+				let type = TType.string
+
+				if (detective.is_date_string(v) )
+				{
+					date = moment(v).format('YYYY-MM-DD')
+
+				}
+
+				return [date, type]
+
+			},
+
+			datetime_parse (v: string | number): [string, string, TType]
+			{
+				let date = ''
+				let time = ''
+				let type = TType.string
+
+				if (detective.is_date_string(v) )
+				{
+					date = moment(v).format('YYYY-MM-DD')
+					time = moment(v).format('HH:mm')
+
+				}
+
+				return [date, time, type]
 
 			},
 
@@ -225,15 +299,34 @@ Component(
 
 			},
 
-			on_update_date
-			(
+			update_time (text: string): void
+			{
+				let { type } = this.data
+
+				let value = Number(
+					text.replaceAll(':', ''),
+
+				)
+
+				this.setData(
+					{ value: type === TType.number ? value : text },
+
+				)
+
+				this.triggerEvent(
+					'update', { value },
+
+				)
+
+			},
+
+			on_update_date (
 				e: WechatMiniprogram.CustomEvent<
 					{ value: string }
 
 				>,
 
-			)
-			: void
+			): void
 			{
 				let { value } = e.detail
 				let { mode, time } = this.data
@@ -249,32 +342,20 @@ Component(
 
 			},
 
-			on_update_time
-			(
+			on_update_time (
 				e: WechatMiniprogram.CustomEvent<
 					{ value: string }
 
 				>,
 
-			)
-			: void
+			): void
 			{
 				let { value } = e.detail
 				let { mode, date } = this.data
 
 				if (mode === 'time')
 				{
-					let v = value.replaceAll(':', '')
-
-					this.setData(
-						{ value },
-
-					)
-
-					this.triggerEvent(
-						'update', { value: parseInt(v) },
-
-					)
+					this.update_time(value)
 
 					return
 
