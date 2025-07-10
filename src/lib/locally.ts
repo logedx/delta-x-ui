@@ -15,7 +15,7 @@ export function time (value: number): string
 
 	}
 
-	throw new TypeError('value is not a 24 hour system number')
+	return '--:--'
 
 }
 
@@ -27,7 +27,7 @@ export function date (value: string | Date, format = 'YYYY-MM-DD HH:mm'): string
 
 	}
 
-	throw new TypeError('value is not a date string or date instance')
+	return format
 
 }
 
@@ -40,41 +40,34 @@ export type MuchOption = {
 }
 
 export function much
-(value: number | string,	digit?: number,): string
+(value: number | string, digit?: number,): string
 
 export function much
 (value: number | string, option: MuchOption,): string
 
 export function much
-(value: number | string,	option: number | MuchOption = 2): string
+(value: number | string, option: number | MuchOption = 2): string
 {
-	if (detective.is_real_number_string(value) )
+	if (detective.is_string(value) )
 	{
-		value = Number(value)
+		value = Number(value) || 0
 
 	}
 
-	if (detective.is_number(option) )
+	if (detective.is_natural_number(option) )
 	{
 		option = { pix: '-', unit: '', digit: option }
 
 	}
 
-	if (detective.is_real_number(value) )
-	{
-		let pix = option.pix ?? ''
-		let unit = option.unit ?? ''
+	let pix = option.pix ?? ''
+	let unit = option.unit ?? ''
 
-		let pix_ = 0 > value ? pix : ''
+	let pix_ = 0 > value ? pix : ''
 
-		let v = Math.abs(value).toFixed(option.digit)
+	let v = Math.abs(value).toFixed(option.digit)
 
-		return `${pix_}${unit}${v}`
-
-	}
-
-
-	throw new TypeError('value is not a real number or number string')
+	return `${pix_}${unit}${v}`
 
 }
 
