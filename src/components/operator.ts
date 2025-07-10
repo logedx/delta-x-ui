@@ -60,10 +60,11 @@ Component(
 		},
 
 		properties: {
-			name   : { type: String, value: '' },
-			once   : { type: Boolean, value: false },
-			wait   : { type: Boolean, value: false },
-			loading: { type: Boolean, value: false },
+			name    : { type: String, value: '' },
+			once    : { type: Boolean, value: false },
+			wait    : { type: Boolean, value: false },
+			loading : { type: Boolean, value: false },
+			operator: { type: Array, value: [] },
 
 		},
 
@@ -71,6 +72,7 @@ Component(
 			into : '',
 			style: '',
 
+			more  : false,
 			submit: false,
 
 			node: [] as TClaimInstance[],
@@ -165,6 +167,42 @@ Component(
 
 
 				this.triggerEvent(operator_variant.TEvent.submit)
+
+			},
+
+			on_more (): void
+			{
+				let { more } = this.data
+
+				if (more)
+				{
+					return
+
+				}
+
+				this.setData(
+					{ into: 'last', more: true },
+
+				)
+
+			},
+
+			on_operate (
+				e: WechatMiniprogram.BaseEvent<
+					object, { index: number }
+
+				>,
+
+			): void
+			{
+				let { index } = e.currentTarget.dataset
+
+				let { operator } = this.data as unknown as { operator: string[] }
+
+				this.triggerEvent(
+					operator_variant.TEvent.operate, { index, value: operator[index] },
+
+				)
 
 			},
 
