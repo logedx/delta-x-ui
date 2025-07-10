@@ -6,14 +6,38 @@
 	<view class="workshop" wx:else>
 		<slot />
 
-		<view class="operate" wx:if="{{ name }}">
-			<view class="loading" wx:if="{{ loading || submit }}">
-				<dx-loading />
-			</view>
+		<view id="anchor" class="anchor" style="{{ style }}" />
 
-			<span class="submit" bind:tap="on_submit" wx:else>{{ name }}</span>
+		<view class="loading" wx:if="{{ loading || submit }}">
+			<dx-loading />
 		</view>
 
-		<view class="anchor" id="anchor" style="{{ style }}" />
+		<view class="submit" wx:elif="{{ name }}">
+			<span bind:tap="on_submit">{{ name }}</span>
+
+			<view
+				class="more"
+				bind:tap="on_more"
+				wx:if="{{ operator.length > 0 }}"
+			>
+				<dx-icon
+					size="var(--strong)"
+					src="../icon/keyboard_double_arrow_down_128dp_7CA7D8_FILL0_wght500_GRAD0_opsz48.png"
+				/>
+			</view>
+		</view>
+
+		<view class="operate" wx:if="{{ more }}">
+			<view class="icon" wx:key="*this" wx:for="{{ operator }}">
+				<dx-icon
+					size="calc(var(--strong) * 2)"
+					src="{{ item }}"
+					data-index="{{ index }}"
+					bind:tap="on_operate"
+				/>
+			</view>
+		</view>
+
+		<view id="last" />
 	</view>
 </dx-cassette>

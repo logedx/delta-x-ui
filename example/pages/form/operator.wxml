@@ -3,7 +3,9 @@
 		name="提交"
 		wait="{{ wait }}"
 		loading="{{ loading }}"
+		operator="{{ operator }}"
 		bind:submit="on_submit"
+		bind:operate="on_operate"
 	>
 		<dx-nameplate class="nameplate" label="Input">
 			<dx-icon

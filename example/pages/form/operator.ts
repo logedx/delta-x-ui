@@ -13,6 +13,12 @@ Component(
 			textarea         : '',
 			textarea_required: '',
 
+			operator: [
+				'/example/icon/chevron-left.svg',
+				'/example/icon/home.svg',
+
+			],
+
 			wait   : true,
 			loading: false,
 
@@ -62,6 +68,20 @@ Component(
 					1000,
 
 				)
+
+			},
+
+			on_operate (
+				e: WechatMiniprogram.CustomEvent<
+					{ index: number, value: string }
+
+				>,
+
+			): void
+			{
+				let { index, value } = e.detail
+
+				console.log(index, value)
 
 			},
 
