@@ -11,7 +11,7 @@ export async function create
 (
 	params: {
 		name : string
-		label: string
+		color: string
 		value: string
 
 	},
@@ -31,7 +31,7 @@ export async function create
 export async function retrieve_pagination
 (
 	params: container.PaginationParams<
-			{ name?: string, label?: string, letter?: string }
+			{ name?: string, color?: string, letter?: string }
 
 		>,
 

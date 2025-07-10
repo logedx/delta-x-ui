@@ -12,7 +12,7 @@ export type TRawDocType = model.TRawDocType<
 	{
 		weapp : string
 		name  : string
-		label : string
+		color : string
 		value : string
 		letter: string
 
