@@ -375,7 +375,7 @@ export function is_24_hour_system_string
 export function is_real_number_string
 (v: unknown): v is string
 {
-	return is_required_string(v) && (/^-?[1-9]+(\.[0-9]+)?$/).test(v)
+	return is_required_string(v) && v === Number(v).toString()
 
 }
 
