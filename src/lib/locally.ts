@@ -3,6 +3,22 @@ import moment from 'moment'
 import * as detective from './detective.js'
 
 
+
+
+export function time (value: number): string
+{
+	if (detective.is_24_hour_system_number(value) )
+	{
+		return value.toString()
+			.padStart(4, '0')
+			.replace(/^(\d{2})/, '$1:')
+
+	}
+
+	throw new TypeError('value is not a 24 hour system number')
+
+}
+
 export function date (value: string | Date, format = 'YYYY-MM-DD HH:mm'): string
 {
 	if (detective.is_date_string(value) || detective.is_date(value) )
