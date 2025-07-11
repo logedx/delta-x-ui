@@ -94,7 +94,7 @@ Component(
 
 			check (): boolean
 			{
-				let [node, ...orther] = this.filter()
+				let [node, ...other] = this.filter()
 
 				if (detective.is_empty(node) )
 				{
@@ -106,7 +106,7 @@ Component(
 				this.set_style(node.data.offset)
 
 				this.triggerEvent(
-					operator_variant.TEvent.abnormal, [node, ...orther],
+					operator_variant.TEvent.abnormal, [node, ...other],
 
 				)
 
