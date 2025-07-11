@@ -55,6 +55,7 @@ Component(
 		properties: {
 			name : { type: String, value: '' },
 			value: { type: String, value: '' },
+			alarm: { type: Boolean, value: false },
 
 		},
 
@@ -77,6 +78,7 @@ Component(
 			{
 				let notice = false
 
+				let { alarm } = this.data
 				let { value, required, focus, readonly } = target.data
 
 				let css = new style.Variable<'divider' | 'divider-color' | 'flag' | 'flag-color'>('dx', 'claim')
@@ -93,7 +95,7 @@ Component(
 
 				}
 
-				if (detective.is_empty(value) === false)
+				if (alarm === false && detective.is_empty(value) === false)
 				{
 					notice = false
 
