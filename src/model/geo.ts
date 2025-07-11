@@ -7,7 +7,11 @@ export type TPointRawDocType = {
 
 }
 
-export type TPointVirtuals = object
+export type TPointVirtuals = {
+	longitude: number
+	latitude : number
+
+}
 
 export type TPointQueryHelpers = object
 
