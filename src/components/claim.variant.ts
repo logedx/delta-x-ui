@@ -5,6 +5,7 @@ import * as operator_variant from './operator.variant.js'
 
 export enum TEvent
 {
+	active = 'active',
 	update = 'update',
 	notify = 'notify',
 

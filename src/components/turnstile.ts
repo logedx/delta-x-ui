@@ -118,8 +118,16 @@ Component(
 
 				let { value, readonly } = self.data
 
-				if (readonly || detective.is_empty(url) )
+				if (readonly)
 				{
+					return
+
+				}
+
+				if (detective.is_empty(url) )
+				{
+					this.triggerEvent(turnstile_variant.TEvent.active)
+
 					return
 
 				}
