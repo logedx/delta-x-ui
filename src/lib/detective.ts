@@ -299,7 +299,7 @@ export function is_object_like
 export function is_object_key
 (v: unknown): v is PropertyKey
 {
-	return is_string(v) || is_number(v) || is_symbol(v)
+	return is_required_string(v) || is_natural_number(v) || is_symbol(v)
 
 }
 
@@ -375,7 +375,7 @@ export function is_24_hour_system_string
 export function is_real_number_string
 (v: unknown): v is string
 {
-	return is_required_string(v) && (/^-?[1-9]+(\.[0-9]+)?$/).test(v)
+	return is_required_string(v) && v === Number(v).toString()
 
 }
 
