@@ -73,7 +73,7 @@ Component(
 				)
 
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-				target.set_style?.(child.length + 1, value.length)
+				target.set_style?.(child.length, value.length)
 
 			},
 
