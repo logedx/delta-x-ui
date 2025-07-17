@@ -3,7 +3,8 @@ import http, { HttpTaskUnpackingResult } from '../index.js'
 
 
 
-export async function option (): HttpTaskUnpackingResult<string>
+export async function option
+(): HttpTaskUnpackingResult<string>
 {
 	let h = http.option<string>(
 		'/authorize',
@@ -16,7 +17,8 @@ export async function option (): HttpTaskUnpackingResult<string>
 
 }
 
-export async function create (value: string): HttpTaskUnpackingResult<void>
+export async function create
+(value: string): HttpTaskUnpackingResult<void>
 {
 	let h = http.post(
 		'/authorize',

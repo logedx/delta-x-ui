@@ -22,7 +22,7 @@ export const user = new container.Pagination<user_model.THydratedDocumentType, [
 	.on(
 		'retrieve',
 
-		user_storage.retrieve_pagination,
+		user_storage.retrieves,
 
 	)
 
@@ -37,7 +37,7 @@ export const scope = new container.Pagination<scope_model.THydratedDocumentType,
 	.on(
 		'retrieve',
 
-		scope_storage.retrieve_pagination,
+		scope_storage.retrieves,
 
 	)
 
@@ -54,6 +54,6 @@ export const keyword = new container.Pagination<keyword_model.THydratedDocumentT
 	.on(
 		'retrieve',
 
-		keyword_storage.retrieve_pagination,
+		keyword_storage.retrieves,
 
 	)

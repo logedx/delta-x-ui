@@ -7,7 +7,8 @@ import * as scope_model from '../model/scope.js'
 
 
 
-export async function option (): HttpTaskUnpackingResult<string>
+export async function option
+(): HttpTaskUnpackingResult<string>
 {
 	let h = http.option<string>(
 		'/scope',
@@ -20,7 +21,8 @@ export async function option (): HttpTaskUnpackingResult<string>
 
 }
 
-export async function create (value: string): HttpTaskUnpackingResult<void>
+export async function create
+(value: string): HttpTaskUnpackingResult<void>
 {
 	let h = http.post(
 		'/scope',
@@ -43,8 +45,8 @@ export async function update
 
 	},
 
-)
-: HttpTaskUnpackingResult<void>
+):
+HttpTaskUnpackingResult<void>
 {
 	let h = http.put(
 		`/scope/${id}`, params,
@@ -70,18 +72,15 @@ export async function retrieve
 
 }
 
-export async function retrieve_pagination
+export async function retrieves
 (
 	params: container.PaginationParams<
 			{ scope?: boolean }
 
 		>,
 
-)
-: HttpTaskUnpackingResult<
-	scope_model.THydratedDocumentType[]
-
->
+):
+HttpTaskUnpackingResult<scope_model.THydratedDocumentType[]>
 {
 	let h = http.get<
 		scope_model.THydratedDocumentType[]
@@ -98,7 +97,8 @@ export async function retrieve_pagination
 }
 
 
-export async function delete_ (id: string): HttpTaskUnpackingResult<void>
+export async function delete_
+(id: string): HttpTaskUnpackingResult<void>
 {
 	let h = http.delete(
 		`/scope/${id}`,

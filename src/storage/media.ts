@@ -70,7 +70,8 @@ export async function create_many_
 }
 
 
-export async function delete_ (...src: string[]): HttpTaskUnpackingResult<void>
+export async function delete_
+(...src: string[]): HttpTaskUnpackingResult<void>
 {
 	let h = http.delete('/media', src)
 

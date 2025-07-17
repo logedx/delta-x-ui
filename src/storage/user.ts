@@ -72,7 +72,7 @@ export async function retrieve
 
 }
 
-export async function retrieve_pagination
+export async function retrieves
 (
 	params: container.PaginationParams<
 			{ scope?: boolean }

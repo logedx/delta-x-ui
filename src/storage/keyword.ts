@@ -16,8 +16,8 @@ export async function create
 
 	},
 
-)
-: HttpTaskUnpackingResult<void>
+):
+HttpTaskUnpackingResult<void>
 {
 	let h = http.post(
 		'/keyword', params,
@@ -28,18 +28,15 @@ export async function create
 
 }
 
-export async function retrieve_pagination
+export async function retrieves
 (
 	params: container.PaginationParams<
 			{ name?: string, color?: string, letter?: string }
 
 		>,
 
-)
-: HttpTaskUnpackingResult<
-	keyword_model.THydratedDocumentType[]
-
->
+):
+HttpTaskUnpackingResult<keyword_model.THydratedDocumentType[]>
 {
 	let h = http.get<
 		keyword_model.THydratedDocumentType[]
@@ -56,7 +53,8 @@ export async function retrieve_pagination
 }
 
 
-export async function delete_ (_id: string): HttpTaskUnpackingResult<void>
+export async function delete_
+(_id: string): HttpTaskUnpackingResult<void>
 {
 	let h = http.delete(
 		`/keyword/${_id}`,
