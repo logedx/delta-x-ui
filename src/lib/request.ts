@@ -497,13 +497,15 @@ export class HttpTask<T extends SuccessRestult, H extends object = object>
 	#link = null as null | WechatMiniprogram.RequestTask
 
 	#collect: Promise<
-		HttpTaskResult<T, H>
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		HttpTaskResult<SuccessRestult, any>
 
 	>
 
+	static #latest = new Date()
+
 	static #offset = 0
 
-	static #latest = new Date()
 
 
 
@@ -560,20 +562,20 @@ export class HttpTask<T extends SuccessRestult, H extends object = object>
 
 	get finish (): Promise<HttpTaskResult<T, H> >
 	{
-		return this.#collect
+		return this.#collect as Promise<HttpTaskResult<T, H> >
 
 	}
 
 
-	resp (): Promise<HttpTaskResult<T, H> >
+	resp <V extends SuccessRestult = T>(): Promise<HttpTaskResult<V, H> >
 	{
-		return this.#collect
+		return this.#collect as Promise<HttpTaskResult<V, H> >
 
 	}
 
-	collect (): Promise<HttpTaskResult<T, H> >
+	collect <V extends SuccessRestult = T>(): Promise<HttpTaskResult<V, H> >
 	{
-		return this.#collect
+		return this.#collect as Promise<HttpTaskResult<V, H> >
 
 	}
 
@@ -659,6 +661,63 @@ export class HttpTask<T extends SuccessRestult, H extends object = object>
 
 	}
 
+	#assert (
+		message: string,
+
+		option: {
+			code  : number
+			header: object
+			method: string
+			url   : string
+			data? : unknown
+
+		},
+
+	)
+	: HttpError
+	{
+		let e = new HttpError(message)
+
+		let stack = [
+			`${e.name}: ${message}`,
+			`	at code  : ${option.code}`,
+			`	at method: ${option.method}`,
+			`	at url   : ${option.url}`,
+			`	at #create_task (delta-x-ui)`,
+			`	at new HttpError (delta-x-ui)`,
+
+		]
+
+
+		if (is_fail_result(option.data) )
+		{
+			e.name = option.data.name
+			e.message = option.data.message
+
+			stack = [
+				`${e.name}: ${e.message}`,
+
+				...stack.slice(1),
+
+			]
+
+			if (option.data.stack.length > 0)
+			{
+				stack = option.data.stack
+
+			}
+
+		}
+
+		e.code = option.code
+		e.header = option.header
+
+		e.stack = stack.join('\n')
+
+		return e
+
+	}
+
 	#create_task (
 		hostname: string,
 		option: WechatMiniprogram.RequestOption,
@@ -669,92 +728,76 @@ export class HttpTask<T extends SuccessRestult, H extends object = object>
 
 	>
 	{
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
+		let self = this
+
 		return new Promise<HttpTaskResult<T, H> >(
 			(resolve, reject) =>
 			{
+				let now = Date.now()
+
 				this.#link = wx.request<T>(
 					{
 						...this.#parse(hostname, option),
 
 						success (res): void
 						{
-							let latest = moment(
-								structure.get(res.header, 'date', ''),
-
-							)
-
-							HttpTask.#offset = Math.floor(
-								latest.valueOf() - Date.now(),
-
-							)
-
-							HttpTask.#latest = latest.toDate()
-
-
-							if (res.statusCode < 200 || res.statusCode > 299)
-							{
-								let e = new HttpError(res.errMsg)
-
-								if (is_fail_result(res.data) )
-								{
-									e.code = res.statusCode
-									e.header = res.header
-
-									e.name = res.data.name
-									e.message = res.data.message
-
-									if (res.data.stack.length > 0)
-									{
-										e.stack = res.data.stack.join('\n')
-
-									}
-
-									else
-									{
-										let stack = [
-											`${e.name}: ${e.message}`,
-											`	at ${res.statusCode}`,
-											`	at ${res.errMsg}`,
-											`	at ${option.method} ${option.url}`,
-											`	at #create_task (delta-x-ui)`,
-											`	at new HttpError (delta-x-ui)`,
-
-										]
-
-										e.stack = stack.join('\n')
-
-									}
-
-								}
-
-								reject(e)
-
-							}
-
-							else
+							if (res.statusCode >= 200 && res.statusCode < 300)
 							{
 								resolve(res as HttpTaskResult<T, H>)
 
+								return
+
 							}
+
+							let e = self.#assert(
+								res.errMsg,
+
+								{
+									code  : res.statusCode,
+									header: res.header,
+									method: option.method!,
+									url   : option.url,
+									data  : res.data,
+
+								},
+
+							)
+
+							reject(e)
 
 						},
 
 						fail (res): void
 						{
-							let e = new HttpError()
+							let e = self.#assert(
+								res.errMsg.replace(':', ' ').trim(),
 
-							let stack = [
-								`${e.name}: unable to connect`,
-								`	at ${res.errMsg}`,
-								`	at ${option.method} ${option.url}`,
-								`	at #create_task (delta-x-ui)`,
-								`	at new HttpError (delta-x-ui)`,
+								{
+									code  : 503,
+									header: {},
+									method: option.method!,
+									url   : option.url,
 
-							]
+								},
 
-							e.stack = stack.join('\n')
+							)
 
 							reject(e)
+
+						},
+
+						complete (res): void
+						{
+							let n = structure.get<string>(
+								res as WechatMiniprogram.RequestSuccessCallbackResult, 'header.date', '',
+
+							)
+
+							let latest = moment(n).toDate()
+
+							HttpTask.#latest = latest
+							HttpTask.#offset = Math.floor(latest.valueOf() - now)
 
 						},
 
