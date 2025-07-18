@@ -12,7 +12,7 @@ import * as keyword_storage from '../storage/keyword.js'
 
 
 
-export const user = new container.Pagination<user_model.THydratedDocumentType, [{ scope?: boolean }]>()
+export const user = new container.Pager<user_model.THydratedDocumentType, [{ scope?: boolean }]>()
 	.on(
 		'call',
 
@@ -27,7 +27,7 @@ export const user = new container.Pagination<user_model.THydratedDocumentType, [
 	)
 
 
-export const scope = new container.Pagination<scope_model.THydratedDocumentType, [{ scope?: boolean }]>()
+export const scope = new container.Pager<scope_model.THydratedDocumentType, [{ scope?: boolean }]>()
 	.on(
 		'call',
 
@@ -44,7 +44,7 @@ export const scope = new container.Pagination<scope_model.THydratedDocumentType,
 
 type TKeywordParameters = { name?: string, label?: string, letter?: string }
 
-export const keyword = new container.Pagination<keyword_model.THydratedDocumentType, [TKeywordParameters]>()
+export const keyword = new container.Pager<keyword_model.THydratedDocumentType, [TKeywordParameters]>()
 	.on(
 		'call',
 

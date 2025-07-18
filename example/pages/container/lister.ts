@@ -7,13 +7,13 @@ type Item = {
 }
 
 
-let pagin = new container.Pagination<Item>()
+let fritter = new container.Pager<Item>()
 
 
-pagin.on(
+fritter.on(
 	'retrieve',
 
-	function (params: container.PaginationParams): Promise<Item[]>
+	function (params: container.PagerParams): Promise<Item[]>
 	{
 		if (params.skip > 20)
 		{
@@ -70,19 +70,19 @@ Component(
 		lifetimes: {
 			attached (): void
 			{
-				pagin.link(
+				fritter.link(
 					this, { data: 'lister' },
 
 				)
 
 				// eslint-disable-next-line @typescript-eslint/no-floating-promises
-				pagin.first()
+				fritter.first()
 
 			},
 
 			detached (): void
 			{
-				pagin.unlink()
+				fritter.unlink()
 
 			},
 
@@ -92,13 +92,13 @@ Component(
 		methods: {
 			async on_last (): Promise<void>
 			{
-				await pagin.next()
+				await fritter.next()
 
 			},
 
 			async on_refresh (): Promise<void>
 			{
-				await pagin.first()
+				await fritter.first()
 
 			},
 

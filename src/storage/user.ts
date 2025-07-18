@@ -74,7 +74,7 @@ export async function retrieve
 
 export async function retrieves
 (
-	params: container.PaginationParams<
+	params: container.PagerParams<
 			{ scope?: boolean }
 
 		>,

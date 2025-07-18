@@ -30,7 +30,7 @@ HttpTaskUnpackingResult<void>
 
 export async function retrieves
 (
-	params: container.PaginationParams<
+	params: container.PagerParams<
 			{ name?: string, color?: string, letter?: string }
 
 		>,

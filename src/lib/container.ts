@@ -5,7 +5,7 @@ import * as structure from './structure.js'
 
 
 
-export type PaginationBaseParams = {
+export type PagerBaseParams = {
 	skip : number
 	limit: number
 	sort : string[]
@@ -13,10 +13,10 @@ export type PaginationBaseParams = {
 }
 
 
-export type PaginationParams<T extends object = object> = PaginationBaseParams & T
+export type PagerParams<T extends object = object> = PagerBaseParams & T
 
 
-export type PaginationCallHandler
+export type PagerCallHandler
 <
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	T extends [...any[], object] = [object],
@@ -36,36 +36,36 @@ export type PaginationCallHandler
 
 	>,
 
-	skip: PaginationBaseParams['skip'],
-	limit: PaginationBaseParams['limit'],
-	sort: PaginationBaseParams['sort'],
+	skip: PagerBaseParams['skip'],
+	limit: PagerBaseParams['limit'],
+	sort: PagerBaseParams['sort'],
 
 )
 =>
 T
 
 
-export type PaginationRetrieveHandler
+export type PagerRetrieveHandler
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 <T extends object, P extends [...any[], object]>
 =
 P extends [...infer A, infer L extends object]
-	? (...args: [...A, PaginationParams<L>]) => request.HttpTaskUnpackingResult<T[]>
+	? (...args: [...A, PagerParams<L>]) => request.HttpTaskUnpackingResult<T[]>
 	: never
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type PaginationUpdateHandler<T> = (data: T[], finished: boolean) => any
+export type PagerUpdateHandler<T> = (data: T[], finished: boolean) => any
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type PaginationLoadingHandler = (value: boolean) => any
+export type PagerLoadingHandler = (value: boolean) => any
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type PaginationRejectHandler = (method: string, ...e: any[]) => any
+export type PagerRejectHandler = (method: string, ...e: any[]) => any
 
 
-export type PaginationQueue = {
+export type PagerQueue = {
 	timer  : number
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	promise: Promise<any>
@@ -80,7 +80,7 @@ export type PaginationQueue = {
 }
 
 
-export class Pagination
+export class Pager
 <
 	T extends object,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -99,7 +99,7 @@ extends Array<V>
 
 	#limit = 10
 
-	#sort: PaginationParams['sort'] = ['-created']
+	#sort: PagerParams['sort'] = ['-created']
 
 
 
@@ -109,7 +109,7 @@ extends Array<V>
 
 	#delay = 88
 
-	#queue?: PaginationQueue
+	#queue?: PagerQueue
 
 	#linker?: WechatMiniprogram.Component.Instance<
 		structure.GetTupleLastElement<P>,
@@ -122,15 +122,15 @@ extends Array<V>
 
 
 
-	#call_handler?: PaginationCallHandler<P>
+	#call_handler?: PagerCallHandler<P>
 
-	#retrieve_handler?: PaginationRetrieveHandler<T, P>
+	#retrieve_handler?: PagerRetrieveHandler<T, P>
 
-	#update_handler?: PaginationUpdateHandler<V>
+	#update_handler?: PagerUpdateHandler<V>
 
-	#loading_handler?: PaginationLoadingHandler
+	#loading_handler?: PagerLoadingHandler
 
-	#reject_handler? : PaginationRejectHandler
+	#reject_handler? : PagerRejectHandler
 
 
 	set delay (v: number)
@@ -295,7 +295,7 @@ extends Array<V>
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	#call<L = PaginationParams<structure.GetTupleLastElement<P> > > (): [...any[], L]
+	#call<L = PagerParams<structure.GetTupleLastElement<P> > > (): [...any[], L]
 	{
 		let skip = this.#skip
 		let limit = this.#limit
@@ -375,22 +375,22 @@ extends Array<V>
 	(
 		name: 'call',
 
-		fn: PaginationCallHandler<P, TProperty, TData >
+		fn: PagerCallHandler<P, TProperty, TData >
 
 	)
 	: this
 
 	on
-	(name: 'retrieve', fn: PaginationRetrieveHandler<T, P>): this
+	(name: 'retrieve', fn: PagerRetrieveHandler<T, P>): this
 
 	on
-	(name: 'update', fn: PaginationUpdateHandler<V>): this
+	(name: 'update', fn: PagerUpdateHandler<V>): this
 
 	on
-	(name: 'loading', fn: PaginationLoadingHandler): this
+	(name: 'loading', fn: PagerLoadingHandler): this
 
 	on
-	(name: 'reject', fn: PaginationRejectHandler): this
+	(name: 'reject', fn: PagerRejectHandler): this
 
 	on
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -398,31 +398,31 @@ extends Array<V>
 	{
 		if (name === 'call')
 		{
-			this.#call_handler = fn as PaginationCallHandler<P>
+			this.#call_handler = fn as PagerCallHandler<P>
 
 		}
 
 		if (name === 'retrieve')
 		{
-			this.#retrieve_handler = fn as PaginationRetrieveHandler<T, P>
+			this.#retrieve_handler = fn as PagerRetrieveHandler<T, P>
 
 		}
 
 		if (name === 'update')
 		{
-			this.#update_handler = fn as PaginationUpdateHandler<V>
+			this.#update_handler = fn as PagerUpdateHandler<V>
 
 		}
 
 		if (name === 'loading')
 		{
-			this.#loading_handler = fn as PaginationLoadingHandler
+			this.#loading_handler = fn as PagerLoadingHandler
 
 		}
 
 		if (name === 'reject')
 		{
-			this.#reject_handler = fn as PaginationRejectHandler
+			this.#reject_handler = fn as PagerRejectHandler
 
 		}
 
@@ -430,7 +430,7 @@ extends Array<V>
 
 	}
 
-	limit (value: PaginationParams['limit']): this
+	limit (value: PagerParams['limit']): this
 	{
 		if (detective.is_natural_number(value) === false)
 		{
@@ -445,7 +445,7 @@ extends Array<V>
 
 	}
 
-	sorted (...value: PaginationParams['sort']): this
+	sorted (...value: PagerParams['sort']): this
 	{
 		if (value.some(v => this.#is_sort(v) === false) )
 		{
@@ -543,7 +543,7 @@ extends Array<V>
 
 	}
 
-	sort_by (...value: PaginationParams['sort']): Promise<V[]>
+	sort_by (...value: PagerParams['sort']): Promise<V[]>
 	{
 		return this.sorted(...value).first()
 
