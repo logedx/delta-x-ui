@@ -61,6 +61,9 @@ export type PaginationUpdateHandler<T> = (data: T[], finished: boolean) => any
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PaginationLoadingHandler = (value: boolean) => any
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type PaginationRejectHandler = (method: string, ...e: any[]) => any
+
 
 export type PaginationQueue = {
 	timer  : number
@@ -127,6 +130,8 @@ extends Array<V>
 
 	#loading_handler?: PaginationLoadingHandler
 
+	#reject_handler? : PaginationRejectHandler
+
 
 	set delay (v: number)
 	{
@@ -189,28 +194,36 @@ extends Array<V>
 
 	}
 
+	#cancel (): void
+	{
+		if (detective.is_empty(this.#queue) )
+		{
+			return
+
+		}
+
+		let { timer, reject } = this.#queue
+
+		clearTimeout(timer)
+
+		reject(
+			new Error('request is canceled'),
+
+		)
+
+		this.#queue = undefined
+
+	}
+
 	#collect (): V[]
 	{
 		return [...this]
 
 	}
 
-	async #debounce_retrieve (): Promise<V[]>
+	async #debounce_retrieve (method: string): Promise<V[]>
 	{
-		if (detective.is_exist(this.#queue) )
-		{
-			let { timer, reject } = this.#queue
-
-			clearTimeout(timer)
-
-			reject(
-				new Error('request is canceled'),
-
-			)
-
-			this.#queue = undefined
-
-		}
+		this.#cancel()
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let resolve: (...v: any[]) => void = () =>
@@ -259,7 +272,25 @@ extends Array<V>
 
 		}
 
+
+		if (detective.is_empty(this.#reject_handler) )
+		{
+			return promise
+
+		}
+
 		return promise
+			.catch(
+				(...e: unknown[]) =>
+				{
+					this.#reject_handler?.(method, ...e)
+
+					return []
+
+				},
+
+			)
+
 
 	}
 
@@ -350,13 +381,16 @@ extends Array<V>
 	: this
 
 	on
-	(name: 'loading', fn: PaginationLoadingHandler): this
+	(name: 'retrieve', fn: PaginationRetrieveHandler<T, P>): this
 
 	on
 	(name: 'update', fn: PaginationUpdateHandler<V>): this
 
 	on
-	(name: 'retrieve', fn: PaginationRetrieveHandler<T, P>): this
+	(name: 'loading', fn: PaginationLoadingHandler): this
+
+	on
+	(name: 'reject', fn: PaginationRejectHandler): this
 
 	on
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -368,9 +402,9 @@ extends Array<V>
 
 		}
 
-		if (name === 'loading')
+		if (name === 'retrieve')
 		{
-			this.#loading_handler = fn as PaginationLoadingHandler
+			this.#retrieve_handler = fn as PaginationRetrieveHandler<T, P>
 
 		}
 
@@ -380,16 +414,21 @@ extends Array<V>
 
 		}
 
-		if (name === 'retrieve')
+		if (name === 'loading')
 		{
-			this.#retrieve_handler = fn as PaginationRetrieveHandler<T, P>
+			this.#loading_handler = fn as PaginationLoadingHandler
+
+		}
+
+		if (name === 'reject')
+		{
+			this.#reject_handler = fn as PaginationRejectHandler
 
 		}
 
 		return this
 
 	}
-
 
 	limit (value: PaginationParams['limit']): this
 	{
@@ -405,6 +444,21 @@ extends Array<V>
 		return this
 
 	}
+
+	sorted (...value: PaginationParams['sort']): this
+	{
+		if (value.some(v => this.#is_sort(v) === false) )
+		{
+			throw new Error('invalid value')
+
+		}
+
+		this.#sort = value
+
+		return this
+
+	}
+
 
 	get (index: number): null | V
 	{
@@ -469,13 +523,9 @@ extends Array<V>
 
 	first (): Promise<V[]>
 	{
-		if (this.#loading)
-		{
-			throw new Error('Pagination is loading')
+		this.#cancel()
 
-		}
-
-		return this.clear().#debounce_retrieve()
+		return this.clear().#debounce_retrieve('first')
 
 	}
 
@@ -489,22 +539,13 @@ extends Array<V>
 
 		this.#skip = this.#skip + this.#limit
 
-		return this.#debounce_retrieve()
+		return this.#debounce_retrieve('next')
 
 	}
 
 	sort_by (...value: PaginationParams['sort']): Promise<V[]>
 	{
-		if (value.some(v => this.#is_sort(v) === false) )
-		{
-			throw new Error('invalid value')
-
-		}
-
-		this.#sort = value
-
-		return this.first()
-
+		return this.sorted(...value).first()
 
 	}
 
