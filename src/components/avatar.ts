@@ -6,6 +6,7 @@ import * as style from '../lib/style.js'
 export enum TEvent
 {
 	load = 'load',
+	// eslint-disable-next-line id-denylist
 	error = 'error',
 
 }
@@ -22,6 +23,7 @@ Component(
 
 		data: {
 			style: '',
+			// eslint-disable-next-line id-denylist
 			error: false,
 
 		},
@@ -30,6 +32,7 @@ Component(
 			src (): void
 			{
 				this.setData(
+					// eslint-disable-next-line id-denylist
 					{ error: false },
 
 				)
@@ -107,6 +110,7 @@ Component(
 				let { errMsg } = e.detail
 
 				this.setData(
+					// eslint-disable-next-line id-denylist
 					{ error: true },
 
 				)

@@ -24,7 +24,6 @@ export type GetInterLastElement<U> = U extends Array<infer R> ? R : never
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type GetTupleLastElement<U> = U extends [...infer _, infer L] ? L : never
 
-// eslint-disable-next-line no-use-before-define
 export type GetUnionLastElement<U> = GetInterLastElement<UnionToInter<U> >
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -52,6 +52,7 @@ export type HttpUploadOption = {
 
 export type HttpTaskResult
 <T extends SuccessRestult, H extends object = object>
+// eslint-disable-next-line @stylistic/operator-linebreak
 =
 structure.Overwrite<
 	WechatMiniprogram.RequestSuccessCallbackResult<
@@ -69,6 +70,7 @@ structure.Overwrite<
 export type HttpTaskUnpackingResult
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 <T extends void | SuccessRestult>
+// eslint-disable-next-line @stylistic/operator-linebreak
 =
 Promise<
 	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type

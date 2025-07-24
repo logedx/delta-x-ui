@@ -25,6 +25,7 @@ export type PagerCallHandler
 	TData extends WechatMiniprogram.IAnyObject = WechatMiniprogram.IAnyObject,
 
 >
+// eslint-disable-next-line @stylistic/operator-linebreak
 =
 (
 	linker: WechatMiniprogram.Component.Instance<
@@ -48,6 +49,7 @@ T
 export type PagerRetrieveHandler
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 <T extends object, P extends [...any[], object]>
+// eslint-disable-next-line @stylistic/operator-linebreak
 =
 P extends [...infer A, infer L extends object]
 	? (...args: [...A, PagerParams<L>]) => request.HttpTaskUnpackingResult<T[]>

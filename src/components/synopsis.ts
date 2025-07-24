@@ -60,6 +60,7 @@ Component(
 		methods: {
 			set_style (): void
 			{
+				// eslint-disable-next-line @stylistic/operator-linebreak
 				type TVariable =
 					| 'border-radius'
 					| 'align-items' | 'justify-content' | 'flex-direction' | 'padding' | 'border-bottom'
