@@ -200,8 +200,7 @@ export const linker_behavior = Behavior<TLinkerBehaviorData, TLinkerBehaviorProp
 
 export enum TEvent
 {
-	submit = 'submit',
-	operate = 'operate',
+	active = 'active',
 	abnormal = 'abnormal',
 
 }

@@ -17,74 +17,27 @@
 
 		}
 
-	}
+		.operate {
+			padding: var(--u-02-s);
+			margin-top: calc(0 - var(--radius) * 2);
+			border-radius: calc(var(--radius) * 2);
+			background: var(--white);
 
-	.loading,
-	.submit,
-	.operate {
-		display: flex;
-		align-items: center;
-		padding: var(--u-02-s);
-		border-radius: calc(var(--radius) * 2);
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
+		}
 
 	}
 
 	.loading {
+		display: flex;
 		justify-content: center;
+		align-items: center;
 		height: var(--u-06-s);
 
-	}
-
-	.submit,
-	.operate {
-		background: var(--white);
-
-	}
-
-	.submit {
-		flex-direction: column;
-		margin-top: calc(0 - var(--radius) * 2);
-		padding-top: var(--u-04-l);
-
-		span {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 100%;
-			height: var(--u-06-s);
-			transition: background 0.217s;
-			background: var(--h-de-00);
-			border-radius: var(--u-01-xs);
-			color: var(--white);
-			font-size: calc(var(--normal) + var(--u-00-s));
-
-		}
-
-		.more {
-			display: flex;
-			justify-content: center;
-			width: 100%;
-			margin-top: var(--u-04-l);
-
+		&.wait {
+			padding-top: var(--u-04-l);
 
 		}
 
 	}
-
-	.operate {
-		justify-content: center;
-		margin-top: var(--u-02-s);
-
-		.icon {
-			margin: 0 var(--u-02-s);
-
-		}
-
-	}
-
-
-
 
 }

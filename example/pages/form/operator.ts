@@ -13,14 +13,9 @@ Component(
 			textarea         : '',
 			textarea_required: '',
 
-			operator: [
-				'/example/icon/chevron-left.svg',
-				'/example/icon/home.svg',
-
-			],
-
 			wait   : true,
 			loading: false,
+			active : false,
 
 		},
 
@@ -48,6 +43,15 @@ Component(
 
 
 		methods: {
+			on_active (): void
+			{
+				this.setData(
+					{ active: true },
+
+				)
+
+			},
+
 			on_submit (): void
 			{
 				this.setData(
@@ -71,17 +75,15 @@ Component(
 
 			},
 
-			on_operate (
+			on_abnormal (
 				e: WechatMiniprogram.CustomEvent<
-					{ index: number, value: string }
+					WechatMiniprogram.Component.TrivialInstance[]
 
 				>,
 
 			): void
 			{
-				let { index, value } = e.detail
-
-				console.log(index, value)
+				console.log(e.detail)
 
 			},
 

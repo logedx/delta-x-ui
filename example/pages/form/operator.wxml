@@ -1,11 +1,10 @@
 <dx-layout contrast class="main" back="/example/icon/chevron-left.svg">
 	<dx-operator
-		name="提交"
 		wait="{{ wait }}"
 		loading="{{ loading }}"
-		operator="{{ operator }}"
-		bind:submit="on_submit"
-		bind:operate="on_operate"
+		model:active="{{ active }}"
+		bind:active="on_submit"
+		bind:abnormal="on_abnormal"
 	>
 		<dx-nameplate class="nameplate" label="Input">
 			<dx-icon
@@ -95,6 +94,8 @@
 				/>
 			</dx-claim>
 		</dx-nameplate>
+
+		<text slot="submit" class="submit" bind:tap="on_active">提交</text>
 	</dx-operator>
 
 	<author slot="footer" />

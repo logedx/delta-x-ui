@@ -57,14 +57,16 @@ Component(
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			virtualHost: true,
 
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			multipleSlots: true,
+
 		},
 
 		properties: {
-			name    : { type: String, value: '' },
-			once    : { type: Boolean, value: false },
-			wait    : { type: Boolean, value: false },
-			loading : { type: Boolean, value: false },
-			operator: { type: Array, value: [] },
+			once   : { type: Boolean, value: false },
+			wait   : { type: Boolean, value: false },
+			loading: { type: Boolean, value: false },
+			active : { type: Boolean, value: false },
 
 		},
 
@@ -72,10 +74,31 @@ Component(
 			into : '',
 			style: '',
 
-			more  : false,
-			submit: false,
+			more     : false,
+			activated: false,
 
 			node: [] as TClaimInstance[],
+
+
+		},
+
+		observers: {
+			active (v: boolean):void
+			{
+				if (v === false)
+				{
+					return
+
+				}
+
+				this.setData(
+					{ active: false },
+
+				)
+
+				this.submit()
+
+			},
 
 
 		},
@@ -92,7 +115,7 @@ Component(
 
 			},
 
-			check (): boolean
+			every_pass (): boolean
 			{
 				let [node, ...other] = this.filter()
 
@@ -110,13 +133,13 @@ Component(
 
 				)
 
-				this.scroll()
+				this.scroll_to_anchor()
 
 				return true
 
 			},
 
-			scroll (): void
+			scroll_to_anchor (): void
 			{
 				wx.nextTick(
 					() =>
@@ -132,25 +155,12 @@ Component(
 
 			},
 
-			set_style (offset: number): void
+			submit (): void
 			{
-				let css = new style.Variable<'offset'>('dx', 'operator', 'anchor')
-
-				css.set('offset', `${offset}px`)
-
-				this.setData(
-					{ style: css.to_string() },
-
-				)
-
-			},
-
-			on_submit (): void
-			{
-				let { once, wait, loading, submit } = this.data
+				let { once, wait, loading, activated } = this.data
 
 
-				if (wait || loading || submit || this.check() )
+				if (wait || loading || activated || this.every_pass() )
 				{
 					return
 
@@ -159,48 +169,25 @@ Component(
 				if (once)
 				{
 					this.setData(
-						{ submit: true },
+						{ activated: true },
 
 					)
 
 				}
 
 
-				this.triggerEvent(operator_variant.TEvent.submit)
+				this.triggerEvent(operator_variant.TEvent.active)
 
 			},
 
-			on_more (): void
+			set_style (offset: number): void
 			{
-				let { more } = this.data
+				let css = new style.Variable<'offset'>('dx', 'operator', 'anchor')
 
-				if (more)
-				{
-					return
-
-				}
+				css.set('offset', `${offset}px`)
 
 				this.setData(
-					{ into: 'last', more: true },
-
-				)
-
-			},
-
-			on_operate (
-				e: WechatMiniprogram.BaseEvent<
-					object, { index: number }
-
-				>,
-
-			): void
-			{
-				let { index } = e.currentTarget.dataset
-
-				let { operator } = this.data as unknown as { operator: string[] }
-
-				this.triggerEvent(
-					operator_variant.TEvent.operate, { index, value: operator[index] },
+					{ style: css.to_string() },
 
 				)
 
