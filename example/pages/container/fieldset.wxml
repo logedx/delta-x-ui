@@ -1,4 +1,4 @@
-<dx-layout back="/example/icon/chevron-left.svg">
+<dx-layout contrast back="/example/icon/chevron-left.svg">
 	<dx-cassette>
 		<dx-nameplate class="nameplate" label="Slot">
 			<dx-icon

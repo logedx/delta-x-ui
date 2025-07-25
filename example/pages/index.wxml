@@ -1,4 +1,4 @@
-<dx-layout>
+<dx-layout contrast>
 	<dx-cassette>
 		<view class="welcome">
 			<label>Delta X UI</label>

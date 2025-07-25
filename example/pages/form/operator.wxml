@@ -1,4 +1,4 @@
-<dx-layout class="main" back="/example/icon/chevron-left.svg">
+<dx-layout contrast class="main" back="/example/icon/chevron-left.svg">
 	<dx-operator
 		name="提交"
 		wait="{{ wait }}"

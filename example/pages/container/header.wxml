@@ -1,4 +1,4 @@
-<dx-layout>
+<dx-layout contrast>
 	<dx-header
 		background="var(--primary)"
 		home="/example/icon/home.svg"
