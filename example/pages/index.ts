@@ -29,17 +29,17 @@ Component(
 				'--linear-red',
 				'--linear-yellow',
 
-				'--primary',
+				'--active',
 				'--success',
 				'--warning',
 				'--error',
 
-				'--light-primary',
+				'--light-active',
 				'--light-success',
 				'--light-warning',
 				'--light-error',
 
-				'--dark-primary',
+				'--dark-active',
 				'--dark-success',
 				'--dark-warning',
 				'--dark-error',

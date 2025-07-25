@@ -110,10 +110,10 @@ Component(
 				if (focus)
 				{
 					css.set('divider', 'flex')
-					css.set('divider-color', 'var(--h-ea-00)')
+					css.set('divider-color', 'var(--active)')
 
 					css.set('flag', 'flex')
-					css.set('flag-color', 'var(--h-ea-00)')
+					css.set('flag-color', 'var(--active)')
 
 					if (detective.is_empty(value) === false)
 					{

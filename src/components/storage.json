@@ -2,6 +2,7 @@
 	"component": true,
 	"usingComponents": {
 		"dx-avatar": "./avatar",
+		"dx-icon": "./icon",
 		"dx-capsule": "./capsule",
 		"dx-loading": "./loading"
 	}

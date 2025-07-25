@@ -17,7 +17,7 @@ Component(
 		properties: {
 			value   : { type: Boolean, value: false },
 			size    : { type: Number, value: 80 },
-			color   : { type: String, value: 'var(--dark-primary)' },
+			color   : { type: String, value: 'var(--divider)' },
 			disabled: { type: Boolean, value: false },
 
 		},

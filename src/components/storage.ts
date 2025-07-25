@@ -19,7 +19,8 @@ Component(
 
 		properties: {
 			// array<string>
-			src: { type: Array, value: [] },
+			src : { type: Array, value: [] },
+			icon: { type: String, value: '../icon/upload_512dp_808695_FILL0_wght500_GRAD0_opsz48.png' },
 
 			// (v: string) => string
 			// eslint-disable-next-line @typescript-eslint/naming-convention

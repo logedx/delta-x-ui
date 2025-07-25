@@ -1,6 +1,6 @@
 <dx-layout contrast>
 	<dx-header
-		background="var(--primary)"
+		background="var(--blue)"
 		home="/example/icon/home.svg"
 		back="/example/icon/chevron-left.svg"
 	>

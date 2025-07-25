@@ -45,6 +45,6 @@
 	</view>
 
 	<view class="loading" wx:if="{{ loading }}">
-		<dx-loading size="var(--u-06-s)" color="var(--h-ab-00)" />
+		<dx-loading size="var(--u-06-s)" />
 	</view>
 </view>

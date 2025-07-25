@@ -13,13 +13,13 @@
 		<text class="quantity">x {{ src.length }}</text>
 
 		<view class="opration" bind:tap="on_toggle">
-			<dx-capsule
+			<dx-icon
+				size="var(--u-04-l)"
+				src="{{ icon }}"
 				data-index="{{ src.length }}"
 				data-quantity="{{ 10 }}"
 				catch:tap="on_update"
-			>
-				<text class="create">添加</text>
-			</dx-capsule>
+			/>
 
 			<text class="arrow" wx:if="{{ src.length > 0 }}" />
 		</view>
@@ -73,6 +73,6 @@
 	</view>
 
 	<view class="loading" wx:if="{{ loading }}">
-		<dx-loading size="var(--u-06-s)" color="var(--h-ab-00)" />
+		<dx-loading size="var(--u-06-s)" />
 	</view>
 </view>

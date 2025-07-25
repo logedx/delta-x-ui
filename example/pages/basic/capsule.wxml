@@ -18,7 +18,7 @@
 			<dx-label serif name="customize">
 				<view class="box">
 					<dx-capsule color="var(--blue)">
-						<text class="label">customize</text>
+						<text class="label w">customize</text>
 					</dx-capsule>
 				</view>
 			</dx-label>

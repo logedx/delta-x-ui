@@ -1,6 +1,6 @@
 <view class="dx-sticker class" style="{{ style }}">
 	<view class="loading" wx:if="{{ loading }}">
-		<dx-loading size="var(--strong)" color="var(--h-ab-00)" />
+		<dx-loading size="var(--strong)" />
 	</view>
 
 	<image
