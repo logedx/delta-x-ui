@@ -20,6 +20,72 @@ export function hex (length = 32): string
 
 }
 
+export function haversine
+(a: detective.RangeRealNumber, b: detective.RangeRealNumber): number
+{
+	// 地球半径（米）
+	let R = 6371e3
+	// eslint-disable-next-line id-match
+	let φ1 = a[1] * Math.PI / 180
+	// eslint-disable-next-line id-match
+	let φ2 = b[1] * Math.PI / 180
+
+	// eslint-disable-next-line id-match, @typescript-eslint/naming-convention
+	let Δφ = (b[1] - a[1]) * Math.PI / 180
+	// eslint-disable-next-line @typescript-eslint/naming-convention, id-match
+	let Δλ = (b[0] - a[0]) * Math.PI / 180
+
+	let f = Math.cos(φ1) * Math.cos(φ2)
+
+	// eslint-disable-next-line id-match
+	let havφ = Math.sin(Δφ / 2) * Math.sin(Δφ / 2)
+	// eslint-disable-next-line id-match
+	let havλ = Math.sin(Δλ / 2) * Math.sin(Δλ / 2)
+
+	// eslint-disable-next-line id-match
+	let g = havφ + f * havλ
+
+
+	let c = 2 * Math.atan2(Math.sqrt(g), Math.sqrt(1 - g) )
+
+	return R * c
+
+}
+
+export function debounce
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+<P extends any[]> (delay = 1 * 16.6, ...args: P): (fn: (...args: P) => any) => void
+{
+	let timer = 0
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	return function (this: any, fn: (...args: P) => any): void
+	{
+		fn = fn.bind(this)
+
+		if (timer > 0)
+		{
+			clearTimeout(timer)
+
+		}
+
+		timer = setTimeout(
+			function ()
+			{
+				timer = 0
+
+				fn(...args)
+
+			},
+
+			delay,
+
+		)
+
+	}
+
+}
+
 type PromiseWithResolvers<T> = {
 	promise: Promise<T>
 
