@@ -1,5 +1,6 @@
 import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
+import * as structure from '../lib/structure.js'
 
 import * as claim_variant from './claim.variant.js'
 import * as operator_variant from './operator.variant.js'
@@ -24,9 +25,8 @@ Component(
 
 				linked (target)
 				{
-					this.set_style(target as claim_variant.TBehaviorInstance)
-
-					this.push_child_(target)
+					this.set_style(target)
+					this.push_child(target)
 
 				},
 
@@ -68,18 +68,16 @@ Component(
 		},
 
 		methods: {
-			it (): operator_variant.THashBehaviorInstance
-			{
-				return this as unknown as operator_variant.THashBehaviorInstance
-
-			},
-
-			set_style (target: claim_variant.TBehaviorInstance): void
+			set_style (target: WechatMiniprogram.Component.TrivialInstance): void
 			{
 				let notice = false
 
 				let { alarm } = this.data
-				let { value, required, focus, readonly } = target.data
+
+				let value = structure.get(target.data, 'value', '')
+				let required = structure.get(target.data, 'required', false)
+				let focus = structure.get(target.data, 'focus', false)
+				let readonly = structure.get(target.data, 'readonly', false)
 
 				let css = new style.Variable<'divider' | 'divider-color' | 'flag' | 'flag-color'>('dx', 'claim')
 
@@ -148,12 +146,6 @@ Component(
 
 				)
 
-
-			},
-
-			push_child_ (target: WechatMiniprogram.Component.TrivialInstance): void
-			{
-				this.it().push_child(target)
 
 			},
 

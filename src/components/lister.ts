@@ -18,8 +18,7 @@ Component(
 				linked (target)
 				{
 					this.set_style(target)
-
-					this.push_child_(target)
+					this.push_child(target)
 
 				},
 
@@ -55,17 +54,11 @@ Component(
 		},
 
 		methods: {
-			self (): operator_variant.THashBehaviorInstance
-			{
-				return this as unknown as operator_variant.THashBehaviorInstance
-
-			},
-
 			set_style (target: WechatMiniprogram.Component.TrivialInstance): void
 			{
 				let { value } = this.data
 
-				let child = this.self().get_child()
+				let child = this.get_child()
 
 				this.setData(
 					{ classx: 'x' },
@@ -74,12 +67,6 @@ Component(
 
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 				target.set_style?.(child.length, value.length)
-
-			},
-
-			push_child_ (target: WechatMiniprogram.Component.TrivialInstance): void
-			{
-				this.self().push_child(target)
 
 			},
 

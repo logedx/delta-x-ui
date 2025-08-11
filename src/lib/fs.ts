@@ -280,15 +280,16 @@ export async function read_from (data_url: string): Promise<ReadFile>
 
 export async function choose_image (quantity = 1): Promise<ReadFile[]>
 {
-	let paths = await wx.chooseImage(
-		{ count: quantity },
+	let paths = await wx.chooseMedia(
+		// eslint-disable-next-line @typescript-eslint/naming-convention
+		{ count: quantity, mediaType: ['image'] },
 
 	)
 
 	return Promise.all(
 		paths.tempFiles
 			.map(
-				v => read(v.path),
+				v => read(v.tempFilePath),
 
 			),
 

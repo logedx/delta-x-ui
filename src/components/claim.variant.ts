@@ -13,47 +13,7 @@ export enum TEvent
 
 }
 
-
-type TBehaviorData = {
-	focus: boolean
-
-}
-
-type TBehaviorProperty = {
-	value      : WechatMiniprogram.Component.FullProperty<StringConstructor>
-	placeholder: WechatMiniprogram.Component.FullProperty<StringConstructor>
-	required   : WechatMiniprogram.Component.FullProperty<BooleanConstructor>
-	readonly   : WechatMiniprogram.Component.FullProperty<BooleanConstructor>
-
-}
-
-type TBehaviorMethod = {
-	self(): operator_variant.TLinkerBehaviorInstance
-
-	update_(value: unknown): void
-	focus_(): void
-	blur_(): void
-	set_style_(check?: boolean, divider_color?: string): void
-
-	on_focus(): void
-	on_blur(): void
-	on_input(e: WechatMiniprogram.CustomEvent<{ value: string }>): void
-	on_confirm(): void
-	on_keyboard_height_change(e: WechatMiniprogram.CustomEvent<{ height: number, duration: number }>): void
-
-}
-
-export type TBehaviorInstance = WechatMiniprogram.Component.Instance<
-	TBehaviorData,
-
-	TBehaviorProperty,
-
-	TBehaviorMethod
-
->
-
-
-export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMethod>(
+export const behavior = Behavior(
 	{
 		behaviors: [operator_variant.linker_behavior],
 
@@ -89,12 +49,6 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 		},
 
 		methods: {
-			self (): operator_variant.TLinkerBehaviorInstance
-			{
-				return this as unknown as operator_variant.TLinkerBehaviorInstance
-
-			},
-
 			update_ (value: unknown): void
 			{
 				let v = this.data.value
@@ -141,7 +95,7 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 
 			set_style_ (): void
 			{
-				let parent = this.self().get_parent()
+				let parent = this.get_parent()
 
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 				parent?.set_style?.(this)

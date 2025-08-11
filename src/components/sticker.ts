@@ -6,7 +6,6 @@ import * as detective from '../lib/detective.js'
 import * as structure from '../lib/structure.js'
 
 import * as claim_variant from './claim.variant.js'
-import * as operator_variant from './operator.variant.js'
 
 import * as media_storage from '../storage/media.js'
 
@@ -87,19 +86,15 @@ Component(
 		},
 
 		methods: {
-			self (): operator_variant.TLinkerBehaviorInstance
-			{
-				return this as unknown as operator_variant.TLinkerBehaviorInstance
-
-			},
-
 			set_style (): void
 			{
-				let parent = this.self().get_parent()
+				let parent = this.get_parent()
+
+				let newline = structure.get(parent?.data ?? {}, 'newline', false)
 
 				let css = new style.Variable<'icon-justify-content'>('dx', 'sticker')
 
-				if (parent?.data?.newline === true)
+				if (newline)
 				{
 					css.set('icon-justify-content', 'flex-end')
 
@@ -193,7 +188,7 @@ Component(
 			{
 				let { src } = this.data
 
-				let { value } = (this as unknown as claim_variant.TBehaviorInstance).data
+				let { value } = this.data
 
 
 				src = src || value
@@ -208,7 +203,7 @@ Component(
 
 			async on_update (): Promise<void>
 			{
-				let { readonly } = (this as unknown as claim_variant.TBehaviorInstance).data
+				let { readonly } = this.data
 
 				if (readonly)
 				{

@@ -1,8 +1,8 @@
 import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
+import * as structure from '../lib/structure.js'
 
 import * as claim_variant from './claim.variant.js'
-import * as operator_variant from './operator.variant.js'
 
 
 
@@ -65,7 +65,7 @@ Component(
 		lifetimes: {
 			ready (): void
 			{
-				let { value } = this.data
+				let { value } = this.data as { value: number }
 
 				this.update(
 					value.toString(),
@@ -169,32 +169,22 @@ Component(
 
 				)
 
-				this.self_().update_(
+				this.update_(
 					Number(input),
 
 				)
 
 			},
 
-			self (): operator_variant.TLinkerBehaviorInstance
-			{
-				return this as unknown as operator_variant.TLinkerBehaviorInstance
-
-			},
-
-			self_ (): claim_variant.TBehaviorInstance
-			{
-				return this as unknown as claim_variant.TBehaviorInstance
-
-			},
-
 			set_style (): void
 			{
-				let parent = this.self().get_parent()
+				let parent = this.get_parent()
+
+				let newline = structure.get(parent?.data ?? {}, 'newline', false)
 
 				let css = new style.Variable<'padding' | 'text-align'>('dx', 'number')
 
-				if (parent?.data?.newline === true)
+				if (newline)
 				{
 					css.set('padding', '0')
 					css.set('text-align', 'left')

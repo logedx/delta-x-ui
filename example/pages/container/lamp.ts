@@ -10,7 +10,7 @@ Component(
 			{
 				let channel = this.getOpenerEventChannel()
 
-				channel.on(
+				channel.on?.(
 					claim_variant.TEvent.update,
 
 					console.log,
@@ -34,8 +34,8 @@ Component(
 
 				let channel = this.getOpenerEventChannel()
 
-				channel.emit(claim_variant.TEvent.update, value)
-				channel.emit(claim_variant.TEvent.notify, value)
+				channel.emit?.(claim_variant.TEvent.update, value)
+				channel.emit?.(claim_variant.TEvent.notify, value)
 
 				// eslint-disable-next-line @typescript-eslint/no-floating-promises
 				wx.navigateBack()

@@ -33,7 +33,6 @@ Component(
 				let { handle } = this.data
 
 				this.triggerEvent(
-					// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 					TEvent.active, { type, index, icon: handle[index] },
 
 				)

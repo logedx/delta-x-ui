@@ -1,54 +1,5 @@
 import * as style from '../lib/style.js'
 
-declare global
-{
-	// eslint-disable-next-line @typescript-eslint/no-namespace
-	namespace WechatMiniprogram
-	{
-		type WindowInfo = {
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			pixelRatio: number
-
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			screenTop   : number
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			screenWidth : number
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			screenHeight: number
-
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			windowHeight: number
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			windowWidth : number
-
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			statusBarHeight: number
-
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			safeArea?: {
-				top   : number
-				right : number
-				bottom: number
-				left  : number
-				width : number
-				height: number
-
-			}
-
-		}
-
-
-		// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-		interface Wx
-		{
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			getWindowInfo(): WindowInfo
-
-		}
-
-	}
-
-}
 
 
 

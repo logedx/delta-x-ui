@@ -2,9 +2,9 @@ import moment from 'moment'
 
 import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
+import * as structure from '../lib/structure.js'
 
 import * as claim_variant from './claim.variant.js'
-import * as operator_variant from './operator.variant.js'
 
 
 
@@ -126,21 +126,17 @@ Component(
 		},
 
 		methods: {
-			self (): operator_variant.TLinkerBehaviorInstance
-			{
-				return this as unknown as operator_variant.TLinkerBehaviorInstance
-
-			},
-
 			set_style (): void
 			{
+				let parent = this.get_parent()
+
 				let { mode, time } = this.data
 
-				let parent = this.self().get_parent()
+				let newline = structure.get(parent?.data ?? {}, 'newline', false)
 
 				let css = new style.Variable<'justify-content' | 'date-picker-grow' | 'time-picker-grow'>('dx', 'datetime')
 
-				if (parent?.data?.newline === true)
+				if (newline)
 				{
 					css.set('justify-content', 'flex-start')
 

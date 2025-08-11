@@ -1,8 +1,8 @@
 import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
+import * as structure from '../lib/structure.js'
 
 import * as claim_variant from './claim.variant.js'
-import * as operator_variant from './operator.variant.js'
 import * as turnstile_variant from './turnstile.variant.js'
 
 
@@ -77,25 +77,15 @@ Component(
 		},
 
 		methods: {
-			self (): operator_variant.TLinkerBehaviorInstance
-			{
-				return this as unknown as operator_variant.TLinkerBehaviorInstance
-
-			},
-
-			self_ (): claim_variant.TBehaviorInstance
-			{
-				return this as unknown as claim_variant.TBehaviorInstance
-
-			},
-
 			set_style (): void
 			{
-				let parent = this.self().get_parent()
+				let parent = this.get_parent()
+
+				let newline = structure.get(parent?.data ?? {}, 'newline', false)
 
 				let css = new style.Variable<'justify-content' | 'padding'>('dx', 'turnstile')
 
-				if (parent?.data?.newline === true)
+				if (newline)
 				{
 					css.set('justify-content', 'space-between')
 					css.set('padding', 0)
@@ -111,12 +101,9 @@ Component(
 
 			async on_navigator (): Promise<void>
 			{
-				// eslint-disable-next-line consistent-this
-				let self = this.self_()
-
 				let { url } = this.data
 
-				let { value, readonly } = self.data
+				let { value, readonly } = this.data
 
 				if (readonly)
 				{
@@ -132,7 +119,7 @@ Component(
 
 				}
 
-				self.set_style_()
+				this.set_style_()
 
 				let { eventChannel: channel } = await wx.navigateTo(
 					{ url },
@@ -145,7 +132,7 @@ Component(
 
 					v =>
 					{
-						self.update_(v)
+						this.update_(v)
 
 					},
 

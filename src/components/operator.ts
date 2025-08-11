@@ -6,23 +6,6 @@ import * as operator_variant from './operator.variant.js'
 
 
 
-type TClaimInstance = WechatMiniprogram.Component.Instance<
-	{
-		offset: number
-		notice: boolean
-
-	},
-
-	{
-		name : WechatMiniprogram.Component.FullProperty<StringConstructor>
-		value: WechatMiniprogram.Component.FullProperty<StringConstructor>
-
-	},
-
-	object
-
->
-
 Component(
 	{
 		relations: {
@@ -36,7 +19,7 @@ Component(
 				{
 					let { node } = this.data
 
-					node.push(target as TClaimInstance)
+					node.push(target)
 
 					this.setData(
 						{ node },
@@ -77,7 +60,7 @@ Component(
 			more     : false,
 			activated: false,
 
-			node: [] as TClaimInstance[],
+			node: [] as WechatMiniprogram.Component.TrivialInstance[],
 
 
 		},
@@ -104,14 +87,11 @@ Component(
 		},
 
 		methods: {
-			filter (): TClaimInstance[]
+			filter (): operator_variant.TNoticeInstance[]
 			{
 				let { node } = this.data
 
-				return node.filter(
-					v => v.data.notice,
-
-				)
+				return node.filter(operator_variant.is_notice)
 
 			},
 

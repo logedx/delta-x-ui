@@ -1,5 +1,6 @@
 import * as alchemy from '../lib/alchemy.js'
 import * as detective from '../lib/detective.js'
+import * as structure from '../lib/structure.js'
 
 
 
@@ -10,34 +11,36 @@ type Linker = {
 
 }
 
-
-export const linked = new Map<string, Linker>()
-
-
-type THashBehaviorData = {
-	_id: string
+export enum TEvent
+{
+	active = 'active',
+	abnormal = 'abnormal',
 
 }
 
-type THashBehaviorProperty = WechatMiniprogram.Component.PropertyOption
+export type TNoticeInstance = WechatMiniprogram.Component.Instance<
+	{
+		offset: number
+		notice: boolean
 
-type THashBehaviorMethod = {
-	get_child(): Linker['child']
-	push_child(target: WechatMiniprogram.Component.TrivialInstance): void
+	},
 
-}
+	{
+		name : WechatMiniprogram.Component.FullProperty<StringConstructor>
+		value: WechatMiniprogram.Component.FullProperty<StringConstructor>
 
-export type THashBehaviorInstance = WechatMiniprogram.Component.Instance<
-	THashBehaviorData,
+	},
 
-	THashBehaviorProperty,
+	object,
 
-	THashBehaviorMethod
+	[]
 
 >
 
 
-export const hash_behavior = Behavior<THashBehaviorData, THashBehaviorProperty, THashBehaviorMethod>(
+export const linked = new Map<string, Linker>()
+
+export const hash_behavior = Behavior(
 	{
 		data: {
 			_id: '',
@@ -123,31 +126,7 @@ export const hash_behavior = Behavior<THashBehaviorData, THashBehaviorProperty, 
 )
 
 
-type TLinkerBehaviorData = {
-	hash: string
-
-}
-
-type TLinkerBehaviorProperty = {
-	is: WechatMiniprogram.Component.FullProperty<StringConstructor>
-
-}
-
-type TLinkerBehaviorMethod = {
-	get_parent(): null | WechatMiniprogram.Component.TrivialInstance
-
-}
-
-export type TLinkerBehaviorInstance = WechatMiniprogram.Component.Instance<
-	TLinkerBehaviorData,
-
-	TLinkerBehaviorProperty,
-
-	TLinkerBehaviorMethod
-
->
-
-export const linker_behavior = Behavior<TLinkerBehaviorData, TLinkerBehaviorProperty, TLinkerBehaviorMethod>(
+export const linker_behavior = Behavior(
 	{
 		properties: {
 			is: { type: String, value: '' },
@@ -194,41 +173,7 @@ export const linker_behavior = Behavior<TLinkerBehaviorData, TLinkerBehaviorProp
 )
 
 
-
-
-
-
-export enum TEvent
-{
-	active = 'active',
-	abnormal = 'abnormal',
-
-}
-
-
-type TBehaviorData = {
-	offset: number
-
-}
-
-type TBehaviorProperty = WechatMiniprogram.Component.PropertyOption
-
-type TBehaviorMethod = {
-	location(): void
-
-}
-
-export type TBehaviorInstance = WechatMiniprogram.Component.Instance<
-	TBehaviorData,
-
-	TBehaviorProperty,
-
-	TBehaviorMethod
-
->
-
-
-export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMethod>(
+export const behavior = Behavior(
 	{
 		behaviors: [hash_behavior],
 
@@ -257,7 +202,7 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 		methods: {
 			location (): void
 			{
-				let { _id } = this.data as unknown as THashBehaviorData
+				let { _id } = this.data
 
 				let query = this.createSelectorQuery()
 
@@ -289,3 +234,9 @@ export const behavior = Behavior<TBehaviorData, TBehaviorProperty, TBehaviorMeth
 
 )
 
+export function is_notice
+(v: WechatMiniprogram.Component.TrivialInstance): v is TNoticeInstance
+{
+	return structure.get(v.data, 'notice', false)
+
+}

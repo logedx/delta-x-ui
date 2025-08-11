@@ -33,7 +33,7 @@ export type PagerCallHandler
 		TProperty,
 
 		WechatMiniprogram.IAnyObject,
-		WechatMiniprogram.IAnyObject
+		WechatMiniprogram.Component.BehaviorOption
 
 	>,
 
@@ -118,7 +118,7 @@ extends Array<V>
 
 		WechatMiniprogram.IAnyObject,
 		WechatMiniprogram.IAnyObject,
-		WechatMiniprogram.IAnyObject
+		WechatMiniprogram.Component.BehaviorOption
 
 	>
 
@@ -558,7 +558,7 @@ extends Array<V>
 
 			WechatMiniprogram.IAnyObject,
 			WechatMiniprogram.IAnyObject,
-			WechatMiniprogram.IAnyObject
+			WechatMiniprogram.Component.BehaviorOption
 
 		>,
 

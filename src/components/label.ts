@@ -20,7 +20,7 @@ Component(
 
 				linked (target)
 				{
-					this.push_child_(target)
+					this.push_child(target)
 
 				},
 
@@ -79,12 +79,6 @@ Component(
 		},
 
 		methods: {
-			self (): operator_variant.THashBehaviorInstance
-			{
-				return this as unknown as operator_variant.THashBehaviorInstance
-
-			},
-
 			set_style (): void
 			{
 				let { serif, newline } = this.data
@@ -110,13 +104,6 @@ Component(
 
 
 			},
-
-			push_child_ (target: WechatMiniprogram.Component.TrivialInstance): void
-			{
-				this.self().push_child(target)
-
-			},
-
 
 		},
 
