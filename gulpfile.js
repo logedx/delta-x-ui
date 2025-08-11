@@ -18,7 +18,6 @@ export function copy() {
 				'src/**/*.wxml',
 				'src/**/*.json',
 				'src/**/*.less',
-				'!src/style.less',
 				'!src/tsconfig.json',
 			],
 

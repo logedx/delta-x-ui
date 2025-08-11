@@ -1,4 +1,4 @@
-<dx-layout contrast back="/example/icon/chevron-left.svg">
+<dx-layout contrast class="main" back="/example/icon/chevron-left.svg">
 	<dx-nameplate class="nameplate" label="Color">
 		<dx-icon
 			slot="icon"
