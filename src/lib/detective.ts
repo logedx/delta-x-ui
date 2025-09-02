@@ -52,7 +52,7 @@ export function is_empty
 export function is_date
 (v: unknown): v is Date
 {
-	return v instanceof Date
+	return v instanceof Date && v.valueOf() > 0
 
 }
 
