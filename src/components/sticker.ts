@@ -1,5 +1,3 @@
-import base64 from 'base-64'
-
 import * as fs from '../lib/fs.js'
 import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
@@ -167,16 +165,11 @@ Component(
 				}
 
 
-				let value = base64.encode(
-					String.fromCharCode(...new Uint8Array(file.data as ArrayBuffer) ),
-
-				)
-
 				this.setData(
 					{
 						src: file.path,
 
-						value: `data:${file.mime};base64,${value}`,
+						value: fs.base64(file),
 
 					},
 

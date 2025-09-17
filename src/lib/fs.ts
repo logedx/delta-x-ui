@@ -250,6 +250,51 @@ export function read
 
 
 
+export function base64 (file: ReadFile): string
+{
+	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+
+	let i = 0
+	let v = ''
+
+	let u8a = new Uint8Array(file.data as ArrayBuffer)
+
+	// 每3个字节转换为4个base64字符
+	while (i < u8a.length)
+	{
+		// eslint-disable-next-line no-plusplus
+		let a = u8a[i++] || 0
+		// eslint-disable-next-line no-plusplus
+		let b = u8a[i++] || 0
+		// eslint-disable-next-line no-plusplus
+		let c = u8a[i++] || 0
+
+		let bitmap = (a << 16) | (b << 8) | c
+
+		v = v + chars[(bitmap >> 18) & 63]
+		v = v + chars[(bitmap >> 12) & 63]
+		v = v + chars[(bitmap >> 6) & 63]
+		v = v + chars[bitmap & 63]
+
+	}
+
+	let padding = u8a.length % 3
+
+	if (padding === 1)
+	{
+		v = `${v.slice(0, -2)}==`
+
+	}
+
+	else if (padding === 2)
+	{
+		v = `${v.slice(0, -1)}=`
+
+	}
+
+	return `data:${file.mime};base64,${v}`
+
+}
 
 export async function read_from (data_url: string): Promise<ReadFile>
 {
