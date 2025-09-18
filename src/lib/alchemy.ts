@@ -86,39 +86,6 @@ Promise<
 
 }
 
-export function debounce
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-<P extends any[]> (delay = 1 * 16.6, ...args: P): (fn: (...args: P) => any) => void
-{
-	let timer = 0
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	return function (this: any, fn: (...args: P) => any): void
-	{
-		fn = fn.bind(this)
-
-		if (timer > 0)
-		{
-			clearTimeout(timer)
-
-		}
-
-		timer = setTimeout(
-			function ()
-			{
-				timer = 0
-
-				fn(...args)
-
-			},
-
-			delay,
-
-		)
-
-	}
-
-}
 
 type PromiseWithResolvers<T> = {
 	promise: Promise<T>
@@ -193,5 +160,102 @@ export function _24_hour_system_string (value: number): string
 
 	return `${a}${b}:${c}${d}`
 
+
+}
+
+
+export class Throttle
+<
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	F extends (...args: any[]) => void,
+
+	P extends Parameters<F> = Parameters<F>,
+
+	R extends ReturnType<F> extends Promise<infer U> ? U : ReturnType<F> = ReturnType<F> extends Promise<infer U> ? U : ReturnType<F>,
+
+>
+{
+	#timer = 0
+
+	#interval = 0
+
+	#handler: null | F = null
+
+	#caller: null | PromiseWithResolvers<R> = null
+
+
+	bind (interval: number, fn: F): void
+	{
+		this.#interval = interval
+		this.#handler = fn
+
+	}
+
+	call (...args: P): Promise<R>
+	{
+		if (detective.is_empty(this.#handler) )
+		{
+			throw new Error('handler is not bind')
+
+		}
+
+		if (this.#timer > 0)
+		{
+			clearTimeout(this.#timer)
+
+			this.#caller?.reject?.(new Error('throttled') )
+
+		}
+
+		this.#caller = with_resolvers<R>()
+
+		this.#timer = setTimeout(
+			() =>
+			{
+				let resolve = this.#caller!
+					.resolve
+					.bind(this)
+
+				this.#timer = 0
+				this.#caller = null
+
+				// eslint-disable-next-line no-useless-call
+				resolve(this.#handler?.call(this, ...args) as R)
+
+			},
+
+			this.#interval,
+
+		)
+
+		return this.#caller.promise
+
+	}
+
+	static new
+	<
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		F extends (...args: any[]) => void,
+
+		P extends Parameters<F> = Parameters<F>,
+
+		R extends ReturnType<F> extends Promise<infer U> ? U : ReturnType<F> = ReturnType<F> extends Promise<infer U> ? U : ReturnType<F>,
+
+	>
+	(
+		interval = 16.6,
+
+		fn: F,
+
+	):
+	(...args: P) => Promise<R>
+	{
+		let v = new Throttle<F, P, R>()
+
+		v.bind(interval, fn)
+
+		return v.call.bind(v)
+
+	}
 
 }
