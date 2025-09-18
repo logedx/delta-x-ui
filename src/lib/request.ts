@@ -3,6 +3,7 @@ import url_parse from 'url-parse'
 import query_string from 'query-string'
 
 import * as fs from './fs.js'
+import * as alchemy from './alchemy.js'
 import * as detective from './detective.js'
 import * as structure from './structure.js'
 
@@ -431,29 +432,30 @@ export class Http
 	}
 
 	static async clamp
-	<F extends HttpFunction> (
-		fn: F,
+	(
+		fn: HttpFunction,
 
-		...args: Parameters<F>
+		option = { rich: 300, loading: false, throw: false },
 
 	)
-	: Promise<
-		Awaited<
-			ReturnType<F>
-
-		>
-
-	>
+	: Promise<void>
 	{
-		try
+		if (option.loading)
 		{
-			await wx.showLoading(
-				{ title: '' },
+			// eslint-disable-next-line @typescript-eslint/no-floating-promises
+			wx.showLoading(
+				{ title: '', mask: true },
 
 			)
 
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-			return await fn(...args)
+		}
+
+		try
+		{
+			await alchemy.lengthen(option.rich, fn)
+
+			// eslint-disable-next-line @typescript-eslint/no-floating-promises
+			wx.hideLoading()
 
 		}
 
@@ -474,21 +476,20 @@ export class Http
 
 			}
 
-
-			await wx.showToast(
-				{ title: message, icon: 'error' },
+			// eslint-disable-next-line @typescript-eslint/no-floating-promises
+			wx.showToast(
+				{ title: message, icon: 'error', mask: true },
 
 			)
 
-			throw e
+			if (option.throw)
+			{
+				throw e
+
+			}
 
 		}
 
-		finally
-		{
-			await wx.hideLoading()
-
-		}
 
 	}
 
