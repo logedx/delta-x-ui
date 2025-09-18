@@ -52,6 +52,40 @@ export function haversine
 
 }
 
+export function sleep (ms: number): Promise<void>
+{
+	return new Promise(
+		res => setTimeout(res, Math.max(16.6, ms) ),
+
+	)
+
+}
+
+export function lengthen
+<
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	F extends (...args: any[]) => any,
+
+	R = ReturnType<F>,
+
+>
+(
+	ms: number,
+
+	fn: F,
+	...args: Parameters<F>
+
+):
+Promise<
+	R extends Promise<infer U> ? U : R
+
+>
+{
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+	return Promise.all([fn(...args), sleep(ms)]).then( ([v]) => v)
+
+}
+
 export function debounce
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 <P extends any[]> (delay = 1 * 16.6, ...args: P): (fn: (...args: P) => any) => void
