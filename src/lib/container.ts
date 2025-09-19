@@ -161,6 +161,20 @@ extends Array<V>
 
 	#ding (value: boolean): void
 	{
+		if (value)
+		{
+			this.#ding_(value)
+
+			return
+
+		}
+
+		wx.nextTick(this.#ding_.bind(this, value) )
+
+	}
+
+	#ding_ (value: boolean): void
+	{
 		this.#loading = value
 
 		try
@@ -355,14 +369,7 @@ extends Array<V>
 
 		finally
 		{
-			wx.nextTick(
-				() =>
-				{
-					this.#ding(false)
-
-				},
-
-			)
+			this.#ding(false)
 
 		}
 
@@ -715,14 +722,8 @@ export class Exclusive<
 
 
 
-	#wait (value = true): void
+	#ding (value = true): void
 	{
-		if (value && this.#loading)
-		{
-			throw new Error('container is loading')
-
-		}
-
 		this.#loading = value
 
 
@@ -732,32 +733,18 @@ export class Exclusive<
 
 		}
 
-		this.#linker
-			.setData(
-				{ [this.#linker_map.loading]: value },
 
-			)
+		let data = { [this.#linker_map.loading]: value }
 
+		if (value)
+		{
+			this.#linker.setData(data)
 
-	}
+			return
 
-	#finish (
-		fn: (...args: unknown[]) => void,
+		}
 
-		...args: unknown[]
-
-	): void
-	{
-		wx.nextTick(
-			() =>
-			{
-				this.#wait(false)
-
-				fn(...args)
-
-			},
-
-		)
+		wx.nextTick(this.#linker.setData.bind(this.#linker, data) )
 
 	}
 
@@ -768,7 +755,13 @@ export class Exclusive<
 
 	): Promise<V>
 	{
-		this.#wait()
+		if (this.#loading)
+		{
+			throw new Error('container is loading')
+
+		}
+
+		this.#ding(true)
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let resolve: (...v: any[]) => void = () =>
@@ -796,15 +789,22 @@ export class Exclusive<
 
 		try
 		{
-			let v = await fn()
+			resolve(
+				await fn(),
 
-			this.#finish(resolve, v)
+			)
 
 		}
 
 		catch (e)
 		{
-			this.#finish(reject, e)
+			reject(e)
+
+		}
+
+		finally
+		{
+			this.#ding(false)
 
 		}
 
