@@ -14,13 +14,13 @@ Component(
 		},
 
 		methods: {
-			async on_update (): Promise<void>
+			async active (type: 'tap' | 'longpress'): Promise<void>
 			{
 				let { url } = this.data
 
 				if (detective.is_empty(url) )
 				{
-					this.triggerEvent(indicator_variant.TEvent.update)
+					this.triggerEvent(indicator_variant.TEvent.active, { type })
 
 					return
 
@@ -47,7 +47,23 @@ Component(
 
 			},
 
+			on_active_tap (): void
+			{
+				// eslint-disable-next-line @typescript-eslint/no-floating-promises
+				this.active('tap')
+
+			},
+
+			on_active_longpress (): void
+			{
+				// eslint-disable-next-line @typescript-eslint/no-floating-promises
+				this.active('longpress')
+
+			},
+
+
 		},
+
 
 	},
 

@@ -10,7 +10,7 @@
 			>
 				<dx-indicator
 					data-name="{{ item[1] }}"
-					bind:update="on_active"
+					bind:active="on_active"
 					icon="{{ icon || '../icon/chevron_right_128dp_808695_FILL0_wght500_GRAD0_opsz48.png' }}"
 				/>
 			</dx-label>

@@ -25,16 +25,21 @@ Component(
 		},
 
 		methods: {
-			on_active
-			(
-				e: WechatMiniprogram.BaseEvent<
-					object, { name: string }
+			on_active (
+				e: WechatMiniprogram.CustomEvent<
+					{ type: 'tap' | 'longpress' }, object, { name: string }
 
 					>,
 
 			): void
 			{
-				this.triggerEvent(TEvent.active, e.currentTarget.dataset)
+				let { type } = e.detail
+				let { name } = e.currentTarget.dataset
+
+				this.triggerEvent(
+					TEvent.active, { type, name },
+
+				)
 
 			},
 
