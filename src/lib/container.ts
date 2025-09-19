@@ -1,3 +1,4 @@
+import * as alchemy from './alchemy.js'
 import * as request from './request.js'
 import * as detective from './detective.js'
 import * as structure from './structure.js'
@@ -109,9 +110,11 @@ extends Array<V>
 
 	#finished = false
 
-	#delay = 88
+	#interval = 16.6 * 6
 
-	#queue?: PagerQueue
+	#throttle_retrieve: () => Promise<V[]>
+
+
 
 	#linker?: WechatMiniprogram.Component.Instance<
 		structure.GetTupleLastElement<P>,
@@ -135,12 +138,6 @@ extends Array<V>
 	#reject_handler? : PagerRejectHandler
 
 
-	set delay (v: number)
-	{
-		this.#delay = v
-
-	}
-
 	get loading (): boolean
 	{
 		return this.#loading
@@ -150,6 +147,26 @@ extends Array<V>
 	get finished (): boolean
 	{
 		return this.#finished
+
+	}
+
+	constructor (interval?: number)
+	{
+		super()
+
+		if (detective.is_natural_number(interval) )
+		{
+			this.#interval = interval
+
+		}
+
+		this.#throttle_retrieve = alchemy.Throttle
+			.new(
+				this.#interval,
+
+				this.#retrieve.bind(this),
+
+			)
 
 	}
 
@@ -210,103 +227,9 @@ extends Array<V>
 
 	}
 
-	#cancel (): void
-	{
-		if (detective.is_empty(this.#queue) )
-		{
-			return
-
-		}
-
-		let { timer, reject } = this.#queue
-
-		clearTimeout(timer)
-
-		reject(
-			new Error('request is canceled'),
-
-		)
-
-		this.#queue = undefined
-
-	}
-
 	#collect (): V[]
 	{
 		return [...this]
-
-	}
-
-	async #debounce_retrieve (method: string): Promise<V[]>
-	{
-		this.#cancel()
-
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let resolve: (...v: any[]) => void = () =>
-		{
-			// 
-
-		}
-
-
-		let reject: (e: Error) => void = () =>
-		{
-			// 
-
-		}
-
-		let promise = new Promise<V[]>(
-			(res, rej) =>
-			{
-				resolve = res
-				reject = rej
-
-			},
-
-		)
-
-		let timer = setTimeout(
-			() =>
-			{
-				this.#queue = undefined
-
-				this.#retrieve()
-					.then(resolve)
-					.catch(reject)
-
-			},
-
-			this.#delay,
-
-		)
-
-		this.#queue = {
-			timer,
-			promise,
-			resolve,
-			reject,
-
-		}
-
-
-		if (detective.is_empty(this.#reject_handler) )
-		{
-			return promise
-
-		}
-
-		return promise
-			.catch(
-				(...e: unknown[]) =>
-				{
-					this.#reject_handler?.(method, ...e)
-
-					return []
-
-				},
-
-			)
-
 
 	}
 
@@ -532,9 +455,18 @@ extends Array<V>
 
 	first (): Promise<V[]>
 	{
-		this.#cancel()
+		return this.clear()
+			.#throttle_retrieve()
+			.catch(
+				(...e: unknown[]) =>
+				{
+					this.#reject_handler?.('first', ...e)
 
-		return this.clear().#debounce_retrieve('first')
+					return []
+
+				},
+
+			)
 
 	}
 
@@ -548,7 +480,17 @@ extends Array<V>
 
 		this.#skip = this.#skip + this.#limit
 
-		return this.#debounce_retrieve('next')
+		return this.#throttle_retrieve()
+			.catch(
+				(...e: unknown[]) =>
+				{
+					this.#reject_handler?.('next', ...e)
+
+					return []
+
+				},
+
+			)
 
 	}
 
@@ -763,42 +705,17 @@ export class Exclusive<
 
 		this.#ding(true)
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		let resolve: (...v: any[]) => void = () =>
-		{
-			// 
-
-		}
-
-
-		let reject: (e: unknown) => void = () =>
-		{
-			// 
-
-		}
-
-		let promise = new Promise<V>(
-			(res, rej) =>
-			{
-				resolve = res
-				reject = rej
-
-			},
-
-		)
+		let caller = alchemy.with_resolvers<V>()
 
 		try
 		{
-			resolve(
-				await fn(),
-
-			)
+			caller.resolve(await fn() )
 
 		}
 
 		catch (e)
 		{
-			reject(e)
+			caller.reject(e)
 
 		}
 
@@ -808,7 +725,7 @@ export class Exclusive<
 
 		}
 
-		return promise
+		return caller.promise
 
 
 	}
