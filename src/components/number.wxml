@@ -2,7 +2,7 @@
 	hold-keyboard
 	confirm-type="done"
 	class="dx-number class"
-	placeholder-style="color: #C0C4CC; font-size: 24rpx;"
+	placeholder-style="color: #C0C4CC; font-size: 32rpx;"
 	value="{{ input }}"
 	focus="{{ focus }}"
 	style="{{ style }}"

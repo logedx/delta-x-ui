@@ -12,7 +12,7 @@
 			type="text"
 			class="input"
 			confirm-type="search"
-			placeholder-style="color: #C0C4CC; font-size: 24rpx;"
+			placeholder-style="color: #C0C4CC; font-size: 32rpx;"
 			focus="{{ focus }}"
 			cursor-spacing="{{ 150 }}"
 			placeholder="{{ placeholder }}"
