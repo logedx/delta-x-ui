@@ -17,6 +17,7 @@ export type TRawDocType = model.TRawDocType<
 
 		avatar  : string
 		nickname: string
+		color   : string
 
 		phone?: string
 

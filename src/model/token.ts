@@ -13,6 +13,7 @@ import * as weapp_model from './weapp.js'
 
 export type TRawDocType = model.TRawDocType<
 	{
+		color: string
 		scope: number
 
 		weapp: null | string

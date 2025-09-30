@@ -40,7 +40,10 @@ export async function update
 	id: string,
 
 	params: {
+		active?  : boolean
+		avatar?  : string
 		nickname?: string
+		color?   : string
 		phone?   : string
 
 	},
