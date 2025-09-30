@@ -89,7 +89,7 @@ export async function retrieves
 		user_model.THydratedDocumentType[]
 
 	>(
-		'/user', params,
+		'/users', params,
 
 	)
 

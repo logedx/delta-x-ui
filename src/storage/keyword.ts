@@ -42,7 +42,7 @@ HttpTaskUnpackingResult<keyword_model.THydratedDocumentType[]>
 		keyword_model.THydratedDocumentType[]
 
 	>(
-		'/keyword', params,
+		'/keywords', params,
 
 	)
 

@@ -86,7 +86,7 @@ HttpTaskUnpackingResult<scope_model.THydratedDocumentType[]>
 		scope_model.THydratedDocumentType[]
 
 	>(
-		'/scope', params,
+		'/scopes', params,
 
 	)
 
