@@ -39,7 +39,7 @@ export async function create_
 
 	)
 
-	return h.finish
+	return h.resp
 
 }
 
@@ -60,12 +60,7 @@ export async function create_many_
 
 	)
 
-	let doc = h.map(
-		v => v.collect(),
-
-	)
-
-	return Promise.all(doc)
+	return Promise.all(h.map(v => v.resp) )
 
 }
 

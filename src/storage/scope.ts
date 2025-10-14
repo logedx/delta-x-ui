@@ -7,17 +7,12 @@ import * as scope_model from '../model/scope.js'
 
 
 
-export async function option
+export function option
 (): HttpTaskUnpackingResult<string>
 {
-	let h = http.option<string>(
-		'/scope',
+	let h = http.option<string>('/scope')
 
-	)
-
-	let doc = await h.collect()
-
-	return doc.data
+	return h.data
 
 }
 
@@ -25,9 +20,7 @@ export async function create
 (value: string): HttpTaskUnpackingResult<void>
 {
 	let h = http.post(
-		'/scope',
-
-		{ value },
+		'/scope', { value },
 
 	)
 
@@ -48,31 +41,23 @@ export async function update
 ):
 HttpTaskUnpackingResult<void>
 {
-	let h = http.put(
-		`/scope/${id}`, params,
-
-	)
+	let h = http.put(`/scope/${id}`, params)
 
 	await h.finish
 
 }
 
 
-export async function retrieve
+export function retrieve
 (id: string): HttpTaskUnpackingResult<scope_model.THydratedDocumentType>
 {
-	let h = http.get<scope_model.THydratedDocumentType>(
-		`/scope/${id}`,
+	let h = http.get<scope_model.THydratedDocumentType>(`/scope/${id}`)
 
-	)
-
-	let doc = await h.collect()
-
-	return doc.data
+	return h.data
 
 }
 
-export async function retrieves
+export function retrieves
 (
 	params: container.PagerParams<
 			{ scope?: boolean }
@@ -82,17 +67,9 @@ export async function retrieves
 ):
 HttpTaskUnpackingResult<scope_model.THydratedDocumentType[]>
 {
-	let h = http.get<
-		scope_model.THydratedDocumentType[]
+	let h = http.get<scope_model.THydratedDocumentType[]>('/scopes', params)
 
-	>(
-		'/scopes', params,
-
-	)
-
-	let doc = await h.collect()
-
-	return doc.data
+	return h.data
 
 }
 
@@ -100,10 +77,7 @@ HttpTaskUnpackingResult<scope_model.THydratedDocumentType[]>
 export async function delete_
 (id: string): HttpTaskUnpackingResult<void>
 {
-	let h = http.delete(
-		`/scope/${id}`,
-
-	)
+	let h = http.delete(`/scope/${id}`)
 
 	await h.finish
 

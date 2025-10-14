@@ -17,7 +17,8 @@ export type FailResult = {
 
 }
 
-export type SuccessRestult = string | ArrayBuffer | WechatMiniprogram.IAnyObject
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+export type SuccessRestult = void | string | ArrayBuffer | WechatMiniprogram.IAnyObject
 
 export type HttpBody<T> = structure.Replace<T, Date, string>
 
@@ -52,32 +53,24 @@ export type HttpUploadOption = {
 }
 
 export type HttpTaskResult
-<T extends SuccessRestult, H extends object = object>
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+<T extends SuccessRestult, H extends Record<string, string> = {} >
 // eslint-disable-next-line @stylistic/operator-linebreak
 =
-structure.Overwrite<
-	WechatMiniprogram.RequestSuccessCallbackResult<
-		HttpBody<T>
 
-	>,
+structure.Overwrite<
+	WechatMiniprogram.RequestSuccessCallbackResult,
 
 	{
 		header: H
+		// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+		data  : T extends void ? void : HttpBody< Exclude<T, void> >
 
 	}
 
 >
 
-export type HttpTaskUnpackingResult
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-<T extends void | SuccessRestult>
-// eslint-disable-next-line @stylistic/operator-linebreak
-=
-Promise<
-	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-	T extends void ? void : HttpBody<T>
-
->
+export type HttpTaskUnpackingResult<T extends SuccessRestult> = Promise<HttpBody<T> >
 
 
 
@@ -201,7 +194,8 @@ export class Http
 	}
 
 	create
-	<T extends SuccessRestult, H extends object = object> (
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	<T extends SuccessRestult = void, H extends Record<string, string> = {} > (
 		option: WechatMiniprogram.RequestOption | Promise<WechatMiniprogram.RequestOption>,
 
 	)
@@ -212,7 +206,8 @@ export class Http
 	}
 
 	launch
-	<T extends SuccessRestult, H extends object = object> (
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	<T extends SuccessRestult = void, H extends Record<string, string> = {} > (
 		option: WechatMiniprogram.RequestOption,
 
 	)
@@ -277,7 +272,8 @@ export class Http
 	}
 
 	head
-	<T extends SuccessRestult, H extends object = object> (
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	<T extends SuccessRestult = void, H extends Record<string, string> = {} > (
 		url: string,
 		header?: WechatMiniprogram.RequestOption['header'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'header'>,
@@ -293,7 +289,8 @@ export class Http
 	}
 
 	get
-	<T extends SuccessRestult, H extends object = object> (
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	<T extends SuccessRestult = void, H extends Record<string, string> = {} > (
 		url: string,
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
@@ -309,7 +306,8 @@ export class Http
 	}
 
 	post
-	<T extends SuccessRestult, H extends object = object> (
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	<T extends SuccessRestult = void, H extends Record<string, string> = {} > (
 		url: string,
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
@@ -325,7 +323,8 @@ export class Http
 	}
 
 	put
-	<T extends SuccessRestult, H extends object = object> (
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	<T extends SuccessRestult = void, H extends Record<string, string> = {} > (
 		url: string,
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
@@ -341,7 +340,8 @@ export class Http
 	}
 
 	delete
-	<T extends SuccessRestult, H extends object = object> (
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	<T extends SuccessRestult = void, H extends Record<string, string> = {} > (
 		url: string,
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
@@ -357,7 +357,8 @@ export class Http
 	}
 
 	option
-	<T extends SuccessRestult, H extends object = object> (
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	<T extends SuccessRestult = void, H extends Record<string, string> = {} > (
 		url: string,
 		header?: WechatMiniprogram.RequestOption['header'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'header'>,
@@ -373,7 +374,8 @@ export class Http
 	}
 
 	async upload
-	<T extends SuccessRestult, H extends object = object> (
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	<T extends SuccessRestult = void, H extends Record<string, string> = {} > (
 		file: fs.ReadFile,
 		option: HttpUploadOption,
 
@@ -409,7 +411,8 @@ export class Http
 	}
 
 	async upload_many
-	<T extends SuccessRestult, H extends object = object> (
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	<T extends SuccessRestult = void, H extends Record<string, string> = {} > (
 		files: fs.ReadFile[],
 		option: HttpUploadOption,
 
@@ -495,32 +498,26 @@ export class Http
 
 }
 
-export class HttpTask<T extends SuccessRestult, H extends object = object>
+export class HttpTask
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+<T extends SuccessRestult = void, H extends Record<string, string> = {} >
 {
-	#link = null as null | WechatMiniprogram.RequestTask
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	#resp: Promise<HttpTaskResult<any, any> >
 
-	#collect: Promise<
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		HttpTaskResult<SuccessRestult, any>
-
-	>
-
-	static #latest = new Date()
-
-	static #offset = 0
-
-
+	#process?: WechatMiniprogram.RequestTask
 
 
 	constructor
 	(
 		hostname: string,
 		option: WechatMiniprogram.RequestOption | Promise<WechatMiniprogram.RequestOption>,
+
 	)
 	{
 		if (detective.is_promise(option) )
 		{
-			this.#collect = option.then(
+			this.#resp = option.then(
 				v => this.#create_task(hostname, v),
 
 			)
@@ -529,62 +526,44 @@ export class HttpTask<T extends SuccessRestult, H extends object = object>
 
 		else
 		{
-			this.#collect = this.#create_task(hostname, option)
+			this.#resp = this.#create_task(hostname, option)
 
 		}
 
 
 	}
 
-	get now (): Date
+	get header (): Promise<H>
 	{
-		return HttpTask.now
+		return this.#resp.then(v => v.header as H)
 
 	}
 
-	static get now (): Date
+	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+	get data (): T extends void ? void : HttpTaskUnpackingResult<T>
 	{
-		return new Date(
-			this.#offset + Date.now(),
-
-		)
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
+		return this.#resp.then(v => v.data) as any
 
 	}
 
-	get latest (): Date
+	get resp (): Promise<HttpTaskResult<T, H> >
 	{
-		return HttpTask.latest
+		return this.#resp
 
 	}
 
-	static get latest (): Date
+	get finish (): Promise<void>
 	{
-		return new Date(this.#latest)
+		// eslint-disable-next-line @typescript-eslint/no-empty-function, @stylistic/brace-style
+		return this.#resp.then( () => {})
 
 	}
 
-	get finish (): Promise<HttpTaskResult<T, H> >
-	{
-		return this.#collect as Promise<HttpTaskResult<T, H> >
-
-	}
-
-
-	resp <V extends SuccessRestult = T>(): Promise<HttpTaskResult<V, H> >
-	{
-		return this.#collect as Promise<HttpTaskResult<V, H> >
-
-	}
-
-	collect <V extends SuccessRestult = T>(): Promise<HttpTaskResult<V, H> >
-	{
-		return this.#collect as Promise<HttpTaskResult<V, H> >
-
-	}
 
 	abort (): void
 	{
-		this.#link?.abort()
+		this.#process?.abort()
 
 	}
 
@@ -592,11 +571,11 @@ export class HttpTask<T extends SuccessRestult, H extends object = object>
 	{
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-expect-error
-		this.#link?.onChunkReceived?.(listener)
+		this.#process?.onChunkReceived?.(listener)
 
 	}
 
-	#parse (
+	#mixed (
 		hostname: string,
 		option: WechatMiniprogram.RequestOption,
 
@@ -725,93 +704,111 @@ export class HttpTask<T extends SuccessRestult, H extends object = object>
 		option: WechatMiniprogram.RequestOption,
 
 	)
-	: Promise<
-		HttpTaskResult<T, H>
-
-	>
+	: Promise< HttpTaskResult<T, H>	>
 	{
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		let self = this
 
-		return new Promise<HttpTaskResult<T, H> >(
-			(resolve, reject) =>
+		let now = Date.now()
+
+		let resp = alchemy.with_resolvers< HttpTaskResult<T, H> >()
+
+		this.#process = wx.request(
 			{
-				let now = Date.now()
+				...this.#mixed(hostname, option),
 
-				this.#link = wx.request<T>(
+				success (res): void
+				{
+					if (res.statusCode >= 200 && res.statusCode < 300)
 					{
-						...this.#parse(hostname, option),
+						resp.resolve(res as HttpTaskResult<T, H>)
 
-						success (res): void
+						return
+
+					}
+
+					let e = self.#assert(
+						res.errMsg,
+
 						{
-							if (res.statusCode >= 200 && res.statusCode < 300)
-							{
-								resolve(res as HttpTaskResult<T, H>)
-
-								return
-
-							}
-
-							let e = self.#assert(
-								res.errMsg,
-
-								{
-									code  : res.statusCode,
-									header: res.header,
-									method: option.method!,
-									url   : option.url,
-									data  : res.data,
-
-								},
-
-							)
-
-							reject(e)
+							code  : res.statusCode,
+							header: res.header,
+							method: option.method!,
+							url   : option.url,
+							data  : res.data,
 
 						},
 
-						fail (res): void
+					)
+
+					resp.reject(e)
+
+				},
+
+				fail (res): void
+				{
+					let e = self.#assert(
+						res.errMsg.replace(':', ' ').trim(),
+
 						{
-							let e = self.#assert(
-								res.errMsg.replace(':', ' ').trim(),
-
-								{
-									code  : 503,
-									header: {},
-									method: option.method!,
-									url   : option.url,
-
-								},
-
-							)
-
-							reject(e)
+							code  : 503,
+							header: {},
+							method: option.method!,
+							url   : option.url,
 
 						},
 
-						complete (res): void
-						{
-							let n = structure.get<string>(
-								res as WechatMiniprogram.RequestSuccessCallbackResult, 'header.date', '',
+					)
 
-							)
+					resp.reject(e)
 
-							let latest = moment(n).toDate()
+				},
 
-							HttpTask.#latest = latest
-							HttpTask.#offset = Math.floor(latest.valueOf() - now)
+				complete (res): void
+				{
+					let n = structure.get<string>(
+						res as WechatMiniprogram.RequestSuccessCallbackResult, 'header.date', '',
 
-						},
+					)
 
-					},
+					let latest = moment(n).toDate()
 
-				)
+					HttpTask.#latest = latest
+					HttpTask.#offset = Math.floor(latest.valueOf() - now)
+
+				},
 
 			},
 
 		)
 
+		return resp.promise
+
 	}
+
+
+
+
+
+	static #offset = 0
+
+	static #latest = new Date()
+
+	static get now (): Date
+	{
+		return new Date(
+			this.#offset + Date.now(),
+
+		)
+
+	}
+
+	static get latest (): Date
+	{
+		return new Date(this.#latest)
+
+	}
+
 
 }
 

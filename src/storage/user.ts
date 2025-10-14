@@ -11,9 +11,7 @@ export async function create
 (code: string, appid: string): HttpTaskUnpackingResult<void>
 {
 	let h = http.post(
-		'/user',
-
-		{ code, appid },
+		'/user', { code, appid },
 
 	)
 
@@ -24,11 +22,7 @@ export async function create
 export async function create_scope
 (id: string): HttpTaskUnpackingResult<void>
 {
-	let h = http.post(
-		`/user/${id}/scope`,
-
-
-	)
+	let h = http.post(`/user/${id}/scope`)
 
 	await h.finish
 
@@ -51,31 +45,23 @@ export async function update
 )
 : HttpTaskUnpackingResult<void>
 {
-	let h = http.put(
-		`/user/${id}`, params,
-
-	)
+	let h = http.put(`/user/${id}`, params)
 
 	await h.finish
 
 }
 
 
-export async function retrieve
+export function retrieve
 (id: string): HttpTaskUnpackingResult<user_model.THydratedDocumentType>
 {
-	let h = http.get<user_model.THydratedDocumentType>(
-		`/user/${id}`,
+	let h = http.get<user_model.THydratedDocumentType>(`/user/${id}`)
 
-	)
-
-	let doc = await h.collect()
-
-	return doc.data
+	return h.data
 
 }
 
-export async function retrieves
+export function retrieves
 (
 	params: container.PagerParams<
 			{ scope?: boolean }
@@ -83,21 +69,10 @@ export async function retrieves
 		>,
 
 )
-: HttpTaskUnpackingResult<
-	user_model.THydratedDocumentType[]
-
->
+: HttpTaskUnpackingResult<user_model.THydratedDocumentType[]>
 {
-	let h = http.get<
-		user_model.THydratedDocumentType[]
+	let h = http.get<user_model.THydratedDocumentType[]>('/users', params)
 
-	>(
-		'/users', params,
-
-	)
-
-	let doc = await h.collect()
-
-	return doc.data
+	return h.data
 
 }

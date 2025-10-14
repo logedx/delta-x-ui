@@ -17,44 +17,51 @@ type RequestHttpTaskResult = request.HttpTaskResult<
 
 >
 
-export async function create
+export function create
 (cypher: string, path: string): HttpTaskUnpackingResult<RequestHttpTaskResult>
 {
-	let h = http.post<THydratedDocumentTypeResult, RequestHttpTaskResult['header']>(
-		'/stamp',
-
-		{ cypher, path },
+	let h = http.post
+	// eslint-disable-next-line @stylistic/function-call-spacing
+	<THydratedDocumentTypeResult, RequestHttpTaskResult['header']>
+	(
+		'/stamp', { cypher, path },
 
 	)
 
-	return h.collect()
+	return h.resp
 
 }
 
 
-export async function query
+export function query
 (value: string): HttpTaskUnpackingResult<RequestHttpTaskResult>
 {
-	let h = http.option<THydratedDocumentTypeResult, RequestHttpTaskResult['header']>(
+	let h = http.option
+	// eslint-disable-next-line @stylistic/function-call-spacing
+	<THydratedDocumentTypeResult, RequestHttpTaskResult['header']>
+	(
 		`/stamp/${value}`,
 
 	)
 
-	return h.collect()
+	return h.resp
 
 
 }
 
 
-export async function retrieve
+export function retrieve
 (id: string): HttpTaskUnpackingResult<RequestHttpTaskResult>
 {
-	let h = http.get<THydratedDocumentTypeResult, RequestHttpTaskResult['header']>(
+	let h = http.get
+	// eslint-disable-next-line @stylistic/function-call-spacing
+	<THydratedDocumentTypeResult, RequestHttpTaskResult['header']>
+	(
 		`/stamp/${id}`,
 
 	)
 
-	return h.collect()
+	return h.resp
 
 
 }

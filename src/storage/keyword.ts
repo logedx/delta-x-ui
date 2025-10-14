@@ -19,16 +19,13 @@ export async function create
 ):
 HttpTaskUnpackingResult<void>
 {
-	let h = http.post(
-		'/keyword', params,
-
-	)
+	let h = http.post('/keyword', params)
 
 	await h.finish
 
 }
 
-export async function retrieves
+export function retrieves
 (
 	params: container.PagerParams<
 			{ name?: string, color?: string, letter?: string }
@@ -38,17 +35,9 @@ export async function retrieves
 ):
 HttpTaskUnpackingResult<keyword_model.THydratedDocumentType[]>
 {
-	let h = http.get<
-		keyword_model.THydratedDocumentType[]
+	let h = http.get<keyword_model.THydratedDocumentType[]>('/keywords', params)
 
-	>(
-		'/keywords', params,
-
-	)
-
-	let doc = await h.collect()
-
-	return doc.data
+	return h.data
 
 }
 
@@ -56,10 +45,7 @@ HttpTaskUnpackingResult<keyword_model.THydratedDocumentType[]>
 export async function delete_
 (_id: string): HttpTaskUnpackingResult<void>
 {
-	let h = http.delete(
-		`/keyword/${_id}`,
-
-	)
+	let h = http.delete(`/keyword/${_id}`)
 
 	await h.finish
 
