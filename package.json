@@ -47,25 +47,25 @@
 		"url-parse": "^1.5.10"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.31.0",
-		"@stylistic/eslint-plugin": "^5.2.2",
+		"@eslint/js": "^9.37.0",
+		"@stylistic/eslint-plugin": "^5.4.0",
 		"@types/del": "^4.0.3",
 		"@types/eslint__js": "^9.14.0",
 		"@types/gulp": "^4.0.17",
 		"@types/gulp-less": "^0.0.36",
 		"@types/gulp-rename": "^2.0.6",
-		"commit-and-tag-version": "^12.5.1",
-		"del": "^8.0.0",
-		"eslint": "^9.31.0",
+		"commit-and-tag-version": "^12.6.0",
+		"del": "^8.0.1",
+		"eslint": "^9.37.0",
 		"gulp": "^5.0.1",
 		"gulp-clean": "^0.4.0",
 		"gulp-less": "^5.0.0",
 		"gulp-rename": "^2.1.0",
 		"husky": "^9.1.7",
-		"less": "^4.4.0",
+		"less": "^4.4.2",
 		"miniprogram-api-typings": "^4.1.0",
-		"typescript": "^5.8.3",
-		"typescript-eslint": "^8.38.0"
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.46.1"
 	},
 	"commit-and-tag-version": {
 		"parserOpts": {
