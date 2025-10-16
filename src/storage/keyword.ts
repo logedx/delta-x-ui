@@ -28,9 +28,9 @@ HttpTaskUnpackingResult<void>
 export function retrieves
 (
 	params: container.PagerParams<
-			{ name?: string, color?: string, letter?: string }
+		{ name?: string, color?: string, letter?: string }
 
-		>,
+	>,
 
 ):
 HttpTaskUnpackingResult<keyword_model.THydratedDocumentType[]>

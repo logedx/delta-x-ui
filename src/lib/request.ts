@@ -17,7 +17,6 @@ export type FailResult = {
 
 }
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type SuccessRestult = void | string | ArrayBuffer | WechatMiniprogram.IAnyObject
 
 export type HttpBody<T> = structure.Replace<T, Date, string>
@@ -34,14 +33,13 @@ export type Httpblockage = {
 
 }
 
-export type HttpOptionTransform = (
-	option: WechatMiniprogram.RequestOption,
-	hostname: string
+export type HttpOptionTransform
+	= (
+		option: WechatMiniprogram.RequestOption,
+		hostname: string
 
-) => Promise<
-	WechatMiniprogram.RequestOption
-
->
+	)
+	=> Promise<WechatMiniprogram.RequestOption>
 
 export type HttpUploadOption = {
 	name  : string
@@ -52,23 +50,18 @@ export type HttpUploadOption = {
 
 }
 
-export type HttpTaskResult
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-<T extends SuccessRestult, H extends Record<string, string> = {} >
-// eslint-disable-next-line @stylistic/operator-linebreak
-=
+export type HttpTaskResult <T extends SuccessRestult, H extends Record<string, string> = {} >
+	= structure.Overwrite<
+		WechatMiniprogram.RequestSuccessCallbackResult,
 
-structure.Overwrite<
-	WechatMiniprogram.RequestSuccessCallbackResult,
+		{
+			header: H
+			data  : T extends void ? void : HttpBody< Exclude<T, void> >
 
-	{
-		header: H
-		// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-		data  : T extends void ? void : HttpBody< Exclude<T, void> >
+		}
 
-	}
-
->
+	>
 
 export type HttpTaskUnpackingResult<T extends SuccessRestult> = Promise<HttpBody<T> >
 
@@ -179,8 +172,8 @@ export class Http
 		fn: F,
 		...args: Parameters<F>
 
-	)
-	: void
+	):
+	void
 	{
 		this.#blockage = {
 			url,
@@ -198,8 +191,8 @@ export class Http
 	<T extends SuccessRestult = void, H extends Record<string, string> = {} > (
 		option: WechatMiniprogram.RequestOption | Promise<WechatMiniprogram.RequestOption>,
 
-	)
-	: HttpTask<T, H>
+	):
+	HttpTask<T, H>
 	{
 		return new HttpTask<T, H>(this.#hostname, option)
 
@@ -210,8 +203,8 @@ export class Http
 	<T extends SuccessRestult = void, H extends Record<string, string> = {} > (
 		option: WechatMiniprogram.RequestOption,
 
-	)
-	: HttpTask<T, H>
+	):
+	HttpTask<T, H>
 	{
 		let o = this.#option_transform(
 			{ ...this.#default_option, ...option },
@@ -278,8 +271,8 @@ export class Http
 		header?: WechatMiniprogram.RequestOption['header'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'header'>,
 
-	)
-	: HttpTask<T, H>
+	):
+	HttpTask<T, H>
 	{
 		return this.launch<T, H>(
 			{ ...option, url, header, method: 'HEAD' },
@@ -295,8 +288,8 @@ export class Http
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
 
-	)
-	: HttpTask<T, H>
+	):
+	HttpTask<T, H>
 	{
 		return this.launch<T, H>(
 			{ ...option, url, data, method: 'GET' },
@@ -312,8 +305,8 @@ export class Http
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
 
-	)
-	: HttpTask<T, H>
+	):
+	HttpTask<T, H>
 	{
 		return this.launch<T, H>(
 			{ ...option, url, data, method: 'POST' },
@@ -329,8 +322,8 @@ export class Http
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
 
-	)
-	: HttpTask<T, H>
+	):
+	HttpTask<T, H>
 	{
 		return this.launch<T, H>(
 			{ ...option, url, data, method: 'PUT' },
@@ -346,8 +339,8 @@ export class Http
 		data?: WechatMiniprogram.RequestOption['data'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'data'>,
 
-	)
-	: HttpTask<T, H>
+	):
+	HttpTask<T, H>
 	{
 		return this.launch<T, H>(
 			{ ...option, url, data, method: 'DELETE' },
@@ -363,8 +356,8 @@ export class Http
 		header?: WechatMiniprogram.RequestOption['header'],
 		option?: Omit<WechatMiniprogram.RequestOption, 'url' | 'header'>,
 
-	)
-	: HttpTask<T, H>
+	):
+	HttpTask<T, H>
 	{
 		return this.launch<T, H>(
 			{ ...option, url, header, method: 'OPTIONS' },
@@ -379,8 +372,8 @@ export class Http
 		file: fs.ReadFile,
 		option: HttpUploadOption,
 
-	)
-	: Promise<
+	):
+	Promise<
 		HttpTask<T, H>
 
 	>
@@ -416,14 +409,8 @@ export class Http
 		files: fs.ReadFile[],
 		option: HttpUploadOption,
 
-	)
-	: Promise<
-		Array<
-			HttpTask<T, H>
-
-		>
-
-	>
+	):
+	Promise< Array< HttpTask<T, H> > >
 	{
 		let queue = files.map(
 			v => this.upload<T, H>(v, option),
@@ -440,8 +427,8 @@ export class Http
 
 		option = { rich: 300, loading: false, throw: false },
 
-	)
-	: Promise<void>
+	):
+	Promise<void>
 	{
 		if (option.loading)
 		{
@@ -539,7 +526,7 @@ export class HttpTask
 
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+
 	get data (): T extends void ? void : HttpTaskUnpackingResult<T>
 	{
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
@@ -555,8 +542,8 @@ export class HttpTask
 
 	get finish (): Promise<void>
 	{
-		// eslint-disable-next-line @typescript-eslint/no-empty-function, @stylistic/brace-style
-		return this.#resp.then( () => {})
+		// eslint-disable-next-line @stylistic/brace-style
+		return this.#resp.then( () => {} )
 
 	}
 
@@ -567,10 +554,8 @@ export class HttpTask
 
 	}
 
-	on (listener: (data: ArrayBuffer) => void): void
+	on (listener: WechatMiniprogram.OnChunkReceivedCallback): void
 	{
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-expect-error
 		this.#process?.onChunkReceived?.(listener)
 
 	}
@@ -579,8 +564,8 @@ export class HttpTask
 		hostname: string,
 		option: WechatMiniprogram.RequestOption,
 
-	)
-	: WechatMiniprogram.RequestOption
+	):
+	WechatMiniprogram.RequestOption
 	{
 		// eslint-disable-next-line new-cap
 		let uri = new url_parse(hostname, true)
@@ -654,17 +639,22 @@ export class HttpTask
 
 		},
 
-	)
-	: HttpError
+	):
+	HttpError
 	{
 		let e = new HttpError(message)
 
 		let stack = [
 			`${e.name}: ${message}`,
+			// eslint-disable-next-line @stylistic/no-tabs
 			`	at code  : ${option.code}`,
+			// eslint-disable-next-line @stylistic/no-tabs
 			`	at method: ${option.method}`,
+			// eslint-disable-next-line @stylistic/no-tabs
 			`	at url   : ${option.url}`,
+			// eslint-disable-next-line @stylistic/no-tabs
 			`	at #create_task (delta-x-ui)`,
+			// eslint-disable-next-line @stylistic/no-tabs
 			`	at new HttpError (delta-x-ui)`,
 
 		]
@@ -703,8 +693,8 @@ export class HttpTask
 		hostname: string,
 		option: WechatMiniprogram.RequestOption,
 
-	)
-	: Promise< HttpTaskResult<T, H>	>
+	):
+	Promise< HttpTaskResult<T, H> >
 	{
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		let self = this

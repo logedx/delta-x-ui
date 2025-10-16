@@ -34,7 +34,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { src } = this.data
 				let { value, index } = e.detail
@@ -53,7 +54,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { src } = this.data
 				let { value, index } = e.detail

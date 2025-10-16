@@ -62,24 +62,9 @@ export function sleep (ms: number): Promise<void>
 }
 
 export function lengthen
-<
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-	F extends (...args: any[]) => any,
-
-	R = ReturnType<F>,
-
->
-(
-	ms: number,
-
-	fn: F,
-	...args: Parameters<F>
-
-):
-Promise<
-	R extends Promise<infer U> ? U : R
-
->
+<F extends (...args: any[]) => any, R = ReturnType<F> >
+(ms: number, fn: F, ...args: Parameters<F>): Promise<R extends Promise<infer U> ? U : R>
 {
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 	return Promise.all([fn(...args), sleep(ms)]).then( ([v]) => v)
@@ -166,7 +151,6 @@ export function _24_hour_system_string (value: number): string
 
 export class Throttle
 <
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	F extends (...args: any[]) => void,
 
 	P extends Parameters<F> = Parameters<F>,
@@ -234,7 +218,6 @@ export class Throttle
 
 	static new
 	<
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		F extends (...args: any[]) => void,
 
 		P extends Parameters<F> = Parameters<F>,
@@ -242,13 +225,7 @@ export class Throttle
 		R extends ReturnType<F> extends Promise<infer U> ? U : ReturnType<F> = ReturnType<F> extends Promise<infer U> ? U : ReturnType<F>,
 
 	>
-	(
-		interval = 16.6,
-
-		fn: F,
-
-	):
-	(...args: P) => Promise<R>
+	(interval = 16.6, fn: F): (...args: P) => Promise<R>
 	{
 		let v = new Throttle<F, P, R>()
 

@@ -204,7 +204,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { value } = e.detail
 

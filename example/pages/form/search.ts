@@ -11,15 +11,13 @@ Component(
 		},
 
 		methods: {
-			on_handle_tap
-			(
+			on_handle_tap (
 				e: WechatMiniprogram.CustomEvent<
 					{ index: number }
 
 				>,
 
-			)
-			: void
+			):void
 			{
 				let { index } = e.detail
 
@@ -27,15 +25,14 @@ Component(
 
 			},
 
-			on_handle_longpress
-			(
+			on_handle_longpress (
 				e: WechatMiniprogram.CustomEvent<
 					{ index: number }
 
 				>,
 
-			)
-			: void
+			):
+			void
 			{
 				let { index } = e.detail
 

@@ -29,9 +29,10 @@ Component(
 				e: WechatMiniprogram.CustomEvent<
 					{ type: 'tap' | 'longpress' }, object, { name: string }
 
-					>,
+				>,
 
-			): void
+			):
+			void
 			{
 				let { type } = e.detail
 				let { name } = e.currentTarget.dataset

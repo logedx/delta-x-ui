@@ -39,16 +39,17 @@ Component(
 		methods: {
 			set_style (): void
 			{
+				// eslint-disable-next-line @stylistic/operator-linebreak
+				type TVariable =
+					| 'background' | 'padding' | 'top' | 'min-height'
+					| 'safe-padding-left' | 'safe-padding-right'
+
 				let { background, back, home } = this.data
 
 				let win = wx.getWindowInfo()
 				let menu = wx.getMenuButtonBoundingClientRect()
 
-				let css = new style.Variable<
-					| 'background' | 'padding' | 'top' | 'min-height'
-					| 'safe-padding-left' | 'safe-padding-right'
-
-					>('dx', 'header')
+				let css = new style.Variable<TVariable>('dx', 'header')
 
 				let padding = win.windowWidth - menu.right
 
@@ -58,8 +59,7 @@ Component(
 
 				}
 
-				if (detective.is_required_string(back)
-					|| detective.is_required_string(home) )
+				if (detective.is_required_string(back) || detective.is_required_string(home) )
 				{
 					css.set('padding', `${padding}px`)
 

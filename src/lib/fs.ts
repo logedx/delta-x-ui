@@ -91,8 +91,8 @@ export function create
 	data: string,
 	encoding: WechatMiniprogram.WriteFileOption['encoding']
 
-)
-: Promise<string>
+):
+Promise<string>
 
 export function create
 (
@@ -100,8 +100,8 @@ export function create
 	data: string | ArrayBuffer,
 	encoding?: WechatMiniprogram.WriteFileOption['encoding'],
 
-)
-: Promise<string>
+):
+Promise<string>
 {
 	let path = `${wx.env.USER_DATA_PATH}/${filename}`
 
@@ -154,8 +154,8 @@ export function read
 	path: string,
 	encoding?: WechatMiniprogram.ReadFileOption['encoding'],
 
-)
-: Promise<ReadFile>
+):
+Promise<ReadFile>
 {
 	let ext = lookup(path)
 	let mime = MimeType.get(ext)
@@ -241,7 +241,7 @@ export function read
 
 	return Promise.all([info, file])
 		.then<ReadFile>(
-			([{ size, hash }, data]) => ({ ext, path, mime, size, hash, data }),
+			([{ size, hash }, data]) => ( { ext, path, mime, size, hash, data } ),
 
 		)
 

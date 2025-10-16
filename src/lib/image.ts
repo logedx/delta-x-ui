@@ -111,8 +111,8 @@ export function resize
 	width: number,
 	height: number = Math.ceil(width * (image.height / image.width) ),
 
-)
-: ImageData
+):
+ImageData
 {
 	let canvas = wx.createOffscreenCanvas(
 		{

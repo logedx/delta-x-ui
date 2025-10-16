@@ -20,7 +20,7 @@ Component(
 
 				if (detective.is_empty(url) )
 				{
-					this.triggerEvent(indicator_variant.TEvent.active, { type })
+					this.triggerEvent(indicator_variant.TEvent.active, { type } )
 
 					return
 
@@ -34,7 +34,6 @@ Component(
 				channel.once(
 					indicator_variant.TEvent.notify,
 
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					(...args: any[]) =>
 					{
 						// eslint-disable-next-line @typescript-eslint/no-unsafe-argument

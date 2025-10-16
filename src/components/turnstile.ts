@@ -141,7 +141,6 @@ Component(
 				channel.once(
 					turnstile_variant.TEvent.notify,
 
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					(...args: any[]) =>
 					{
 						this.triggerEvent(turnstile_variant.TEvent.notify, args)

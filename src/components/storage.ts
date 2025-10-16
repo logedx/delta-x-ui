@@ -105,15 +105,13 @@ Component(
 
 				>,
 
-			): Promise<void>
+			):
+			Promise<void>
 			{
 				let { index } = e.currentTarget.dataset
 				let { src } = this.data as { src: string[] }
 
-				await wx.previewImage(
-					{ urls: src, current: src[index] },
-
-				)
+				await wx.previewImage( { urls: src, current: src[index] } )
 
 
 			},
@@ -126,7 +124,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { index } = e.currentTarget.dataset
 
@@ -143,7 +142,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { index } = e.currentTarget.dataset
 
@@ -161,7 +161,8 @@ Component(
 				>,
 
 
-			): Promise<void>
+			):
+			Promise<void>
 			{
 				let { index } = e.currentTarget.dataset
 
@@ -177,7 +178,8 @@ Component(
 
 				>,
 
-			): Promise<void>
+			):
+			Promise<void>
 			{
 				let { index, quantity } = e.currentTarget.dataset
 
@@ -194,7 +196,8 @@ Component(
 				>,
 
 
-			): void
+			):
+			void
 			{
 				let { index } = e.currentTarget.dataset
 				let { src } = this.data as { src: string[] }
@@ -254,7 +257,8 @@ Component(
 				index: number,
 				quantity = 1,
 
-			): Promise<void>
+			):
+			Promise<void>
 			{
 				let value = await fs.choose_image(quantity)
 

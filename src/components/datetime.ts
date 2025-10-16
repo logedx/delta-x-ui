@@ -322,7 +322,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { value } = e.detail
 				let { mode, time } = this.data
@@ -344,7 +345,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { value } = e.detail
 				let { mode, date } = this.data

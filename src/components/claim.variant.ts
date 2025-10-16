@@ -123,7 +123,8 @@ export const behavior = Behavior(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { value } = e.detail
 
@@ -146,7 +147,8 @@ export const behavior = Behavior(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { height } = e.detail
 

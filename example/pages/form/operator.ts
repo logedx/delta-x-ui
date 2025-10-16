@@ -81,7 +81,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				console.log(e.detail)
 

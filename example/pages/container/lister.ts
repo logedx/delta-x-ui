@@ -103,12 +103,10 @@ Component(
 			},
 
 			on_select (
-				e: WechatMiniprogram.CustomEvent<
-						{ value: number }
+				e: WechatMiniprogram.CustomEvent<{ value: number }>,
 
-					>,
-
-			): void
+			):
+			void
 			{
 				let { value } = e.detail
 

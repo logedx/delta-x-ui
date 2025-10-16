@@ -21,15 +21,15 @@ export type GetRequired<T> = {
 
 export type GetInterLastElement<U> = U extends Array<infer R> ? R : never
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type GetTupleLastElement<U> = U extends [...infer _, infer L] ? L : never
 
 export type GetUnionLastElement<U> = GetInterLastElement<UnionToInter<U> >
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type UnionToInter <U> = (U extends any ? (k: U[]) => void : never) extends (k: infer I) => void
-	? I
-	: never
+export type UnionToInter <U>
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	= (U extends any ? (k: U[]) => void : never) extends (k: infer I) => void
+		? I
+		: never
 
 export type UnionToTuple<
 	T,
@@ -93,9 +93,7 @@ export function clone<T> (target: T): T
 }
 
 export function get
-<T extends object, K extends keyof T = keyof T>
-(source: T, key: K extends string ? Lowercase<K> : K)
-: T[K]
+<T extends object, K extends keyof T = keyof T> (source: T, key: K extends string ? Lowercase<K> : K): T[K]
 
 export function get
 <T> (source: object, key: PropertyKey, _default: T): T
@@ -165,7 +163,7 @@ export function get
 
 	}
 
-	throw new Error(`${key.toString()} is not exist`)
+	throw new Error(`${key} is not exist`)
 
 }
 
@@ -173,7 +171,7 @@ export function pick
 <T extends object, K extends keyof T> (source: T, ...keys: K[]): { [k in K]: T[k] }
 
 export function pick
-<T extends object, K extends keyof T> (source: T, _default: { [k in K]: T[k] }): { [k in K]-?: T[k] }
+<T extends object, K extends keyof T> (source: T, _default: { [k in K]: T[k] } ): { [k in K]-?: T[k] }
 
 export function pick
 <T extends object, K extends keyof T> (source: T, arg0: unknown, ...other: K[]): { [k in K]: T[k] }
@@ -271,7 +269,6 @@ export class Auspice<T>
 
 
 	call
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	<F extends (...args: any[]) => T> (fn: F, ...params: Parameters<F>): this
 	{
 		try
@@ -291,7 +288,7 @@ export class Auspice<T>
 	}
 
 	async over
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	(..._: T extends Promise<any> ? [] : never): Promise<boolean>
 	{
 		if (this.is_error() )
@@ -317,7 +314,6 @@ export class Auspice<T>
 	}
 
 	static call
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	<T, F extends (...args: any[]) => T = (...args: any[]) => T> (fn: F, ...params: Parameters<F>): Auspice<T>
 	{
 		return new Auspice<T>().call(fn, ...params)

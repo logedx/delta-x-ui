@@ -26,35 +26,29 @@ export type PagerCallHandler
 	TData extends WechatMiniprogram.IAnyObject = WechatMiniprogram.IAnyObject,
 
 >
-// eslint-disable-next-line @stylistic/operator-linebreak
-=
-(
-	linker: WechatMiniprogram.Component.Instance<
-		TData,
-		TProperty,
+	= (
+		linker: WechatMiniprogram.Component.Instance<
+			TData,
+			TProperty,
 
-		WechatMiniprogram.IAnyObject,
-		WechatMiniprogram.Component.BehaviorOption
+			WechatMiniprogram.IAnyObject,
+			WechatMiniprogram.Component.BehaviorOption
 
-	>,
+		>,
 
-	skip: PagerBaseParams['skip'],
-	limit: PagerBaseParams['limit'],
-	sort: PagerBaseParams['sort'],
+		skip: PagerBaseParams['skip'],
+		limit: PagerBaseParams['limit'],
+		sort: PagerBaseParams['sort'],
 
-)
-=>
-T
+	)
+	=> T
 
 
-export type PagerRetrieveHandler
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-<T extends object, P extends [...any[], object]>
-// eslint-disable-next-line @stylistic/operator-linebreak
-=
-P extends [...infer A, infer L extends object]
-	? (...args: [...A, PagerParams<L>]) => request.HttpTaskUnpackingResult<T[]>
-	: never
+export type PagerRetrieveHandler<T extends object, P extends [...any[], object]>
+	= P extends [...infer A, infer L extends object]
+		? (...args: [...A, PagerParams<L>]) => request.HttpTaskUnpackingResult<T[]>
+		: never
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -73,7 +67,7 @@ export type PagerQueue = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	promise: Promise<any>
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/method-signature-style
+	// eslint-disable-next-line @typescript-eslint/method-signature-style
 	resolve: (...v: any[]) => void
 
 	// eslint-disable-next-line @typescript-eslint/method-signature-style
@@ -304,13 +298,7 @@ extends Array<V>
 		TData extends WechatMiniprogram.IAnyObject = structure.GetTupleLastElement<P>,
 
 	>
-	(
-		name: 'call',
-
-		fn: PagerCallHandler<P, TProperty, TData >
-
-	)
-	: this
+	(name: 'call', fn: PagerCallHandler<P, TProperty, TData>): this
 
 	on
 	(name: 'retrieve', fn: PagerRetrieveHandler<T, P>): this
@@ -521,8 +509,8 @@ extends Array<V>
 
 		>,
 
-	)
-	: this
+	):
+	this
 	{
 		this.on(
 			'loading',
@@ -571,23 +559,22 @@ extends Array<V>
 }
 
 
-export type ExclusiveHandler<T> = T extends (_id: string, ...args: infer A) => infer R
-	? (...args: A) => R
-	: never
+export type ExclusiveHandler<T>
+	= T extends (_id: string, ...args: infer A) => infer R
+		? (...args: A) => R
+		: never
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExclusiveCreateHandler = (...args: any[]) => Promise<any>
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExclusiveUpdateHandler = (_id: string, ...args: any[]) => Promise<void>
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ExclusiveRetrieveHandler = (_id: string, ...args: any[]) => Promise<any>
+export type ExclusiveRetrieveHandler = (_id: string, ...args: any[]) => Promise<unknown>
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExclusiveDeleteHandler = (_id: string, ...args: any[]) => Promise<void>
 
-export class Exclusive<
+export class Exclusive
+<
 	C extends ExclusiveCreateHandler = never,
 	U extends ExclusiveUpdateHandler = never,
 	R extends ExclusiveRetrieveHandler = never,
@@ -691,11 +678,7 @@ export class Exclusive<
 	}
 
 
-	async #call<V>(
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		fn: (...args: any[]) => Promise<V>,
-
-	): Promise<V>
+	async #call<V>(fn: (...args: any[]) => Promise<V>): Promise<V>
 	{
 		if (this.#loading)
 		{
@@ -730,9 +713,7 @@ export class Exclusive<
 
 	}
 
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async #create (...args: any[]): Promise<any>
+	async #create (...args: any[]): Promise<unknown>
 	{
 		if (detective.is_empty(this.#create_handle) )
 		{
@@ -759,8 +740,6 @@ export class Exclusive<
 
 	}
 
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	async #update (...args: any[]): Promise<void>
 	{
 		if (detective.is_empty(this.#id) || detective.is_empty(this.#update_handle) )
@@ -779,9 +758,7 @@ export class Exclusive<
 
 	}
 
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async #retrieve (_id: string, ...args: any[]): Promise<any>
+	async #retrieve (_id: string, ...args: any[]): Promise<unknown>
 	{
 		if (detective.is_empty(this.#retrieve_handle) )
 		{
@@ -789,7 +766,6 @@ export class Exclusive<
 
 		}
 
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		let res = await this.#call(
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 			() => this.#retrieve_handle!(_id, ...args),
@@ -805,8 +781,7 @@ export class Exclusive<
 	}
 
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async #delete (...args: any[]): Promise<any>
+	async #delete (...args: any[]): Promise<void>
 	{
 		if (detective.is_empty(this.#id) || detective.is_empty(this.#delete_handle) )
 		{
@@ -827,16 +802,18 @@ export class Exclusive<
 
 
 
-	on<F extends ExclusiveCreateHandler>(name: 'create', fn: F): Exclusive<F, U, R, D>
+	on
+	<F extends ExclusiveCreateHandler>(name: 'create', fn: F): Exclusive<F, U, R, D>
 
-	on<F extends ExclusiveUpdateHandler>(name: 'update', fn: F): Exclusive<C, F, R, D>
+	on
+	<F extends ExclusiveUpdateHandler>(name: 'update', fn: F): Exclusive<C, F, R, D>
 
-	on<F extends ExclusiveRetrieveHandler>(name: 'retrieve', fn: F): Exclusive<C, U, F, D>
+	on
+	<F extends ExclusiveRetrieveHandler>(name: 'retrieve', fn: F): Exclusive<C, U, F, D>
 
 	on<F extends ExclusiveDeleteHandler>(name: 'delete', fn: F): Exclusive<C, U, R, F>
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	on (name: string, fn: (...args: any[]) => any): this
+	on (name: string, fn: (...args: any[]) => unknown):this
 	{
 		if (name === 'create')
 		{
@@ -882,8 +859,8 @@ export class Exclusive<
 	<K extends keyof Awaited<ReturnType<R> > > (
 		key: K extends string ? Lowercase<K> : K,
 
-	)
-	: Awaited<ReturnType<R> >[K]
+	):
+	Awaited<ReturnType<R> >[K]
 
 	get
 	<T extends Awaited<ReturnType<R> >, K extends keyof T> (
@@ -891,8 +868,8 @@ export class Exclusive<
 
 		_default: T[K]
 
-	)
-	: Exclude<T[K], undefined>
+	):
+	Exclude<T[K], undefined>
 
 	get
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
@@ -932,7 +909,7 @@ export class Exclusive<
 
 
 	link
-	(v: WechatMiniprogram.Component.TrivialInstance, map?: { loading: string }): this
+	(v: WechatMiniprogram.Component.TrivialInstance, map?: { loading: string } ): this
 	{
 		this.#linker = v
 

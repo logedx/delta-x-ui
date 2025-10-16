@@ -10,10 +10,7 @@ import * as user_model from '../model/user.js'
 export async function create
 (code: string, appid: string): HttpTaskUnpackingResult<void>
 {
-	let h = http.post(
-		'/user', { code, appid },
-
-	)
+	let h = http.post('/user', { code, appid } )
 
 	await h.finish
 
@@ -42,8 +39,8 @@ export async function update
 
 	},
 
-)
-: HttpTaskUnpackingResult<void>
+):
+HttpTaskUnpackingResult<void>
 {
 	let h = http.put(`/user/${id}`, params)
 
@@ -64,12 +61,12 @@ export function retrieve
 export function retrieves
 (
 	params: container.PagerParams<
-			{ scope?: boolean }
+		{ scope?: boolean }
 
-		>,
+	>,
 
-)
-: HttpTaskUnpackingResult<user_model.THydratedDocumentType[]>
+):
+HttpTaskUnpackingResult<user_model.THydratedDocumentType[]>
 {
 	let h = http.get<user_model.THydratedDocumentType[]>('/users', params)
 

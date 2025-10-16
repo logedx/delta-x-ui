@@ -188,7 +188,8 @@ Component(
 				message: string,
 				data: unknown[] = [],
 
-			): void
+			):
+			void
 			{
 				this.setData(
 					{ loading: false, message, data },

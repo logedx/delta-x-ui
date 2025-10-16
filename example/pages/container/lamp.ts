@@ -28,7 +28,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { value } = e.currentTarget.dataset
 

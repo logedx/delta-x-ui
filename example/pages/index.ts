@@ -274,14 +274,13 @@ Component(
 		methods: {
 			async on_navigate_to (
 				e: WechatMiniprogram.BaseEvent<
-					object,
-
-					{ url: string }
+					// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+					{}, { url: string }
 
 				>,
 
-			)
-			: Promise<void>
+			):
+			Promise<void>
 			{
 				let { url } = e.currentTarget.dataset
 

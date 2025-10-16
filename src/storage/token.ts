@@ -9,7 +9,9 @@ export type CreateResult = Pick<token_model.TRawDocType, 'value' | 'refresh' | '
 
 export function create (): HttpTaskUnpackingResult<CreateResult>
 {
-	let h = http.create<CreateResult>(
+	// eslint-disable-next-line @stylistic/function-call-spacing
+	let h = http.create<CreateResult>
+	(
 		{ url: '/token', method: 'POST' },
 
 	)
@@ -29,8 +31,8 @@ export function update
 
 	},
 
-)
-: HttpTaskUnpackingResult<UpdateResult>
+):
+HttpTaskUnpackingResult<UpdateResult>
 {
 	// eslint-disable-next-line @stylistic/function-call-spacing
 	let h = http.create<UpdateResult>
@@ -44,7 +46,8 @@ export function update
 }
 
 
-export type RetrieveResult = Pick<token_model.TRawDocType, 'expire' | 'scope'>
+export type RetrieveResult
+	= Pick<token_model.TRawDocType, 'expire' | 'scope'>
 	& Pick<token_model.TVirtuals, 'is_super' | 'mode'>
 
 export function retrieve (): HttpTaskUnpackingResult<RetrieveResult>

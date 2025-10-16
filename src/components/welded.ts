@@ -63,7 +63,8 @@ Component(
 
 				>,
 
-			): Promise<void>
+			):
+			Promise<void>
 			{
 				let { index } = e.currentTarget.dataset
 				let { src } = this.data as { src: string[] }
@@ -84,7 +85,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { index } = e.currentTarget.dataset
 
@@ -101,7 +103,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { index } = e.currentTarget.dataset
 
@@ -119,7 +122,8 @@ Component(
 				>,
 
 
-			): Promise<void>
+			):
+			Promise<void>
 			{
 				let { index } = e.currentTarget.dataset
 
@@ -135,7 +139,8 @@ Component(
 
 				>,
 
-			): Promise<void>
+			):
+			Promise<void>
 			{
 				let { index } = e.currentTarget.dataset
 
@@ -152,7 +157,8 @@ Component(
 				>,
 
 
-			): void
+			):
+			void
 			{
 				let { index } = e.currentTarget.dataset
 				let { src } = this.data as { src: string[] }

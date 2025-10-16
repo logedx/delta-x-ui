@@ -15,10 +15,7 @@ export function option
 export async function create
 (value: string): HttpTaskUnpackingResult<void>
 {
-	let h = http.post(
-		'/authorize', { value },
-
-	)
+	let h = http.post('/authorize', { value } )
 
 	await h.finish
 

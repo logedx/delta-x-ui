@@ -45,7 +45,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { value } = e.detail
 
@@ -64,7 +65,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { index } = e.currentTarget.dataset
 
@@ -78,7 +80,8 @@ Component(
 
 				>,
 
-			): void
+			):
+			void
 			{
 				let { index } = e.currentTarget.dataset
 

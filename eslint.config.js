@@ -1,17 +1,18 @@
 import eslint from '@eslint/js'
 import stylistic from '@stylistic/eslint-plugin'
 
+import eslint_config from 'eslint/config'
 import typescript_eslint from 'typescript-eslint'
 
 
 
 
-export default typescript_eslint.config(
+export default eslint_config.defineConfig(
 	eslint.configs.recommended,
 	stylistic.configs.recommended,
 
-	...typescript_eslint.configs.strictTypeChecked,
-	...typescript_eslint.configs.stylisticTypeChecked,
+	typescript_eslint.configs.strictTypeChecked,
+	typescript_eslint.configs.stylisticTypeChecked,
 
 	{
 		files: ['**/*.ts'],
@@ -87,16 +88,13 @@ export default typescript_eslint.config(
 						"arguments": "first"
 					},
 					"FunctionDeclaration": {
-						"parameters": "first"
+						"parameters": "first",
+						"returnType": 0
 					},
 					"FunctionExpression": {
-						"parameters": "first"
+						"parameters": "first",
+						"returnType": 0
 					},
-					"ignoredNodes": [
-						"TSTypeAnnotation",
-						"TSTypeParameterInstantiation",
-						"JSXOpeningElement"
-					],
 					"ImportDeclaration": "first",
 					"ObjectExpression": "first",
 					"offsetTernaryExpressions": true,
@@ -104,10 +102,7 @@ export default typescript_eslint.config(
 					"VariableDeclarator": "first"
 				}
 			],
-			"@stylistic/indent-binary-ops": [
-				"error",
-				"tab"
-			],
+			"@stylistic/indent-binary-ops": "off",
 			"@stylistic/key-spacing": [
 				"error",
 				{
@@ -159,7 +154,12 @@ export default typescript_eslint.config(
 				}
 			],
 			"@stylistic/no-multiple-empty-lines": "off",
-			"@stylistic/no-tabs": "off",
+			"@stylistic/no-tabs": [
+				"error",
+				{ 
+					"allowIndentationTabs": true
+				}
+			],
 			"@stylistic/no-trailing-spaces": [
 				"warn",
 				{
@@ -271,7 +271,8 @@ export default typescript_eslint.config(
 				"never",
 				{
 					"exceptions": [
-						"()"
+						"()",
+						"{}",
 					]
 				}
 			],
@@ -356,9 +357,18 @@ export default typescript_eslint.config(
 			"@typescript-eslint/no-confusing-non-null-assertion": "error",
 			"@typescript-eslint/no-duplicate-type-constituents": "warn",
 			"@typescript-eslint/no-dynamic-delete": "off",
+			"@typescript-eslint/no-empty-function": "off",
+			"@typescript-eslint/no-explicit-any": [
+				"error",
+				{
+					"fixToUnknown": true,
+					"ignoreRestArgs": true
+				}
+			],
 			"@typescript-eslint/no-extraneous-class": "off",
 			"@typescript-eslint/no-import-type-side-effects": "error",
 			"@typescript-eslint/no-inferrable-types": "error",
+			"@typescript-eslint/no-invalid-void-type": "off",
 			"@typescript-eslint/no-misused-promises": "off",
 			"@typescript-eslint/no-non-null-assertion": "off",
 			"@typescript-eslint/no-require-imports": "error",
@@ -366,7 +376,15 @@ export default typescript_eslint.config(
 			"@typescript-eslint/no-unnecessary-boolean-literal-compare": "off",
 			"@typescript-eslint/no-unnecessary-condition": "off",
 			"@typescript-eslint/no-unnecessary-type-parameters": "off",
-			"@typescript-eslint/no-unused-vars": "warn",
+			"@typescript-eslint/no-unused-vars": [
+				"warn",
+				{
+					"args": "none",
+					"caughtErrors": "none",
+					"varsIgnorePattern": "^_",
+					"ignoreRestSiblings": true
+				}
+			],
 			"@typescript-eslint/no-useless-constructor": "off",
 			"@typescript-eslint/prefer-function-type": "error",
 			"@typescript-eslint/prefer-optional-chain": "error",

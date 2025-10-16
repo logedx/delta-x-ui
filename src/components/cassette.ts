@@ -146,12 +146,7 @@ Component(
 
 			},
 
-			on_scroll_start
-			(
-				e: WechatMiniprogram.ScrollViewScroll,
-
-			)
-			: void
+			on_scroll_start (e: WechatMiniprogram.ScrollViewScroll): void
 			{
 				let mark = e.detail.scrollTop
 
@@ -162,12 +157,7 @@ Component(
 
 			},
 
-			on_scroll
-			(
-				e: WechatMiniprogram.ScrollViewScroll,
-
-			)
-			: void
+			on_scroll (e: WechatMiniprogram.ScrollViewScroll): void
 			{
 				let { mark } = this.data
 				let v = e.detail.scrollTop

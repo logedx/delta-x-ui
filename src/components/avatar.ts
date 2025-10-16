@@ -86,25 +86,29 @@ Component(
 
 			},
 
-			on_load
-			(
-				e: WechatMiniprogram.CustomEvent<{ height: number, width: number }>,
+			on_load (
+				e: WechatMiniprogram.CustomEvent<
+					{ height: number, width: number }
 
-			)
-			: void
+				>,
+
+			):
+			void
 			{
 				this.triggerEvent(TEvent.load, e.detail)
 
 
 			},
 
-			on_error
-			(
+			on_error (
+				e: WechatMiniprogram.CustomEvent<
 				// eslint-disable-next-line @typescript-eslint/naming-convention
-				e: WechatMiniprogram.CustomEvent<{ errMsg: string }>,
+					{ errMsg: string }
 
-			)
-			: void
+				>,
+
+			):
+			void
 			{
 				// eslint-disable-next-line @typescript-eslint/naming-convention
 				let { errMsg } = e.detail

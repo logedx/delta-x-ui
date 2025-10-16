@@ -19,10 +19,7 @@ export function option
 export async function create
 (value: string): HttpTaskUnpackingResult<void>
 {
-	let h = http.post(
-		'/scope', { value },
-
-	)
+	let h = http.post('/scope', { value } )
 
 	await h.finish
 
@@ -60,9 +57,9 @@ export function retrieve
 export function retrieves
 (
 	params: container.PagerParams<
-			{ scope?: boolean }
+		{ scope?: boolean }
 
-		>,
+	>,
 
 ):
 HttpTaskUnpackingResult<scope_model.THydratedDocumentType[]>
