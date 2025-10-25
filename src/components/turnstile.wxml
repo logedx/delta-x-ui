@@ -1,4 +1,4 @@
-<view class="dx-turnstile class" style="{{ style }}" bind:tap="on_navigator">
+<view class="dx-turnstile class" style="{{ style }}" bind:tap="on_navigate">
 	<text wx:if="{{ label && value }}">{{ label }}</text>
 
 	<text wx:elif="{{ value }}">{{ value }}</text>

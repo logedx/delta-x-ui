@@ -99,7 +99,7 @@ Component(
 
 			},
 
-			async on_navigator (): Promise<void>
+			async on_navigate (): Promise<void>
 			{
 				let { url } = this.data
 
