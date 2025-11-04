@@ -21,7 +21,7 @@ export function hex (length = 32): string
 }
 
 export function haversine
-(a: detective.RangeRealNumber, b: detective.RangeRealNumber): number
+(a: detective.Range<number>, b: detective.Range<number>): number
 {
 	// 地球半径（米）
 	let R = 6371e3
