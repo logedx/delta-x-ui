@@ -585,27 +585,17 @@ export class HttpTask
 
 		)
 
-		if (option.method === 'GET')
+		if (option.method === 'GET' && detective.is_exist(option.data) )
 		{
-			let query = ''
+			let query = query_string.stringify(
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+				JSON.parse(JSON.stringify(option.data) ),
 
-			if (detective.is_string(option.data) )
-			{
-				query = option.data
+				// eslint-disable-next-line @typescript-eslint/naming-convention
+				{ arrayFormat: 'comma' },
 
-			}
+			)
 
-			if (detective.is_object(option.data) )
-			{
-				query = query_string.stringify(
-					option.data,
-
-					// eslint-disable-next-line @typescript-eslint/naming-convention
-					{ arrayFormat: 'comma' },
-
-				)
-
-			}
 
 			if (detective.is_required_string(query) )
 			{
