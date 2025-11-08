@@ -197,7 +197,7 @@ export function pick
 
 	for (let k of Array.from(map) )
 	{
-		value[k] = clone(source[k] ?? _default[k])
+		value[k] = clone(detective.is_undefined(source[k]) ? _default[k] : source[k])
 
 	}
 
