@@ -7,7 +7,7 @@
 				src="/example/icon/caret-down.svg"
 			/>
 
-			<dx-lamp name="default" data-value="" bind:tap="on_notify" />
+			<dx-lamp name="none" data-value="" bind:tap="on_notify" />
 			<dx-lamp
 				serif
 				name="serif"

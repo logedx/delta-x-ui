@@ -6,23 +6,15 @@
 			src="/example/icon/caret-down.svg"
 		/>
 
-		<dx-label serif name="选填">
+		<dx-label serif name="default">
 			<dx-turnstile
 				placeholder="请选择内容"
 				url="/example/pages/container/lamp"
 				model:value="{{ value }}"
 			/>
 		</dx-label>
-	</dx-nameplate>
 
-	<dx-nameplate divide class="nameplate" label="Required">
-		<dx-icon
-			slot="icon"
-			size="var(--u-04-xs)"
-			src="/example/icon/caret-down.svg"
-		/>
-
-		<dx-label serif name="必填">
+		<dx-label serif name="required">
 			<dx-turnstile
 				required
 				placeholder="请选择内容"
@@ -30,16 +22,42 @@
 				model:value="{{ value }}"
 			/>
 		</dx-label>
+
+		<dx-label serif name="readonly">
+			<dx-turnstile
+				readonly
+				placeholder="请选择内容"
+				url="/example/pages/container/lamp"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
 	</dx-nameplate>
 
-	<dx-nameplate divide class="nameplate" label="Readonly">
+	<dx-nameplate class="nameplate" label="Newline">
 		<dx-icon
 			slot="icon"
 			size="var(--u-04-xs)"
 			src="/example/icon/caret-down.svg"
 		/>
 
-		<dx-label serif name="只读">
+		<dx-label serif newline name="default">
+			<dx-turnstile
+				placeholder="请选择内容"
+				url="/example/pages/container/lamp"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
+
+		<dx-label serif newline name="required">
+			<dx-turnstile
+				required
+				placeholder="请选择内容"
+				url="/example/pages/container/lamp"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
+
+		<dx-label serif newline name="readonly">
 			<dx-turnstile
 				readonly
 				placeholder="请选择内容"

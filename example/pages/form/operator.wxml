@@ -95,6 +95,31 @@
 			</dx-claim>
 		</dx-nameplate>
 
+		<dx-nameplate divide class="nameplate" label="Turnstile">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
+			/>
+
+			<dx-claim name="default" value="该字段不可为空">
+				<dx-turnstile
+					placeholder="请输入内容"
+					url="/example/pages/container/lamp"
+					model:value="{{ turnstile }}"
+				/>
+			</dx-claim>
+
+			<dx-claim name="required" value="该字段不可为空">
+				<dx-turnstile
+					required
+					placeholder="请输入内容"
+					url="/example/pages/container/lamp"
+					model:value="{{ turnstile_required }}"
+				/>
+			</dx-claim>
+		</dx-nameplate>
+
 		<text slot="submit" class="submit" bind:tap="on_active">提交</text>
 	</dx-operator>
 

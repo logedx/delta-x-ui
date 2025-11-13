@@ -13,6 +13,9 @@ Component(
 			textarea         : '',
 			textarea_required: '',
 
+			turnstile         : '',
+			turnstile_required: '',
+
 			wait   : true,
 			loading: false,
 			active : false,
