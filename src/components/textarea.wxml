@@ -1,17 +1,23 @@
-<textarea
-	auto-height
-	hold-keyboard
-	confirm-type="done"
-	class="dx-textarea class"
-	value="{{ value }}"
-	style="{{ style }}"
-	maxlength="{{ -1 }}"
-	disabled="{{ readonly }}"
-	cursor-spacing="{{ 150 }}"
-	placeholder="{{ placeholder }}"
-	placeholder-style="{{ { color: '#C0C4CC', fontSize: 16 } }}"
-	bind:focus="on_focus"
-	bind:blur="on_blur"
-	bind:input="on_input"
-	bind:confirm="on_confirm"
-/>
+<view class="dx-textarea class" wx:if="{{ !readonly && focus }}">
+	<textarea
+		focus
+		auto-height
+		hold-keyboard
+		confirm-type="done"
+		value="{{ value }}"
+		maxlength="{{ -1 }}"
+		cursor-spacing="{{ 150 }}"
+		bind:blur="on_blur"
+		bind:input="on_input"
+		bind:confirm="on_confirm"
+	/>
+</view>
+
+<view class="dx-textarea class" bind:tap="on_focus" wx:else>
+	<text wx:if="{{ value }}">{{ value }}</text>
+	<text class="placeholder" wx:else>{{ placeholder }}</text>
+
+	<view class="icon" wx:if="{{ icon }}">
+		<dx-icon size="var(--strong)" src="{{ icon }}" />
+	</view>
+</view>

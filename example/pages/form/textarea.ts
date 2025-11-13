@@ -1,7 +1,7 @@
 Component(
 	{
 		data: {
-
+			value: '',
 
 		},
 
