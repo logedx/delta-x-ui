@@ -141,26 +141,6 @@ export const behavior = Behavior(
 
 			},
 
-			on_keyboard_height_change (
-				e: WechatMiniprogram.CustomEvent<
-					{ height: number, duration: number }
-
-				>,
-
-			):
-			void
-			{
-				let { height } = e.detail
-
-				this.setData(
-					{ focus: height > 0 },
-
-				)
-
-				this.set_style_()
-
-			},
-
 		},
 
 

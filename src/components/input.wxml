@@ -10,7 +10,6 @@
 	disabled="{{ readonly }}"
 	cursor-spacing="{{ 150 }}"
 	placeholder="{{ placeholder }}"
-	bind:keyboardheightchange="on_keyboard_height_change"
 	bind:focus="on_focus"
 	bind:blur="on_blur"
 	bind:input="on_input"

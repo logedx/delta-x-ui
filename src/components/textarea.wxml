@@ -10,7 +10,6 @@
 	cursor-spacing="{{ 150 }}"
 	placeholder="{{ placeholder }}"
 	placeholder-style="{{ { color: '#C0C4CC', fontSize: 16 } }}"
-	bind:keyboardheightchange="on_keyboard_height_change"
 	bind:focus="on_focus"
 	bind:blur="on_blur"
 	bind:input="on_input"
