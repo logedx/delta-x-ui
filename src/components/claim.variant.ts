@@ -19,6 +19,7 @@ export const behavior = Behavior(
 
 		properties: {
 			value      : { type: String, value: '' },
+			icon       : { type: String, value: '' },
 			placeholder: { type: String, value: '' },
 			required   : { type: Boolean, value: false },
 			readonly   : { type: Boolean, value: false },
