@@ -1,6 +1,7 @@
 {
 	"component": true,
 	"usingComponents": {
+		"dx-icon": "./icon",
 		"dx-indicator": "./indicator"
 	}
 }

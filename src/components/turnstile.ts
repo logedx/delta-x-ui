@@ -88,7 +88,6 @@ Component(
 				if (newline)
 				{
 					css.set('justify-content', 'space-between')
-					css.set('padding', 0)
 
 				}
 

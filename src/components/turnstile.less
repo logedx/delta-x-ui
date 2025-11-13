@@ -1,23 +1,24 @@
 .dx-turnstile {
 	--dx-turnstile-justify-content: flex-end;
-	--dx-turnstile-padding: 0 var(--u-01-xs);
 
 
 	width: 100%;
+	height: var(--label);
 	display: flex;
 	justify-content: var(--dx-turnstile-justify-content);
-	box-sizing: border-box;
-	padding: var(--dx-turnstile-padding);
 	position: relative;
 
 	text {
-		color: var(--title);
-		font-size: var(--strong);
+		height: 100%;
 		line-height: var(--label);
+		font-size: var(--strong);
+		color: var(--title);
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 
 		&.placeholder {
-			color: #C0C4CC;
-			font-size: 32rpx;
+			color: var(--aside);
 
 		}
 
