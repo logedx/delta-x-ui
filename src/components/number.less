@@ -1,15 +1,52 @@
 .dx-number {
-	--dx-number-padding: 0 var(--u-01-xs);
-	--dx-number-text-align: right;
+	--dx-number-flex-direction: row;
+	--dx-number-justify-content: flex-end;
+	--dx-number-input-text-align: right;
 
+	display: flex;
+	flex-direction: var(--dx-number-flex-direction);
+	justify-content: var(--dx-number-justify-content);
+	align-items: center;
 	width: 100%;
 	height: var(--label);
-	padding: var(--dx-number-padding);
-	line-height: var(--label);
-	color: var(--title);
-	font-size: var(--strong);
-	text-align: var(--dx-number-text-align);
-	box-sizing: border-box;
-	position: relative;
+
+	input,
+	text {
+		height: 100%;
+		line-height: var(--label);
+		font-size: var(--strong);
+		color: var(--title);
+
+	}
+
+	input {
+		width: 100%;
+		text-align: var(--dx-number-input-text-align);
+
+	}
+
+	text {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+
+		&.placeholder {
+			color: var(--aside);
+
+		}
+
+	}
+
+	.icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: var(--label);
+		height: var(--label);
+		margin-left: auto;
+
+	}
+
 
 }
