@@ -37,6 +37,18 @@ export const behavior = Behavior(
 
 			},
 
+			required (): void
+			{
+				this.set_style_()
+
+			},
+
+			readonly (): void
+			{
+				this.set_style_()
+
+			},
+
 		},
 
 		lifetimes: {
