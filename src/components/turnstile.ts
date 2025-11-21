@@ -1,6 +1,4 @@
-import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
-import * as structure from '../lib/structure.js'
 
 import * as claim_variant from './claim.variant.js'
 import * as turnstile_variant from './turnstile.variant.js'
@@ -62,53 +60,10 @@ Component(
 
 		},
 
-		data: {
-			style: '',
-
-		},
-
-		lifetimes: {
-			ready (): void
-			{
-				this.set_style()
-
-			},
-
-		},
-
 		methods: {
-			set_style (): void
-			{
-				let parent = this.get_parent()
-
-				let newline = structure.get(parent?.data ?? {}, 'newline', false)
-
-				let css = new style.Variable<'justify-content' | 'padding'>('dx', 'turnstile')
-
-				if (newline)
-				{
-					css.set('justify-content', 'space-between')
-
-				}
-
-				this.setData(
-					{ style: css.to_string() },
-
-				)
-
-			},
-
 			async on_navigate (): Promise<void>
 			{
-				let { url } = this.data
-
-				let { value, readonly } = this.data
-
-				if (readonly)
-				{
-					return
-
-				}
+				let { url, value } = this.data
 
 				if (detective.is_empty(url) )
 				{

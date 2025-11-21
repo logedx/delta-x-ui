@@ -1,12 +1,9 @@
 .dx-turnstile {
-	--dx-turnstile-justify-content: flex-end;
-
-
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	width: 100%;
 	height: var(--label);
-	display: flex;
-	justify-content: var(--dx-turnstile-justify-content);
-	position: relative;
 
 	text {
 		height: 100%;
@@ -14,8 +11,8 @@
 		font-size: var(--strong);
 		color: var(--title);
 		overflow: hidden;
-		white-space: nowrap;
 		text-overflow: ellipsis;
+		white-space: nowrap;
 
 		&.placeholder {
 			color: var(--aside);
@@ -26,9 +23,9 @@
 
 	.icon {
 		flex-shrink: 0;
+		margin-left: auto;
 
 	}
-
 
 
 }

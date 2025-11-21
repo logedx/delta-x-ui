@@ -14,6 +14,15 @@
 			/>
 		</dx-label>
 
+		<dx-label serif name="icon">
+			<dx-turnstile
+				placeholder="请选择内容"
+				url="/example/pages/container/lamp"
+				icon="/example/icon/autocomplete.svg"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
+
 		<dx-label serif name="required">
 			<dx-turnstile
 				required
@@ -44,6 +53,15 @@
 			<dx-turnstile
 				placeholder="请选择内容"
 				url="/example/pages/container/lamp"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
+
+		<dx-label serif newline name="icon">
+			<dx-turnstile
+				placeholder="请选择内容"
+				url="/example/pages/container/lamp"
+				icon="/example/icon/autocomplete.svg"
 				model:value="{{ value }}"
 			/>
 		</dx-label>
