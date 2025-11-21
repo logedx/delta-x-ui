@@ -1,6 +1,3 @@
-import * as style from '../lib/style.js'
-import * as structure from '../lib/structure.js'
-
 import * as claim_variant from './claim.variant.js'
 
 
@@ -35,44 +32,11 @@ Component(
 
 		},
 
-		data: {
-			style: '',
+		properties: {
+			icon: { type: String, value: '../icon/text_fields_128dp_808695_FILL0_wght500_GRAD0_opsz48.png' },
 
 		},
 
-		lifetimes: {
-			ready (): void
-			{
-				this.set_style()
-
-			},
-
-		},
-
-		methods: {
-			set_style (): void
-			{
-				let parent = this.get_parent()
-
-				let newline = structure.get(parent?.data ?? {}, 'newline', false)
-
-				let css = new style.Variable<'text-align' | 'padding'>('dx', 'input')
-
-				if (newline)
-				{
-					css.set('text-align', 'left')
-					css.set('padding', 0)
-
-				}
-
-				this.setData(
-					{ style: css.to_string() },
-
-				)
-
-			},
-
-		},
 
 	},
 

@@ -6,35 +6,63 @@
 			src="/example/icon/caret-down.svg"
 		/>
 
-		<dx-label serif name="选填">
+		<dx-label serif name="default">
 			<dx-input placeholder="请输入内容" model:value="{{ value }}" />
 		</dx-label>
-	</dx-nameplate>
 
-	<dx-nameplate divide class="nameplate" label="Required">
-		<dx-icon
-			slot="icon"
-			size="var(--u-04-xs)"
-			src="/example/icon/caret-down.svg"
-		/>
+		<dx-label serif name="icon">
+			<dx-input
+				placeholder="请输入内容"
+				icon="/example/icon/autocomplete.svg"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
 
-		<dx-label serif name="必填">
+		<dx-label serif name="required">
 			<dx-input
 				required
 				placeholder="请输入内容"
 				model:value="{{ value }}"
 			/>
 		</dx-label>
+
+		<dx-label serif name="readonly">
+			<dx-input
+				readonly
+				placeholder="请输入内容"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
 	</dx-nameplate>
 
-	<dx-nameplate divide class="nameplate" label="Readonly">
+	<dx-nameplate divide class="nameplate" label="Newline">
 		<dx-icon
 			slot="icon"
 			size="var(--u-04-xs)"
 			src="/example/icon/caret-down.svg"
 		/>
 
-		<dx-label serif name="只读">
+		<dx-label serif newline name="default">
+			<dx-input placeholder="请输入内容" model:value="{{ value }}" />
+		</dx-label>
+
+		<dx-label serif newline name="icon">
+			<dx-input
+				placeholder="请输入内容"
+				icon="/example/icon/autocomplete.svg"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
+
+		<dx-label serif newline name="required">
+			<dx-input
+				required
+				placeholder="请输入内容"
+				model:value="{{ value }}"
+			/>
+		</dx-label>
+
+		<dx-label serif newline name="readonly">
 			<dx-input
 				readonly
 				placeholder="请输入内容"

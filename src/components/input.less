@@ -1,15 +1,41 @@
 .dx-input {
-	--dx-input-text-align: right;
-	--dx-input-padding: 0 var(--u-01-xs);
-
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	width: 100%;
 	height: var(--label);
-	line-height: var(--label);
-	color: var(--title);
-	font-size: var(--strong);
-	text-align: var(--dx-input-text-align);
-	box-sizing: border-box;
-	padding: var(--dx-input-padding);
-	position: relative;
+
+	input,
+	text {
+		height: 100%;
+		line-height: var(--label);
+		font-size: var(--strong);
+		color: var(--title);
+
+	}
+
+	input {
+		width: 100%;
+
+	}
+
+	text {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		&.placeholder {
+			color: var(--aside);
+
+		}
+
+	}
+
+	.icon {
+		flex-shrink: 0;
+		margin-left: auto;
+
+	}
+
 
 }
