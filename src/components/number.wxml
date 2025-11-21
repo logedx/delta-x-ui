@@ -1,17 +1,26 @@
-<input
-	hold-keyboard
-	confirm-type="done"
-	class="dx-number class"
-	placeholder-style="color: #C0C4CC; font-size: 32rpx;"
-	value="{{ input }}"
-	focus="{{ focus }}"
-	style="{{ style }}"
-	disabled="{{ readonly }}"
-	cursor-spacing="{{ 150 }}"
-	placeholder="{{ placeholder }}"
-	type="{{ digit > 0 ? 'digit' : 'number' }}"
-	bind:focus="on_focus"
-	bind:blur="on_blur"
-	bind:input="on_input"
-	bind:confirm="on_confirm"
-/>
+<view class="dx-number class" wx:if="{{ readonly }}">
+	<text wx:if="{{ value }}">{{ value }}</text>
+
+	<dx-indicator class="icon" icon="{{ icon }}" wx:if="{{ icon }}" />
+</view>
+
+<view class="dx-number class" wx:elif="{{ focus }}">
+	<input
+		focus
+		hold-keyboard
+		confirm-type="done"
+		value="{{ input }}"
+		type="{{ digit > 0 ? 'digit' : 'number' }}"
+		cursor-spacing="{{ 150 }}"
+		bind:blur="on_blur"
+		bind:input="on_input"
+		bind:confirm="on_confirm"
+	/>
+</view>
+
+<view class="dx-number class" bind:tap="on_focus" wx:else>
+	<text wx:if="{{ value }}">{{ value }}</text>
+	<text class="placeholder" wx:else>{{ placeholder }}</text>
+
+	<dx-indicator class="icon" icon="{{ icon }}" wx:if="{{ icon }}" />
+</view>

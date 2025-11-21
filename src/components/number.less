@@ -1,15 +1,41 @@
 .dx-number {
-	--dx-number-padding: 0 var(--u-01-xs);
-	--dx-number-text-align: right;
-
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	width: 100%;
 	height: var(--label);
-	padding: var(--dx-number-padding);
-	line-height: var(--label);
-	color: var(--title);
-	font-size: var(--strong);
-	text-align: var(--dx-number-text-align);
-	box-sizing: border-box;
-	position: relative;
+
+	input,
+	text {
+		height: 100%;
+		line-height: var(--label);
+		font-size: var(--strong);
+		color: var(--title);
+
+	}
+
+	input {
+		width: 100%;
+
+	}
+
+	text {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		&.placeholder {
+			color: var(--aside);
+
+		}
+
+	}
+
+	.icon {
+		flex-shrink: 0;
+		margin-left: auto;
+
+	}
+
 
 }

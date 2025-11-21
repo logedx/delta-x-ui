@@ -1,6 +1,4 @@
-import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
-import * as structure from '../lib/structure.js'
 
 import * as claim_variant from './claim.variant.js'
 
@@ -40,6 +38,7 @@ Component(
 			value: { type: Number, value: 0 },
 			digit: { type: Number, value: 0 },
 			max  : { type: Number, value: Infinity },
+			icon : { type: String, value: '../icon/highlight_text_cursor_128dp_808695_FILL0_wght500_GRAD0_opsz48.png' },
 
 		},
 
@@ -71,8 +70,6 @@ Component(
 					value.toString(),
 
 				)
-
-				this.set_style()
 
 			},
 
@@ -171,28 +168,6 @@ Component(
 
 				this.update_(
 					Number(input),
-
-				)
-
-			},
-
-			set_style (): void
-			{
-				let parent = this.get_parent()
-
-				let newline = structure.get(parent?.data ?? {}, 'newline', false)
-
-				let css = new style.Variable<'padding' | 'text-align'>('dx', 'number')
-
-				if (newline)
-				{
-					css.set('padding', '0')
-					css.set('text-align', 'left')
-
-				}
-
-				this.setData(
-					{ style: css.to_string() },
 
 				)
 
