@@ -1,6 +1,3 @@
-import * as style from '../lib/style.js'
-import * as structure from '../lib/structure.js'
-
 import * as claim_variant from './claim.variant.js'
 
 
@@ -35,6 +32,11 @@ Component(
 
 		},
 
+		properties: {
+			icon: { type: String, value: '../icon/numbers_128dp_808695_FILL0_wght500_GRAD0_opsz48.png' },
+
+		},
+
 		data: {
 			style: '',
 
@@ -54,18 +56,8 @@ Component(
 			{
 				let parent = this.get_parent()
 
-				let newline = structure.get(parent?.data ?? {}, 'newline', false)
-
-				let css = new style.Variable<'padding'>('dx', 'textarea')
-
-				if (newline)
-				{
-					css.set('padding', '0')
-
-				}
-
-				this.setData(
-					{ style: css.to_string() },
+				parent?.setData?.(
+					{ newline: true },
 
 				)
 

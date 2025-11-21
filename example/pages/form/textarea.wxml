@@ -7,43 +7,32 @@
 				src="/example/icon/caret-down.svg"
 			/>
 
-			<dx-label serif newline name="选填">
+			<dx-label serif name="default">
 				<dx-textarea
-					class="example"
 					placeholder="请输入内容"
 					model:value="{{ value }}"
 				/>
 			</dx-label>
-		</dx-nameplate>
 
-		<dx-nameplate divide class="nameplate" label="Required">
-			<dx-icon
-				slot="icon"
-				size="var(--u-04-xs)"
-				src="/example/icon/caret-down.svg"
-			/>
+			<dx-label serif name="icon">
+				<dx-textarea
+					icon="/example/icon/autocomplete.svg"
+					placeholder="请输入内容"
+					model:value="{{ value }}"
+				/>
+			</dx-label>
 
-			<dx-label serif newline name="必填">
+			<dx-label serif name="required">
 				<dx-textarea
 					required
-					class="example"
 					placeholder="请输入内容"
 					model:value="{{ value }}"
 				/>
 			</dx-label>
-		</dx-nameplate>
 
-		<dx-nameplate divide class="nameplate" label="Readonly">
-			<dx-icon
-				slot="icon"
-				size="var(--u-04-xs)"
-				src="/example/icon/caret-down.svg"
-			/>
-
-			<dx-label serif newline name="只读">
+			<dx-label serif name="readonly">
 				<dx-textarea
 					readonly
-					class="example"
 					placeholder="请输入内容"
 					model:value="{{ value }}"
 				/>

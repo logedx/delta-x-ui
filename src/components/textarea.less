@@ -1,12 +1,39 @@
 .dx-textarea {
-	--dx-textarea-padding: 0 var(--u-01-xs);
-
 	width: 100%;
-	color: var(--title);
-	font-size: var(--strong);
-	box-sizing: border-box;
-	line-height: var(--label);
-	padding: var(--dx-textarea-padding);
+	min-height: var(--label);
 	position: relative;
+
+	textarea,
+	text {
+		line-height: var(--label);
+		font-size: var(--strong);
+		color: var(--title);
+		z-index: 0;
+
+	}
+
+	textarea {
+		width: 100%;
+
+	}
+
+	text {
+		white-space: wrap;
+
+		&.placeholder {
+			color: var(--aside);
+
+		}
+
+	}
+
+	.icon {
+		z-index: 1;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+
+	}
+
 
 }
