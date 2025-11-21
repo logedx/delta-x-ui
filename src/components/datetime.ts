@@ -2,7 +2,6 @@ import moment from 'moment'
 
 import * as style from '../lib/style.js'
 import * as detective from '../lib/detective.js'
-import * as structure from '../lib/structure.js'
 
 import * as claim_variant from './claim.variant.js'
 
@@ -67,8 +66,8 @@ Component(
 			mode       : { type: String, value: '' },
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			value      : { type: String, optionalTypes: [Number], value: '' },
-			icon       : { type: String, value: '' },
 			placeholder: { type: String, value: '' },
+			icon       : { type: String, value: '../icon/calendar_month_128dp_808695_FILL0_wght500_GRAD0_opsz48.png' },
 
 		},
 
@@ -128,31 +127,22 @@ Component(
 		methods: {
 			set_style (): void
 			{
-				let parent = this.get_parent()
-
 				let { mode, time } = this.data
 
-				let newline = structure.get(parent?.data ?? {}, 'newline', false)
+				let css = new style.Variable<'date-picker-grow' | 'time-picker-grow'>('dx', 'datetime')
 
-				let css = new style.Variable<'justify-content' | 'date-picker-grow' | 'time-picker-grow'>('dx', 'datetime')
-
-				if (newline)
+				if (mode === 'time' || detective.is_required_string(time) )
 				{
-					css.set('justify-content', 'flex-start')
-
-					if (mode === 'time' || detective.is_required_string(time) )
-					{
-						css.set('time-picker-grow', '1')
-
-					}
-
-					else
-					{
-						css.set('date-picker-grow', '1')
-
-					}
+					css.set('time-picker-grow', '1')
 
 				}
+
+				else
+				{
+					css.set('date-picker-grow', '1')
+
+				}
+
 
 				this.setData(
 					{ style: css.to_string() },

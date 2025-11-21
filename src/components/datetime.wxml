@@ -1,23 +1,11 @@
 <view class="dx-datetime class" style="{{ style }}" wx:if="{{ readonly }}">
-	<dx-icon
-		class="icon"
-		size="var(--u-03-xs)"
-		src="{{ icon }}"
-		wx:if="{{ icon }}"
-	/>
-
 	<text wx:if="{{ date }}">{{ date }}</text>
 	<text wx:if="{{ time }}">{{ time }}</text>
+
+	<dx-indicator class="icon" icon="{{ icon }}" wx:if="{{ icon }}" />
 </view>
 
 <view class="dx-datetime class" style="{{ style }}" wx:else>
-	<dx-icon
-		class="icon"
-		size="var(--u-03-xs)"
-		src="{{ icon }}"
-		wx:if="{{ icon }}"
-	/>
-
 	<picker
 		mode="date"
 		class="date"
@@ -39,4 +27,6 @@
 		<text wx:if="{{ time }}">{{ time }}</text>
 		<text class="placeholder" wx:else>{{ placeholder }}</text>
 	</picker>
+
+	<dx-indicator class="icon" icon="{{ icon }}" wx:if="{{ icon }}" />
 </view>

@@ -21,6 +21,22 @@
 					model:value="{{ default }}"
 				/>
 			</dx-label>
+
+			<dx-label serif name="required">
+				<dx-datetime
+					required
+					placeholder="请选择时间"
+					model:value="{{ default }}"
+				/>
+			</dx-label>
+
+			<dx-label serif name="readonly">
+				<dx-datetime
+					readonly
+					placeholder="请选择时间"
+					model:value="{{ default }}"
+				/>
+			</dx-label>
 		</dx-nameplate>
 
 		<dx-nameplate divide class="nameplate" label="Mode">
@@ -33,7 +49,6 @@
 			<dx-label serif name="date">
 				<dx-datetime
 					mode="date"
-					icon="/example/icon/clock.svg"
 					placeholder="请选择日期"
 					model:value="{{ date }}"
 				/>
@@ -42,7 +57,6 @@
 			<dx-label serif name="time">
 				<dx-datetime
 					mode="time"
-					icon="/example/icon/clock.svg"
 					placeholder="请选择时间"
 					model:value="{{ time }}"
 				/>
@@ -51,41 +65,8 @@
 			<dx-label serif name="24 hour system number">
 				<dx-datetime
 					mode="time"
-					icon="/example/icon/clock.svg"
 					placeholder="请选择时间"
 					model:value="{{ _24_hour_system_number }}"
-				/>
-			</dx-label>
-		</dx-nameplate>
-
-		<dx-nameplate divide class="nameplate" label="Required">
-			<dx-icon
-				slot="icon"
-				size="var(--u-04-xs)"
-				src="/example/icon/caret-down.svg"
-			/>
-
-			<dx-label serif name="value">
-				<dx-datetime
-					required
-					placeholder="请选择时间"
-					model:value="{{ default }}"
-				/>
-			</dx-label>
-		</dx-nameplate>
-
-		<dx-nameplate divide class="nameplate" label="Readonly">
-			<dx-icon
-				slot="icon"
-				size="var(--u-04-xs)"
-				src="/example/icon/caret-down.svg"
-			/>
-
-			<dx-label serif name="value">
-				<dx-datetime
-					readonly
-					placeholder="请选择时间"
-					model:value="{{ default }}"
 				/>
 			</dx-label>
 		</dx-nameplate>
@@ -104,19 +85,27 @@
 				/>
 			</dx-label>
 
-			<dx-label serif newline name="date">
+			<dx-label serif newline name="icon">
 				<dx-datetime
-					mode="date"
+					icon="/example/icon/clock.svg"
 					placeholder="请选择时间"
-					model:value="{{ date }}"
+					model:value="{{ default }}"
 				/>
 			</dx-label>
 
-			<dx-label serif newline name="time">
+			<dx-label serif newline name="required">
 				<dx-datetime
-					mode="time"
+					required
 					placeholder="请选择时间"
-					model:value="{{ time }}"
+					model:value="{{ default }}"
+				/>
+			</dx-label>
+
+			<dx-label serif newline name="readonly">
+				<dx-datetime
+					readonly
+					placeholder="请选择时间"
+					model:value="{{ default }}"
 				/>
 			</dx-label>
 		</dx-nameplate>
