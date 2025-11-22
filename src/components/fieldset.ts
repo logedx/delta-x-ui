@@ -1,8 +1,6 @@
-export enum TEvent
-{
-	active = 'active',
+import * as fieldset_variant from './fieldset.variant.js'
 
-}
+
 
 
 Component(
@@ -20,25 +18,34 @@ Component(
 			icon: { type: String, value: '' },
 
 			// Array<[string, unknown] | [string, string, true]>
-			value: { type: Array, value: [] },
+			value: { type: Array, value: [] as fieldset_variant.Tinput[] },
+
+		},
+
+		data: {
+			is_icon (v: fieldset_variant.Ttype): boolean
+			{
+				return v === fieldset_variant.Ttype.icon
+
+			},
 
 		},
 
 		methods: {
 			on_active (
 				e: WechatMiniprogram.CustomEvent<
-					{ type: 'tap' | 'longpress' }, object, { name: string }
+					{ type: fieldset_variant.Tactive }, object, { item: fieldset_variant.Tinput }
 
 				>,
 
 			):
 			void
 			{
-				let { type } = e.detail
-				let { name } = e.currentTarget.dataset
+				let { type: active } = e.detail
+				let { item: [type, name, value] } = e.currentTarget.dataset
 
-				this.triggerEvent(
-					TEvent.active, { type, name },
+				this.triggerEvent<fieldset_variant.Tdetail>(
+					fieldset_variant.TEvent.active, { active, type, name, value },
 
 				)
 
