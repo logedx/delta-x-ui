@@ -1,3 +1,8 @@
+import * as indicator_variant from './indicator.variant.js'
+
+
+
+
 export enum TEvent
 {
 	active = 'active',
@@ -14,7 +19,7 @@ export type Tname = string
 
 export type Tinput = [Ttype, Tname, string]
 
-export type Tactive = 'tap' | 'longpress'
+export type Tactive = keyof typeof indicator_variant.Tactive
 
 export type Tdetail = {
 	type  : Ttype

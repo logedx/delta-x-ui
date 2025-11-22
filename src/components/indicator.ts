@@ -14,7 +14,7 @@ Component(
 		},
 
 		methods: {
-			async active (type: 'tap' | 'longpress'): Promise<void>
+			async active (type: indicator_variant.Tactive): Promise<void>
 			{
 				let { url } = this.data
 
@@ -46,17 +46,17 @@ Component(
 
 			},
 
-			on_active_tap (): void
+			on_tap (): void
 			{
 				// eslint-disable-next-line @typescript-eslint/no-floating-promises
-				this.active('tap')
+				this.active(indicator_variant.Tactive.tap)
 
 			},
 
-			on_active_longpress (): void
+			on_longpress (): void
 			{
 				// eslint-disable-next-line @typescript-eslint/no-floating-promises
-				this.active('longpress')
+				this.active(indicator_variant.Tactive.longpress)
 
 			},
 

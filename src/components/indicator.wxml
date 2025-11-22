@@ -1,7 +1,3 @@
-<view
-	class="dx-indicator"
-	bind:tap="on_active_tap"
-	bind:longpress="on_active_longpress"
->
+<view class="dx-indicator" bind:tap="on_tap" bind:longpress="on_longpress">
 	<dx-icon size="60%" src="{{ icon }}" />
 </view>
