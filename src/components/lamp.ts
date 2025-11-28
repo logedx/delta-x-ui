@@ -39,7 +39,7 @@ Component(
 		},
 
 		methods: {
-			set_style (index: number, length: number): void
+			update_style (index: number, length: number): void
 			{
 				let classx = 'x'
 				let last = length - 1

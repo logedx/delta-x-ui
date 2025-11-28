@@ -81,7 +81,7 @@ export const hash_behavior = Behavior(
 		},
 
 		methods: {
-			get_child (): WechatMiniprogram.Component.TrivialInstance[]
+			link (target?: WechatMiniprogram.Component.TrivialInstance): WechatMiniprogram.Component.TrivialInstance[]
 			{
 				let { _id } = this.data
 
@@ -93,19 +93,9 @@ export const hash_behavior = Behavior(
 
 				}
 
-				return v.child
-
-			},
-
-			push_child (target: WechatMiniprogram.Component.TrivialInstance): void
-			{
-				let { _id } = this.data
-
-				let v = linked.get(_id)
-
-				if (detective.is_empty(v) )
+				if (detective.is_empty(target) )
 				{
-					return
+					return v.child
 
 				}
 
@@ -115,6 +105,8 @@ export const hash_behavior = Behavior(
 				)
 
 				v.child.push(target)
+
+				return v.child
 
 			},
 
@@ -151,7 +143,7 @@ export const linker_behavior = Behavior(
 				}
 
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-				linked.get(is)?.parent?.push_child?.(this)
+				linked.get(is)?.parent?.link?.(this)
 
 			},
 

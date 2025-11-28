@@ -30,14 +30,14 @@ Component(
 		lifetimes: {
 			attached (): void
 			{
-				this.set_style()
+				this.update_style()
 
 			},
 
 		},
 
 		methods: {
-			set_style (): void
+			update_style (): void
 			{
 				// eslint-disable-next-line @stylistic/operator-linebreak
 				type TVariable =

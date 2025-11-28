@@ -37,19 +37,19 @@ Component(
 
 				)
 
-				this.set_style()
+				this.update_style()
 
 			},
 
 			size (): void
 			{
-				this.set_style()
+				this.update_style()
 
 			},
 
 			square (): void
 			{
-				this.set_style()
+				this.update_style()
 
 			},
 
@@ -58,14 +58,14 @@ Component(
 		lifetimes: {
 			created (): void
 			{
-				this.set_style()
+				this.update_style()
 
 			},
 
 		},
 
 		methods: {
-			set_style (): void
+			update_style (): void
 			{
 				let { size, square } = this.data
 
@@ -119,7 +119,7 @@ Component(
 
 				)
 
-				this.set_style()
+				this.update_style()
 				this.triggerEvent(
 					TEvent.error, { message: errMsg },
 

@@ -17,8 +17,8 @@ Component(
 
 				linked (target)
 				{
-					this.set_style(target)
-					this.push_child(target)
+					this.link(target)
+					this.update_style(target)
 
 				},
 
@@ -54,11 +54,12 @@ Component(
 		},
 
 		methods: {
-			set_style (target: WechatMiniprogram.Component.TrivialInstance): void
+			update_style (target: WechatMiniprogram.Component.TrivialInstance): void
 			{
+				let child = this.link()
+
 				let { value } = this.data
 
-				let child = this.get_child()
 
 				this.setData(
 					{ classx: 'x' },
@@ -66,7 +67,7 @@ Component(
 				)
 
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-				target.set_style?.(child.length, value.length)
+				target.update_style?.(child.length - 1, value.length)
 
 			},
 

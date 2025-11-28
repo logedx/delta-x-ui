@@ -106,7 +106,7 @@ Component(
 				}
 
 
-				this.set_style(node.data.offset)
+				this.update_style(node.data.offset)
 
 				this.triggerEvent(
 					operator_variant.TEvent.abnormal, [node, ...other],
@@ -160,7 +160,7 @@ Component(
 
 			},
 
-			set_style (offset: number): void
+			update_style (offset: number): void
 			{
 				let css = new style.Variable<'offset'>('dx', 'operator', 'anchor')
 

@@ -73,7 +73,7 @@ Component(
 
 				}
 
-				this.set_style_()
+				this.update_style_()
 
 				let { eventChannel: channel } = await wx.navigateTo(
 					{ url },

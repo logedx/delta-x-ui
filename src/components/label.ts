@@ -20,7 +20,7 @@ Component(
 
 				linked (target)
 				{
-					this.push_child(target)
+					this.link(target)
 
 				},
 
@@ -57,13 +57,13 @@ Component(
 		observers: {
 			serif (): void
 			{
-				this.set_style()
+				this.update_style()
 
 			},
 
 			newline (): void
 			{
-				this.set_style()
+				this.update_style()
 
 			},
 
@@ -72,14 +72,14 @@ Component(
 		lifetimes: {
 			attached (): void
 			{
-				this.set_style()
+				this.update_style()
 
 			},
 
 		},
 
 		methods: {
-			set_style (): void
+			update_style (): void
 			{
 				let { serif, newline } = this.data
 

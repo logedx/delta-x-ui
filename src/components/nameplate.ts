@@ -32,7 +32,7 @@ Component(
 		observers: {
 			divide (): void
 			{
-				this.set_style()
+				this.update_style()
 
 			},
 
@@ -41,14 +41,14 @@ Component(
 		lifetimes: {
 			attached (): void
 			{
-				this.set_style()
+				this.update_style()
 
 			},
 
 		},
 
 		methods: {
-			set_style (): void
+			update_style (): void
 			{
 				let { divide } = this.data
 

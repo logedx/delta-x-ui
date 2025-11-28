@@ -118,14 +118,14 @@ Component(
 
 			ready (): void
 			{
-				this.set_style()
+				this.update_style()
 
 			},
 
 		},
 
 		methods: {
-			set_style (): void
+			update_style (): void
 			{
 				let { mode, time } = this.data
 
@@ -184,7 +184,7 @@ Component(
 				)
 
 
-				this.set_style()
+				this.update_style()
 
 			},
 

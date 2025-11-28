@@ -27,14 +27,14 @@ Component(
 		observers: {
 			sink (): void
 			{
-				this.set_style()
+				this.update_style()
 
 			},
 
 		},
 
 		methods: {
-			set_style (): void
+			update_style (): void
 			{
 				let { sink } = this.data
 

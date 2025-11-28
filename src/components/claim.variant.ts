@@ -39,13 +39,13 @@ export const behavior = Behavior(
 
 			required (): void
 			{
-				this.set_style_()
+				this.update_style_()
 
 			},
 
 			readonly (): void
 			{
-				this.set_style_()
+				this.update_style_()
 
 			},
 
@@ -54,7 +54,7 @@ export const behavior = Behavior(
 		lifetimes: {
 			ready (): void
 			{
-				this.set_style_()
+				this.update_style_()
 
 			},
 
@@ -65,7 +65,7 @@ export const behavior = Behavior(
 			{
 				let v = this.data.value
 
-				this.set_style_()
+				this.update_style_()
 
 				if (v === value)
 				{
@@ -78,12 +78,22 @@ export const behavior = Behavior(
 
 				)
 
-				this.set_style_()
+				this.update_style_()
 
 				this.triggerEvent(
 					TEvent.update, { value },
 
 				)
+
+			},
+
+			update_style_ (): void
+			{
+				let parent = this.get_parent()
+
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+				parent?.update_style?.(this)
+
 
 			},
 
@@ -105,27 +115,18 @@ export const behavior = Behavior(
 
 			},
 
-			set_style_ (): void
-			{
-				let parent = this.get_parent()
-
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-				parent?.set_style?.(this)
-
-
-			},
 
 			on_focus (): void
 			{
 				this.focus_()
-				this.set_style_()
+				this.update_style_()
 
 			},
 
 			on_blur (): void
 			{
 				this.blur_()
-				this.set_style_()
+				this.update_style_()
 
 			},
 

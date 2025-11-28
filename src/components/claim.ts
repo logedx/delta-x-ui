@@ -25,8 +25,8 @@ Component(
 
 				linked (target)
 				{
-					this.set_style(target)
-					this.push_child(target)
+					this.link(target)
+					this.update_style(target)
 
 				},
 
@@ -68,7 +68,7 @@ Component(
 		},
 
 		methods: {
-			set_style (target: WechatMiniprogram.Component.TrivialInstance): void
+			update_style (target: WechatMiniprogram.Component.TrivialInstance): void
 			{
 				let notice = false
 

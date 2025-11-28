@@ -77,14 +77,14 @@ Component(
 		lifetimes: {
 			ready (): void
 			{
-				this.set_style()
+				this.update_style()
 
 			},
 
 		},
 
 		methods: {
-			set_style (): void
+			update_style (): void
 			{
 				let parent = this.get_parent()
 
