@@ -22,9 +22,9 @@
 				/>
 			</dx-label>
 
-			<dx-label serif name="required">
+			<dx-label serif name="clearable">
 				<dx-datetime
-					required
+					clearable
 					placeholder="请选择时间"
 					model:value="{{ default }}"
 				/>
@@ -48,6 +48,7 @@
 
 			<dx-label serif name="date">
 				<dx-datetime
+					clearable
 					mode="date"
 					placeholder="请选择日期"
 					model:value="{{ date }}"
@@ -56,6 +57,7 @@
 
 			<dx-label serif name="time">
 				<dx-datetime
+					clearable
 					mode="time"
 					placeholder="请选择时间"
 					model:value="{{ time }}"
@@ -64,6 +66,7 @@
 
 			<dx-label serif name="24 hour system number">
 				<dx-datetime
+					clearable
 					mode="time"
 					placeholder="请选择时间"
 					model:value="{{ _24_hour_system_number }}"
@@ -93,9 +96,9 @@
 				/>
 			</dx-label>
 
-			<dx-label serif newline name="required">
+			<dx-label serif newline name="clearable">
 				<dx-datetime
-					required
+					clearable
 					placeholder="请选择时间"
 					model:value="{{ default }}"
 				/>

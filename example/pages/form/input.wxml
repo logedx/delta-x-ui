@@ -18,9 +18,9 @@
 			/>
 		</dx-label>
 
-		<dx-label serif name="required">
+		<dx-label serif name="clearable">
 			<dx-input
-				required
+				clearable
 				placeholder="请输入内容"
 				model:value="{{ value }}"
 			/>
@@ -54,9 +54,9 @@
 			/>
 		</dx-label>
 
-		<dx-label serif newline name="required">
+		<dx-label serif newline name="clearable">
 			<dx-input
-				required
+				clearable
 				placeholder="请输入内容"
 				model:value="{{ value }}"
 			/>

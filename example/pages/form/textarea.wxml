@@ -22,9 +22,9 @@
 				/>
 			</dx-label>
 
-			<dx-label serif name="required">
+			<dx-label serif name="clearable">
 				<dx-textarea
-					required
+					clearable
 					placeholder="请输入内容"
 					model:value="{{ value }}"
 				/>

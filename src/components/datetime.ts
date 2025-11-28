@@ -96,6 +96,31 @@ Component(
 
 			},
 
+			is_clearable (date: string, time: string, type: TType): boolean
+			{
+				if (detective.is_required_string(date) )
+				{
+					return true
+
+				}
+
+				if (type === TType.number && time !== '00:00')
+
+				{
+					return true
+
+				}
+
+				if (type === TType.string && detective.is_required_string(time) )
+				{
+					return true
+
+				}
+
+				return false
+
+			},
+
 		},
 
 		observers: {
@@ -353,6 +378,35 @@ Component(
 
 
 			},
+
+
+			on_copy (): void
+			{
+				let { date, time } = this.data
+
+
+				this.copy([date, time].filter(Boolean).join(' ') )
+
+			},
+
+			on_clear (): void
+			{
+				let { value } = this.data
+
+				if (detective.is_string(value) )
+				{
+					this.update('', '')
+
+					return
+
+				}
+
+
+				this.update_time('')
+
+
+			},
+
 
 		},
 

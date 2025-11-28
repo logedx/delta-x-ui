@@ -1,20 +1,11 @@
 Component(
 	{
 		data: {
-			input         : '',
-			input_required: '',
-
-			number         : 0,
-			number_required: 0,
-
-			datetime         : '',
-			datetime_required: '',
-
-			textarea         : '',
-			textarea_required: '',
-
-			turnstile         : '',
-			turnstile_required: '',
+			input    : '',
+			number   : 0,
+			datetime : '',
+			textarea : '',
+			turnstile: '',
 
 			wait   : true,
 			loading: false,

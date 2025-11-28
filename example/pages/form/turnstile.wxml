@@ -1,89 +1,111 @@
 <dx-layout contrast back="/example/icon/chevron-left.svg">
-	<dx-nameplate class="nameplate" label="Default">
-		<dx-icon
-			slot="icon"
-			size="var(--u-04-xs)"
-			src="/example/icon/caret-down.svg"
-		/>
-
-		<dx-label serif name="default">
-			<dx-turnstile
-				placeholder="请选择内容"
-				url="/example/pages/container/lamp"
-				model:value="{{ value }}"
+	<dx-cassette>
+		<dx-nameplate class="nameplate" label="Default">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
 			/>
-		</dx-label>
 
-		<dx-label serif name="icon">
-			<dx-turnstile
-				placeholder="请选择内容"
-				url="/example/pages/container/lamp"
-				icon="/example/icon/autocomplete.svg"
-				model:value="{{ value }}"
+			<dx-label serif name="default">
+				<dx-turnstile
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					model:value="{{ value }}"
+				/>
+			</dx-label>
+
+			<dx-label serif name="icon">
+				<dx-turnstile
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					icon="/example/icon/autocomplete.svg"
+					model:value="{{ value }}"
+				/>
+			</dx-label>
+
+			<dx-label serif name="clearable">
+				<dx-turnstile
+					clearable
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					model:value="{{ value }}"
+				/>
+			</dx-label>
+
+			<dx-label serif name="readonly">
+				<dx-turnstile
+					readonly
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					model:value="{{ value }}"
+				/>
+			</dx-label>
+
+			<dx-label serif name="label">
+				<dx-turnstile
+					readonly
+					label="delta-x-ui"
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					model:value="{{ value }}"
+				/>
+			</dx-label>
+		</dx-nameplate>
+
+		<dx-nameplate class="nameplate" label="Newline">
+			<dx-icon
+				slot="icon"
+				size="var(--u-04-xs)"
+				src="/example/icon/caret-down.svg"
 			/>
-		</dx-label>
 
-		<dx-label serif name="required">
-			<dx-turnstile
-				required
-				placeholder="请选择内容"
-				url="/example/pages/container/lamp"
-				model:value="{{ value }}"
-			/>
-		</dx-label>
+			<dx-label serif newline name="default">
+				<dx-turnstile
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					model:value="{{ value }}"
+				/>
+			</dx-label>
 
-		<dx-label serif name="readonly">
-			<dx-turnstile
-				readonly
-				placeholder="请选择内容"
-				url="/example/pages/container/lamp"
-				model:value="{{ value }}"
-			/>
-		</dx-label>
-	</dx-nameplate>
+			<dx-label serif newline name="icon">
+				<dx-turnstile
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					icon="/example/icon/autocomplete.svg"
+					model:value="{{ value }}"
+				/>
+			</dx-label>
 
-	<dx-nameplate class="nameplate" label="Newline">
-		<dx-icon
-			slot="icon"
-			size="var(--u-04-xs)"
-			src="/example/icon/caret-down.svg"
-		/>
+			<dx-label serif newline name="clearable">
+				<dx-turnstile
+					clearable
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					model:value="{{ value }}"
+				/>
+			</dx-label>
 
-		<dx-label serif newline name="default">
-			<dx-turnstile
-				placeholder="请选择内容"
-				url="/example/pages/container/lamp"
-				model:value="{{ value }}"
-			/>
-		</dx-label>
+			<dx-label serif newline name="readonly">
+				<dx-turnstile
+					readonly
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					model:value="{{ value }}"
+				/>
+			</dx-label>
 
-		<dx-label serif newline name="icon">
-			<dx-turnstile
-				placeholder="请选择内容"
-				url="/example/pages/container/lamp"
-				icon="/example/icon/autocomplete.svg"
-				model:value="{{ value }}"
-			/>
-		</dx-label>
-
-		<dx-label serif newline name="required">
-			<dx-turnstile
-				required
-				placeholder="请选择内容"
-				url="/example/pages/container/lamp"
-				model:value="{{ value }}"
-			/>
-		</dx-label>
-
-		<dx-label serif newline name="readonly">
-			<dx-turnstile
-				readonly
-				placeholder="请选择内容"
-				url="/example/pages/container/lamp"
-				model:value="{{ value }}"
-			/>
-		</dx-label>
-	</dx-nameplate>
+			<dx-label serif newline name="label">
+				<dx-turnstile
+					readonly
+					label="delta-x-ui"
+					placeholder="请选择内容"
+					url="/example/pages/container/lamp"
+					model:value="{{ value }}"
+				/>
+			</dx-label>
+		</dx-nameplate>
+	</dx-cassette>
 
 	<author slot="footer" />
 </dx-layout>

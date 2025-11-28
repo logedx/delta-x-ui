@@ -37,6 +37,23 @@ Component(
 
 		},
 
+		methods: {
+			on_copy (): void
+			{
+				let { value } = this.data
+
+				this.copy(value)
+
+			},
+
+			on_clear (): void
+			{
+				this.update_('')
+
+			},
+
+		},
+
 
 	},
 

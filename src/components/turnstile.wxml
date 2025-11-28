@@ -1,14 +1,50 @@
-<view class="dx-turnstile class" wx:if="{{ readonly }}">
-	<text wx:if="{{ label }}">{{ label }}</text>
-	<text wx:elif="{{ value }}">{{ value }}</text>
+<view
+	class="dx-turnstile class"
+	bind:longpress="on_copy"
+	wx:if="{{ readonly }}"
+>
+	<block wx:if="{{ value }}">
+		<text wx:if="{{ label }}">{{ label }}</text>
+		<text wx:else>{{ value }}</text>
+	</block>
 
-	<dx-indicator class="icon" icon="{{ icon }}" wx:if="{{ !readonly }}" />
+	<dx-indicator
+		class="icon"
+		icon="{{ potest_readonly(readonly) }}"
+		catch:tap="on_copy"
+	/>
 </view>
 
-<view class="dx-turnstile class" bind:tap="on_navigate" wx:else>
+<view
+	class="dx-turnstile class"
+	bind:tap="on_navigate"
+	bind:longpress="on_copy"
+	wx:elif="{{ value && clearable }}"
+>
 	<text wx:if="{{ label }}">{{ label }}</text>
-	<text wx:elif="{{ value }}">{{ value }}</text>
-	<text class="placeholder" wx:else>{{ placeholder }}</text>
+	<text wx:else>{{ value }}</text>
 
-	<dx-indicator class="icon" icon="{{ icon }}" wx:if="{{ !readonly }}" />
+	<dx-indicator
+		class="icon"
+		icon="{{ potest_clearable(clearable) }}"
+		catch:tap="on_clear"
+	/>
+</view>
+
+<view
+	class="dx-turnstile class"
+	bind:tap="on_navigate"
+	bind:longpress="on_copy"
+	wx:else
+>
+	<block wx:if="{{ value }}">
+		<text wx:if="{{ label }}">{{ label }}</text>
+		<text wx:else>{{ value }}</text>
+	</block>
+
+	<text class="placeholder" wx:elif="{{ placeholder }}"
+		>{{ placeholder }}</text
+	>
+
+	<dx-indicator class="icon" icon="{{ icon }}" />
 </view>

@@ -188,6 +188,21 @@ Component(
 
 			},
 
+			on_copy (): void
+			{
+				let { value } = this.data
+
+				this.copy(String(value) )
+
+			},
+
+			on_clear (): void
+			{
+				this.update('')
+
+			},
+
+
 		},
 
 	},

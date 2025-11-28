@@ -22,9 +22,9 @@
 				/>
 			</dx-label>
 
-			<dx-label serif name="required">
+			<dx-label serif name="clearable">
 				<dx-number
-					required
+					clearable
 					placeholder="请输入数字"
 					model:value="{{ default }}"
 				/>
@@ -71,7 +71,7 @@
 
 			<dx-label serif name="integer">
 				<dx-number
-					required
+					clearable
 					placeholder="请输入数字"
 					max="{{ 100 }}"
 					model:value="{{ integer }}"
@@ -80,7 +80,7 @@
 
 			<dx-label serif name="digit">
 				<dx-number
-					required
+					clearable
 					placeholder="请输入数字"
 					max="{{ 100 }}"
 					digit="{{ 2 }}"
@@ -111,9 +111,9 @@
 				/>
 			</dx-label>
 
-			<dx-label serif newline name="required">
+			<dx-label serif newline name="clearable">
 				<dx-number
-					required
+					clearable
 					placeholder="请输入数字"
 					model:value="{{ default }}"
 				/>

@@ -70,30 +70,33 @@ Component(
 		methods: {
 			update_style (target: WechatMiniprogram.Component.TrivialInstance): void
 			{
-				let notice = false
-
 				let { alarm } = this.data
 
 				let value = structure.get(target.data, 'value', '')
-				let required = structure.get(target.data, 'required', false)
 				let focus = structure.get(target.data, 'focus', false)
-				let readonly = structure.get(target.data, 'readonly', false)
+
+				let readonly = structure.get<boolean | string>(target.data, 'readonly', false)
+				let clearable = structure.get<boolean | string>(target.data, 'clearable', false)
+
+				let notice = true
 
 				let css = new style.Variable<'divider' | 'divider-color' | 'flag' | 'flag-color'>('dx', 'claim')
 
-				if (required)
-				{
-					notice = true
+				css.set('divider', 'flex')
+				css.set('divider-color', 'var(--error)')
 
-					css.set('divider', 'flex')
-					css.set('divider-color', 'var(--error)')
+				css.set('flag', 'flex')
+				css.set('flag-color', 'var(--error)')
 
-					css.set('flag', 'flex')
-					css.set('flag-color', 'var(--error)')
+				if (alarm === false
+					&& (
+						detective.is_empty(value) === false
+						|| clearable === true
+						|| detective.is_required_string(value)
 
-				}
+					)
 
-				if (alarm === false && detective.is_empty(value) === false)
+				)
 				{
 					notice = false
 
@@ -123,7 +126,7 @@ Component(
 
 				}
 
-				if (readonly)
+				if (readonly === true || detective.is_required_string(readonly) )
 				{
 					notice = false
 

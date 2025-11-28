@@ -109,6 +109,37 @@ Component(
 
 			},
 
+			on_copy (): void
+			{
+				let { label, value } = this.data
+
+				if (detective.is_empty(value) )
+				{
+					this.copy('')
+
+					return
+
+				}
+
+				if (detective.is_required_string(label) )
+				{
+					this.copy(label)
+
+					return
+
+				}
+
+				this.copy(value)
+
+			},
+
+			on_clear (): void
+			{
+				this.update_('')
+
+			},
+
+
 		},
 
 	},

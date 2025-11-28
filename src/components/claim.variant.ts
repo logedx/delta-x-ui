@@ -1,3 +1,6 @@
+import * as alchemy from '../lib/alchemy.js'
+import * as detective from '../lib/detective.js'
+
 import * as operator_variant from './operator.variant.js'
 
 
@@ -13,6 +16,19 @@ export enum TEvent
 
 }
 
+export function potest
+(icon: boolean | string, default_: string): string
+{
+	if (detective.is_required_string(icon) )
+	{
+		return icon
+
+	}
+
+	return default_
+
+}
+
 export const behavior = Behavior(
 	{
 		behaviors: [operator_variant.linker_behavior],
@@ -20,13 +36,30 @@ export const behavior = Behavior(
 		properties: {
 			value      : { type: String, value: '' },
 			placeholder: { type: String, value: '' },
-			required   : { type: Boolean, value: false },
-			readonly   : { type: Boolean, value: false },
+
+			icon: { type: String, value: '' },
+
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			readonly : { type: Boolean, optionalTypes: [String], value: false },
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			clearable: { type: Boolean, optionalTypes: [String], value: false },
 
 		},
 
 		data: {
 			focus: false,
+
+			potest_readonly (icon: boolean | string): string
+			{
+				return potest(icon, '../icon/content_copy_128dp_808695_FILL0_wght500_GRAD0_opsz48.png')
+
+			},
+
+			potest_clearable (icon: boolean | string): string
+			{
+				return potest(icon, '../icon/cancel_128dp_808695_FILL0_wght500_GRAD0_opsz48.png')
+
+			},
 
 		},
 
@@ -37,13 +70,13 @@ export const behavior = Behavior(
 
 			},
 
-			required (): void
+			readonly (): void
 			{
 				this.update_style_()
 
 			},
 
-			readonly (): void
+			clearable (): void
 			{
 				this.update_style_()
 
@@ -115,6 +148,28 @@ export const behavior = Behavior(
 
 			},
 
+			async copy_ (data: string): Promise<void>
+			{
+				await wx.setClipboardData(
+					{ data },
+
+				)
+
+				await wx.vibrateShort(
+					{ type: 'light' },
+
+				)
+
+
+			},
+
+
+			copy (data: string): void
+			{
+				// eslint-disable-next-line @typescript-eslint/no-floating-promises
+				alchemy.Throttle.clamp(this.copy_.bind(this, data) )
+
+			},
 
 			on_focus (): void
 			{
@@ -153,6 +208,7 @@ export const behavior = Behavior(
 				this.triggerEvent(TEvent.confirm)
 
 			},
+
 
 		},
 

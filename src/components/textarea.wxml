@@ -1,10 +1,4 @@
-<view class="dx-textarea class" wx:if="{{ readonly }}">
-	<text wx:if="{{ value }}">{{ value }}</text>
-
-	<dx-indicator class="icon" icon="{{ icon }}" wx:if="{{ icon }}" />
-</view>
-
-<view class="dx-textarea class" wx:elif="{{ focus }}">
+<view class="dx-textarea class" wx:if="{{ focus }}">
 	<textarea
 		focus
 		auto-height
@@ -19,9 +13,45 @@
 	/>
 </view>
 
-<view class="dx-textarea class" bind:tap="on_focus" wx:else>
+<view
+	class="dx-textarea class"
+	bind:longpress="on_copy"
+	wx:elif="{{ readonly }}"
+>
 	<text wx:if="{{ value }}">{{ value }}</text>
-	<text class="placeholder" wx:else>{{ placeholder }}</text>
 
-	<dx-indicator class="icon" icon="{{ icon }}" wx:if="{{ icon }}" />
+	<dx-indicator
+		class="icon"
+		icon="{{ potest_readonly(readonly) }}"
+		catch:tap="on_copy"
+	/>
+</view>
+
+<view
+	class="dx-textarea class"
+	bind:tap="on_focus"
+	bind:longpress="on_copy"
+	wx:elif="{{ value && clearable }}"
+>
+	<text>{{ value }}</text>
+
+	<dx-indicator
+		class="icon"
+		icon="{{ potest_clearable(clearable) }}"
+		catch:tap="on_clear"
+	/>
+</view>
+
+<view
+	class="dx-textarea class"
+	bind:tap="on_focus"
+	bind:longpress="on_copy"
+	wx:else
+>
+	<text wx:if="{{ value }}">{{ value }}</text>
+	<text class="placeholder" wx:elif="{{ placeholder }}"
+		>{{ placeholder }}</text
+	>
+
+	<dx-indicator class="icon" icon="{{ icon }}" />
 </view>

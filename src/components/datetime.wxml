@@ -1,11 +1,26 @@
-<view class="dx-datetime class" style="{{ style }}" wx:if="{{ readonly }}">
+<view
+	class="dx-datetime class"
+	style="{{ style }}"
+	bind:longpress="on_copy"
+	wx:if="{{ readonly }}"
+>
 	<text wx:if="{{ date }}">{{ date }}</text>
 	<text wx:if="{{ time }}">{{ time }}</text>
 
-	<dx-indicator class="icon" icon="{{ icon }}" wx:if="{{ icon }}" />
+	<dx-indicator
+		class="icon"
+		icon="{{ potest_readonly( readonly) }}"
+		catch:tap="on_copy"
+		wx:if="{{ readonly }}"
+	/>
 </view>
 
-<view class="dx-datetime class" style="{{ style }}" wx:else>
+<view
+	class="dx-datetime class"
+	style="{{ style }}"
+	bind:longpress="on_copy"
+	wx:else
+>
 	<picker
 		mode="date"
 		class="date"
@@ -28,5 +43,12 @@
 		<text class="placeholder" wx:else>{{ placeholder }}</text>
 	</picker>
 
-	<dx-indicator class="icon" icon="{{ icon }}" wx:if="{{ icon }}" />
+	<dx-indicator
+		class="icon"
+		icon="{{ potest_clearable(clearable) }}"
+		catch:tap="on_clear"
+		wx:if="{{ clearable && is_clearable(date, time, type) }}"
+	/>
+
+	<dx-indicator class="icon" icon="{{ icon }}" wx:else />
 </view>

@@ -17,12 +17,16 @@
 				<dx-input placeholder="请输入内容" model:value="{{ input }}" />
 			</dx-claim>
 
-			<dx-claim name="required" value="该字段不可为空">
+			<dx-claim name="clearable">
 				<dx-input
-					required
+					clearable
 					placeholder="请输入内容"
-					model:value="{{ input_required }}"
+					model:value="{{ input }}"
 				/>
+			</dx-claim>
+
+			<dx-claim name="readonly">
+				<dx-input readonly model:value="{{ input }}" />
 			</dx-claim>
 		</dx-nameplate>
 
@@ -40,12 +44,16 @@
 				/>
 			</dx-claim>
 
-			<dx-claim name="required" value="该字段不可为空">
+			<dx-claim name="clearable">
 				<dx-number
-					required
+					clearable
 					placeholder="请输入数字"
-					model:value="{{ number_required }}"
+					model:value="{{ number }}"
 				/>
+			</dx-claim>
+
+			<dx-claim name="readonly">
+				<dx-number readonly model:value="{{ number }}" />
 			</dx-claim>
 		</dx-nameplate>
 
@@ -63,12 +71,16 @@
 				/>
 			</dx-claim>
 
-			<dx-claim name="required" value="该字段不可为空">
+			<dx-claim name="clearable">
 				<dx-datetime
-					required
+					clearable
 					placeholder="请选择日期"
-					model:value="{{ datetime_required }}"
+					model:value="{{ datetime }}"
 				/>
+			</dx-claim>
+
+			<dx-claim name="readonly">
+				<dx-datetime readonly model:value="{{ datetime }}" />
 			</dx-claim>
 		</dx-nameplate>
 
@@ -86,12 +98,16 @@
 				/>
 			</dx-claim>
 
-			<dx-claim name="required" value="该字段不可为空">
+			<dx-claim name="clearable">
 				<dx-textarea
-					required
+					clearable
 					placeholder="请输入内容"
-					model:value="{{ textarea_required }}"
+					model:value="{{ textarea }}"
 				/>
+			</dx-claim>
+
+			<dx-claim name="readonly">
+				<dx-textarea readonly model:value="{{ textarea }}" />
 			</dx-claim>
 		</dx-nameplate>
 
@@ -110,13 +126,17 @@
 				/>
 			</dx-claim>
 
-			<dx-claim name="required" value="该字段不可为空">
+			<dx-claim name="clearable">
 				<dx-turnstile
-					required
+					clearable
 					placeholder="请输入内容"
 					url="/example/pages/container/lamp"
-					model:value="{{ turnstile_required }}"
+					model:value="{{ turnstile }}"
 				/>
+			</dx-claim>
+
+			<dx-claim name="readonly">
+				<dx-turnstile readonly model:value="{{ turnstile }}" />
 			</dx-claim>
 		</dx-nameplate>
 

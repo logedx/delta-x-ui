@@ -16,7 +16,7 @@
 		<dx-icon size="var(--strong)" src="{{ icon }}" />
 	</view>
 
-	<view class="handle" wx:if="{{ (src || value) && !required && !readonly }}">
+	<view class="handle" wx:if="{{ (src || value) && clearable && !readonly }}">
 		<text bind:tap="on_delete">删除</text>
 	</view>
 </view>
