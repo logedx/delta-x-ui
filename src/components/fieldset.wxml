@@ -4,7 +4,7 @@
 	<block wx:key="1" wx:for="{{ value }}">
 		<dx-label
 			name="{{ item[1] }}"
-			serif="{{ index > 0 }}"
+			serif="{{ value.length - 1 > index }}"
 			wx:if="{{ is_icon(item[0]) }}"
 		>
 			<dx-indicator data-item="{{ item }}" bind:active="on_active" />
@@ -13,7 +13,7 @@
 		<dx-label
 			name="{{ item[1] }}"
 			value="{{ item[2] }}"
-			serif="{{ index > 0 }}"
+			serif="{{ value.length - 1 > index }}"
 			wx:else
 		/>
 	</block>
