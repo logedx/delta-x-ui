@@ -216,6 +216,7 @@ export class Throttle
 
 	}
 
+
 	static new
 	<
 		F extends (...args: any[]) => void,
@@ -232,6 +233,70 @@ export class Throttle
 		v.bind(interval, fn)
 
 		return v.call.bind(v)
+
+	}
+
+
+	static async clamp (
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		fn: (...args: any[]) => any,
+
+		option = { rich: 300, loading: false, throw: false },
+
+	)
+	: Promise<void>
+	{
+		if (option.loading)
+		{
+			// eslint-disable-next-line @typescript-eslint/no-floating-promises
+			wx.showLoading(
+				{ title: '', mask: true },
+
+			)
+
+		}
+
+		try
+		{
+			await lengthen(option.rich, fn)
+
+			// eslint-disable-next-line @typescript-eslint/no-floating-promises
+			wx.hideLoading()
+
+
+		}
+
+		catch (e)
+		{
+			let message = 'request failed'
+
+			if (detective.is_error(e) )
+			{
+				message = e.message
+
+			}
+
+			if (detective.is_string(e)
+			)
+			{
+				message = e
+
+			}
+
+			// eslint-disable-next-line @typescript-eslint/no-floating-promises
+			wx.showToast(
+				{ title: message, icon: 'error', mask: true },
+
+			)
+
+			if (option.throw)
+			{
+				throw e
+
+			}
+
+		}
+
 
 	}
 

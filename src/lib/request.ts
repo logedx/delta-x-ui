@@ -421,67 +421,6 @@ export class Http
 
 	}
 
-	static async clamp
-	(
-		fn: HttpFunction,
-
-		option = { rich: 300, loading: false, throw: false },
-
-	):
-	Promise<void>
-	{
-		if (option.loading)
-		{
-			// eslint-disable-next-line @typescript-eslint/no-floating-promises
-			wx.showLoading(
-				{ title: '', mask: true },
-
-			)
-
-		}
-
-		try
-		{
-			await alchemy.lengthen(option.rich, fn)
-
-			// eslint-disable-next-line @typescript-eslint/no-floating-promises
-			wx.hideLoading()
-
-		}
-
-		catch (e)
-		{
-			let message = 'request failed'
-
-			if (detective.is_error(e) )
-			{
-				message = e.message
-
-			}
-
-			if (detective.is_string(e)
-			)
-			{
-				message = e
-
-			}
-
-			// eslint-disable-next-line @typescript-eslint/no-floating-promises
-			wx.showToast(
-				{ title: message, icon: 'error', mask: true },
-
-			)
-
-			if (option.throw)
-			{
-				throw e
-
-			}
-
-		}
-
-
-	}
 
 }
 
