@@ -17,14 +17,14 @@ export enum Ttype {
 
 export type Tname = string
 
-export type Tinput = [Ttype, Tname, string]
+export type Tinput = [Ttype, Tname, unknown]
 
 export type Tactive = keyof typeof indicator_variant.Tactive
 
 export type Tdetail = {
 	type  : Ttype
 	name  : Tname
-	value : string
+	value : unknown
 	active: Tactive
 
 }
