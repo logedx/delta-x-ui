@@ -29,6 +29,71 @@ export function potest
 
 }
 
+
+export async function clamp (
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	fn: (...args: any[]) => any,
+
+	option = { rich: 300, loading: false, throw: false },
+
+)
+: Promise<void>
+{
+	if (option.loading)
+	{
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
+		wx.showLoading(
+			{ title: '', mask: true },
+
+		)
+
+	}
+
+	try
+	{
+		await alchemy.lengthen(option.rich, fn)
+
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
+		wx.hideLoading()
+
+
+	}
+
+	catch (e)
+	{
+		let message = 'request failed'
+
+		if (detective.is_error(e) )
+		{
+			message = e.message
+
+		}
+
+		if (detective.is_string(e)
+		)
+		{
+			message = e
+
+		}
+
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
+		wx.showToast(
+			{ title: message, icon: 'error', mask: true },
+
+		)
+
+		if (option.throw)
+		{
+			throw e
+
+		}
+
+	}
+
+
+}
+
+
 export const behavior = Behavior(
 	{
 		behaviors: [operator_variant.linker_behavior],
@@ -167,7 +232,7 @@ export const behavior = Behavior(
 			copy (data: string): void
 			{
 				// eslint-disable-next-line @typescript-eslint/no-floating-promises
-				alchemy.Throttle.clamp(this.copy_.bind(this, data) )
+				clamp(this.copy_.bind(this, data) )
 
 			},
 

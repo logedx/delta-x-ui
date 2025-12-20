@@ -104,6 +104,18 @@ export function with_resolvers<T> (): PromiseWithResolvers<T>
 
 }
 
+export function closure
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+<V extends object, P extends any[], R> (value: V, fn: (this: V, ...args: P) => R): (...args: P) => R
+{
+	return function (...args: P): R
+	{
+		return fn.apply(value, args)
+
+	}
+
+}
+
 export function _24_hour_system_number (value: string | Date): number
 {
 	if (detective.is_24_hour_system_string(value) )
@@ -216,7 +228,6 @@ export class Throttle
 
 	}
 
-
 	static new
 	<
 		F extends (...args: any[]) => void,
@@ -236,68 +247,42 @@ export class Throttle
 
 	}
 
-
-	static async clamp (
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		fn: (...args: any[]) => any,
-
-		option = { rich: 300, loading: false, throw: false },
-
-	)
-	: Promise<void>
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	static once <F extends (...args: any[]) => any> (fn: F, option?: { skip?: number } ): F
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	static once <F extends (...args: any[]) => any> (fn: F, option: { void: true, skip?: number } ): (...args: Parameters<F>) => void
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	static once <F extends (...args: any[]) => any> (fn: F, option?: { void: true, skip?: number } ): any
 	{
-		if (option.loading)
+		let skip = 0
+		// eslint-disable-next-line init-declarations
+		let called: unknown
+
+		let fn_once = (...args: any[]): unknown =>
 		{
-			// eslint-disable-next-line @typescript-eslint/no-floating-promises
-			wx.showLoading(
-				{ title: '', mask: true },
+			skip = skip + 1
 
-			)
-
-		}
-
-		try
-		{
-			await lengthen(option.rich, fn)
-
-			// eslint-disable-next-line @typescript-eslint/no-floating-promises
-			wx.hideLoading()
-
-
-		}
-
-		catch (e)
-		{
-			let message = 'request failed'
-
-			if (detective.is_error(e) )
+			if (detective.is_undefined(called) && skip > (option?.skip ?? 0) )
 			{
-				message = e.message
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+				called = fn(...args)
 
 			}
 
-			if (detective.is_string(e)
-			)
+			if (option?.void === true)
 			{
-				message = e
+				return
 
 			}
 
-			// eslint-disable-next-line @typescript-eslint/no-floating-promises
-			wx.showToast(
-				{ title: message, icon: 'error', mask: true },
-
-			)
-
-			if (option.throw)
-			{
-				throw e
-
-			}
+			// eslint-disable-next-line consistent-return
+			return called
 
 		}
 
+		return fn_once as F
 
 	}
+
 
 }
