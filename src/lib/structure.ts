@@ -47,19 +47,7 @@ export type Replace<T, U, V> = T extends U
 		? { [K in keyof T]: Replace<T[K], U, V> }
 		: T
 
-export type Overwrite<T, U, O = Omit<T, keyof U> & Required<U> > = {
-	[K in keyof O]: Exclude<
-		K extends keyof U
-			? U[K]
-			: K extends keyof T
-				? T[K]
-				: never,
-
-		undefined
-
-	>
-
-}
+export type Overwrite<T, U> = Omit<T, keyof U> & U
 
 
 export function clone<T> (target: T): T
