@@ -40,10 +40,10 @@ export type MuchOption = {
 }
 
 export function much
-(value: number | string, digit?: number,): string
+(value: number | string, digit?: number): string
 
 export function much
-(value: number | string, option: MuchOption,): string
+(value: number | string, option: MuchOption): string
 
 export function much
 (value: number | string, option: number | MuchOption = 2): string
@@ -68,25 +68,5 @@ export function much
 	let v = Math.abs(value).toFixed(option.digit)
 
 	return `${pix_}${unit}${v}`
-
-}
-
-export function resize (value: string, width = 'w_750', ...process: string[]): string
-{
-	if (detective.is_empty_string(value) )
-	{
-		return ''
-
-	}
-
-	let search = `x-oss-process=image/${['resize', width, ...process].join(',')}`
-
-	if (value.includes('?') )
-	{
-		return `${value}&${search}`
-
-	}
-
-	return `${value}?${search}`
 
 }
